@@ -1,24 +1,29 @@
-# Build
+# ---------- BUILD ----------
 FROM node:20 AS builder
 WORKDIR /app
 
+# Copy dependency files first (better caching)
 COPY package.json package-lock.json ./
+
+# Copy workspace structure
 COPY apps/doggo-bot ./apps/doggo-bot
 COPY packages ./packages
 
-RUN npm install
+# Install deps
+RUN npm ci
+
+# Build only doggo-bot app
 RUN npm run build --workspace=doggo-bot
 
-# Run
+# ---------- RUN ----------
 FROM node:20 AS runner
 WORKDIR /app
 
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/apps/doggo-bot/.next ./apps/doggo-bot/.next
+# Copy standalone output
+COPY --from=builder /app/apps/doggo-bot/.next/standalone ./
+COPY --from=builder /app/apps/doggo-bot/.next/static ./apps/doggo-bot/.next/static
 COPY --from=builder /app/apps/doggo-bot/public ./apps/doggo-bot/public
-COPY --from=builder /app/apps/doggo-bot/package.json ./apps/doggo-bot/package.json
 
-WORKDIR /app/apps/doggo-bot
+EXPOSE 3000
 
-EXPOSE 3092
-CMD ["npm", "run", "start"]
+CMD ["node", "apps/doggo-bot/server.js"]

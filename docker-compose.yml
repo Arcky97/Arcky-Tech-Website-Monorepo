@@ -5,23 +5,24 @@ services:
     image: ghcr.io/arcky97/arcky-tech-web:latest
     restart: unless-stopped
     ports:
-      - "127.0.0.1:3090:3090"
+      - "127.0.0.1:3090:3000"
+    environments:
+      - RESEND_API_KEY=${RESEND_API_KEY}
 
   docs:
     image: ghcr.io/arcky97/arcky-tech-docs:latest
     restart: unless-stopped
     ports:
-      - "127.0.0.1:3091:3090"
+      - "127.0.0.1:3091:3000"
 
   scoreboard:
     image: ghcr.io/arcky97/arcky-tech-scoreboard:latest
     restart: unless-stopped
     ports:
-      - "127.0.0.1:3093:3090"
+      - "127.0.0.1:3093:3000"
 
-  # later
-  # dashboard:
-  #   image: ghcr.io/arcky97/arcky-tech-dashboard:latest
-  #   restart: unless-stopped
-  #   ports:
-  #     - "127.0.0.1:3092:3090"
+  dashboard:
+    image: ghcr.io/arcky97/arcky-tech-dashboard:latest
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3092:3000"

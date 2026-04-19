@@ -1,24 +1,29 @@
-# Build
+# ---------- BUILD ----------
 FROM node:20 AS builder
 WORKDIR /app
 
+# Copy dependency files first (better caching)
 COPY package.json package-lock.json ./
+
+# Copy workspace structure
 COPY apps/scoreboard ./apps/scoreboard
 COPY packages ./packages
 
-RUN npm install
+# Install deps
+RUN npm ci
+
+# Build only scoreboard app
 RUN npm run build --workspace=scoreboard
 
-# Run
+# ---------- RUN ----------
 FROM node:20 AS runner
 WORKDIR /app
 
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/apps/scoreboard/.next ./apps/scoreboard/.next
+# Copy standalone output
+COPY --from=builder /app/apps/scoreboard/.next/standalone ./
+COPY --from=builder /app/apps/scoreboard/.next/static ./apps/scoreboard/.next/static
 COPY --from=builder /app/apps/scoreboard/public ./apps/scoreboard/public
-COPY --from=builder /app/apps/scoreboard/package.json ./apps/scoreboard/package.json
 
-WORKDIR /app/apps/scoreboard
+EXPOSE 3000
 
-EXPOSE 3093
-CMD ["npm", "run", "start"]
+CMD ["node", "apps/scoreboard/server.js"]
