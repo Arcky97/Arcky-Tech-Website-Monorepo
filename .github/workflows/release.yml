@@ -50,5 +50,6 @@ jobs:
           tags: |
             ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-${{ matrix.app }}:latest
             ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-${{ matrix.app }}:${{ github.sha }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          build-args: |
+            COMMIT_SHA=${{ github.sha }}
+            RESEND_API_KEY=${{ matrix.app == 'web' && secrets.RESEND_API_KEY || '' }}
