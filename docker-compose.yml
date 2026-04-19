@@ -13,6 +13,12 @@ services:
     ports:
       - "127.0.0.1:3091:3090"
 
+  scoreboard:
+    image: ghcr.io/arcky97/arcky-tech-scoreboard:latest
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3093:3090"
+
   # later
   # dashboard:
   #   image: ghcr.io/arcky97/arcky-tech-dashboard:latest
