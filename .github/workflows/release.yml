@@ -20,7 +20,7 @@ jobs:
 
     strategy:
       matrix:
-        app: [web, docs, scoreboard, dashboard]
+        app: [web, docs, scoreboard, doggo-bot]
 
     steps:
       - name: Checkout repository
