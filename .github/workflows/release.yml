@@ -13,26 +13,51 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     permissions:
       contents: read
       packages: write
       id-token: write
 
-    strategy:
-      matrix:
-        app: [web, docs, scoreboard, doggo-bot]
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # ----------------------------
+      # Detect what changed
+      # ----------------------------
+      - name: Detect changes
+        id: changes
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            web:
+              - 'apps/web/**'
+              - 'packages/**'
+            docs:
+              - 'apps/docs/**'
+              - 'packages/**'
+            scoreboard:
+              - 'apps/scoreboard/**'
+              - 'packages/**'
+            doggo-bot:
+              - 'apps/doggo-bot/**'
+              - 'packages/**'
+
+      # ----------------------------
+      # Setup Docker build
+      # ----------------------------
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      # Lowercase owner fix (GHCR requirement)
       - name: Set lowercase owner
         id: vars
         run: echo "owner=$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_OUTPUT
 
+      # ----------------------------
+      # Login to GHCR
+      # ----------------------------
       - name: Log into registry
         if: github.event_name != 'pull_request'
         uses: docker/login-action@v3
@@ -41,15 +66,61 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push Docker image
+      # =========================================================
+      # WEB
+      # =========================================================
+      - name: Build web
+        if: steps.changes.outputs.web == 'true'
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: apps/${{ matrix.app }}/Dockerfile
+          file: apps/web/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
-            ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-${{ matrix.app }}:latest
-            ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-${{ matrix.app }}:${{ github.sha }}
+            ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-web:latest
+            ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-web:${{ github.sha }}
           build-args: |
             COMMIT_SHA=${{ github.sha }}
-            RESEND_API_KEY=${{ matrix.app == 'web' && secrets.RESEND_API_KEY || '' }}
+            RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}
+
+      # =========================================================
+      # DOCS
+      # =========================================================
+      - name: Build docs
+        if: steps.changes.outputs.docs == 'true'
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: apps/docs/Dockerfile
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: |
+            ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-docs:latest
+            ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-docs:${{ github.sha }}
+
+      # =========================================================
+      # SCOREBOARD
+      # =========================================================
+      - name: Build scoreboard
+        if: steps.changes.outputs.scoreboard == 'true'
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: apps/scoreboard/Dockerfile
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: |
+            ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-scoreboard:latest
+            ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-scoreboard:${{ github.sha }}
+
+      # =========================================================
+      # DOGGO-BOT
+      # =========================================================
+      - name: Build doggo-bot
+        if: steps.changes.outputs.doggo-bot == 'true'
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: apps/doggo-bot/Dockerfile
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: |
+            ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-doggo-bot:latest
+            ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-doggo-bot:${{ github.sha }}
