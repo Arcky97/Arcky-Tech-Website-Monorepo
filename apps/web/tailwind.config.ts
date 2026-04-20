@@ -1,4 +1,6 @@
-const config = {
+import type { Config } from "tailwindcss";
+
+export default {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "../../packages/ui/**/*.{js,ts,jsx,tsx}"
@@ -6,9 +8,5 @@ const config = {
   theme: {
     extend: {}
   },
-  plugins: {
-    "@tailwindcss/postcss": {},
-  },
-};
-
-export default config;
+  plugins: []
+} satisfies Config;
