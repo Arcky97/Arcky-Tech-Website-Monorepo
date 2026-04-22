@@ -2,12 +2,12 @@ import { TextColor } from "ui";
 
 export default function PrivacyPolicy() {
   return (
-    <article className="flex flex-col min-h-[calc(100vh-189px)] bg-gray-900 text-white p-8 mx-auto lg:w-5/8">
-      <h1 className="text-3xl font-bold mb-4 text-center">Privacy Policy</h1>
+    <article className="flex flex-col items-center h-full text-white">
+      <h1 className="head1">Privacy Policy</h1>
       <em className="text-sm text-gray-400 text-center">Effective Date: July 20, 2025</em>
 
       {/* Section 1 */}
-      <section className="my-6 text-left">
+      <section className="my-6 text-left w-7/8 lg:w-5/8">
         <h2 className="text-2xl font-semibold pb-4">1. Information We Collect</h2>
         <div className="pl-6 space-y-4">
           <p>We collect the following types of personal information from users of ArckyTech:</p>
@@ -23,7 +23,7 @@ export default function PrivacyPolicy() {
       <hr className="border-gray-600/75 my-4" />
 
       {/* Section 2 */}
-      <section className="my-6 text-left">
+      <section className="my-6 text-left w-7/8 lg:w-5/8">
         <h2 className="text-2xl font-semibold pb-4">2. How We Use Your Information</h2>
         <div className="pl-6 space-y-4">
           <p>Your information is used solely to provide and enhance our services:</p>
@@ -38,7 +38,7 @@ export default function PrivacyPolicy() {
       <hr className="border-gray-600/75 my-4" />
 
       {/* Section 3 */}
-      <section className="my-6 text-left">
+      <section className="my-6 text-left w-7/8 lg:w-5/8">
         <h2 className="text-2xl font-semibold pb-4">3. Sharing of Information</h2>
         <div className="pl-6 space-y-4">
           <p>We do not sell or trade your data. We may share information only when necessary:</p>
@@ -52,7 +52,7 @@ export default function PrivacyPolicy() {
       <hr className="border-gray-600/75 my-4" />
 
       {/* Section 4 */}
-      <section className="my-6 text-left">
+      <section className="my-6 text-left w-7/8 lg:w-5/8">
         <h2 className="text-2xl font-semibold pb-4">4. Cookies</h2>
         <div className="pl-6 space-y-4">
           <p>We use cookies to:</p>
@@ -68,7 +68,7 @@ export default function PrivacyPolicy() {
       <hr className="border-gray-600/75 my-4" />
 
       {/* Section 5 */}
-      <section className="my-6 text-left">
+      <section className="my-6 text-left w-7/8 lg:w-5/8">
         <h2 className="text-2xl font-semibold pb-4">5. Your Rights</h2>
         <div className="pl-6 space-y-4">
           <p>You may have the right to access, correct, or delete your personal data. This depends on the data protection laws in your region (e.g., GDPR, CCPA).</p>
@@ -81,7 +81,7 @@ export default function PrivacyPolicy() {
       <hr className="border-gray-600/75 my-4" />
 
       {/* Section 6 */}
-      <section className="my-6 text-left">
+      <section className="my-6 text-left w-7/8 lg:w-5/8">
         <h2 className="text-2xl font-semibold pb-4">6. Data Security</h2>
         <div className="pl-6 space-y-4">
           <p>We implement technical and organizational safeguards to protect your data. However, no system is completely secure.</p>
@@ -92,7 +92,7 @@ export default function PrivacyPolicy() {
       <hr className="border-gray-600/75 my-4" />
 
       {/* Section 7 */}
-      <section className="my-6 text-left">
+      <section className="my-6 text-left w-7/8 lg:w-5/8">
         <h2 className="text-2xl font-semibold pb-4">7. Third-Party Links</h2>
         <div className="pl-6 space-y-4">
           <p>We may link to third-party platforms for donations, downloadable files, or developer tools. We do not control or endorse these sites.</p>
@@ -103,7 +103,7 @@ export default function PrivacyPolicy() {
       <hr className="border-gray-600/75 my-4" />
 
       {/* Section 8 */}
-      <section className="my-6 text-left">
+      <section className="my-6 text-left w-7/8 lg:w-5/8">
         <h2 className="text-2xl font-semibold pb-4">8. Changes to This Policy</h2>
         <div className="pl-6 space-y-4">
           <p>This Privacy Policy may be updated periodically. We will update the effective date above and notify users when appropriate.</p>

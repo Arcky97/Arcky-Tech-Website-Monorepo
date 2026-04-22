@@ -21,7 +21,7 @@ export function Navbar({ variant = "web", enableShrink, hasSidenav, mainRef }: N
     const handleScroll = () => {
       const scrollTop = mainEl.scrollTop;
       setHasScrolled(scrollTop > 50);
-      setIsShrunk(scrollTop > 100 || hasSidenav || variant === "scoreboard" || window.innerWidth <= 320);
+      setIsShrunk(Math.round(scrollTop / 5) * 5 >= 100 || hasSidenav || variant === "scoreboard" || window.innerWidth <= 320);
     };
 
     mainEl.addEventListener("scroll", handleScroll);

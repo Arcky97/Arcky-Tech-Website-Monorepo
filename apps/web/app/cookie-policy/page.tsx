@@ -4,7 +4,7 @@ export default function CookiePolicy() {
       <h1 className="head1">Cookie Policy</h1>
       <em className="text-sm text-gray-400 text-center">Effective Date: July 20, 2025</em>
 
-      <section className="my-6 text-left">
+      <section className="my-6 text-left w-7/8 lg:w-5/8">
         <p>
           We use cookies that are strictly necessary for the functioning of this website.
           These include:

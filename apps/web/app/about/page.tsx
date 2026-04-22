@@ -1,9 +1,8 @@
 export default function About() {
   return (
     <article className="flex flex-col items-center h-full text-white">
-      <section className="w-7/8 lg:w-5/8">
-        <h1 className="head1">About Me</h1>
-
+       <h1 className="head1">About Me</h1>
+      <section className="my-6 text-left w-7/8 lg:w-5/8">
         <p className="text-lg text-gray-300 mb-4">
           Hello! My name is Arcky. I&#39;m 28 years old and I live in Belgium.
           I currently work full-time at a factory that specializes in developing
