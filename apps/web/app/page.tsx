@@ -1,6 +1,6 @@
 export default function Home() {
   return (
-    <article className="flex flex-col pt-10 items-center h-full text-white">
+    <article className="flex flex-col items-center h-full text-white">
       {/* Hero Section */}
       <section className="text-center w-7/8 lg:w-6/8">
         <h1 className="head1">Welcome to Arcky-Tech</h1>
