@@ -1,14 +1,5 @@
-const config = {
-  content: [
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "../../packages/ui/**/*.{js,ts,jsx,tsx}"
-  ],
-  theme: {
-    extend: {}
-  },
+export default {
   plugins: {
     "@tailwindcss/postcss": {},
   },
 };
-
-export default config;

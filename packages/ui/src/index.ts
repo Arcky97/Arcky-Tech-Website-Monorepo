@@ -1,2 +1,1 @@
-export * from "./errors/NotFound";
-export * from "./errors/UnderConstruction";
+export * from "./components"

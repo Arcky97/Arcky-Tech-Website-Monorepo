@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@source "../../../packages/**/*";
 
 /*@theme {
   --font-sans: var(--font-geist-sans);
@@ -112,6 +113,7 @@ body {
 
 main {
   scrollbar-color: #4a5565 #030712;
+  overflow-y: scroll !important;
 }
 
 body.lock-scrollbar {

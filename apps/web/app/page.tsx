@@ -9,6 +9,9 @@ export default function Home() {
         </p>
         <hr className="border-gray-600/75 border-t mt-2 mb-4"/>
       </section>
+      {/* Latest Updates */}
+
+      {/* Project Cards */}
     </article>
   );
 }

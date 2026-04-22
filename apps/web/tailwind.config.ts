@@ -1,12 +1,16 @@
-import type { Config } from "tailwindcss";
+import { join } from "path";
 
 export default {
   content: [
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "../../packages/ui/**/*.{js,ts,jsx,tsx}"
+    "./app/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    
+    join(__dirname, "../../packages/ui/**/*.{ts,tsx}"),
+    join(__dirname, "../../packages/lib/**/*.{ts,tsx}"),
+    join(__dirname, "../../packages/types/**/*.{ts,tsx}"),
   ],
   theme: {
-    extend: {}
+    extend: {},
   },
-  plugins: []
-} satisfies Config;
+  plugins: [],
+};
