@@ -2,4 +2,5 @@ export * from "./errors";
 export * from "./footer";
 export * from "./layout";
 export * from "./navbar";
+export * from "./sidebar"
 export * from "./TextColor";

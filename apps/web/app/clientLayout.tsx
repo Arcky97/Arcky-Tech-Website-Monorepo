@@ -1,7 +1,6 @@
 "use client";
 import { useRef } from "react";
-import { MainLayoutWrapper } from "../../../packages/ui/src"
-import { Footer } from "../../../packages/ui/src";
+import { MainLayoutWrapper, Footer } from "ui";
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   const mainRef = useRef<HTMLElement | null>(null);
