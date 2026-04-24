@@ -2,8 +2,8 @@
 @source "../../../packages/**/*";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #101828;
+  --foreground: #111;
   --navbar-height: 80px;
 }
 
@@ -25,16 +25,8 @@ main {
   overflow-y: scroll !important;
 }
 
-body.lock-scrollbar {
-  overflow-y: scroll !important;
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.sidebar {
-  top: var(--navbar-height);
+aside {
+  scrollbar-color: #4a5565 #1e2939;
 }
 
 /* Common Used Styling */

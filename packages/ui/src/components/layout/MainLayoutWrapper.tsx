@@ -14,6 +14,8 @@ export function MainLayoutWrapper({ navbar, children }: Props) {
           mainRef={navbar?.mainRef}
           hasSidenav={navbar?.hasSidenav}
           enableShrink={navbar?.enableShrink}
+          isSidebarOpen={navbar?.isSidebarOpen}
+          onToggleSideNav={navbar?.onToggleSideNav}
         />
       </header>
       {children}

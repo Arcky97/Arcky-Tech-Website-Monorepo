@@ -8,11 +8,13 @@ export type NavbarProps = {
   enableShrink?: boolean;
   hasSidenav?: boolean;
   mainRef?: React.RefObject<HTMLElement | null>;
+  isSidebarOpen?: boolean;
+  onToggleSideNav?: () => void;
 }
 
-export function Navbar({ variant = "web", enableShrink, hasSidenav, mainRef }: NavbarProps) {
+export function Navbar({ variant = "web", enableShrink, hasSidenav, mainRef, isSidebarOpen, onToggleSideNav }: NavbarProps) {
   const [hasScrolled, setHasScrolled] = useState(false);
-  const [isShrunk, setIsShrunk] = useState(false);
+  const [isShrunk, setIsShrunk] = useState(false || !enableShrink);
   const navRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -59,15 +61,44 @@ useEffect(() => {
           isShrunk ? "h-12" : "h-20"
         } ${hasSidenav ? "pl-14 lg:pl-14" : "" }`}
       >
+        {/* Sidebar toggle */}
+        {hasSidenav && (
+          <div className="h-0 bg-gray-900 flex items-center transition-opacity duration-300 ease-in-out">
+            <button
+              className="fixed top-1.5 left-2 z-50 bg-gray-900 p-2 rounded-md flex flex-col justify-center items-center space-y-1 group"
+              onClick={onToggleSideNav}
+            >
+              <span
+                className={`block w-6 h-1 bg-white transition-all duration-300 ease-in-out ${
+                    isSidebarOpen
+                      ? "group-hover:-rotate-45 group-hover:translate-y-0"
+                      : "group-hover:rotate-45 group-hover:translate-y-0"
+                  } group-hover:scale-110 group-hover:bg-gray-400`
+                }
+              />
+              <span
+                className={"block w-6 h-1 bg-white transition-opacity duration-300 ease-in-out group-hover:opacity-0 group-hover:bg-gray-400"}
+              />
+              <span
+                className={`block w-6 h-1 bg-white transition-all duration-300 ease-in-out ${
+                    isSidebarOpen
+                      ? "group-hover:rotate-45 group-hover:translate-y-0"
+                      : "group-hover:-rotate-45 group-hover:translate-y-0"
+                  } group-hover:scale-110 group-hover:bg-gray-400`
+                }
+              />
+            </button>
+          </div>
+        )}
         {/* Logo (Arcky-Tech) */}
         <h1
           className={`${
-            isShrunk
+            isShrunk || !enableShrink
               ? "lg:text-2xl sm:text-xl text-base"
               : "lg:text-3xl sm:text-2xl text-base"
           } font-bold transition-all duration-300 ease-in-out ${
-            variant === "web"
-              ? hasScrolled
+            variant === "web" || variant === "docs"
+              ? hasScrolled || !enableShrink
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 -translate-5"
               : "opacity-100"

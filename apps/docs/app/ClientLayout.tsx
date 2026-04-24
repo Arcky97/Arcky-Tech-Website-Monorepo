@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MainLayoutWrapper, Sidebar, Footer } from "ui";
 import { arckyTutorials, graphicsTransparency, pbsEditor, pokeMarket, regionMap, vendingMachine  } from "@/config";
 import { usePathname } from "next/navigation";
@@ -7,6 +7,12 @@ import { usePathname } from "next/navigation";
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   const mainRef = useRef<HTMLElement | null>(null);
   const pathname = usePathname();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  useEffect(() => {
+    const isDesktop = window.innerWidth >= 1024;
+    setSidebarOpen(isDesktop);
+  }, []);
 
   const menuItems = [
     pbsEditor,
@@ -17,26 +23,41 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
     arckyTutorials
   ];
 
-  const menuItemToUse = pathname.startsWith('/documentation/') 
+  const menuItemToUse = pathname !== "/" 
     ? menuItems.filter(menuItem => pathname.includes(menuItem.name))
     : menuItems.map(({ ...rest }) => rest )
+
   return (
     <MainLayoutWrapper
       navbar={{
-        variant: "web",
-        enableShrink: true,
-        mainRef
+        variant: "docs",
+        enableShrink: false,
+        mainRef,
+        onToggleSideNav: () => setSidebarOpen(s => !s),
+        isSidebarOpen: sidebarOpen,
+        hasSidenav: true
       }}
     >
-      <main
-        ref={mainRef}
-        className="flex flex-col flex-1 min-h-0 bg-gray-900"
-      >
-        <div className="flex-1">
-          {children}
-        </div>
-        <Footer />
-      </main>
+      {/* ✅ ÉÉN flex container */}
+      <div className="relative flex overflow-hidden">
+        <Sidebar
+          menuItems={menuItemToUse}
+          docType={menuItemToUse.length === 1 ? menuItemToUse[0].name : "main"}
+          mainDocs={pathname === "/"}
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+          mainRef={mainRef}
+        />
+        <main
+          ref={mainRef}
+          className="flex-1 bg-gray-900 h-full"
+        >
+          <div className="flex flex-col min-h-[calc(100vh-48px)]">
+            <div className="flex-1">{children}</div>
+            <Footer />
+          </div>
+        </main>
+      </div>
     </MainLayoutWrapper>
   );
 }
