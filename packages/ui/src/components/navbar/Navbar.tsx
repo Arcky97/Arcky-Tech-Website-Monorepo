@@ -4,6 +4,7 @@ import Link from "next/link";
 import { NavbarItem } from "./NavbarItem";
 
 export type NavbarProps = {
+  routes: { home: string, projects: string, discord: string, docs: string, about: string, contact: string }
   variant?: "web" | "docs" | "doggo-bot" | "scoreboard";
   enableShrink?: boolean;
   hasSidenav?: boolean;
@@ -12,7 +13,7 @@ export type NavbarProps = {
   onToggleSideNav?: () => void;
 }
 
-export function Navbar({ variant = "web", enableShrink, hasSidenav, mainRef, isSidebarOpen, onToggleSideNav }: NavbarProps) {
+export function Navbar({ variant = "web", enableShrink, hasSidenav, mainRef, isSidebarOpen, onToggleSideNav, routes }: NavbarProps) {
   const [hasScrolled, setHasScrolled] = useState(false);
   const [isShrunk, setIsShrunk] = useState(false || !enableShrink);
   const navRef = useRef<HTMLElement>(null);
@@ -114,37 +115,37 @@ useEffect(() => {
         {/* Icons and Name */}
         <div className="flex md:space-x-5 space-x-4">
           <NavbarItem
-            href="/"
+            href={routes.home}
             icon="HomeIcon"
             text="Home"
             isShrunk={isShrunk}
           />
           <NavbarItem
-            href="/projects"
+            href={routes.projects}
             icon="BriefcaseIcon"
             text="Projects"
             isShrunk={isShrunk}
           />
           <NavbarItem
-            href="https://discord.gg/HK99jTNqS2"
+            href={routes.discord}
             icon="ChatBubbleLeftRightIcon"
             text="Discord"
             isShrunk={isShrunk}
           />
           <NavbarItem
-            href="/documentation"
+            href={routes.docs}
             icon="BookOpenIcon"
             text="Documentation"
             isShrunk={isShrunk}
           />
           <NavbarItem
-            href="/about"
+            href={routes.about}
             icon="InformationCircleIcon"
             text="About"
             isShrunk={isShrunk}
           />
           <NavbarItem
-            href="/contact"
+            href={routes.contact}
             icon="UsersIcon"
             text="Contact"
             isShrunk={isShrunk}

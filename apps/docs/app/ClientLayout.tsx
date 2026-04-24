@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { MainLayoutWrapper, Sidebar, Footer } from "ui";
 import { arckyTutorials, graphicsTransparency, pbsEditor, pokeMarket, regionMap, vendingMachine  } from "@/config";
 import { usePathname } from "next/navigation";
+import { ROUTES as routes } from "@/config/routes";
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   const mainRef = useRef<HTMLElement | null>(null);
@@ -35,7 +36,8 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
         mainRef,
         onToggleSideNav: () => setSidebarOpen(s => !s),
         isSidebarOpen: sidebarOpen,
-        hasSidenav: true
+        hasSidenav: true,
+        routes
       }}
     >
       {/* ✅ ÉÉN flex container */}

@@ -1,4 +1,5 @@
 "use client";
+import { ROUTES as routes } from "@/config/routes";
 import { useRef } from "react";
 import { MainLayoutWrapper, Footer } from "ui";
 
@@ -10,7 +11,8 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
       navbar={{
         variant: "web",
         enableShrink: true,
-        mainRef
+        mainRef,
+        routes
       }}
     >
       <main

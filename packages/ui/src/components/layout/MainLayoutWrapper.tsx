@@ -1,7 +1,7 @@
 import { Navbar, NavbarProps } from "../navbar";
 
 type Props = {
-  navbar?: NavbarProps;
+  navbar: NavbarProps;
   children: React.ReactNode
 }
 
@@ -16,6 +16,7 @@ export function MainLayoutWrapper({ navbar, children }: Props) {
           enableShrink={navbar?.enableShrink}
           isSidebarOpen={navbar?.isSidebarOpen}
           onToggleSideNav={navbar?.onToggleSideNav}
+          routes={navbar.routes}
         />
       </header>
       {children}
