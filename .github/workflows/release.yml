@@ -78,6 +78,7 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
             ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-web:latest
+            ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-web:main
             ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-web:${{ github.sha }}
           build-args: |
             COMMIT_SHA=${{ github.sha }}
@@ -95,6 +96,7 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
             ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-docs:latest
+            ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-docs:main
             ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-docs:${{ github.sha }}
 
       # =========================================================
@@ -109,6 +111,7 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
             ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-scoreboard:latest
+            ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-scoreboard:main
             ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-scoreboard:${{ github.sha }}
 
       # =========================================================
@@ -123,4 +126,5 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
             ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-doggo-bot:latest
+            ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-doggo-bot:main
             ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-doggo-bot:${{ github.sha }}
