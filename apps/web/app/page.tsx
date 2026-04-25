@@ -11,6 +11,7 @@ export default function Home() {
       </section>
       <p>This is pure informational...</p>
       <p>If you see this, latest changes were applied...</p>
+      <p>Now it should work...</p>
       {/* Latest Updates */}
       {/* Project Cards */}
     </article>

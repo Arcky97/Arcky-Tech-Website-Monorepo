@@ -14,6 +14,7 @@ export default function Documentation() {
       </section>
       <p>This is pure informational...</p>
       <p>If you see this, latest changes were applied...</p>
+      <p>Now it should work...</p>
     </article>
   )
 }
