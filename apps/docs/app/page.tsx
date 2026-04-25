@@ -12,6 +12,7 @@ export default function Documentation() {
         <h2 className="text-white text-4xl font-bold text-center mb-3">Completion</h2>
         <p className="text-center text-lg text-gray-300 max-w mb-2">Below, you&apos;ll find the completion of each Documentation on the website.</p>
       </section>
+      <p>This is pure informational...</p>
     </article>
   )
 }

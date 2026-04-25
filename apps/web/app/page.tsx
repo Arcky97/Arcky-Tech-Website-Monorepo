@@ -9,6 +9,7 @@ export default function Home() {
         </p>
         <hr className="border-gray-600/75 border-t mt-2 mb-4"/>
       </section>
+      <p>This is pure informational...</p>
       {/* Latest Updates */}
       {/* Project Cards */}
     </article>
