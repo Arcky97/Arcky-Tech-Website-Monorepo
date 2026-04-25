@@ -8,6 +8,8 @@ services:
       - "3090:3000"
     environment:
       - RESEND_API_KEY=${RESEND_API_KEY}
+      - NEXT_PUBLIC_DOCS_URL=${NEXT_PUBLIC_DOCS_URL}
+      - NEXT_PUBLIC_DISCORD_URL=${NEXT_PUBLIC_DISCORD_URL}
       - HOSTNAME=0.0.0.0
       - PORT=3000
 
@@ -16,6 +18,11 @@ services:
     restart: unless-stopped
     ports:
       - "3091:3000"
+    environment:
+      - NEXT_PUBLIC_WEB_URL=${NEXT_PUBLIC_WEB_URL}
+      - NEXT_PUBLIC_DISCORD_URL=${NEXT_PUBLIC_DISCORD_URL}
+      - HOSTNAME=0.0.0.0
+      - PORT=3000
 
   scoreboard:
     image: ghcr.io/arcky97/arcky-tech-scoreboard:main
