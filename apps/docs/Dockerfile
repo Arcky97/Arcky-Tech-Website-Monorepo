@@ -24,6 +24,6 @@ COPY --from=builder /app/apps/docs/.next/standalone ./
 COPY --from=builder /app/apps/docs/.next/static ./apps/docs/.next/static
 COPY --from=builder /app/apps/docs/public ./apps/docs/public
 
-EXPOSE 3091
+EXPOSE 3000
 
 CMD ["node", "apps/docs/server.js"]

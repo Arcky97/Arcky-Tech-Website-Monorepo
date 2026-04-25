@@ -6,8 +6,10 @@ services:
     restart: unless-stopped
     ports:
       - "3090:3000"
-    environments:
+    environment:
       - RESEND_API_KEY=${RESEND_API_KEY}
+      - HOSTNAME=0.0.0.0
+      - PORT=3000
 
   docs:
     image: ghcr.io/arcky97/arcky-tech-docs:main
