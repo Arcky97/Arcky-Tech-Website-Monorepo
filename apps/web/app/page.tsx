@@ -9,11 +9,6 @@ export default function Home() {
         </p>
         <hr className="border-gray-600/75 border-t mt-2 mb-4"/>
       </section>
-      <p>This is pure informational...</p>
-      <p>If you see this, latest changes were applied...</p>
-      <p>Now it should work...</p>
-      <p>1 final change...</p>
-      <p>Okay, just 1 more, for real...</p>
       {/* Latest Updates */}
       {/* Project Cards */}
     </article>
