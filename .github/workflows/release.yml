@@ -83,6 +83,8 @@ jobs:
           build-args: |
             COMMIT_SHA=${{ github.sha }}
             RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}
+            NEXT_PUBLIC_DOCS_URL=${{ vars.NEXT_PUBLIC_DOCS_URL}}
+            NEXT_PUBLIC_DISCORD_URL=${{ vars.NEXT_PUBLIC_DISCORD_URL }}
 
       # =========================================================
       # DOCS
@@ -98,6 +100,9 @@ jobs:
             ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-docs:latest
             ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-docs:main
             ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-docs:${{ github.sha }}
+          build-args: |
+            NEXT_PUBLIC_WEB_URL=${{ vars.NEXT_PUBLIC_WEB_URL }}
+            NEXT_PUBLIC_DISCORD_URL=${{ vars.NEXT_PUBLIC_DISCORD_URL }}
 
       # =========================================================
       # SCOREBOARD

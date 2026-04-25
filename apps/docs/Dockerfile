@@ -2,6 +2,12 @@
 FROM node:20 AS builder
 WORKDIR /app
 
+ARG NEXT_PUBLIC_WEB_URL
+ARG NEXT_PUBLIC_DISCORD_URL
+
+ENV NEXT_PUBLIC_WEB_URL=$NEXT_PUBLIC_WEB_URL
+ENV NEXT_PUBLIC_DISCORD_URL=$NEXT_PUBLIC_DISCORD_URL
+
 # Copy dependency files first (better caching)
 COPY package.json package-lock.json ./
 
