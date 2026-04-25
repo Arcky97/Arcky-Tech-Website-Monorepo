@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import ClientLayout from "./ClientLayout";
 
 export const metadata: Metadata = {
-  title: "Arcky-Tech",
-  description: "A collection of Arcky's Projects, Documentation and a Dashboard.",
+  title: "Arcky-Tech Docs",
+  description: "Arcky-Tech Docs, a collection of documentation for Arcky's Projects and Tutorials.",
   icons: {
     icon: "favicon.png"
   }

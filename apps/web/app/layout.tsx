@@ -4,7 +4,7 @@ import ClientLayout from "./clientLayout";
 
 export const metadata: Metadata = {
   title: "Arcky-Tech",
-  description: "A collection of Arcky's Projects, Documentation and a Dashboard.",
+  description: "Arcky-Tech Website, a collection of Arcky's projects made with passion.",
   icons: {
     icon: "favicon.png"
   }
