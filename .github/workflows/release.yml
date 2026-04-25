@@ -91,7 +91,6 @@ jobs:
             ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-web:${{ github.sha }}
           build-args: |
             COMMIT_SHA=${{ github.sha }}
-            RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}
             NEXT_PUBLIC_DOCS_URL=${{ vars.DOCS_URL}}
             NEXT_PUBLIC_DISCORD_URL=${{ vars.DISCORD_URL }}
 

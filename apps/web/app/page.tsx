@@ -13,6 +13,7 @@ export default function Home() {
       <p>If you see this, latest changes were applied...</p>
       <p>Now it should work...</p>
       <p>1 final change...</p>
+      <p>Okay, just 1 more, for real...</p>
       {/* Latest Updates */}
       {/* Project Cards */}
     </article>
