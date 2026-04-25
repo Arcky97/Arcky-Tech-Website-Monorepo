@@ -13,6 +13,7 @@ export default function Documentation() {
         <p className="text-center text-lg text-gray-300 max-w mb-2">Below, you&apos;ll find the completion of each Documentation on the website.</p>
       </section>
       <p>This is pure informational...</p>
+      <p>If you see this, latest changes were applied...</p>
     </article>
   )
 }

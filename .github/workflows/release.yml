@@ -9,6 +9,9 @@ on:
 
 env:
   REGISTRY: ghcr.io
+  WEB_URL: ${{ vars.NEXT_PUBLIC_WEB_URL }}
+  DOCS_URL: ${{ vars.NEXT_PUBLIC_DOCS_URL }}
+  DISCORD_URL: ${{ vars.NEXT_PUBLIC_DISCORD_URL }}  
 
 jobs:
   build:
@@ -20,6 +23,12 @@ jobs:
       id-token: write
 
     steps:
+      - name: Checking vars
+        run: |
+          echo "web url: $WEB_URL"
+          echo "docs url: $DOCS_URL"
+          echo "discord url: $DISCORD_URL"
+
       - name: Checkout repository
         uses: actions/checkout@v3
 
