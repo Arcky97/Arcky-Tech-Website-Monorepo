@@ -4,7 +4,7 @@ import { notFound, redirect } from "next/navigation";
 import { getStyles, slugify, StyleGroup } from "ui";
 import { compileMDX } from "next-mdx-remote/rsc";
 import { mdxComponents } from "ui/mdx/mdx-components";
-import { DocsTableOfContents } from "ui/mdx/DocsTableOfContents"
+import { DocsTableOfContents } from "ui"
 
 const CONTENT_ROOT = path.join(
   process.cwd(),
