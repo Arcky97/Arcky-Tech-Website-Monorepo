@@ -1,0 +1,21 @@
+<Header title="BuyBonusMult">
+  How to use and define BuyBonusMult speeches.
+</Header>
+
+The `BuyBonusMult` determines what the NPC will say when the player receives 1 or multiple bonus Items.
+<br/>
+See the [BonusItems](../../../settings/bonus-items) page for more information.
+
+<PMSpeeches speech="BuyBonusMult"/>
+
+To define the `BuyBonusMult`, use this structure:
+
+```ruby
+BuyBonusMult: [
+  "And have {1} on the house!"
+]
+```
+### Placeholder Reference
+- `{1}` = The list of bonus Items — e.g., `"2 Antidotes and 1 Full Heal"`
+
+<ImageWithCaption src="/images/documentation/poke-market/BuyBonusMult.png" caption="BuyBonusMult"/>

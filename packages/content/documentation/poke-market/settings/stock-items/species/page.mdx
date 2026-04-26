@@ -1,0 +1,102 @@
+<Header title="Stock Items for Species">
+  How to use the StockItems setting for Species
+</Header>
+
+The **Stock Items** settings can also be used for Species events. The Usage in the event is the same as for the Mart and Shelf events but for defining a Species, there are a lot of parameters that you can apply.
+<br/>
+### Simple Version 
+
+```ruby 
+StockItems = {
+  :pokemonStore => [
+    {
+      name: :BULBASAUR, 
+      price: 9500,
+      level: 15
+    },
+    {
+      name: :CHARMANDER,
+      price: 9500,
+      level: 15
+    },
+    {
+      name: :SQUIRTLE,
+      price: 9500,
+      level: 15
+    }
+  ]
+}
+```
+There is only 1 required parameter for each species:
+- `name:` — The ID of the species 
+The others are all optional
+- `price` — The price for the species 
+- `level` — The level the species is sold as.
+<br/>
+---
+
+### Extended Version
+Like mentioned in the Simple Version, all the parameters in the Extended Version are optional, this is only the craziest setup for a Species that you can go with.
+
+```ruby 
+StockItems = {
+  :pokemonStore => [
+    {
+      name: :GROWLITHE, # :GROWLITHE for Kantonian Growlithe, :GROWLITHE_1 for Hisuian Growlithe
+      price: 11000, # price of the species
+      level: 25, # level of the species 
+      description: "A cute Dog that can be dangerous too...", # description to show in the Mart UI.
+      ability: 1, # ability of the species 
+      nickname: "Doggo", # nickname of the species 
+      gender: 0, # male or 0, female or 1, genderless = 2
+      item: :MASTERBALL, # held item
+      pokeball: :CHERISHBALL, # pokemon species is caught in 
+      nature: :RELAXED, # nature of the species 
+      form: 0, # form of the species (if you provide this, make sure the name parameter matches)
+      obtain: { # obtain details
+        level: 15, # level when it was obtained
+        map: 24, # map it was obtained on
+        method: 2, # 0 = met, 1 = egg received, 2 = traded and 4 = fateful encounter
+        text: "Bought from a shady seller in Cedolan City...", # replaces obtain map with text.
+      },
+      owner: {
+        id: 14458, # "random" or specify a number
+        name: "Maurice", # owner name
+        gender: 0, # 0 (male), 1 (female), 2 (mixed), 3 (unknown)
+        language: 2, # 0 (unkown), 1 (japanese), 2 (english, default), 3 (french), 4 (italian), 5 (german), 7 (spanish), 8 (korean)
+      },
+      ivs: { # modify species ivs
+        HP: 15,
+        ATTACK: 25,
+        DEFENCE: 25,
+        SPECIAL_ATTACK: 15,
+        SPECIAL_DEFENCE: 25,
+        SPEED: 31 
+      },
+      evs: { # modiy species evs
+        HP: 20,
+        ATTACK: 110,
+        DEFENCE: 40,
+        SPECIAL_ATTACK: 120,
+        SPECIAL_DEFENCE: 40,
+        SPEED: 140
+      },
+      shiny: 8, # = 1/8, true or false by default 
+      supershiny: false, # same as shiny, set a chance, true or false by default
+      moves: [ # set the moves for the species, adding more than 4 will make the first one get replaced by the 5th.
+        :FIREBLAST,
+        :FLAMETHROWER,
+        :EXTREMESPEED,
+        :OUTRAGE,
+        :TACKLE
+      ].sample(4), # use .sample(4) to have a random selection of 4 moves if you added more than 4 moves
+      cannotstore: false, # species cannot be stored in the pc
+      cannottrade: false, # species cannot be traded
+      cannotrelease: false,  # species cannot be released
+      happiness: "walking", # events are possible too: walking, levelup, groom, evberry, vitamin, wing, machine, battleitem, faint, faintbad, powder, energyroot, revivalherb
+      pokerus: 16, # a number between 1 and 15 or 0 for random.
+      status: :SLEEP # set the status of the species
+    }
+  ]
+}
+```

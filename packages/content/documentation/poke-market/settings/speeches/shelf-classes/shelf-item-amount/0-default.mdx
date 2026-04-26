@@ -1,0 +1,17 @@
+## ShelfItemAmount
+
+The `ShelfItemAmount` determines what the player will be prompted with when the selected Item wasn't added to the Basket yet.
+
+<SHSpeeches speech="ShelfItemAmount"/>
+
+To define the `ShelfItemAmount`, use this structure:
+
+```ruby
+ShelfAmountItem: [
+  "How many {1} would you like to add to your basket?"
+]
+```
+### Placeholder Reference
+- `{1}` = The chosen Item's name (plural) — e.g., `"Potions"`
+
+<ImageWithCaption src="/images/documentation/poke-market/ShelfItemAmount.png" caption="ShelfItemAmount"/>

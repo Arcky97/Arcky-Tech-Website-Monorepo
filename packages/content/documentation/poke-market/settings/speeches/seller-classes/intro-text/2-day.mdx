@@ -1,0 +1,51 @@
+## IntroText + Day
+
+It's possible to define an `IntroText` that changes depending on the **current day** in the game. Just like the default `IntroText`, you can include multiple lines for variation, and the script will randomly select one.
+<br/>
+Supported keys include:
+<br/>
+- `IntroTextMonday`
+- `IntroTextTuesday`
+- `IntroTextWednesday`
+- `IntroTextThursday`
+- `IntroTextFriday`
+- `IntroTextSaturday`
+- `IntroTextSunday`
+<br/>
+- `IntroTextWeek` applies to Money through Friday.
+- `IntroTextWeekend` applies to Saturday and Sunday.
+
+<br/>
+Defining `IntroTextWeekend` looks like this:
+
+```ruby
+IntroTextWeekend: [
+  "Hello, it's weekend so we'll be closing soon, what do you want?"
+]
+```
+
+This makes it possible, for example, to make the NPC behave differently — perhaps ruder — on the weekend.
+<ImageWithCaption src="/images/documentation/poke-market/IntroTextWeekend.png" caption="IntroTextWeekend Example" align="center"/>
+Similarly, you can define speech for specific days. Here's an example for Monday:
+
+```ruby
+IntroTextMonday: [
+  "Happy Monday - no discounts though - what can I do for you?"
+]
+```
+This will be used by the script when the in-game day in Monday:
+<ImageWithCaption src="/images/documentation/poke-market/IntroTextMonday.png" caption="IntroTextMonday" align="center"/>
+
+
+### Fallback Behavior
+The script checks the following order when deciding which `IntroText` to use:
+1. A day-specific key (e.g., `IntroTextMonday`)
+2. `IntroTextWeek or IntroTextWeekend` depending on the day
+3. Time-based alternative (like `IntroTextEvening`)
+4. `IntroTextDay`
+5. The default `IntroText`
+<br/>
+For example if it's **Monday Evening**, the script will check:
+<br/>`IntroTextMonday` => `IntroTextWeek` => `IntroTextEvening` => `IntroTextDay` => `IntroText`
+<br/>
+There are additional checks between these steps, which are covered in more detail in the [IntroText + Time + Day](/documentation/poke-market/settings/speeches/seller-classes/intro-text#3-time-day) section.

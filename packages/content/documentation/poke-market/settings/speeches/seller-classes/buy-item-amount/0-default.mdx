@@ -1,0 +1,19 @@
+## BuyItemAmount
+
+The `BuyItemAmount` determines what the NPC says when the player is prompted to choose how many of an item they want to buy. 
+
+<PMSpeeches speech="BuyItemAmount"/>
+
+To define the `BuyItemAmount`, use this structure:
+
+```ruby
+BuyItemAmount: [
+  "So how many {1}?", 
+  "How many {1} would you like?"
+]
+```
+### Placeholder Reference
+- `{1}` = Chosen item's name (plural) — e.g., `"Poké Balls"`
+<br/>
+<ImageWithCaption src="/images/documentation/poke-market/BuyItemAmount 1.png" caption="BuyItemAmount 1"/>
+<ImageWithCaption src="/images/documentation/poke-market/BuyItemAmount 2.png" caption="BuyItemAmount 2"/>

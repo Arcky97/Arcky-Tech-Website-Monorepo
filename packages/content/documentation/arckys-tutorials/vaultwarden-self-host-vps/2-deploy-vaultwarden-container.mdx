@@ -1,0 +1,45 @@
+## Deploy the Vaultwarden container (on Portainer)
+
+- Go to Portainer 
+<ImageWithCaption src="/images/documentation/arcky-tutorials/Portainer Dashboard.png" caption="Portainer Dashboard" align="left" size="large"/>
+
+- Click "Stacks" in the Side menu 
+<ImageWithCaption src="/images/documentation/arcky-tutorials/Portainer Stacks.png" caption="Portainer Stacks" align="left" size="small"/>
+
+- Click "Add Stack" 
+<ImageWithCaption src="/images/documentation/arcky-tutorials/Portainer Add Stack.png" caption="Portainer Add Stack" align="left" size="medium"/>
+
+- Fill in Name and content 
+<ImageWithCaption src="/images/documentation/arcky-tutorials/Portainer Stack Name and Content.png" caption="Portainer Stack Name and Content" align="left" size="large"/> 
+
+```nginx:Name 
+vaultwarden
+```
+
+```yaml:Content
+version: "3.9"
+
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8222:80"
+    volumes:
+      - /opt/vaultwarden/data:/data
+    environment:
+      DOMAIN: https://vault.your-domain.com
+      SIGNUPS_ALLOWED: false
+      WEBSOCKET_ENABLED: true
+      ADMIN_TOKEN: CHANGE_ME
+      LOG_LEVEL: warn
+```
+Before deploying the stack, generate the admin token in SSH:
+```bash
+openssl rand -base64 48
+```
+
+- replace "your-domain" in `https://vault.your-domain.com` with your domain. The `vault.` part is the sub domain name, you can change this too if you like.
+- replace `CHANGE_ME` with the generated token and **deploy the stack**
+- deploy the stack

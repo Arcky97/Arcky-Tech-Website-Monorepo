@@ -1,0 +1,35 @@
+<Header title="Hidden Locations">
+  Add Locations to be shown on the Region Map if appropriate.
+</Header>
+
+## Function of the Setting
+
+The **Hidden Locations Setting Section** includes a single Setting. It allows a set of arrays, each containing details of a Graphic to be shown on the Region Map if appropriate.
+
+<SetVer
+  v201={`REGION_MAP_EXTRAS = [
+    [0, 51, 16, 15, "mapHiddenBerth"],
+    [0, 52, 20, 14, "mapHiddenFaraday", true]
+  ]`}
+  v211={`RegionMapExtras = [
+    [0, 51, 16, 15, "mapHiddenBerth"],
+    [0, 52, 20, 14, "mapHiddenFaraday", true]
+  ]`}
+/>
+
+---
+
+## Possible Values
+
+Each Item you add here must contain the following:
+- `0` = Region Map ID.
+- `51` = Game Switch ID.
+- `16` = Map X Position.
+- `15` = Map Y Position.
+- `mapHiddenBerth` = Graphic name (located in Graphics/UI/Town Map/Hidden)
+- optional value:
+  - `true` = always shown on the Wall Map.
+  - `false` = never shown on the Wall Map.
+  - `nil` = only shown when the given Game Switch is `true`.
+
+The Graphic will only be shown on the Region Map (the Item or Poke Gear version) when the given Game Switch is `ON`. The last parameter is optional and only affects the Wall Map (defaults to `nil` when not given).

@@ -1,0 +1,13 @@
+## ID and Version
+
+<InputNumber label={["ID:", "Version:"]} value={["002", "0"]} width={[15, 9]}/>
+
+The <Or>ID</Or> servers as the <Gr>internal identifier</Gr> used by the engine to reference an **Encounter**. Each **Encounter** must have a <Rd>unique ID</Rd> to function correctly. 
+<br/>
+Unlike the Other PBS Types, **Encounters** can share the same <Or>ID</Or> by using an optional <Or>Version</Or>. This allows multiple **Encounter entries** to exist for the same Game Map while remaining uniquely identifable.
+<br/>
+The <Or>ID</Or> is formatted as a <Yl>3-digit number</Yl> (e.g. 002, 011). To help prevent errors, the editor will automatically <Gr>pad the value with leading zeroes</Gr> as you type.
+<br/>
+Within the PBS file, the <Or>ID</Or> defines the <Gr>start of a new Encounter entry</Gr> and must always appear first in each block. This structure is handled automatically by the editor when saving, so no manual formatting is required.
+<br/>
+As for the optional <Or>Version</Or> is a numeric value appended to the <Or>ID</Or>, separated by a comma (e.g. 005,1). It allows multiple variations for the same Game Map to coexist. As with the <Or>ID</Or>, all formatting is handled automatically by the editor.

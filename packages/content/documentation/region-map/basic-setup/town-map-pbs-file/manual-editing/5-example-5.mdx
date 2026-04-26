@@ -1,0 +1,63 @@
+## Example 5
+
+The 9th 10th and 11th points are Route 3:
+<ImageWithCaption src="/images/documentation/region-map/Route3-0.png" caption="Route 3" align="left" size="tiny"/>
+
+This Location has a size of 2 by 2 tiles on the Region Map => 3 Points are defined (The bottom left point is not used and doesn't need a point):
+```
+Point = 15,7,Route 3
+Point = 15,6,Route 3,Ice Cave
+Point = 14,6,Route 3
+```
+Looking into the Highlight folder, we'll find 2 Graphics this time.
+- For Route 3 we'll find a Graphic called "mapRoute3.png"
+  - Graphics > Pictures > RegionMap > Highlights > Routes for v20.1
+  - Graphics > UI > Town Map > Highlights > Routes for v21.1
+<br/>
+- For Ice Cave we'll find a Graphic called "mapSize1x1Small.png"
+  - Graphics > Pictures > RegionMap > Highlights > Others for v20.1
+  - Graphics > UI > Town Map > Highlights > Others for v21.1
+<br/>
+To make the Script use one of these Graphics when the Cursor is on their respective point, we add "Route3" to the 1st and 3rd point and "Size1x1Small" to the 2nd Point at the end of each line for these Points:
+```
+Point = 15,7,Route 3,,,,,,Route3
+Point = 15,6,Route 3,Ice Cave,,,,,Size1x1Small
+Point = 14,6,Route 3,,,,,,Route3
+```
+Pay attention that before "Route3" I added 6 extra `,` as that would normally be where we define
+- a point of interest 
+- fly point (map id, x and y value)
+- a Switch.
+for this Point.
+And before "Size1x1Small" I added 5 extra `,` (a point of interest is defined) as that would normally be where we define:
+- fly point (map id, x and y value)
+- a switch
+
+Result when the Cursor is on this Location (either the 1st of 3rd Point):
+<ImageWithCaption src="/images/documentation/region-map/Route3-1.png" caption="Route 3 Highlighted" align="left" size="tiny"/>
+Result when the Cursor is on this Location (either the 1st of 3rd Point):
+<ImageWithCaption src="/images/documentation/region-map/Route3-2.png" caption="Ice Cave Highlighted" align="left" size="tiny"/>
+Optionally, you can edit the Highlight Graphic so it looks like this:
+Result when the Cursor is on this Location (either the 1st of 3rd Point):
+<ImageWithCaption src="/images/documentation/region-map/Route3-3.png" caption="Ice Cave Highlighted" align="left" size="tiny"/>
+The difference here might not be that noticable but it's a nice little detail.
+<br/>
+You can also 
+- add (for the 1st and 3rd points) "TrainerRoute" instead of "Route3" (the Graphic name should then be "mapTrainerRoute.png").
+<br/>Image (mapTrainerRoute.png) missing.
+- add (for the 2nd point) "IceCaveSmall.png" instead of "Size1x1Small" (the Graphic name should then be "mapIceCaveSmall.png").
+<br/>For the 2nd point's Graphic name "Small" should still be included since the Graphic is only 16x16 in size and is in the "Others" folder. 
+<br/>This is because the Script add the offset by default, this won't be the case when "Small" is included.
+```
+Point = 15,7,Route 3,,,,,,TrainerRoute
+Point = 15,6,Route 3,Ice Cave,,,,,IceCaveSmall
+Point = 14,6,Route 3,,,,,,TrainerRoute
+```
+Alternativly, you can also make the Graphic for the 2nd Point 48x48 and name it "mapIceCave.png"
+```
+Point = 15,7,Route 3,,,,,,TrainerRoute
+Point = 15,6,Route 3,Ice Cave,,,,,IceCave
+Point = 14,6,Route 3,,,,,,TrainerRoute
+```
+When changing or adding new Graphics, always recompile your game an extra time. I noticed this for myself too that it would say that a Graphic is missing while it's actually present in the folder.
+<br/>

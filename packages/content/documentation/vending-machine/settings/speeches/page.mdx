@@ -1,0 +1,58 @@
+<Header title="Seller Classes">
+  List of all Vending Machine Class parameters.
+</Header>
+
+This setting is, just like in the Poké Market plugin, the most extensive one in the entire plugin. You can go as deep as you'd like customizing it — or choose not to use it at all.
+<br/>
+Adding a Vending Machine Class to the event method is simple: after the list of items, just add the Vending Machine Class using `speech: "ProVend`. Make sure the string matches the constant name defined for the class (explained below). One example class is included by default, including "ProVend".
+
+```ruby
+def someVendingMachine
+  advancedVendingMachine([
+    :POKEBALL, :GREATBALL,
+    :POTION, :SUPERPOTION, :HYPERPOTION,
+    :REPEL, :SUPERREPEL, 
+    :REVIVE, 
+    :ANTIDOTE, :PARALYZEHEAL,
+  ], speech: "ProVend", discount: 26)
+end
+```
+This can make your Vending Machine feel more personal as Modern Vending Machines could talk to.
+
+```ruby 
+ProVend = {
+  # Text when talking to the Vending Machine.
+  IntroText: ["Oh look, it's arcky's new \\c[10]Vending Machine\\c[0]!", "Beep Boop, welcome customer. Choose the Item you would like to buy."],
+  # Text when using a discount on the Vending Machine event. (leave empty if you don't want this message) {1} = amount of discount, {2} = type of items.
+  DiscountText: ["Amazing, you have a discount of {1}% on all {2}s!"],
+  # Text when using an overcharge on the Vending Machine event. (leave empty if you don't want this message) {1} = amount of overcharge, {2} = type of items.
+  OverchargeText: ["Ow, you have to pay an overcharge of {1}% on all {2}s!"],
+  # Text when you get the menu of items to choose from to buy. {1} = type of items.
+  ItemSelectText: ["Which {1} would you like to buy?", "Please make your choice."],
+  # Text when multiBuy is enabled. {1} = chosen item (plural).
+  ItemAmountSelect: ["Please choose how many {1} you would like to buy."],
+  # Text when chosen (amount of) item(s) drop down. {1} = amount (a, an or some if singular), {2} item name.
+  ItemDropText: ["{1} {2} dropped down!"],
+  # Text when a bonus item dropped down. {1} = amount, {2} = item name.
+  ItemBonusDropText: ["Hooray! {1} extra {2} dropped down!"],
+  # Text (if stuckChance and kickChance is given) when being asked to kick the machine to get the stuck items out (eventually). {1} = amount of items stuck, {2} item name.
+  ChoiceKickText: ["Oh no! {1} of your {2} got stuck! Do you want to kick the machine?"],
+  # Text (if only stuckChance is given (no kickChance)) when x amount of items are stuck. {1} amount of items stuck, {2} item name, {3} = price + currency (optional)
+  ItemStuckText: ["Oh no! {1} of your {2} got stuck worth {3}!"],
+  # Text when kick is successful. {1} amount of items freed, {2} item name.
+  KickSuccessText: ["Your kick worked and {1} {2} dropped down!"],
+  # Text when kick is successful and bonus item dropped. {1} = amount of items freed, {2} = item name
+  KickBonusText: ["Your kick made {1} more {2} drop down!"],
+  # Text when kick is not or half successful (1 or more items remained stuck). {1} = amount of items freed, {2} = item name, {3} = amount of items remained stuck, {4} item name. (2 and 4 is the same but 1 and 3 can be different amount).
+  KickNoSuccessText: ["{1} {2} dropped down and {3} {4} remained stuck!"],
+  # Text when you don't want to kick. {1} = currency, {2} = price + currency.
+  NoKickText: ["Looks like you don't mind wasting your {1}! ({2})"],
+  # Text when you don't have enough money.
+  NotEnoughMoney: ["Sorry, you seem to have not enough money."],
+  # Text when you have not enough room in your bag left. {1} = amount of items added, {2} = total amount of items chosen, {3} = item name (plural).
+  NoRoomInBag: ["You don't have enough room left in your Bag. Added {1} of {2} {3}."]
+}
+```
+<Callout type="hint">
+  You don't need to fill every field — only the ones you care about. Unused fields will use the default lines provided by the plugin.
+</Callout>

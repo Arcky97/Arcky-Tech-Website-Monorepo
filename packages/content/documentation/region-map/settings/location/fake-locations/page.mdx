@@ -1,0 +1,57 @@
+<Header title="Fake Locations">
+  Manipulate the Map Position of certain Game Maps.
+</Header>
+
+## Function of the Setting 
+
+The **Fake Locations Settings Section** includes a single Setting. It allows you to set, in combination with a Game Variable, a different Map Position than it would be defined in the Map_Metadata.txt PBS file. If there's no match found, the default value from the PBS file will be used.
+
+<SetVer
+  v201={`FAKE_REGION_LOCATIONS = {
+    14 => {
+      98 => {
+        1 => [1, 1, 1],
+        2 => [0, 2, 2]
+      },
+      99 => {
+        2 => [1, 5, 5]
+      }
+    },
+    70 => {
+      98 => {
+        3 => [1, 3, 3]
+      },
+      99 => {
+        1 => [0, 4, 4]
+      }
+    }
+  }`}
+  v211={`FakeRegionLocations = {
+    14 => {
+      98 => {
+        1 => [1, 1, 1],
+        2 => [0, 2, 2]
+      },
+      99 => {
+        2 => [1, 5, 5]
+      }
+    },
+    70 => {
+      98 => {
+        3 => [1, 3, 3]
+      },
+      99 => {
+        1 => [0, 4, 4]
+      }
+    }
+  }`}
+/>
+---
+
+## Possible Values 
+
+Each Item you add here must exist out of a 
+- `Game Map ID` followed by `=> { }`
+  - `Game Variable ID` followed by `=> { }`
+    - `Game Variable Value` followed by `=>`
+      - `Map Position` as an array [RegionID, Xpos, Ypos]

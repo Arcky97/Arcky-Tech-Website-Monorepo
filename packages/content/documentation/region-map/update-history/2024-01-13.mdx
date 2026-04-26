@@ -1,0 +1,15 @@
+## v2.1.0: Button Preview Improvements
+### Improvements
+- Reworked the way the Highlight, Unvisited and Fly Icon Images are drawn on the Region Map Completely.
+- The Button Preview Text now changes after a certain amount of time to each time show one of the available Actions for the current position on the Region Map
+- Added compability with [FL's Set the Controls Screen](https://github.com/FL-/Essentials-SetControls) which makes the plugin show the actual key button that needs to be pressed for an Action instead of the in game key you set in the Settings. (This doesn't change anything for the button set-up for each setting in `000_RegionMap_Settings.rb`.
+- Added Info log messages that'll show in the console when an Image is not found. I'll expand this by time to help you out and to prevent issues :)
+<br/>
+### Bug Fixes
+- Fixed an issue with the Region Map centering wrong so the map gets moved too much over it's actual limit.
+- Fixed the version number required for the Lin's Weather System Plugin in the meta file.
+- Fixed the path used for the Weather Icons.
+<br/>
+### New Settings 
+- Added a new Setting which allows you to link a Point of Interest to a Game Map (the ID). This has only aplies if you use the `NO_UNVISITED_MAP_INFO` setting. This way the Point of Interest Text isn't revealed when the linked map hasn't been visited yet.
+- Added a new Setting to change the amount of time that needs to pass before the Button Text changes.

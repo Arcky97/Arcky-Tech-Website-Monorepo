@@ -1,0 +1,20 @@
+<Header title="NotEnoughMoney">
+  How to use and define NotEnoughMoney speeches.
+</Header>
+
+The `NotEnoughMoney` determines what the player will be prompted with when they don't have enough money remaining to add the chosen Item to their basket. This is only the case when none of this Item was added to the basket yet.
+
+<SHSpeeches speech="NotEnoughMoney"/>
+
+To define the `NotEnoughMoney`, use this structure:
+
+```ruby
+NotEnoughMoney: [
+  "You don't have enough {1} to add any {2} to your basket."
+]
+```
+### Placeholder Reference
+- `{1}` = The Currency used by the Shelf event — e.g., `"Money"`
+- `{2}` = Chosen Item's name (plural) — e.g., `"Super Potions"`
+
+<ImageWithCaption src="/images/documentation/poke-market/ShelfNotEnoughMoney.png" caption="NotEnoughMoney"/>

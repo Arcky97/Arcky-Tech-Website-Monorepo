@@ -1,0 +1,48 @@
+## Modify the backup script to encrypt 
+Open the script:
+```bash
+nano /root/backup-vaultwarden.sh
+```
+Update the script:
+```bash
+#!/bin/bash
+
+BACKUP_DIR="/root/backups/vaultwarden"
+DATA_DIR="/opt/vaultwarden/data"
+DATE=$(date +%F)
+++TMP_DIR="/tmp/vaultwarden-backup"
+
+mkdir -p $BACKUP_DIR
+++rm -rf $TMP_DIR
+++mkdir -p $TMP_DIR
+
+# Stop container
+docker stop vaultwarden
+
+# Copy database
+--cp -r $DATA_DIR $BACKUP_DIR/backup-$DATE
+++cp -r $DATA_DIR $TMP_DIR/data
+
+# Start container again immediately
+docker start vaultwarden
+
+# Create archive
+++tar -czf $TMP_DIR/backup-$DATE.tar.gz -C $TMP_DIR data
+
+# Encrypt archive
+++age -r $(grep '^# public key:' /root/vaultwarden-backup.key | cut -d' ' -f4) \
+++    -o $BACKUP_DIR/backup-$DATE.tar.gz.age \
+++    $TMP_DIR/backup-$DATE.tar.gz
+
+# Remove unencrypted files
+++rm -rf $TMP_DIR
+++rm -f $BACKUP_DIR/*.tar.gz
+
+# Delete backups older than 14 days
+find $BACKUP_DIR -type f -mtime +14 -delete
+```
+save (press ctrl + 0, then enter, then ctrl + x)
+Make executable again just in case:
+```bash
+chmod +x /root/backup-vaultwarden.sh
+```

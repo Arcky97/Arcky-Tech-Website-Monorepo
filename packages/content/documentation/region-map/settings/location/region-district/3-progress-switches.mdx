@@ -1,0 +1,29 @@
+## ProgressSwitches
+
+This Setting allows you to assign a Game Switch to each district you defined in [RegionDistricts](#region-districts). The only requirement for this setting is that the [Progress Counter](../progress-counter) is enabled.
+
+<SetVer
+  v201={`PROGRESS_SWITCHES  = {
+    "Essen" => 106,
+    "North Essen" => 99,
+    "East Essen" => 100,
+    "South Essen" => 101,
+    "West Essen" => 102,
+    "Central Essen" => 103,
+    "Central Tiall" => 104
+  }`}
+  v211={`ProgressSwitches = {
+    "Essen" => 106,
+    "North Essen" => 99,
+    "East Essen" => 100,
+    "South Essen" => 101,
+    "West Essen" => 102,
+    "Central Essen" => 103,
+    "Central Tiall" => 104
+  }`}
+/>
+
+### Possible Values
+
+Each Item here must match with a [district name](#regiondistricts) followed by `=>` and a `Game Switch ID`.
+Once a district is 100% in progress, the assigned Game Switch will be set to `ON` so you can give an eventual in game reward.

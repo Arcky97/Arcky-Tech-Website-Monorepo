@@ -1,0 +1,49 @@
+<Header title="Mart Event Setup">
+  How to set up a Mart event.
+</Header>
+
+## Mart Event
+The script command **<Gr>hasn't changed</Gr>** — but as of **<Gr>v1.4.0</Gr>**, you can now provide *extra arguments*, which means the full command can get quite large.
+<br/>
+Here's how a basic setup would look inside an event:
+
+```ruby
+pbPokemonMart([
+  :POKEBALL, :GREATBALL, :ULTRABALL,
+  :ESCAPEROPE, 
+  :REPEL, :SUPERREPEL, :MAXREPEL, 
+  :GRASSMAIL, :FLAMEMAIL, 
+  :BUBBLEMAIL, :SPACEMAIL
+])
+```
+<ImageWithCaption src="/images/documentation/poke-market/Default Mart Event.png" caption="Default Mart Event"/>
+
+If your list of items gets too long, there's a much cleaner way to organize it using a helper method.
+<Callout type="hint">
+  You can define a method in the `000_PokeMarket_Settings_and_Setup.rb` file to clean up your event commands.
+</Callout>
+For example, at the bottom of that file, add:
+
+```ruby 
+def pbSomeMart
+  pbPokemonMart([
+    :POKEBALL, :GREATBALL, :ULTRABALL,
+    :ESCAPEROPE,
+    :REPEL, :SUPERREPEL, :MAXREPEL,
+    :GRASSMAIL, :FLAMEMAIL,
+    :BUBBLEMAIL, :SPACEMAIL 
+  ])
+end
+```
+Now inside your event, you only need to call:
+
+```ruby
+pbSomeMart
+```
+<Callout type="hint">
+  Using methods like this helps you:
+    - <Gr>Reuse item lists</Gr> across multiple events
+    - <Gr>Quickly update</Gr> all associated events by changing just one method 
+    - <Gr>Keep your event clean</Gr> and easier to manage 
+</Callout>
+<ImageWithCaption src="/images/documentation/poke-market/Shorter Mart Event.png" caption="Shorter Mart Event"/>

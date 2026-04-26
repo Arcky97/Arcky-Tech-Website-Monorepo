@@ -1,0 +1,24 @@
+## TimeBaseRegionMap
+
+Use this Setting if you want the Region Map to change depending on the in Game Time.
+
+<SetVer
+  v201="TIME_BASED_REGION_MAP = false"
+  v211="TimeBasedRegionMap = false"
+/>
+
+### Possible Values
+
+- `true` = A Time Specific Region Map Graphic **<Gr>will be used</Gr>**.
+- `false` = Default Region Map Graphic **<Rd>will be used</Rd>**.
+
+These are the supported naming:
+- `mapRegion(ID)Morning`
+- `mapRegion(ID)Day`
+- `mapRegion(ID)Afternoon`
+- `mapRegion(ID)Evening`
+- `mapRegion(ID)Night`
+
+<Callout type="hint">
+  The script will fallback to `mapRegion(ID)Day` if no speficer one is found. And to `mapRegion(ID)` (default one) if none at all is found. You'll be notified in that case with a message in the console.
+</Callout>

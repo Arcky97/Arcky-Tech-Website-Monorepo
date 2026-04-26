@@ -1,0 +1,96 @@
+<Header title="Bonus Items">
+  How to add Bonus Items for an Item.
+</Header>
+
+This feature allows you to set up Bonus Items for **any item**, not just Poké Balls (like the default in Essentials).
+<br/>Bonus Items apply to all shops where that item is sold.
+<br/>They are only granted if the purchased item is found in the `BonusItems` setting.
+<br/>
+---
+
+## Example 1 — Basic 
+
+A simple structure where you define a required amount to receive a bonus item.
+
+```ruby
+BonusItems = {
+  :POKEBALL => {
+    :amount => 10,
+    :item => :PREMIERBALL
+  }
+}
+```
+
+- `:POKEBALL` — The item you need to buy in quantity.
+  - `:amount => 10` — For every 10 Poké Balls purchased...
+  - `:item => :PREMIERBALL` — ...you get 1 Premier Ball.
+
+*Exactly like the default in Essentials.*
+
+<Callout type="hint">
+  <Bl>Only for Ball Items</Bl>: If the bought item is a Ball (like Great Ball), this rule will apply unless you define a specific entry for that item.
+</Callout>
+
+---
+<br/>
+## Example 2 — Randomized Multiple Items 
+
+An expanded version that allows random bonus selection, optionally with specific chances.
+
+```ruby
+BonusItems = {
+  :GREATBALL => {
+    :amount => 10,
+    :item => [
+      [:GREATBALL, 20],
+      :PREMIERBALL
+    ]
+  }
+}
+```
+
+- For every 10 Great Balls bought:
+  - 20% chance of getting another Great Ball
+  - 80% chance of getting a Premier Ball
+
+If no chances are given, the items are equally weighted.
+
+<Callout type="hint">
+  If only some items have defined chances, the remaining percentage is split evenly among the rest.
+</Callout>
+<br/>
+---
+
+## Example 3 — Advanced: Amount + Chances
+
+The most flexible setup: different item amounts and chances.
+
+```ruby
+BonusItems = {     
+  :ULTRABALL => {
+    :amount => 5,
+    :item => {
+      :PREMIERBALL => {
+        :amount => 3
+      },
+      :MASTERBALL => { 
+        :chance => 0.1 
+      },
+      :ULTRABALL => {
+        :amount => 2,
+        :chance => 5
+      }
+    }
+  }
+}
+```
+
+- For every 5 Ultra Balls bought:
+  - 0.1% chance to get a Master Ball
+  - 5% chance to get 2 Ultra Balls 
+  - Remaining chance to get a Premier Ball
+
+<Callout type="attention">
+  When using this format, each bonus item must have at least `:amount` or `:chance` defined.
+  <br/>If not, use the format shown in Example 2 instead.
+</Callout>

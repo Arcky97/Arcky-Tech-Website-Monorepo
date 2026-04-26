@@ -1,0 +1,19 @@
+## BuyItemAmountDiscount
+
+The `BuyItemAmountDiscount` determines what the NPC says when the player is prompted to choose how many of an item they want to buy **and a Discount has been applied to the Mart event**.
+
+<PMSpeeches speech="BuyItemAmountDiscount"/>
+
+To define the `BuyItemAmountDiscount`, use this structure:
+
+```ruby
+BuyItemAmountDiscount: [
+  "There's a discount on {1}, they're {2} instead of {3}. How many would you like?"
+]
+```
+### Placeholder Reference 
+- `{1}` = chosen item's name (plural) — e.g., `"Poké Balls"`
+- `{2}` = Discounted price — e.g., `"$180"`
+- `{3}` = Original price — e.g., `"$200"` (optional)
+
+<ImageWithCaption src="/images/documentation/poke-market/BuyItemAmountDiscount.png" caption="BuyItemAmountDiscount"/>

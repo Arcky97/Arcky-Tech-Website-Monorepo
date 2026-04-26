@@ -1,0 +1,16 @@
+## ToggleRegionSwitchButton
+
+Use this Setting to set which button needs to be pressed to change the current Region in the Pokedex Area Section. You can only change to visited Regions.
+
+```ruby 
+ToggleRegionSwitchButton = Input::ACTION 
+```
+
+### Possible Values 
+
+- `Input::ACTION` = The Game Button.
+- `nil` = disabled.
+
+<Callout type="hint">
+  You may set this to any game button except `USE` and `BACK` because this would mess with default functionallity of the Pokedex.
+</Callout>

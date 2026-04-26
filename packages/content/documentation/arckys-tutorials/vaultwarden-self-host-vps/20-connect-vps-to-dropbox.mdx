@@ -1,0 +1,17 @@
+## Connect the VPS to Dropbox
+Of course you can also use OneDrive, GoogleDrive or any online cloud service supporting rclone.
+Start setup:
+```bash
+rclone config
+```
+You'll see a menu, follow exactly:
+```bash
+n) New remove
+name> dropbox
+Storage> dropbox
+client_id> (press enter)
+client_secret> (press enter)
+Edit advanced config> n
+Use auto config> n
+```
+- paste the JSON token from your PC when prompted.

@@ -1,0 +1,39 @@
+## Example 4
+
+The 8th point is Natural Park:
+<ImageWithCaption src="/images/documentation/region-map/Natural Park-0.png" caption="Natural Park" align="left" size="tiny"/>
+This Location has a size of 1 by 1 tiles on the Region Map => 1 Point is defined:
+```
+Point = 16,8,Natural Park
+```
+Looking into the Highlight folder, we'll find a Graphic named "mapSize1x1Small.png" (1 tile wide and 1 tile high).
+- Graphics > Pictures > RegionMap > Highlights > Others for v20.1
+- Graphics > UI > Town Map > Highlights > Others for v21.1
+<br/>
+To make the Script use this Graphic when the Cursor is on this Point, we add "Size1x1Small" at the end of both line for this Point:
+```
+Point = 14,9,Natural Park,,,,,,Size1x1Small
+```
+Pay attention that before "Size1x1Small" I added 6 extra `,` as that would normally be where we define
+- a point of interest 
+- fly point (map id, x and y value)
+- a Switch.
+for this Point.
+Result when the Cursor is on this Location:
+<ImageWithCaption src="/images/documentation/region-map/Natural Park-1.png" caption="Natural Park Highlighted" align="left" size="tiny"/>
+Optionally, you can edit the highlight Graphic so it looks like this:
+<ImageWithCaption src="/images/documentation/region-map/Natural Park-2.png" caption="Natural Park Highlighted" align="left" size="tiny"/>
+The difference here might not be that noticable but it's a nice little detail.
+<br/>
+You can also add "NaturalParkSmall" instead of "Size1x1Small" (the Graphic name should then be "mapNaturalParkSmall.png"). 
+<br/>"Small" should still be included since the Graphic is only 16x16 in size and is in the "Others" folder. 
+<br/>This is because the Script add the offset by default, this won't be the case when "Small" is included.
+```
+Point = 16,8,Natural Park,,,,,,NaturalParkSmall
+```
+Alternativly, you could also make this Graphic 48x48 and name it "mapNaturalPark.png".
+```
+Point = 16,8,Natural Park,,,,,,NaturalPark
+```
+When changing or adding new Graphics, always recompile your game an extra time. I noticed this for myself too that it would say that a Graphic is missing while it's actually present in the folder.
+<br/>

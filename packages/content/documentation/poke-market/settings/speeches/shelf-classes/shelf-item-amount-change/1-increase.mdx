@@ -1,0 +1,21 @@
+## ShelfItemAmountIncrease
+
+The `ShelfItemAmountIncrease` determines what the player will be prompted with when they confirm a quantity **higher** than the amount of the same Item they previously added to the basket.
+
+<SHSpeeches speech="ShelfItemAmountIncrease"/>
+
+To define the `ShelfItemAmountIncrease`, use this structure:
+
+```ruby
+ShelfItemAmountLimit: [
+  "You added {1} {2} to your basket. Your bill was increased by {3}.", 
+  "{1} {2} have been added to your basket. Your bill was increased by {3}."
+]
+```
+### Placeholder Reference
+- `{1}` = The quantity added — e.g., `"5"` 
+- `{2}` = The chosen Item's name (singular or plural) — e.g., `"Potions"`
+- `{3}` = Total price of the added quantity — e.g., `"$1000"`
+
+<ImageWithCaption src="/images/documentation/poke-market/ShelfItemAmountIncrease 1.png" caption="ShelfItemAmountIncrease 1"/>
+<ImageWithCaption src="/images/documentation/poke-market/ShelfItemAmountIncrease 2.png" caption="ShelfItemAmountIncrease 2"/>

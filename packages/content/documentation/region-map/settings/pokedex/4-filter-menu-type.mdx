@@ -1,0 +1,17 @@
+## FilterMenuType
+
+Use this Setting to change the behavior of the filter menu.
+<br/> You can have:
+- both filters trigger by their respective button.
+- a choice menu to choose which filter to use.
+- the encounter type filter first, and then the location filter follow up.
+
+```ruby
+FilterMenuType = "default"
+```
+
+### Possible Values
+
+- `"default"` = Each filter is triggered separatly (unless one or both are disabled).
+- `"choice"` = A choice menu will be given with both (or only 1 filter if the other is disabled).
+- `"followUp"` = First you'll be given the Encounter Type filter and then the Location Filter.

@@ -1,0 +1,28 @@
+## ShelfItemAmountOvercharge
+
+The `ShelfItemAmountOvercharge` determines what the player will be prompted with when selecting an Item and there's an Overcharge applied to the Shelf event.
+
+<SHSpeeches speech="ShelfItemAmountOvercharge"/>
+
+To define the `ShelfItemAmountOvercharge`, use this structure:
+
+```ruby
+ShelfItemAmountOvercharge: [
+  "There's an overcharge {1} on {2}, how many would you like?"
+]
+```
+### Placeholder Reference
+- `{1}` = The quantity of overcharge (in percentage) — e.g., `"12%"`
+- `{2}` = The chosen Item's name (plural) — e.g., `"Potions"`
+- `{3}` = Overcharge price of the Item — e.g., `"$224"`
+- `{4}` = Original price of the Item — e.g., `"$200"`
+
+<ImageWithCaption src="/images/documentation/poke-market/ShelfItemAmountOvercharge 1.png" caption="ShelfItemAmountOvercharge 1"/>
+### Another Example
+
+```ruby
+ShelfItemAmountOvercharge: [
+  "There's an overcharge on {2}, how many would you like?"
+]
+```
+<ImageWithCaption src="/images/documentation/poke-market/ShelfItemAmountOvercharge 2.png" caption="ShelfItemAmountOvercharge 2"/>

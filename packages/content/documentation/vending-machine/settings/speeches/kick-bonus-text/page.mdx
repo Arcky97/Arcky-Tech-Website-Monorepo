@@ -1,0 +1,20 @@
+<Header title="KickBonusText">
+  How to use and define various KickBonusText speeches.
+</Header>
+
+The `KickBonusText` determines what the Vending Machine will say when kick is successful and bonus items dropped.
+<br/>
+As shown in the example below, you can include multiple variations. The script will randomly choose one line from the array each time the player interacts with the Vending Machine Event.
+<br/>
+To define the `KickBonusText`, use this structure:
+
+```ruby 
+KickBonusText: [
+  "Your kick made {1} more {2} drop down!"
+]
+```
+### Placeholder Reference
+- `{1}` = amount of kick bonus items  — e.g., `"1"`
+- `{2}` = bonus item's name (plural) — e.g., `"Potions"`
+
+<ImageWithCaption src="/images/documentation/vending machine/KickBonusText.png" caption="KickBonusText"/>

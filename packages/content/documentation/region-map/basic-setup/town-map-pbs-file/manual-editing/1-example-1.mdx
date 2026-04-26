@@ -1,0 +1,28 @@
+## Example 1
+
+The 1st point is Lappet Town.
+<ImageWithCaption src="/images/documentation/region-map/LappetTown-0.png" caption="Lappet Town" align="left" size="tiny"/>
+This Location has a size of 1 by 1 tiles on the Region Map => 1 Point is defined:
+```
+Point = 13,12,Lappet Town,Oak's Lab,2,8,8
+```
+Looking into the Highlight folder, we'll find a Graphic named "mapSize1x1.png"
+- Graphics > Pictures > RegionMap > Highlights > Others for v20.1
+- Graphics > UI > Town Map > Highlights > Others for v21.1
+<br/>
+To make the Script use this Graphic when the Cursor is on this Point, we add "Size1x1" at the end of this line for this Point:
+```
+Point = 13,12,Lappet Town,Oak's Lab,2,8,8,,Size1x1
+```
+Pay attention that before "Size1x1" I added an extra `,` as that would normally be where we define a Switch for that Point.
+Result when the Cursor is on this Location:
+<ImageWithCaption src="/images/documentation/region-map/LappetTown-1.png" caption="Lappet Town Highlighted" align="left" size="tiny"/>
+Result when this Location hasn't been visited yet:
+<ImageWithCaption src="/images/documentation/region-map/LappetTown-2.png" caption="Lappet Town Unvisited" align="left" size="tiny"/>
+You can also add "LappetTown" instead of "Size1x1" (the Graphic name should then be "mapLappetTown.png").
+Image (mapLappetTown.png) missing.
+```
+Point = 13,12,Lappet Town,Oak's Lab,2,8,8,,LappetTown
+```
+When changing or adding new Graphics, always recompile your game an extra time. I noticed this for myself too that it would say that a Graphic is missing while it's actually present in the folder.
+<br/>

@@ -1,0 +1,50 @@
+## Example 4
+
+Let's take a look at the Quest8 Data that comes by default with the Quest Plugin:
+
+```ruby
+Quest8 = {
+  :ID => "8",
+  :Name => "These boots were made for walking",
+  :QuestGiver => "Musician #1",
+  :Stage1 => "Listen to the musician's, uhh, music.",
+  :Stage2 => "Find the source of the power outage.",
+  :Location1 => "nil",
+  :Location2 => "Celadon City Sewers",
+  :QuestDescription => "A musician was feeling down because he thinks no one likes his music. I should help him drum up some business."
+}
+```
+This Quest has just like in Example 2 and 3, more than 1 Stage. Just like Example 3, we'll only add the coordinates for 1 Stage.
+
+```ruby 
+:Map2 => [0, 13, 10]
+```
+
+The edited Data for Quest8 would now look like this:
+
+```ruby 
+Quest8 = {
+  :ID => "8",
+  :Name => "These boots were made for walking",
+  :QuestGiver => "Musician #1",
+  :Stage1 => "Listen to the musician's, uhh, music.",
+  :Stage2 => "Find the source of the power outage.",
+  :Location1 => "nil",
+  :Location2 => "Celadon City Sewers",
+  :Map2 => [0, 13, 10],
+  :QuestDescription => "A musician was feeling down because he thinks no one likes his music. I should help him drum up some business."
+}
+```
+
+As explained in Example 2, there'll only be an Icon for Stage 2 as there's no `:Map` or `:Map1` added.
+
+### Result in Game for Stage 1:
+<ImageWithCaption src="/images/documentation/region-map/Quest Icons and Preview 12.png" align="left" caption="Quest8 Stage 1"/>
+There'll be no Icon for Stage 1 and Previewing Quest Details will also not be possible. (The orange Icon you see is from Quest2 Stage 3.)
+
+### Result in Game for Stage 2:
+<ImageWithCaption src="/images/documentation/region-map/Quest Icons and Preview 13.png" align="left" caption="Quest 8 Stage 2"/>
+<ImageWithCaption src="/images/documentation/region-map/Quest Icons and Preview 14.png" align="left" caption="Quest 8 Stage 2 Preview"/>
+<Callout type="hint">
+  As you might notice, the Quest Title is a bit too long to fit on the UI. It's recommended to keep Quest Titles short.
+</Callout>

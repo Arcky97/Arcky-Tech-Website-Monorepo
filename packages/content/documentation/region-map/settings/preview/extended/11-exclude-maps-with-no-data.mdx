@@ -1,0 +1,18 @@
+## ExcludeMapsWithNoData
+
+Use this Setting to whether or not exclude maps with no available Data (No wild encounter, no trainers and no items) to be shown on the Extended Preview Main Pages.
+
+<SetVer
+  v201="EXCLUDE_MAPS_WITH_NO_DATA = false"
+  v211="ExcludeMapsWithNoData = false"
+/>
+
+### Possible Values
+
+- `true` = Game Maps that would display "No data for this location" will **<Gr>be hidden</Gr>** on the Extended Preview.
+- `false` = All Game Maps will **<Rd>be shown</Rd>** on the Extended Preview.
+
+<Callout type="hint">
+  - You can exclude a Game Map from being hidden by giving it the `enExtPrev` flag in the map_metadata.txt PBS file. (Only when **ExcludeMapsWithNoData** is `true`.)
+  - You can exclude a Game Map from being shown by giving it the `disExtPrev` flag in the map_metadata.txt PBS file. (Only when **ExcludeMapsWithNoData** is `false`.)
+</Callout>

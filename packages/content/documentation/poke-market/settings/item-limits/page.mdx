@@ -1,0 +1,63 @@
+<Header title="Item Limits">
+  How to enable and use Item Limits.
+</Header>
+
+This plugin allows you to limit how many of a specific item can be purchased from a Mart — and define how often that stock refreshes.
+<br/>
+You can control the **restock frequency** using one of these options (case-insensitive):
+<br/>
+<Table
+  headers={["Setting", "Time"]}
+  rows={[
+    [<code>"daily"</code>, "every day"],
+    [<code>"2daily"</code>, "every 2 days"],
+    [<code>"weekly"</code>, "every week"],
+    [<code>"random"</code>, "between 1 and 7 days"],
+    [<code>"never"</code>, "no restocking"]
+  ]}
+/>
+
+<br/>
+---
+## Example Setup 
+
+Here's a Mart event that uses various item limits:
+
+```ruby
+def pbSomeMart
+  pbPokemonMart(["Daily",
+    [:POKEBALL, 15, 20], [:GREATBALL, 10, 15], [:ULTRABALL, 5, 10],
+    [:POTION, 10, 15], [:SUPERPOTION, 8, 12], [:HYPERPOTION, 5, 8], [:MAXPOTION, 2, 5],
+    :FULLRESTORE, [:REVIVE, 1, 4],
+    [:ANTIDOTE, 5], :PARALYZEHEAL, :AWAKENING, :BURNHEAL, :ICEHEAL,
+    :FULLHEAL,
+    :REPEL, :SUPERREPEL, :MAXREPEL,
+    :ESCAPEROPE
+  ], useCat: true)
+end
+```
+<br/>
+---
+
+## How it works
+
+- Each **limited item** must be wrapped in an array: `[itemID, min, max (optional)]`.
+- If you give both `min` and `max`, the available quantity is chosen randomly between those numbers.
+- If you only give `min`, then the limit (for that item) is always exactly that number.
+- If you want an **unlimited** item, just list it normally (like `:FULLRESTORE` or `:ESCAPEROPE`).
+<br/>
+---
+
+### Visual Example
+
+<ImageWithCaption src="/images/documentation/poke-market/Item Limit Max Buyable.png" caption="Item Limit Max Buyable" align="left"/>
+The Screenshot above shows the maximum we can buy — in this case, 11.
+<br/>Once you reach this number...
+<ImageWithCaption src="/images/documentation/poke-market/Item Limit Out of Stock.png" caption="Item Limit Out of Stock" align="left"/>
+...the item becomes unavailable and shows an "Out of Stock" message:
+<ImageWithCaption src="/images/documentation/poke-market/Item Limit Out of Stock Message.png" caption="Item Limit Out of Stock Message" align="left"/>
+The message tells the player how long to wait for a restock, depending on the refresh setting you used (`"daily"`, `"2daily"`, etc.).
+
+<Callout type="hint">
+  To instantly restock **all Marts** (useful for testing), run this in a script: `forcePokemonMartRefresh`
+</Callout>

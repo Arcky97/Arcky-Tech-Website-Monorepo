@@ -1,0 +1,20 @@
+<Header title="ItemBonusDropText">
+  How to use and define various ItemBonusDropText speeches.
+</Header>
+
+The `ItemBonusDropText` determines what the Vending Machine will say when 1 or more bonus items dropped down.
+<br/>
+As shown in the example below, you can include multiple variations. The script will randomly choose one line from the array each time the player interacts with the Vending Machine Event.
+<br/>
+To define the `ItemBonusDropText`, use this structure:
+
+```ruby 
+ItemBonusDropText: [
+  "Hooray! {1} extra {2} dropped down!"
+]
+```
+### Placeholder Reference
+- `{1}` = Amount of bonus items — e.g., `1`
+- `{2}` = bonus item's name (singular or plural) — e.g., `Potion`
+
+<ImageWithCaption src="/images/documentation/vending machine/ItemBonusDropText.png" caption="ItemBonusDropText"/>

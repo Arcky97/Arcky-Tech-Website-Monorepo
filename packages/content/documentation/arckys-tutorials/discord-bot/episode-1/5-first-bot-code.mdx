@@ -1,0 +1,21 @@
+## First Bot code
+
+Add this to your index.js file.
+```JavaScript:src/index.js
+import 'dotenv/config';
+import { Client, GatewayIntentBits, Events } from 'discord.js';
+
+const client = new Client({
+  intents: [GatewayIntentBits.Guilds]
+});
+
+client.once(Events.clientReady, readyClient => {
+  console.log(`Logged in as ${readyClient.user.tag}`);
+});
+
+client.login(process.env.TOKEN);
+```
+Run:
+```bash
+node src/index.js
+```

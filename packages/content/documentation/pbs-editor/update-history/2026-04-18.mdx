@@ -1,0 +1,36 @@
+## v1.3.0: Keyboard Shortcuts and Improvements 
+
+### New Features
+- Added Keyboard Shortcuts:
+  - `Ctrl + t`: Opens a new Entry Tab.
+  - `Ctrl + w`: Closes the Active Entry Tab.
+  - `Ctrl + Tab` or `Ctrl + PgDn`: Jumps to the next Opened Entry Tab.
+  - `Ctrl + Shift + Tab` or `Ctrl + PgUp`: Jumps to the previous Opened Entry Tab.
+  - `Ctrl + 1` through `Ctrl + 8`: Jump to a specific tab.
+  - `Ctrl + 9`: Jump to the rightmost tab.
+  - `Ctrl + s`: Save the Active Entry.
+  - `Ctrl + i`: Open the Import Entries window.
+  - `Ctrl + a`: Save all Entries (if more than 1 entry has changes).
+  - `Ctrl + r`: Reset the Active Entry's changes.
+  - `Ctrl + d`: Delete the Active Entry.
+- Added New Page Navigation Buttons on the bottom of each Editor Page:
+  - `<<`: First Entry.
+  - `<`: Previous Entry.
+  - `>`: Next Entry.
+  - `>>`: Last Entry.
+- Added Keyboard Shortcuts for these new Page Navigation Buttons as well:
+  - `Ctrl + ArrowRight`: Next Entry.
+  - `Ctrl + ArrowLeft`: Previous Entry.
+  - `Ctrl + ArrowUp` or `Ctrl + Home`: First Entry.
+  - `Ctrl + ArrowDown` or `Ctrl + End`: Last Entry.
+
+### Improvements
+- The Encounter Editor Page will now remember for each entry tab the selected Encounter Type.
+- The Trainer Editor Page will now remember for each entry tab the selected Trainer's Pokémon to edit.
+
+### Bug Fixes:
+- Fixed a crash when clicking the dropdown in the Trainer Type Editor.
+- Fixed a Visual Glitch on the Item Editor Page.
+- Fixed several Visual Glitches on the Settings Modal.
+- Fixed a bug on the Trainer Editor Page when editing a trainers pokemon that is not the first one in the table, it would jump to the first one each time.
+- Fixed a bug when creating and saving a new entry, it would still not be recognized as an existing entry after saving and telling you it already exists.

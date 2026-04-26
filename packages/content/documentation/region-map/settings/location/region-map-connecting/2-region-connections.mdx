@@ -1,0 +1,40 @@
+## RegionConnections
+
+This Setting may be used to setup the Region Connecting. It does require an additional Region Graphics where the Regions you want to connect are already placed as you want them to. The Region Connecting Setting only converts the Map Position with the given data in this Setting.
+
+```ruby
+RegionConnections = {
+  "Region2" => {
+    0 => {
+      :beginX => 30,
+      :endX => 61,
+      :beginY => 0,
+      :endY => 25
+    },
+    1 => {
+      :beginX => 0,
+      :endX => 29,
+      :beginY => 0,
+      :endY => 25
+    }
+  }
+}
+```
+
+### Possible Values 
+
+It is very likely that you'll be adding more than 1 Region but if that would be the case, then each Region needs to contain the following:
+- `Region2` = The Merged Region Graphic name.
+  - `0` = The Region ID of the first Region.
+    - `:beginX => 30` = The Map X Position the Region will start.
+    - `:endX => 61` = The Map X Postion the Region will end.
+    - `:beginY => 0` = The Map Y Position the Region will start.
+    - `:endY => 25` = The Map Y Position the Region will end.
+  - `1` = The Region ID of the second Region.
+
+According to this example, the Region with ID 1 will remain on it's normal position and Region with ID 0 will be placed on the right on the same Y position.
+<Callout type="hint">
+  If you connect Regions vertically, then it's recommended to make sure all Regions have the same Width.
+  <br/>If you connect Regions horizontally, then it's recommended to make sure all Regions have the same Height.
+  <br/>If that's not the case then you'll see a black area on the map even though the cursor will be prevented from going there.
+</Callout>

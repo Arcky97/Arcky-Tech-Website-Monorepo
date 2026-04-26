@@ -1,4 +1,4 @@
-export const DocsHeader = ({title, children}: {title:string; children?: React.ReactNode;}) => {
+export function DocsHeader ({title, children}: {title:string; children?: React.ReactNode;}) {
   return (
     <header className="text-white text-center">
       <h1 className="head1">{title}</h1>

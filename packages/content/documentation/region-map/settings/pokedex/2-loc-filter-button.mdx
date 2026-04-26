@@ -1,0 +1,16 @@
+## ToggleLocFilterButton
+
+Use this Setting to set which button needs to be pressed to activate the Location Filter function on the Pokedex Area Section.
+
+```ruby 
+ToggleLocFilterButton = Input::SPECIAL
+```
+
+### Possible Values 
+
+- `Input::SPECIAL` = The Game Button.
+- `nil` = disabled
+
+<Callout type="hint">
+  You may set this to any game button except `USE`, `BACK` and the button you've set for `ToggleRegionSwitchButton`.
+</Callout>

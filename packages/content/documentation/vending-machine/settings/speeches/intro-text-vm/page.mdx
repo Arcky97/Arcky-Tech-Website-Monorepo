@@ -1,0 +1,29 @@
+<Header title="IntroText">
+  How to use and define various IntroText speeches.
+</Header>
+
+The `IntroText` determines what the Vending Machine will say when you first talk to it (i.e., at the start of the interaction).
+<br/>
+As shown in the example below, you can include multiple variations. The script will randomly choose one line from the array each time the player interacts with the Vending Machine Event.
+<br/>
+To define the `IntroText`, use this structure:
+
+```ruby 
+IntroText: [
+  "Oh look, it's arcky's new \\c[10]Vending Machine\\c[0]!", 
+  "Beep Boop, welcome customer. Choose the Item you would like to buy."
+]
+```
+
+<EmblaCarousel
+  slides={[
+    "documentation/vending machine/IntroText 1",
+    "documentation/vending machine/IntroText 2"
+  ]}
+  captions={[
+    "IntroText Example 1",
+    "IntroText Example 2"
+  ]}
+  options={{ loop: true }}
+/>
+<br/>

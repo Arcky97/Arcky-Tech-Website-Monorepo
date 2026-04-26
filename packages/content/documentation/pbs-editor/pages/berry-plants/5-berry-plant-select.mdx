@@ -1,0 +1,17 @@
+## Berry Plant Selection
+
+<InputSelect
+  label="Current Berry Plant:"
+  width={250}
+  initValue="CHERIBERRY"
+  placeholder="Select Berry Plant"
+  options={["CHERIBERRY", "CHESTOBERRY", "PECHABERRY", "RAWSTBERRY", "ASPEARBERRY"]
+    .map(option => ({ label: option, value: option }))
+  }
+/>
+
+This dropdown lists all available <Gr>Berry Plant entries</Gr> for the currently selected file, identified by their ID.
+<br/>
+In the PBS file, these IDs are defined using the format <Yl>[xxx]</Yl>. For improved readability, the editor displays them <Gr>without brackets</Gr> in the interface.
+<br/>
+Despite this visual simplification, the brackets are still <Rd>required</Rd> in the actual PBS structure. When saving, the editor will automatically restore the correct <Yl>[xxx]</Yl> format, even though it is not shown within the editor itself.

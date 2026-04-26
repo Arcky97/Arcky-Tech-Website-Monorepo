@@ -1,0 +1,38 @@
+<Header title="Species Classes">
+  List of all species Class parameters.
+</Header>
+
+A new Setting (as of v1.6.0) and similar to Seller and Shelf Classes is the Species Classes. By creating your own Species Classes, you can make the NPC's selling Species sound and act just the way you like. 
+<br/>Again here you don't need to add all parameters, those you don't add will get the default value instead.
+<br/>
+Adding a Species Class to the event method is really easy as it's the same as you would do for the Seller and Shelf class.
+
+```ruby
+def pbSomeSpeciesMart
+  pbSpeciesMart(
+    "pokemonStore", speech: "PokeSeller", discount: 27, currency: "money"
+  )
+end
+```
+For the Species Class itself, these are the parameters that you can use:
+
+```ruby
+PokeSeller = {
+  # Text when talking to seller.
+  IntroSpecies: ["Hey you! Want to see my exclusive offer?", "Hello, are you interested in my exclusive offer perhaps?"],
+  # Text when talking to seller and selected species have already been bought. {1} = species name
+  SpeciesOutOfStock: ["I don't have {1} anymore, you already bought it...", "You want another {1}? Well aren't you satisfied with 1 already?"],
+  # Text when selecting species to buy. {1} = species name, {2} = species price
+  BuySpecies: ["So you want {1}? That'll be {2}"],
+  # Text when you don't have enough money to buy selected species. {1} = currency, {2} = species name
+  NotEnoughMoney: ["You don't have enough {1} to buy {2}", "Please come back when you have enough {1}."],
+  # Text when you have no more room in your PC Storage. {1} = species name
+  NoRoomInStorage: ["Your PC Storage is full, you can't buy {1}"],
+  # Text when buying species. {1} = species name
+  SpeciesThanks: ["Thank you for your purchase, we hope you'll take good care for {1}."],
+  # Text when you have bought all species in stock.
+  EverythingOutOfStock: ["Amazing, you bought all my exclusive offers, I'm really rich now thanks to you!"],
+  # Text when exiting.
+  OutroSpecies: ["Come again and I might have more exclusive offers for you."]
+}
+```

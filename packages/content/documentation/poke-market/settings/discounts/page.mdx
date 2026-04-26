@@ -1,0 +1,230 @@
+<Header title="Discounts">
+  How to add an apply discounts to items.
+</Header>
+
+This feature allows you to apply discounts to all items in a store.
+<br/>Currently, there's no way to exclude specific items - but that migiht change in the future.
+
+```ruby
+def pbSomeMart
+  pbPokemonMart([
+    :POKEBALL, :GREATBALL, :ULTRABALL,
+    :POTION, :SUPERPOTION, :HYPERPOTION, :MAXPOTION,
+    :FULLRESTORE, :REVIVE,
+    :ANTIDOTE, :PARALYZEHEAL, :AWAKENING, :BURNHEAL, :ICEHEAL,
+    :FULLHEAL,
+    :REPEL, :SUPERREPEL, :MAXREPEL,
+    :ESCAPEROPE
+  ], useCat: true, discount: 27)
+end
+```
+
+To enable discounts, add `discount:` followed by a Game Variable ID.
+<br/>
+You can set up discounts in three ways:
+
+---
+
+## First way - Game Variable + Array
+
+Use a Game Variable and assign it an array of percentage values (e.g., `4` = 4% discount).
+
+```ruby
+Discounts = {
+  27 => [0, 1, 4, 7, 11]
+}
+```
+- `27` is the Game Variable ID.
+- The array values are used base on the variable's value (treated as an index).
+
+<Table
+  headers={["Game Variable", "Discount Used"]}
+  rows={[
+    [0, "0%"],
+    [1, "-1%"],
+    [2, "-4%"],
+    [3, "-7%"],
+    [4, "-11%"]
+  ]}
+/>
+
+<EmblaCarousel
+  slides={[
+    "documentation/poke-market/ItemDiscount Ex1-1",
+    "documentation/poke-market/ItemDiscount Ex1-2",
+    "documentation/poke-market/ItemDiscount Ex1-3",
+    "documentation/poke-market/ItemDiscount Ex1-4",
+    "documentation/poke-market/ItemDiscount Ex1-5"
+  ]}
+  captions={[
+    "0% Discount",
+    "1% Discount",
+    "4% Discount",
+    "7% Discount",
+    "11% Discount" 
+  ]}
+  options={{ loop: true }}
+/>
+
+<Callout type="hint">
+  Each value in the array is accessed by index. If the variable is set too high and the index doesn't exist, you'll be warned in-game.
+</Callout>
+
+---
+
+## Second way - Item + Game Variable(s)
+
+You can combine an **item requirement** with one or more **Game Variables**.
+
+```ruby
+Discounts = {
+  :COUPONA => { 
+    26 => [0, 3, 6, 8, 10],
+    28 => [0, -2, -5] 
+  },
+}
+```
+
+- Player must have the `:COUPONA` item.
+- Each key (`26`, `28`) is a Game Variable ID.
+- Negative values are allowed - they <Bl>result</Bl> is **overcharges**.
+<br/>
+### Example for Variable 26:
+
+<Table
+  headers={["Game Variable", "Discount Used"]}
+  rows={[
+    [0, "0%"],
+    [1, "-3%"],
+    [2, "-6%"],
+    [3, "-8%"],
+    [4, "-10%"]
+  ]}
+/>
+
+<EmblaCarousel 
+  slides={[
+    "documentation/poke-market/ItemDiscount Ex2-1",
+    "documentation/poke-market/ItemDiscount Ex2-2",
+    "documentation/poke-market/ItemDiscount Ex2-3",
+    "documentation/poke-market/ItemDiscount Ex2-4",
+    "documentation/poke-market/ItemDiscount Ex2-5"
+  ]}
+  captions={[
+    "0% Discount",
+    "3% Discount",
+    "6% Discount",
+    "8% Discount",
+    "10% Discount"
+  ]}
+  options={{ loop: true }}
+/>
+<br/>
+### Example for Variable 28 (Overcharges):
+
+<Table
+  headers={["Game Variable", "Overchage Used"]}
+  rows={[
+    [0, "0%"],
+    [1, "+2%"],
+    [2, "+5%"]
+  ]}
+/>
+
+<EmblaCarousel
+  slides={[
+    "documentation/poke-market/ItemDiscount Ex3-1",
+    "documentation/poke-market/ItemDiscount Ex3-2",
+    "documentation/poke-market/ItemDiscount Ex3-3"
+  ]}
+  captions={[
+    "0% Overcharge",
+    "2% Overcharge",
+    "5% Overcharge"  
+  ]}
+  options={{ loop: true }}
+/>
+<br/>
+
+You can  combine discount and overcharge values - just be careful not to duplicate the same Game Variable ID under the same item, or you may get unpredictable results.
+<br/>
+### Example - Scaling Discounts and Overcharges
+
+```ruby
+Discounts = {
+  29 => [10, 8, 6, 4, 2, 0, -2, -4, -6, -8, -10, -12]
+}
+```
+Or with an item requirement:
+
+```ruby
+Discounts = {
+  :COUPONB => {
+    29 => [10, 8, 6, 4, 2, 0, -2, -4, -6, -8, -10, -12]
+  }
+}
+```
+
+This lets you gradually reduce a player's discount the more they do something (e.g. blacking out), and eventually start overcharging.
+<br/>
+- Player must have the `:COUPONB` item.
+- Each key (`29`) is a Game Variable ID.
+<br/>
+<Table
+  headers={["Game Variable", "Discount/Overcharge Used"]}
+  rows={[
+    [0, "-10%"],
+    [1, "-8%"],
+    [2, "-6%"],
+    [3, "-4%"],
+    [4, "-2%"],
+    [5, "0%"],
+    [6, "+2%"],
+    [7, "+4%"],
+    [8, "+6%"],
+    [9, "+8%"],
+    [10, "+10%"],
+    [11, "+12%"]
+  ]}
+/>
+
+<EmblaCarousel
+  slides={[
+    "documentation/poke-market/ItemDiscount Ex4-1",
+    "documentation/poke-market/ItemDiscount Ex4-2",
+    "documentation/poke-market/ItemDiscount Ex4-3",
+    "documentation/poke-market/ItemDiscount Ex4-4",
+    "documentation/poke-market/ItemDiscount Ex4-5",
+
+  ]}
+  captions={[
+    "10% Discount",
+    "8% Discount",
+    "6% Discount",
+    "4% Discount",
+    "2% Discount",
+    "0% Discount",
+    "2% Overcharge",
+    "4% Overcharge",
+    "6% Overcharge",
+    "8% Overcharge",
+    "10% Overcharge",
+    "12% Overcharge"
+  ]}
+  options={{ loop: true }}
+/>
+
+<br/>
+---
+
+## Third way - Direct Value Use 
+
+This method skips the array setup and uses the Game Variable's **actual value** as the discount or overchage.
+<br/>
+So `discount: 30` will directly pull the value of Game Variable 30.
+<br/>
+- 10 = 10% discount 
+- -5 = 5% overcharge 
+- 0 = no change 
+<br/>
+This gives you more flexibility and lets you reuse the same variable across different Mart events.

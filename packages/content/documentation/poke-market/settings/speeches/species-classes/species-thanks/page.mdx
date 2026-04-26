@@ -1,0 +1,18 @@
+<Header title="SpeciesThanks">
+  How to use and define SpeciesThanks speeches.
+</Header>
+
+The `SpeciesThanks` determines what the NPC says when the player has bought a Species.
+
+<SPSpeeches speech="SpeciesThanks"/>
+
+To define the `SpeciesThanks`, use this structure:
+
+```ruby
+SpeciesThanks: [
+  "Thank you for your purchase, we hope you'll take good care for {1}."
+]
+```
+### Placeholder Reference
+- `{1}` = The chosen Species' name — `"Growlithe"`
+<ImageWithCaption src="/images/documentation/poke-market/SpeciesThanks.png" caption="SpeciesThanks"/>

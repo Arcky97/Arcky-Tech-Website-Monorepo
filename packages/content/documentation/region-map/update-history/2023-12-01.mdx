@@ -1,0 +1,15 @@
+## v1.4.0: Support for any Game Screen Size
+
+### New Feature
+- Added support so that the Script works with any Screen Size you ahd set for your Game. The Text and Graphics will automatically adjust their position. Except for the UI image.
+<br/>
+### Bug Fixes
+- Fixed a bug when the only the Region Map Height is bigger than the UI Height that this wouldn't activate Map Scrolling in the Pokedex Area Section.
+- Fixed a bug when the Region Map is smaller than the UI, you can still trigger the Scrolling in the Pokedex Area Section.
+- Fixed a bug when the Setting to expand the Region Map behind the UI is set to `true`, you can trigger the Scrolling when the Region Map is still smaller than the Screen Size in this case.
+- Fixed a bug with the Region Map not properly Centering based on the Player's Position on the Region Map and Pokedex Area Section.
+<br/>
+### New Settings
+- Added a new Setting where you can have the Region Map expand behind the UI, but the Cursor is still limited inside the UI Area mean for the Region Map.
+- Added a new Setting where you can choose for which Region Map you want the Player's Icon Graphic being displayed on the Region Map.
+- Added a new Setting where you can have the Cursor being centered on the Region Map when opened from a Game Map that has no Map Position defined.

@@ -1,0 +1,39 @@
+## OutroText + Day
+
+It's possible to define an `OutroText` that changes depending on the **current day** in the game. Just like the default `OutroText`, you can include mutliple lines for variation, adn the script will randomly select one.
+<br/>
+Supported keys include:
+<br/>
+- `OutroTextMonday`
+- `OutroTextTuesday`
+- `OutroTextWednesday`
+- `OutroTextThursday`
+- `OutroTextFriday`
+- `OutroTextSaturday`
+- `OutroTextSunday`
+<br/>
+- `OutroTextWeek` applies to Money through Friday.
+- `OutroTextWeekend` applies to Saturday and Sunday.
+
+<br/>
+Defining `OutroTextWeek` looks like this:
+
+```ruby
+OutroTextWeek: [
+  "Thank you, come back tomorrow when we have new items."
+]
+```
+
+<ImageWithCaption src="/images/documentation/poke-market/OutroTextWeek.png" caption="OutroTextWeek" align="center"/>
+Similarly, you can define speech for specific days. Here's an example for Friday:
+
+```ruby
+OutroTextFriday: [
+  "Thank you and Happy Weekend to you as well."
+]
+```
+This will be used by the script when the in-game day is Friday:
+<ImageWithCaption src="/images/documentation/poke-market/OutroTextFriday.png" caption="OutroTextFriday" align="center"/>
+
+### Fallback Behavior 
+See [IntroText + Day](intro-text#2-day) for the full explanation of the Fallback Behavior as well as a Simplified Breakdown.

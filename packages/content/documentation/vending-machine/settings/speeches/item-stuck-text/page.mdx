@@ -1,0 +1,21 @@
+<Header title="ItemStuckText">
+  How to use and define various ItemStuckText speeches.
+</Header>
+
+The `ItemStuckText` determines what the Vending Machine will say when (if only stuckChance is given (no kickChange)) x amount of items are stuck.
+<br/>
+As shown in the example below, you can include multiple variations. The script will randomly choose one line from the array each time the player interacts with the Vending Machine Event.
+<br/>
+To define the `ItemStuckText`, use this structure:
+
+```ruby 
+ItemStuckText: [
+  "Oh no! {1} of your {2} got stuck worth {3}!"
+]
+```
+### Placeholder Reference
+- `{1}` = amount of items stuck  — e.g., `"2"`
+- `{2}` = bought item's name (plural) — e.g., `"Potions"`
+- `{3}` = total price of stuck items — e.g., `"$400"`
+
+<ImageWithCaption src="/images/documentation/vending machine/ItemStuckText.png" caption="ItemStuckText"/>

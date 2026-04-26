@@ -1,0 +1,20 @@
+<Header title="ChoiceKickText">
+  How to use and define various ChoiceKickText speeches.
+</Header>
+
+The `ChoiceKickText` determines what the Vending Machine will say when (only if stuckChance and kickChance are given) being asked to kick the machine to get the stuck items out (eventually).
+<br/>
+As shown in the example below, you can include multiple variations. The script will randomly choose one line from the array each time the player interacts with the Vending Machine Event.
+<br/>
+To define the `ChoiceKickText`, use this structure:
+
+```ruby 
+ChoiceKickText: [
+  "Oh no! {1} of your {2} got stuck! Do you want to kick the machine?"
+]
+```
+### Placeholder Reference
+- `{1}` = Amount of items stuck — e.g., `2`
+- `{2}` = item's name (plural)  — e.g., `"Potions"`
+
+<ImageWithCaption src="/images/documentation/vending machine/ChoiceKickText.png" caption="ChoiceKickText"/>

@@ -1,0 +1,25 @@
+<Header title="CategoryText">
+  How to use and define CategoryText speeches.
+</Header>
+
+The `CategoryText` defines what the NPC will say after thet player selects the **Buy** option (a.k.a. `MenuTextBuy`).
+<br/>
+This only applies when the **Category Setting** is enabled. For more details, see the  [Item Categories](/documentation/poke-market/settings/item-categories) section.
+<br/>
+---
+
+Using the `CategoryText` will trigger a choice menu that displays all available item categories.
+
+<PMSpeeches speech="CategoryText"/>
+
+To define the `CategoryText`, use this structure:
+
+```ruby
+CategoryText: [
+  "We listed our Items in Categories for you.",
+  "Exclusively for you, these are the Categories we have to offer."
+]
+```
+
+<ImageWithCaption src="/images/documentation/poke-market/CategoryText 1.png" caption="CategoryText 1" align="center"/>
+<ImageWithCaption src="/images/documentation/poke-market/CategoryText 2.png" caption="CategoryText 2" align="center"/>

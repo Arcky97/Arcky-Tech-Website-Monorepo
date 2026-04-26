@@ -1,0 +1,49 @@
+## Example 3
+
+Let's take a look at the Quest6 Data that comes by default with the Quest Plugin:
+
+```ruby
+Quest6 = {
+  :ID => "6",
+  :Name => "The journey begins",
+  :QuestGiver => "Professor Oak",
+  :Stage1 => "Deliver the parcel to the Pokémon Mart in Viridian City.",
+  :Stage2 => "Return to the Professor.",
+  :Location1 => "Viridian City",
+  :Location2 => "nil",
+  :QuestDescription => "The Professor has entrusted me with an important delivery for the Viridian City Pokémon Mart. This is my first task, best not mess it up!",
+  :RewardString => "nil"
+}
+```
+This Quest has just like in Example 2, more than 1 Stage. It only serves as an example, so it doesn't need to make that much sense as we'll add coordinates for the first Stage.
+
+```ruby
+:Map1 => [1, 13, 16]
+```
+
+The edited Data for Quest6 would now look like this:
+
+```ruby
+Quest6 = {
+  :ID => "6",
+  :Name => "The journey begins",
+  :QuestGiver => "Professor Oak",
+  :Stage1 => "Deliver the parcel to the Pokémon Mart in Viridian City.",
+  :Stage2 => "Return to the Professor.",
+  :Location1 => "Viridian City",
+  :Location2 => "nil",
+  :Map1 => [1, 13, 16],
+  :QuestDescription => "The Professor has entrusted me with an important delivery for the Viridian City Pokémon Mart. This is my first task, best not mess it up!",
+  :RewardString => "nil"
+}
+```
+
+As explained in Example 2, there'll only be an Icon for Stage 1 as there's no `:Map` or `:Map2` added.
+
+### Result in Game for Stage 1:
+<ImageWithCaption src="/images/documentation/region-map/Quest Icons and Preview 9.png" align="left" caption="Quest 6 Stage 1"/>
+<ImageWithCaption src="/images/documentation/region-map/Quest Icons and Preview 10.png" align="left" caption="Quest 6 Stage 1 Preview"/>
+
+### Result in Game for Stage 2:
+<ImageWithCaption src="/images/documentation/region-map/Quest Icons and Preview 11.png" align="left" caption="Quest 6 Stage 2"/>
+There'll be no Icon for Stage 2 and Previewing Quest Details will also not be possible.

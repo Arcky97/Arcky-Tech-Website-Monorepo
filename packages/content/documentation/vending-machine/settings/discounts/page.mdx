@@ -1,0 +1,56 @@
+<Header title="Discounts">
+  How to add an apply discounts to items.
+</Header>
+
+This feature allows you to apply discounts to all items in a store.
+
+```ruby
+def someVendingMachine
+  advancedVendingMachine([
+    :POKEBALL, :GREATBALL,
+    :POTION, :SUPERPOTION, :HYPERPOTION,
+    :REPEL, :SUPERREPEL, 
+    :REVIVE, 
+    :ANTIDOTE, :PARALYZEHEAL,
+  ], speech: "ProVend", discount: 26)
+end
+```
+
+To enable discounts, add `discount:` followed by a Game Variable ID.
+<br/>
+You can set up discounts in three ways:
+
+---
+
+## First way - Game Variable + Array
+
+Use a Game Variable and assign it an array of percentage values (e.g., `4` = 4% discount).
+
+```ruby
+Discounts = {
+  26 => [0, 1, 4, 9, -11]
+}
+```
+- `26` is the Game Variable ID.
+- The array values are used base on the variable's value (treated as an index).
+
+<Table
+  headers={["Game Variable", "Discount Used"]}
+  rows={[
+    [0, "0%"],
+    [1, "1%"],
+    [2, "4%"],
+    [3, "9%"],
+    [4, "-11%"]
+  ]}
+/>
+
+<Callout type="hint">
+  Each value in the array is accessed by index. If the variable is set too high and the index doesn't exist, you'll be warned in-game.
+</Callout>
+
+---
+
+## Second and Third way - Item + Game Variable(s) and Direct Value Use 
+
+You can refer to the [discounts page](/documentation/poke-market/settings/discounts) of the poke market documentations as the setup is exactly the same.

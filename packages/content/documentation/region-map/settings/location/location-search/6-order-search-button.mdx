@@ -1,0 +1,16 @@
+## OrderSearchButton
+
+Use this Setting to set which button needs to be pressed to activate the Order Search function while viewing the search result of the Location Search Feature on the Region Map.
+
+<SetVer
+  v201="ORDER_SEARCH_BUTTON = Input::SPECIAL"
+  v211="OrderSearchButton = Input::SPECIAL"
+/>
+
+### Possible Values
+
+- `Input::SPECIAL` = the Game Button.
+
+<Callout type="hint">
+  You may set this to the same button as the `LocationSearchButton` but **<Rd>not when the `QuickSearchButton` was already set to the same one</Rd>**. This is to avoid conflicts. Also here as well **<Rd>do not set this to USE or BACK</Rd>**.
+</Callout>

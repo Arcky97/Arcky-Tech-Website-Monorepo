@@ -1,0 +1,220 @@
+## v3.0.0: Preview Animations and Revamp
+<Callout type="warning" blend="light">
+  This plugin (update) no longer supports v20.1 of essentials, you'll run into crashes if you try to install it (just stick with v2.7.0)!
+</Callout>
+<Callout type="attention" blend="light">
+  This plugin (update) now requires [Arcky's Utilities](https://drive.google.com/file/d/19xrRavd1CpbC0p1UQtOUZzuEeHL_WHB5/view?usp=sharing) v1.0.4 or higher to function correctly. Once you've installed this, start a new save to avoid malfunction.
+
+  This update also comes with new Graphics, make sure to install those!
+</Callout>
+### Improvement
+- The Region Map Extras are now used from the plugin settings instead of the essentials settings in the pokedex (for some reason this was never set that way while the regular region map was using the setting for the plugin itself already).
+
+### Bug Fixes 
+- Fixed a bug with the zoom feature that when you spam the zoom trigger, the map moves slightly.
+- Fixed location searching is still possible and malfunctioning while zooming is active.
+- Fixed extended preview showing 1/0 pages when ExcludeMapWithNoData setting is set to true.
+
+### Setting Changes
+- Replaced `SQUARE_WIDTH` with `SquareWidth` in 47 places.
+- Replaced `SQUARE_HEIGHT` with `SquareHeight` in 45 places.
+- Replaced `PROGRESS_COUNTER` with `ProgressCounter` in 9 places. (utilities)
+- Replaced `PROGRESS_COUNT_ITEMS` with `ProgressCountItems` in 5 places.
+- Replaced `PROGRESS_COUNT_TRAINER` with `ProgressCountTrainers` in 5 places.
+- Replaced `PROGRESS_COUNT_POKEMON` with `ProgressCountSpecies` in 7 places.
+- Replaced `PROGRESS_COUNT_VISITED_LOCATIONS` with `ProgressCountVisitedLocations` in 2 places.
+- Replaced `DISABLE_PROGRESS_COUNTER_PERCENTAGE` with `DisableProgressCounterPercentage` in 2 places.
+- Replaced `DISABLE_EXTENDED_PREVIEW_PERCENTAGE` with `DisableExtendedPreviewPercentage` in 3 places.
+- Replaced `NO_UNVISITED_MAP_INFO` with `NoUnvisitedMapInfo` in 6 places.
+- Replaced `UNVISITED_MAP_TEXT` with `UnvisitedMapText` in 5 places.
+- Replaced `UNVISITED_POI_TEXT` with `UnvisitedPoiText` in 5 places.
+- Replaced `LINK_POI_TO_MAP` with `LinkPoiToMap` in 9 places.
+- Replaced `FAKE_REGION_LOCATIONS` with `FakeRegionLocations` in 3 places.
+- Replaced `REGION_MAP_EXTRAS`  with `RegionMapExtras` in 4 places.
+- Replaced `CAN_LOCATION_SEARCH` with `CanLocationSearch` in 3 places.
+- Replaced `INCLUDE_UNVISITED_MAPS` with `IncludeUnvisitedMaps` in 2 places.
+- Replaced `MINIMUM_MAPS_COUNT` with `MinimumMapsCount` in 3 places.
+- Replaced `LOCATION_SEARCH_BUTTON` with `LocationSearchButton` in 3 places.
+- Replaced `QUICK_SEARCH_BUTTON` with `QuickSearchButton` in 3 places.
+- Replaced `ORDER_SEARCH_BUTTON` with `OrderSearchButton` in 7 places.
+- Replaced `HIGHLIGHT_OPACITY` with `HighlightOpacity` in 2 places.
+- Replaced `REGION_MAP_DECORATION` with `RegionMapDecoration` in 2 places.
+- Replaced `USE_REGION_DISTRICTS_NAMES` with `UseRegionDistrictsNames` in 2 places. (utilities)
+- Replaced `REGION_DISTRICTS` with `RegionDistricts` in 2 places. (utilities)
+- Replaced `PROGRESS_SWITCHES` with `ProgressSwitches` in 2 places. (utilities)
+- Replaced `CAN_FLY_FROM_TOWN_MAP` with `CanFlyFromTownMap` in 2 places.
+- Replaced `CAN_QUICK_FLY` with `CanQuickFly` in 3 places.
+- Replaced `QUICK_FLY_BUTTON` with `QuickFlyButton` in 3 places.
+- Replaced `AUTO_CURSOR_MOVEMENT` with `AutoCursorMovement` in 2 places.
+- Replaced `ALLOW_FLY_TO_OTHER_REGIONS` with `AllowFlyToOtherRegions` in 2 places.
+- Replaced `FLY_TO_REGIONS` with `FlyToRegions` in 2 places.
+- Replaced `LOCATION_FLY_TO_OTHER_REGION` with `LocationFlyToOtherRegion` in 3 places.
+- Replaced `CHANGE_MODE_BUTTON` with `ChangeModeButton` in 3 places.
+- Replaced `MODE_NAMES` with `ModeNames` in 6 places.
+- Replaced `CHANGE_MODE_MENU` with `ChangeModeMenu` in 2 places.
+- Replaced `CHANGE_MUSIC_IN_REGION_MAP` with `ChangeMusicInRegionMap` in 2 places.
+- Replaced `MUSIC_PER_REGION` with `MusicForRegion` in 2 places.
+- Replaced `REGION_MAP_BEHIND_UI` with `RegionMapBehindUI` in 38 places.
+- Replaced `SHOW_PLAYER_ON_REGION` with `ShowPlayerOnRegion` in 3 places.
+- Replaced `TIME_BASED_REGION_MAP` with `TimeBasedRegionMap` in 2 places.
+- Replaced `USE_SPECIAL_UI` with `UseSpecialUI` in 3 places.
+- Replaced `USE_REGION_MAP_ZOOM` with `UseRegionMapZoom` in 7 places.
+- Replaced `ZOOM_SPEED` with `ZoomSpeed` in 2 places.
+- Replaced `TOGGLE_ZOOM_BUTTON` with `ToggleZoomButton` in 3 places.
+- Replaced `ZOOM_IN_BUTTON` with `ZoomInButton` in 3 places.
+- Replaced `ZOOM_OUT_BUTTON` with `zoomOutButton` in 3 places.
+- Replaced `CHANGE_REGION_BUTTON` with `ChangeRegionButton` in 3 places.
+- Replaced `CHANGE_UI_ON_REGION` with `ChangeUIOnRegion` in 5 places.
+- Replaced `REGION_NAME_OFFSET_X` with `RegionNameOffsetX` in 2 places.
+- Replaced `REGION_NAME_OFFSET_Y` with `RegionNameOffsetY` in 2 places.
+- Replaced `LOCATION_NAME_OFFSET_X` with `LocationNameOffsetX` in 2 places.
+- Replaced `LOCATION_NAME_OFFSET_Y` with `LocationNameOffsetY` in 2 places.
+- Replaced `POI_NAME_OFFSET_X` with `PoiNameOffsetX` in 2 places.
+- Replaced `POI_NAME_OFFSET_Y` with `PoiNameOffsetY` in 2 places.
+- Replaced `MODE_NAME_OFFSET_X` with `ModeNameOffsetX` in 4 places.
+- Replaced `MODE_NAME_OFFSET_Y` with `ModeNameOffsetY` in 4 places.
+- Replaced `REGION_TEXT_MAIN` with `RegionTextMain` in 2 places.
+- Replaced `REGION_TEXT_SHADOW` with `RegionTextShadow` in 2 places.
+- Replaced `LOCATION_TEXT_MAIN` with `LocationTextMain` in 2 places.
+- Replaced `LOCATION_TEXT_SHADOW` with `LocationTextShadow` in 2 places.
+- Replaced `POI_TEXT_MAIN` with `PoiTextMain` in 2 places.
+- Replaced `POI_TEXT_SHADOW` with `PoiTextShadow` in 2 places.
+- Replaced `MODE_TEXT_MAIN` with `ModeTextMain` in 3 places.
+- Replaced `MODE_TEXT_SHADOW` with `ModeTextShadow` in 3 places.
+- Replaced `MAX_OPTIONS_CHOICE_MENU` with `MaxOptionsChoiceMenu` in 3 places.
+- Replaced `CURSOR_MAP_OFFSET` with `CursorMapOffset` in 8 places.
+- Replaced `CENTER_CURSOR_BY_DEFAULT` with `CenterCursorByDefault` in 2 places.
+- Replaced `USE_MOUSE_ON_REGION_MAP` with `UseMouseOnRegionMap` in 3 places.
+- Replaced `MOUSE_BUTTON_SELECT_LOCATION` with `MouseButtonSelectLocation` in 3 places.
+- Replaced `MOUSE_BUTTON_MOVE_MAP` with `MouseButtonMoveMap` in 2 places.
+- Replaced `PREVIEW_LINE_HEIGHT` with `PreviewLineHeight` in 11 places.
+- Replaced `QUEST_AND_BERRY_NAME_OFFSET_X` with `PreviewNameOffsetX` in 2 places.
+- Replaced `QUEST_AND_BERRY_NAME_OFFSET_Y` with `PreviewNameOffsetY` in 2 places.
+- Replaced `QUEST_AND_BERRY_TEXT_MAIN` with `PreviewTextMain` in 2 places.
+- Replaced `QUEST_AND_BERRY_TEXT_SHADOW` with `PreviewTextShadow` in 2 places.
+- Replaced `BUTTON_BOX_POSITION` with `ButtonBoxPostion` in 19 places.
+- Replaced `BUTTON_BOX_OPACITY` with `ButtonBoxOpacity` in 2 places.
+- Replaced `BUTTON_BOX_TEXT_OFFSET_X` with `ButtonBoxTextOffsetX` in 2 places.
+- Replaced `BUTTON_BOX_TEXT_OFFSET_Y` with `ButtonBoxTextOffsetY` in 2 places.
+- Replaced `BUTTON_BOX_TEXT_MAIN` with `ButtonBoxTextMain` in 2 places.
+- Replaced `BUTTON_BOX_TEXT_SHADOW` with `ButtonBoxTextShadow` in 2 places.
+- Replaced `BUTTON_PREVIEW_TIME_CHANGE` with `ButtonPreviewTimeChange` in 3 places.
+- Replaced `USE_LOCATION_PREVIEW` with `UseLocationPreview` in 3 places.
+- Replaced `SHOW_LOCATION_BUTTON` with `ShowLocationButton` in 3 places.
+- Replaced `CAN_VIEW_INFO_UNVISITED_MAPS` with `CanViewInfoUnvisitedMaps` in 6 places.
+- Replaced `UNVISITED_MAP_INFO_TEXT` with `UnvisitedMapInfoText` in 2 places.
+- Replaced `MAX_DESCRIPTION_LINES` with `MaxDescriptionLines` in 5 places.
+- Replaced `DESCRIPTION_TEXT_OFFSET_X` with `DescriptionTextOffsetX` in 2 places.
+- Replaced `DESCRIPTION_TEXT_OFFSET_Y` with `DescriptionTextOffsetY` in 2 places.
+- Replaced `DESCRIPTION_TEXT_MAIN` with `DescriptionTextMain` in 3 places.
+- Replaced `DESCRIPTION_TEXT_SHADOW` with `DescriptionTextShadow` in 3 places.
+- Replaced `CENTER_DESCRIPTION_TEXT` with `CenterDescriptionText` in 2 places.
+- Replaced `MAX_ICON_HEIGHT` with `MaxIconHeight` in 2 places.
+- Replaced `ICON_OFFSET_X` with `IconOffsetX` in 2 places.
+- Replaced `ICON_OFFSET_Y` with `IconOffsetY` in 2 places.
+- Replaced `CENTER_ICON` with `CenterIcon` in 2 places.
+- Replaced `DIRECTION_HEIGHT_SPACING` with `DirectionHeightSpacing` in 4 places.
+- Replaced `DRAW_DASH_IMAGES` with `DrawDashImages` in 2 places.
+- Replaced `DASH_OFFSET_X` with `DashOffsetX` in 2 places.
+- Replaced `DASH_OFFSET_Y` with `DashOffsetY` in 2 places.
+- Replaced `MAX_DIRECTION_LINES` with `MaxDirectionLines` in 4 places.
+- Replaced `DIRECTION_TEXT_OFFSET_X` with `DirectionTextOffsetX` in 2 places.
+- Replaced `DIRECTION_TEXT_OFFSET_Y` with `DirectionTextOffsetY` in 2 places.
+- Replaced `DIRECTION_TEXT_MAIN` with `DirectionTextBase` in 3 places.
+- Replaced `DIRECTION_TEXT_SHADOW` with `DirectionTextShadow` in 3 places.
+- Replaced `LOCATION_DIRECTION_SPACES` with `LocationDirectionSpaces` in 2 places.
+- Replaced `USE_EXTENDED_PREVIEW` with `UseExtendedPreview` in 2 places.
+- Replaced `SHOW_EXTENDED_BUTTON` with `ShowExtendedButton` in 3 places.
+- Replaced `SHOW_EXTENDED_SUB_MENU` with `ShowExtendedSubButton` in 3 places.
+- Replaced `REVEAL_ALL_SEEN_SPECIES_BUTTON` with `RevealAllSeenSpeciesButton` in 8 places.
+- Replaced `SELECT_SPECIES_BUTTON` with `SelectSpeciesButton` in 5 places.
+- Replaced `EXTENDED_MAIN_INFO_FIXED` with `ExtendedMainInfoFixed` in 2 places.
+- Replaced `EXTENDED_TEXT_MAIN_WILD_X` with `ExtendedMainTextWildOffsetX` in 2 places.
+- Replaced `EXTENDED_TEXT_MAIN_WILD_Y` with `ExtendedMainTextWildOffsetY` in 2 places.
+- Replaced `EXTENDED_TEXT_MAIN_TRAINER_X` with `ExtendedMainTextTrainerOffsetX` in 2 places.
+- Replaced `EXTENDED_TEXT_MAIN_TRAINER_Y` with `ExtendedMainTextTrainerOffsetY` in 2 places.
+- Replaced `EXTENDED_TEXT_MAIN_ITEM_X` with `ExtendedMainTextItemOffsetX` in 2 places.
+- Replaced `EXTENDED_TEXT_MAIN_ITEM_Y` with `ExtendedMainTextItemOffsetY` in 2 places.
+- Replaced `EXTENDED_TEXT_MAIN_BASE` with `ExtendedMainTextBase` in 2 places.
+- Replaced `EXTENDED_TEXT_MAIN_SHADOW` with `ExtendedMainTextShadow` in 2 places.
+- Replaced `EXCLUDE_MAPS_WITH_NO_DATA` with `ExcludeMapsWithNoData` in 2 places.
+- Replaced `COUNT_ITEMS_TO_MAIN_MAP` with `CountItemsToMainMap` in 2 places.
+- Replaced `ENCOUNTER_TYPES` with `EncounterTypes` in 4 places.
+- Replaced `CHANGE_EXT_BOX_ON_ENCOUNTER_TYPE` with `ChangeExtBoxOnEncounterType` in 2 places.
+- Replaced `CHANGE_ENC_BOX_ON_ENCOUNTER_TYPE` with `ChangeEncBoxOnEncounterType` in 2 places.
+- Replaced `EXTENDED_TEXT_SUB_X` with `ExtendedSubTextOffsetX` in 2 places.
+- Replaced `EXTENDED_TEXT_SUB_Y` with `ExtendedSubTextOffsetY` in 2 places.
+- Replaced `EXTENDED_TEXT_SUB_BASE` with `ExtendedTextSubBase` in 2 places.
+- Replaced `EXTENDED_TEXT_SUB_SHADOW` with `ExtendedTextSubShadow` in 2 places.
+- Replaced `USE_SPRITES_FOR_UNSEEN_SPECIES` with `UseSpritesForUnseenSpecies` in 3 places.
+- Replaced `UNSEEN_SPECIES_COLOR` with `UnseenSpeciesColor` in 2 places.
+- Replaced `UNCAUGHT_SPECIES_TONE` with `UncaughtSpeciesTone` in 2 places.
+- Replaced `USE_WEATHER_PREVIEW` with `UseWeatherPreview` in 2 places.
+- Replaced `WEATHER_ON_LOCATION_PREVIEW_ACTIVE` with `WeatherOnLocationPreviewActive` in 2 places.
+- Replaced `WEATHER_ON_MODES` with `WeatherOnModes` in 3 places.
+- Replaced `SHOW_QUEST_ICONS` with `ShowQuestIcons` in 5 places.
+- Replaced `SHOW_QUEST_BUTTON` with `ShowQuestButton` in 5 places.
+- Replaced `MAX_QUEST_LINES` with `MaxQuestLines` in 3 places.
+- Replaced `QUEST_INFO_OFFSET_X` with `QuestInfoTextOffsetX` in 2 places.
+- Replaced `QUEST_INFO_OFFSET_Y` with `QuestInfoTextOffsetY` in 2 places.
+- Replaced `QUEST_INFO_MAIN` with `QuestInfoTextBase` in 3 places.
+- Replaced `QUEST_INFO_SHADOW` with `QuestInfoTextShadow` in 3 places.
+- Replaced `SHOW_BERRY_ICONS` with `ShowBerryIcons` in 2 places.
+- Replaced `SHOW_BERRY_BUTTON` with `ShowBerryButton` in 5 places.
+- Replaced `MAX_BERRY_LINES` with `MaxBerryLines` in 3 places.
+- Replaced `BERRY_INFO_OFFSET_X` with `BerryInfoOffsetX` in 2 places.
+- Replaced `BERRY_INFO_OFFSET_Y` with `BerryInfoOffsetY` in 2 places.
+- Replaced `BERRY_INFO_MAIN` with `BerryInfoMain` in 3 places.
+- Replaced `BERRY_INFO_SHADOW` with `BerryInfoShadow` in 3 places.
+- Replaced `SHOW_ROAMING_ICONS` with `ShowRoamingIcons` in 4 places.
+
+### File Re-organisation
+- Created 001_RegionMap_Mains folder
+  - Moved 000_RegionMap_Main.rb
+- Created 002_RegionMap_Previews folder
+  - Moved 001_RegionMap_ButtonPreview.rb
+  - Moved 002_RegionMap_PreviewBox.rb
+  - Moved 003_RegionMap_locationPreview.rb
+  - Moved 004_RegionMap_WeatherPreview.rb
+  - Moved 005_RegionMap_QuestPreview.rb
+  - Moved 006_RegionMap_BerryPreview.rb
+  - Moved 007_RegionMap_RoamingIcons.rb
+  - Moved 008_RegionMap_ExtendedPreview.rb
+- Created 003_RegionMap_Features folder
+- Created 004_RegionMap_Pokedex folder
+  - Moved 010_RegionMap_Pokedex_v201.rb
+  - Moved 011_RegionMap_Pokedex_v211.rb
+- Created 005_RegionMap_Script_Overwrites folder
+  - Moved 020_RegionMap_CompilePBS.rb
+  - Moved 021_RegionMap_PBS_Data_TownMap.rb
+  - Moved 030_RegionMap_QuestData.rb
+  - Moved 040_RegionMap_TrainerType.rb
+  - Moved 050_RegionMap_MessageDisplay.rb
+  - Moved 060_RegionMap_ItemTracker.rb
+  - Moved 070_RegionMap_TrainerTracker.rb
+  - Moved 080_Battle_and_SafariBattle.rb
+- Renamed 010_RegionMap_Pokedex_v201.rb to 001_RegionMap_Pokedex_v201.rb
+- Renamed 011_RegionMap_Pokedex_v211.rb to 002_RegionMap_Pokedex_v211.rb
+- Renamed 020_RegionMap_CompilePBS.rb to 001_RegionMap_CompilePBS.rb
+- Renamed 021_RegionMap_PBS_Data_TownMap.rb to 002_RegionMap_PBSDataTownMap.rb
+- Renamed 030_RegionMap_QuestData.rb to 003_RegionMap_QuestData.rb
+- Renamed 040_RegionMap_TrainerType.rb to 004_RegionMap_TrainerType.rb
+- Renamed 050_RegionMap_MessageDisplay.rb to 005_RegionMap_MessageDisplay.rb
+- Renamed 060_RegionMap_ItemTracker.rb to 006_RegionMap_ItemTracker.rb
+- Renamed 070_RegionMap_TrainerTracker.rb to 007_RegionMap_TrainerTracker.rb
+- Renamed 080_Battle_and_SafariBattle.rb to 008_RegionMap_BattleAndSafariBattle.rb
+- Renamed 001_RegionMap_Main to 000_RegionMap_Main.rb
+- Created 000_RegionMap_Constants.rb in 001_RegionMap_Mains folder.
+- Created 002_RegionMap_Classes.rb in 001_RegionMap_Mains folder.
+- Created 003_RegionMap_Utilities.rb in 001_RegionMap_Mains folder.
+- Created 001_RegionMap_MapInfo.rb in 003_RegionMap_Features folder.
+- Created 002_RegionMap_Fly.rb in 003_RegionMap_Features folder.
+- Created 003_RegionMap_Highlights.rb in 003_RegionMap_Features folder.
+- Created 004_RegionMap_UnvisitedMaps.rb in 003_RegionMap_Features folder.
+- Created 005_RegionMap_MapScroll.rb in 003_RegionMap_Features folder.
+- Created 006_RegionMap_ModeChange.rb in 003_RegionMap_Features folder.
+- Created 007_RegionMap_RegionSwitching.rb in 003_RegionMap_Features folder.
+- Created 008_RegionMap_ProgressCounter.rb in 003_RegionMap_Features folder.
+- Created 009_RegionMap_LocationSearch.rb in 003_RegionMap_Features folder.
+- Created 010_RegionMap_MouseSupport.rb in 003_RegionMap_Features folder.
+- Created 011_RegionMap_MapZoom.rb in 003_RegionMap_Features folder.

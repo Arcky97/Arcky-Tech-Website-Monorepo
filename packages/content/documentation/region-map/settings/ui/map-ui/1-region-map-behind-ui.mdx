@@ -1,0 +1,19 @@
+## RegionMapBehindUI
+
+Use this Setting to enable or disable the expanding of the Region Map behind the UI. 
+
+<SetVer
+  v201="REGION_MAP_BEHIND_UI = false"
+  v211="RegionMapBehindUI = false"
+/>
+
+### Possible Values 
+
+- `true` = The Region Map **<Gr>will be expanded</Gr>** behind the UI.
+- `false` = The Region Map **<Rd>will not be expanded</Rd>** behind the UI.
+
+<Callout type="hint">
+  2 things to keep in mind:
+  - Your Region Map needs to be at least 512x384 instead of 480x320 in size.
+  - Make sure there are no locations closer than 2 tiles (or 3 when  [CursorMapOffset](cursor#cursormapoffset) is enabled) to the edge of the Region Map as it'll be unreachable by the cursor.
+</Callout>

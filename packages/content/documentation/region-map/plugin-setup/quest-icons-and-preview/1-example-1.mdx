@@ -1,0 +1,49 @@
+## Example 1
+
+Let's take a look at the Quest1 Data that comes by default with the Quest Plugin:
+
+```ruby
+Quest1 = {
+  :ID => "1",
+  :Name => "Introductions",
+  :QuestGiver => "Little Boy",
+  :Stage1 => "Look for clues.",
+  :Location1 => "Lappet Town",
+  :QuestDescription => "Some wild Pokémon stole a little boy's favourite toy. Find those troublemakers and help him get it back.",
+  :RewardString => "Something shiny!"
+}
+```
+To make this Quest show an Icon (when the Quest is active) on the Region Map, we only need to add the coordinates for the icon to display at:
+
+```ruby
+:Map => [0, 13, 12]
+```
+- `0` = RegionID
+- `13` = X Position
+- `12` = Y Position 
+
+The edited Data for Quest1 would now look like this:
+
+```ruby 
+Quest1 = {
+  :ID => "1",
+  :Name => "Introductions",
+  :QuestGiver => "Little Boy",
+  :Stage1 => "Look for clues.",
+  :Location1 => "Lappet Town",
+  :Map => [0, 13, 12]
+  :QuestDescription => "Some wild Pokémon stole a little boy's favourite toy. Find those troublemakers and help him get it back.",
+  :RewardString => "Something shiny!"
+}
+```
+
+According to the TownMap.txt PBS file, the coordinates we set will match with "Lappet Town" in Region 0.
+<br/>
+
+### Result in Game:
+<ImageWithCaption src="/images/documentation/region-map/Quest Icons and Preview 1.png" caption="Quest 1"/>
+<Callout type="hint">
+  On the Screenshot, the icon is not visible, that's because it's behind the Player's Icon. You might also have noticed that it is saying `"C: View Quest"` in the Button Preview on the top right. This is because [-FL-'s Set the Controls Screen Plugin](set-the-controls-screen) was installed. In case you don't have this plugin installed, it'll say `"USE: View Quest"` by default or the **Input Key** you've set in the [ShowQuestPreview](/documentation/region-map/settings/preview/quest-preview-settings) Setting.
+</Callout>
+
+<ImageWithCaption src="/images/documentation/region-map/Quest Icons and Preview 2.png" caption="Quest 1 Preview"/>

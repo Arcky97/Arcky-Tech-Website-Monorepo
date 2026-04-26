@@ -1,0 +1,19 @@
+<Header title="SellItemAmount">
+  How to use and define SellItemAmount speeches.
+</Header>
+
+The `SellItemAmount` determines what the NPC will say when the player is prompted to choose how many of an item they want to sell.
+
+<PMSpeeches speech="SellItemAmount"/>
+
+To define the `SellItemAmount`, use this structure:
+
+```ruby
+SellItemAmount: [
+  "How many {1} would you like to sell?"
+]
+```
+### Placeholder Reference
+- `{1}` = Chosen Item's name (plural) — e.g., `"Poké Balls"`
+
+<ImageWithCaption src="/images/documentation/poke-market/SellItemAmount.png" caption="SellItemAmount"/>

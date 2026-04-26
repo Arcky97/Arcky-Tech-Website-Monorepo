@@ -1,0 +1,8 @@
+## v2.1.2: Translation Support
+### Improvement 
+- Added Translation support so all text that would need to be translated can be translated and is used correctly by the plugin as well. (Check the essentials wiki on how to translate your game correctly).
+<br/>
+### Bug Fixes
+- Fixed an issue with `NO_UNVISITED_MAP_INFO` name replacement when the map isn't included in `LINK_POI_TO_MAP`. This would mean that the point replacement goes along the location name when the location has been visited.
+- Fixed a crash when there are no Highlight Graphic defined for any locations in the **Town_map.txt PBS** file. It'll tell you in the Game's Console that there's no Highlight Graphic defined so you can add it. (This was reported by several people so it's an important bug fix.)
+- Fixed an issue with the townmapgen tool so it doesn't add `"`'s anymore when loading in your points from the PBS.

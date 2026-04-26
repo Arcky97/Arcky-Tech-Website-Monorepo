@@ -1,0 +1,9 @@
+## Install rclone on your pc
+- Go to [rclone authorize](https://rclone.org/downloads/) and extract the downloaded zip file.
+- go into this extracted folder, type `cmd` in the path bar on the top and press enter. <ImageWithCaption src="/images/documentation/arcky-tutorials/Vaultwarden rclone pc cmd.png" caption="rclone cmd" align="left" size="large"/>
+- Run the follow command:
+```bash
+rclone authorize "dropbox"
+```
+- This will open your browser automatically, login to dropbox and allow access.
+- At the end it should print a long JSON token, copy that entire JSON string. Don't close this window yet just incase you need to copy it again in the next step.

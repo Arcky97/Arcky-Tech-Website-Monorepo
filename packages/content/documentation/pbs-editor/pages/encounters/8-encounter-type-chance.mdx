@@ -1,0 +1,28 @@
+## Encounter Type and Chance
+
+<div className='flex space-x-4'>
+  <InputSelect
+    label="Encounter Type:"
+    width={220}
+    initValue="Water"
+    placeholder="Select Encounter Type"
+    options={["Land", "LandNight", "Cave", "Water", "RockSmash"]
+      .map(option => ({ label: option, value: option }))
+    }
+  />
+  <InputNumber
+    label="Chance:"
+    value="2"
+    width={7}
+  />
+</div>
+
+The available <Or>Encounter Types</Or> can be managed in the **Encounter Settings** section. From there, you can add custom <Or>Encounter Types </Or> so  the editor can recognize and use them.
+<br/>
+Some <Or>Encounter Types</Or> require an associated <Or>Chance</Or> value, defined as a number and separated by a comma in the PBS file (e.g. Water,2).
+<br/>
+For **"Land"**, **"Cave"**, **"Water"**, and **"BugContest"**, this value represents the <Gr>percentage chance</Gr> of an **Encounter** occuring with each step.
+<br/>
+For **"RockSmash"**, it represents the <Gr>percentage chance</Gr> of triggering an encounter when breaking a rock.
+<br/>
+Other default <Or>Encounter Types</Or> do not require a chance value, as their encounter rates are <Gr>defined elsewhere in the game's scripts</Gr>.

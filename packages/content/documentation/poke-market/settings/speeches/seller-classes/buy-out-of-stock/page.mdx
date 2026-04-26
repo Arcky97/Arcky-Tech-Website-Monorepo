@@ -1,0 +1,34 @@
+<Header title="BuyOutOfStock">
+  How to use and define BuyOutOfStock speeches.
+</Header>
+
+The `BuyOutOfStock` determines what the NPC will say when the player is trying to choose an Item that is out of stock.
+
+<PMSpeeches speech="Buyoutofstock"/>
+
+To define the `BuyOutOfStock`, use this structure:
+
+```ruby
+BuyOutOfStock: [
+  "We're really sorry, this item is currently out of stock. Come back {2}!", 
+  "We're sorry but we don't have any {1} left. Come back {2}!", 
+  "Come back {2} when we have more {1}."
+]
+```
+### Placeholder Reference
+- `{1}` = Chosen Item's name (plural) — e.g., `"Potions"`
+- `{2}` = Time remaining until the Stock will be resetted — e.g., `"tomorrow"`.
+
+<EmblaCarousel
+  slides={[
+    "documentation/poke-market/BuyOutOfStock 1",
+    "documentation/poke-market/BuyOutOfStock 2",
+    "documentation/poke-market/BuyOutOfStock 3"
+  ]}
+  captions={[
+    "BuyOutOfStock Example 1",
+    "BuyOutOfStock Example 2",
+    "BuyOutOfStock Example 3"
+  ]}
+  options={{ loop: true }}
+/>

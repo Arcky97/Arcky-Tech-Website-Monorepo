@@ -1,0 +1,15 @@
+## ZoomInButton
+
+Use this Setting to set which button needs to be pressed to zoom in on the Region Map while the Zoom Mode is active.
+
+```ruby 
+ZoomInButton = Input::JUMPUP
+```
+
+### Possible Values
+
+- `Input::JUMPUP` = The Game Button 
+
+<Callout type="hint">
+  For this button you can assign one that's been used for another feature as the Zoom Mode isolates those features. Only don't set it to the [ToggleZoomButton](#togglezoombutton) or the `USE` and `BACK` buttons to avoid unexpected behavior.
+</Callout>

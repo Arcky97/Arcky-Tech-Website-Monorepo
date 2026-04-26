@@ -1,0 +1,32 @@
+<Header title="BillCheckOut">
+  How to use and define BillCheckOut speeches.
+</Header>
+
+The first message the player will be prompted with is the `IntroText`. 
+<br/>
+There'll be only 2 options to choose from, **Pay the Bill** and **Exit**.
+<br/>
+See [MenuText](menu-text) for more information.
+<br/>
+Once the Player has paid the Bill, the `MenuReturnText` is used and the player will be prompted with the options **Buy**, **Sell** (if allowed) and **Exit**.
+
+<ImageWithCaption src="/images/documentation/poke-market/BuyCheckOut 1.png" caption="IntroText with Checkout option"/>
+
+The `BillCheckOut` determines what the NPC will say when the option to **Pay the Bill** was chosen.
+
+<PMSpeeches speech="BillCheckOut"/>
+
+To define the `BillCheckOut`, use this structure:
+
+```ruby
+BillCheckOut: [
+  "Your basket contains {1} which comes to a total of {2}, please."
+]
+```
+### Placeholder Reference
+- `{1}` = The list of Items (including their amounts) that were added to the Basket — e.g., `"25 Potions and 12 Poké Balls"`
+- `{2}` = The Total Price to pay — e.g., `"$7400"`
+
+<ImageWithCaption src="/images/documentation/poke-market/BuyCheckOut 2.png" caption="BillCheckOut"/>
+If any Items have a Bonus Item defined, this will be the next message the player will be prompted with (uses the `BuyBonusMult` Speech).
+<ImageWithCaption src="/images/documentation/poke-market/BuyCheckOut 3.png" caption="BuyBonusMult"/>

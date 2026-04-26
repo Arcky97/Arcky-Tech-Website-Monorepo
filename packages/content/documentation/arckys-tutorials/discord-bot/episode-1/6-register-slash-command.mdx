@@ -1,0 +1,35 @@
+## Register Slash Commands
+
+```JavaScript:deploy-commands.js
+import 'dotenv/config';
+import { REST, Routes, SlashCommandBuilder } from 'discord.js';
+
+const commands = [
+  new SlashCommandBuilder()
+    .setName('ping')
+    .setDescription('Replies with pong')
+    .toJSON()
+];
+
+const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
+
+try {
+  console.log('Registering slash command...');
+
+  await rest.put(
+    Routes.applicationGuildCommand(
+      process.env.CLIENT_ID,
+      process.env.GUILD_ID
+    ),
+    { body: commands }
+  );
+
+  console.log('Slash command registered');
+} catch (error) {
+  console.error(error);
+}
+```
+Run Once:
+```bash
+node deploy-command.js
+```

@@ -1,0 +1,60 @@
+<Header title="Stock Items for Items">
+  How to use the StockItems setting for regular Items.
+</Header>
+
+The **Stock Items** is a new setting introduced in **v1.6.0**. It allows you to manage Items for several stores more easily and reuse a same stock of Item across several Mart or Shelf events.
+<br/>
+--- 
+## Example 1 
+
+### Setting Setup
+
+```ruby 
+StockItems = {
+  :normalStore => [
+    :POKEBALL, :GREATBALL, :ULTRABALL,
+    :POTION, :SUPERPOTION, :HYPERPOTION, :MAXPOTION,
+    :FULLRESTORE, :REVIVE,
+    :REPEL, :SUPERREPEL, :MAXREPEL,
+    :ANTIDOTE, :BURNHEAL, :ICEHEAL, :AWAKENING, :PARALYZEHEAL, :FULLHEAL
+  ]
+}
+```
+- `:normalStore` — The name of the stock.
+  - An Array of Items for this stock.
+
+### Usage in a Mart event 
+
+To use it in your Mart or Shelf event, you type the name of the stock but as a string instead of a hash.
+
+```ruby 
+def pbSomeMart
+  pbPokemonMart("normalStore", speech: "ProSeller", discount: 29, useCat: true, billEnd: true)
+end
+```
+
+---
+## Example 2
+
+### Setting Setup 
+
+```ruby 
+StockItems = {
+  :limitStore => ["daily",
+    [:POKEBALL, 10, 18], [:GREATBALL, 12, 16], [:ULTRABALL, 8, 15],
+    :POTION, :SUPERPOTION, :HYPERPOTION, :MAXPOTION,
+    [:FULLRESTORE, 20, 25], :REVIVE,
+    :REPEL, [:SUPERREPEL, 20], :MAXREPEL
+  ]
+}
+```
+- `:limitStore` — The name of the stock.
+  - An Array of Items for this stock. But this time they include Item Limits as well.
+
+### Usage in a Mart event 
+
+```ruby
+def pbSomeShelf
+  pbShelfMart("limitStore", speech: "ShelfOne", discount: 29)
+end
+```

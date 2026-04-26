@@ -1,0 +1,19 @@
+## Encounter File
+
+<InputSelect
+  label="Current Encounter PBS File:"
+  width={250}
+  initValue="encounters.txt"
+  placeholder="Select File"
+  options={["encounters.txt"]
+    .map(file => ({ label: file, value: file }))
+  }
+/>
+
+This dropdown allows you to choose between all available <Gr>Encounter PBS Files</Gr> detected in your project.
+<br/>
+The primary file is typically named `encounters.txt`, but the editor also supports additional files following the format `encounters_xxx.txt`.
+<br/>
+The <Yl>underscore (_)</Yl> is required for these extra files to be recognized. Any text can follow it (e.g. encounters_custom.txt), but files without this naming pattern will <Rd>not be detected</Rd> as **Encounter PBS files**.
+<br/>
+If only a single file is available, the dropdown will be automatically <Gr>disabled</Gr>, and that file will be selected by default.

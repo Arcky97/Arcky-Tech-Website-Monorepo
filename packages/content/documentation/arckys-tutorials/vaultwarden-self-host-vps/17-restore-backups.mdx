@@ -1,0 +1,18 @@
+## Restore backups
+It's important to understand this process, you should only execute these steps when needed.
+- Download [Age](https://github.com/FiloSottile/age/releases) on your pc (not the VPS)
+- Look for age-vx.x.x-windows-amd64.zip if you're using windows
+- Extract this zip file and copy `age.exe` and `age-keygen.exe` to another folder on your pc. e.g.: Documents/age. You should then place the `vaultwarden-backup.key` from [step 14](vaultwarden-self-host-vps#create-your-peronal-backup-key) in that same folder Documents/age. If you hadn't downloaded that file yet, now it's the time to do so.
+- Then download as well the encrypted backup file (the most recent one) using **FileZilla or winSCP** and place it in that same folder.
+- Now you should have a total of 4 files in Documents/age. 
+- Type `cmd` in the path bar on the top and press enter <ImageWithCaption src="/images/documentation/arcky-tutorials/Vaultwarden Documents Age cmd.png" caption="Documents/age cmd" align="left" size="large"/>
+- Run this command: 
+```bash
+age -d -i vaultwarden-backup.key backup-2026-02-15.tar.gz.age > backup.tar.gz
+```
+- You'll see this file in `Documents/age`: <ImageWithCaption src="/images/documentation/arcky-tutorials/Vaultwarden Documents Age.png" caption="Documents/age backup.tar" align="left" size="large"/>
+- Windows can extract `tar.gz` file directly. or run:
+```bash
+tar -xzf backup.tar.gz
+```
+- You should now see a `data` folder and that is exactly what goes back into a new Vaulwarden server. <ImageWithCaption src="/images/documentation/arcky-tutorials/Vaultwarden Documents Age data.png" caption="Documents/age data folder" align="left" size="large"/>

@@ -1,0 +1,42 @@
+## Example 3
+
+```ruby
+CedolanCity = {
+  # location [13, 10]
+  northEast_13_10: [14, 9],
+  south_13_10: [13, 11],
+  # location [14, 10]
+  north_14_10: [14, 9],
+  southWest_14_10: [13, 11],
+  # used for both locations
+  east: [15, 10],
+  west: [12, 10],
+  description_13_10: "The biggest City in Essen. It has a department store!",
+  description_14_10: "The biggest City in Essen. It has a department store and what does it not have?",
+  icon: "LappetTown" 
+}
+```
+Let's break down this piece of data:
+<br/>
+- `CedolanCity` => This is the name of the location you are referring to (it's important that this is the same as the Points name in the townmap.txt PBS file but then withouth spaces).
+- `northEast_13_10:`, south_13_10: => like explained on the break down in Example 1, each contain an array with an X and Y position ([X, Y]). What's different here is that "_13_10" specifies on which point of this location this direction information should be used (Since CedolanCity has 2 points). [14, 9] will be converted to "Route 2" and [13, 11] will be converted to "Route 1".
+- `north_14_10:`, `southWest_14_10:` => Again, like explained above, the "_14_10" specifies on which point of this location this direction information should be used. [14, 9] will converted to "Route 2" and [13, 11] will be converted to "Route 1".
+- `east:`, `west:` => Once again, each contain an array with an X and Y position ([X, Y]). [15, 10] will be converted to "Route 7" and [12, 10] will be converted to "Route 6".
+- `description_13_10:` => Contains a string with a short description for this location. Just like with the directions "_13_10" specifies on which point of this location this description should be used. 
+- `description_14_10:` => Contains a string with a short description for this location. Here again the "_14_10" specifies on which point of this location this description should be used.
+- `icon:` => the name of the image that should be used as a "mini map" on the location preview. The image's name is "mapLappetTown.png" (I just used the same one as example) (so "map" is not included again in this parameter) and is located in 
+  - Graphics > Pictures > RegionMap > UI > Default (or Region folder) > LocationPreview > MiniMaps for v20.1
+  - Graphics > UI > Town Map > UI > Default (or Region folder) > LocationPreview > MiniMaps for v21.1
+<br/>
+Result in Game (point 13, 10)
+<ImageWithCaption src="/images/documentation/region-map/Location Preview 3.png" caption="Example 3" align="left" size="medium"/>
+Result in Game (point 14, 10)
+<ImageWithCaption src="/images/documentation/region-map/Location Preview 4.png" caption="Example 3" align="left" size="medium"/>
+As you might have noticed from these 2 examples, the description for the left point of Cedolan City is a bit different than the one from the right point. 
+<br/>Same we can notice for the small arrow icons before "Route 2" and "Route 1". 
+<br/>This is thanks to those coordinates we included in the directions and distriptions for the data we added for Cedolan City.
+<br/>
+The "???" for 2 out of the 4 directions are because I have the Setting `NoUnvisitedMapInfo` turned on. 
+<br/>If this setting is false, then you'll see the actual location name, otherwise it's the text you set in the `UnvisitedMapText` Setting. 
+<br/>Check this page to learn what these settings do.
+<br/>

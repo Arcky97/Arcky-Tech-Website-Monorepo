@@ -1,0 +1,13 @@
+## Level Threshold
+
+<InputNumber label="Level Threshold" value={[15, 19]} width={7}/>
+
+The <Or>Level Threshold</Or> defines the level at which a species can appear within an **Encounter Slot**.
+<br/>
+The first value represents the <Yl>minimum level</Yl>
+<br/>
+If no second value is provided, the species will <Gr>always appear</Gr> at this exact level.
+<br/>
+If a second value is defined, it becomes the <Yl>maximum level</Yl>, creating a <Gr>level range</Gr> between the two values.
+<br/>
+Each level within this range has an <Gr>equal chance</Gr> of being selected.

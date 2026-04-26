@@ -1,0 +1,50 @@
+## Main Page
+
+The Main Page can give you following information.
+<br/>
+If there's no information available for the current Location then it'll say "No Date for this Location".
+<ImageWithCaption src="/images/documentation/region-map/Extended Preview 2.png" caption="Extended Preview Arcky's House" align="left" size="medium"/>
+<br/>
+When there are multiple Locations with the same Map Position, you can press Left or Right to change Pages. The Location Name is shown on the top left and the page number is shown on the bottom left.
+```
+[002]   # Lappet Town
+Name = Lappet Town
+Outdoor = true
+ShowArea = true
+MapPosition = 0,13,12
+BattleBack = field
+#-------------------------------
+[003]   # Player's house
+Name = \PN's house
+HealingSpot = 2,8,8
+MapPosition = 0,13,12
+#-------------------------------
+[004]   # Pokémon Lab
+Name = Pokémon Lab
+MapPosition = 0,13,12
+#-------------------------------
+[008]   # Daisy's house
+Name = Lappet Town
+MapPosition = 0,13,12
+```
+On the screenshot above, it shows 2 as the total pages, since I have the Setting `NoUnvisitedMapInfo` set to `true`, the 3rd and 4th maps aren't shown yet. If that Setting is `false`, it'll show 4 as the total pages right away.
+<ImageWithCaption src="/images/documentation/region-map/Extended Preview 3.png" caption="Extended Preview Lappet Town" align="left" size="medium"/>
+
+### Wild Enounter Counter
+This counter includes 3 individual counters showing the following (only when you can find Encounters on that Map).
+- Seen: Shows how many different Species you've Seen on this Game Map.
+- Caught: Shows how many different Species you've Caught on this Game Map.
+- Defeated: Shows how many different Species you've Defeated on this Game Map.
+<br/>
+### Trainer Counter 
+This counter shows how many Trainers you have defeated out of the Total defeatable Trainers on this Game Map. When there are no Trainer on the map, it'll say "No Trainers to defeat".
+<br/>
+### Item Counter 
+This counter shows how many Items you have found/received out of the total Items that are findable/receivable on this Game Map. When there are no Items on the map, it'll say "No Items to find".
+<br/>
+### Examples 
+- Wild Encounters and Items: <ImageWithCaption src="/images/documentation/region-map/Extended Preview 4.png" caption="Extended Preview Route 1" align="left" size="medium"/>
+- Only Trainers: <ImageWithCaption src="/images/documentation/region-map/Extended Preview 5.png" caption="Extended Preview Cedolan City" align="left" size="medium"/>
+- Wild Encounters, Trainers and Items: <ImageWithCaption src="/images/documentation/region-map/Extended Preview 6.png" caption="Extended Preview Route 7" align="left" size="medium"/>
+- Wild Encounters and Trainers: <ImageWithCaption src="/images/documentation/region-map/Extended Preview 7.png" caption="Extended Preview Route 3" align="left" size="medium"/>
+<br/>

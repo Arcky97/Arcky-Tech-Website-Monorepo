@@ -1,0 +1,11 @@
+## Find Container Volume
+1. Go to Portainer, go into Vaultwarden container and scroll down to Volumes <ImageWithCaption src="/images/documentation/arcky-tutorials/Portainer Volumes.png" caption="Portainer Vaultwarden Volumes" align="left" size="large"/>
+2. run this command:
+```bash
+ls /opt/vaultwarden/data
+```
+It should give you this or similar as result:
+```bash
+config.json  db.sqlite3-shm  icon_cache   tmp
+db.sqlite3   db.sqlite3-wal  rsa_key.pem
+```

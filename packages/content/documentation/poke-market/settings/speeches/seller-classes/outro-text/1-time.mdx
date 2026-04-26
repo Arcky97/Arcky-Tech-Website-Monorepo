@@ -1,0 +1,29 @@
+## OutroText + Time
+
+It's possible to define an `OutroText` based on the in-game **Time of Day**.
+Like with the default `OutroText`, you can provide multiple lines for variety, and the script will randomly select one each time.
+<br/>
+Here are the available time-based keys:
+- `OutroTextMorning`— Used from 5:00 to 9:59 AM 
+- `OutroTextNoon` — Used from 10:00 AM to 1:59 PM
+- `OutroTextAfternoon` — Used from 2:00 to 4:59 PM 
+- `OutroTextEvening` — Used from 5:00 to 7:59 PM
+- `OutroTextDay` — Used from 5:00 AM to 7:59 PM (general fallback for daytime)
+- `OutroTextNight` — Used from 8:00 PM to 4:59 AM 
+<br/>
+Note: `OutroTextDay` overlaps with Morning, Noon, Afternoon, and Evening. It acts as a fallback if no specific period is defined.
+<br/>
+Here's how you can defined `OutroTextEvening`:
+
+```ruby
+OutroTextEvening: [
+  "Have a nice Night, do come back again", 
+  "Thank you for your purchase, enjoy your evening."
+]
+```
+This will be used by the script when the in-game time is between 5:00 and 7:59 PM:
+<ImageWithCaption src="/images/documentation/poke-market/OutroTextEvening 1.png" caption="OutroTextEvening 1" align="center"/>
+<ImageWithCaption src="/images/documentation/poke-market/OutroTextEvening 2.png" caption="OutroTextEvening 2" align="center"/>
+
+### Fallback Behavior 
+See [IntroText + Time](intro-text#1-time) for the full explanation of the Fallback Behavior as well as a Simplified Breakdown.

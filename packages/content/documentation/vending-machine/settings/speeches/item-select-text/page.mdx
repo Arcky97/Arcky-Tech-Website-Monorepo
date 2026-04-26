@@ -1,0 +1,21 @@
+<Header title="ItemSelectText">
+  How to use and define various ItemSelectText speeches.
+</Header>
+
+The `ItemSelectText` determines what the Vending Machine will say when you get the menu of items to choose from to buy.
+<br/>
+As shown in the example below, you can include multiple variations. The script will randomly choose one line from the array each time the player interacts with the Vending Machine Event.
+<br/>
+To define the `ItemSelectText`, use this structure:
+
+```ruby 
+ItemSelectText: [
+  "Which {1} would you like to buy?", 
+  "Please make your choice."
+]
+```
+### Placeholder Reference
+- `{1}` = value of `type` parameter  — e.g., `"items"`
+
+<ImageWithCaption src="/images/documentation/vending machine/ItemSelectText 1.png" caption="ItemSelectText Example 1"/>
+<ImageWithCaption src="/images/documentation/vending machine/ItemSelectText 2.png" caption="ItemSelectText Example 2"/>

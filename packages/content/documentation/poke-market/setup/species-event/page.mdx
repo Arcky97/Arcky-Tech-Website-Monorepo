@@ -1,0 +1,23 @@
+<Header title="Species Event Setup">
+  How to set up a Species event.
+</Header>
+
+## Species Event
+Setting up a Species event is essnetially the same as a regular Mart event — or Shelf event — but with one key difference: you use `pbSpeciesMart` instead of `pbPokemonMart` or `pbShelfMart`.
+<br/>
+For easier reusability and organization, it's recommended to define your species list as a method.
+<br/>
+in the `000_PokeMarket_Settings_and_Setup.rb` file, add the following at the bottom:
+<br/>(Use *Notepad++* or any code editor to modify this file)
+
+```ruby
+def pbSomeSpeciesMart
+  pbSpeciesMart([
+    { name: :GROWLITHE, price: 11000, level: 25 },
+    { name: :BULBASAUR, price: 9500, level: 15 },
+    { name: :CHARMANDER, price: 9500, level: 15 },
+    { name: :SQUIRTLE, price: 9500, level: 15 },
+    { name: :PIKACHU, price: 8500, level: 20}
+  ])
+end 
+```

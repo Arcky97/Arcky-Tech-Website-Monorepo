@@ -1,0 +1,16 @@
+## Encounter Type Selection
+
+<InputSelect
+  label="Current Encounter Type"
+  width={250}
+  initValue="Water,2"
+  placeholder="Select Encounter Type"
+  options={["Water,2", "OldRod", "GoodRod", "SuperRod"]
+    .map(option => ({ label: option, value: option }))
+  }
+/>
+This dropdown lists all the <Or>Encounter Types</Or> available within the currently selected **Encounter**. 
+<br/>
+Each subsection in an **Encounter PBS entry** begins with an <Or>Encounter Type</Or>. Some types a lso include an associated <Or>probability</Or> value, separated by a comma (e.g. Water,2).
+<br/>
+Selecting an <Or>Encounter Type</Or> here allows you to view and edit the corresponding **Encounter Table** for that specific type.

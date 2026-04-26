@@ -1,0 +1,50 @@
+<Header title="Shelf Classes"> 
+  List of all Shelf Class parameters.
+</Header>
+
+A new Setting (as of v1.4.0) and similar to Seller Classes is the Shelf Classes. If you are wondering why shelfs would need classes, well you could make the shelf, at the interaction with the event, give the player a hint of which items to expect in the shelf. Of course that's just a suggestion. Another reason could be when you want to change a certain line of the default speeches. When creating a Shelf Class you don't need to add all parameters, those you don't add will get the default value instead.
+<br/>
+Adding a Shelf Class to the event method is really easy as it's the same as you would do for the Seller class. 
+
+```ruby
+def pbSomeShelf
+  pbShelfMart(["daily", :POTION,
+    [:POKEBALL, 15, 20], :REPEL,
+    :FIRESTONE, :ETHER, :ANTIDOTE, :ORANBERRY, :SUPERPOTION,
+    :GREATBALL, :BURNHEAL, :ICEHEAL, :AWAKENING, :PARALYZEHEAL,
+    :WATERSTONE, :LEAFSTONE, :SUNSTONE, :MOONSTONE, :THUNDERSTONE
+  ], speech: "ShelfOne")
+end
+```
+For the Shelf Class itself, these are the parameters that you can use:
+
+```ruby
+ShelfOne = {
+  # Text when talking to a shelf in the mart.
+  IntroShelf: ["Is there anything catching your eye?", "How nice, you can buy items from the shelf now too! :P"],
+  # Text when selecting an item that you haven't added to your basket yet. {1} = item name
+  ShelfAmountItem: ["How many {1} would you like to add to your basket?"],
+  # Text when selecting an item that you have already x amount of in your basket. {1} = item name {2} = amount of that item.
+  ShelfChangeAmountItem: ["You currently have {2} {1} in your basket, change it to how many?"],
+  # Text when selecting an item that you have the max amount of in your basket (only when using item limits for that item). {1} item name
+  ShelfLimitAmountItem: ["Your basket has all {1} in stock, change it to how many?"],
+  # Text when selecting an item that is out of stock (after check out). {1} = item name (plural) {2} = time in days (tomorrow, in 2 days, in x days, in a week, next week etc.)
+  ShelfOutOfStock: ["{1} are currently out of stock, come back {2}."],
+  # Text when selecting an item that has a discount. {1} = item name
+  ShelfItemAmountDiscount: ["There's a discount on {2}, how many would you like?"],
+  # Text when selecting an item that has an overcharge. {1} = item name
+  ShelfItemAmountOvercharge: ["There's an overcharge on {2}, how many would you like?"],
+  # Text when selecting an item that you can't buy because you don't have enough money. {1} = currency {2} item name (plural)
+  NotEnoughMoney: ["You don't have enough {1} to add any {2} to your basket."],
+  # Text when selecting an item that you can't buy more off because you don't have enough money. {1} = currency {2} = item name (plural).
+  NotEnoughMoneyItem: ["You are out of {1}. Change the quantity of {2} you have in your basket?"],
+  # Text when changing amount of item that you couldn't buy more off because you don't have enough money. {1} = item name (plural)
+  NotEnoughMoneyAmount: ["Change the amount of {1} in your basket to how many?"],
+  # Text when increasing the amount of an item {1} = quantity {2} item name {3} bill increased by x amount.
+  ShelfIncreaseAmountItem: ["You added {1} {2} to your basket. Your bill was increased by {3}", "{1} {2} have been added to your basket. Your bill was increased by {3}"],
+  # Text when decreasing the amount of an item {1} = quantity {2} item name {3} bill decreased by x amount.
+  ShelfDecreaseAmountItem: ["You took {1} {2} out of your basket. Your bill was decreased by {3}"],
+  # Text when removing an item from your basket (changing the amount to 0). {1} = quantity {2} item name {3} bill decreased by x amount.
+  ShelfRemoveAmountItem: ["You removed {1} {2} from you basket. Your bill was decreased by {3}", "{1} {2} were removed from your basket. Your bill has decrease by {3}"],
+}
+```

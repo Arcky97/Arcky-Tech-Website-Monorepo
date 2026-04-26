@@ -1,0 +1,24 @@
+## v2.5.1: Time Based Region Maps
+### New Feature 
+- It's now possible to have the Region Map Image change depending on the time in game. (Feature suggested by ProChamCham).
+Possible Times are:
+  - Morning
+  - Day
+  - Afternoon
+  - Evening
+  - Night
+- When there's no Morning, Afternoon or Evening variant, it'll use the Day variant instead.
+- When there's no Night variant, it'll use the Day variant instead.
+- When there's no Day variant, it'll use the Default one instead.
+- When there's none at all, it'll use the default one (so better keep that one as well).
+
+In the town_map.txt PBS, keep the name there as the default variant (for example "mapRegion0.png").
+If you do not wish to use this feature, you can just ignore the console message, the map should load just fine as long as the default one is still available.
+<br/>
+### Bug Fixes 
+- Fixed a crash when confirming to fly to the chosen location using the mouse.
+- Fixed the text "Change Region" on the Fly Map (field move) while you can't change the Region there.
+- Fixed the District Name Feature not being used when the Progress Counter is turned off.
+<br/>
+### New Setting 
+- Added 4 New Settings, to turn on/off each individual Counter used by the Progress Counter Feature (these are the Item, Trainer, Wild Pokémon and Visited Location Counters).

@@ -1,0 +1,21 @@
+## ShelfItemAmountRemove
+
+The `ShelfItemAmountRemove` determines what the player will be prompted with when they confirm a quantity **of 0** for the selected Item.
+
+<SHSpeeches speech="ShelfItemAmountRemove"/>
+
+To define the `ShelfItemAmountRemove`, use this structure:
+
+```ruby
+ShelfItemAmountRemove: [
+  "You removed {1} {2} from you basket. Your bill was decreased by {3}.", 
+  "{1} {2} were removed from your basket. Your bill has decrease by {3}."
+]
+```
+### Placeholder Reference
+- `{1}` = The quantity removed — e.g., `"3"`
+- `{2}` = The chosen Item's name (singular or plural) — e.g., `"Potions"`
+- `{3}` = Total price of the removed quantity — e.g., `"$600"`
+
+<ImageWithCaption src="/images/documentation/poke-market/ShelfItemAmountRemove 1.png" caption="ShelfItemAmountRemove 1"/>
+<ImageWithCaption src="/images/documentation/poke-market/ShelfItemAmountRemove 2.png" caption="ShelfItemAmountRemove 2"/>

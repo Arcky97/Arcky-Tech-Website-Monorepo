@@ -1,0 +1,256 @@
+<Header title="Settings and Setup file"> 
+  The different customization options this plugin offers.
+</Header>
+
+## Settings 
+Below are the links to each of the customizable features available in this plugin:
+
+- [Item Categories](/documentation/poke-market/settings/item-categories)
+- [Badges for Items](/documentation/poke-market/settings/badges-items)
+- [Discounts](/documentation/poke-market/settings/discounts)
+- [Bonus Items](/documentation/poke-market/settings/bonus-items)
+- [Item Limits](/documentation/poke-market/settings/item-limits)
+- [Item Purchase Counter](/documentation/poke-market/settings/item-purchase-counter)
+- [Seller Classes](/documentation/poke-market/settings/speeches/seller-classes)
+- [Shelf Classes](/documentation/poke-market/settings/speeches/shelf-classes)
+
+---
+
+## Setup 
+
+Since **v1.4.0**, the way you provide settings to a Mart or Shelf event has changed — and improved!
+- You no longer need to worry about the *order* of arguments (except for the item list, which should **always come first**).
+- Here's how you'd define a Mart event:
+
+```ruby
+def pbSomeMart
+  pbPokemonMart([
+    :POKEBALL, :GREATBALL, :ULTRABALL,
+    :ESCAPEROPE,
+    :REPEL, :SUPERREPEL, :MAXREPEL,
+    :GRASSMAIL, :FLAMEMAIL,
+    :BUBBLEMAIL, :SPACEMAIL
+  ])
+end
+```
+
+Each optional argument is explained below and in more detail on its corresponding Settings page.
+
+---
+### speech: "string"
+This lets you assign a specific <Yl>Seller Class</Yl> to the event.
+
+```ruby 
+  speech: "ProSeller"
+```
+
+```ruby
+def pbSomeMart
+  pbPokemonMart([
+    :POKEBALL, :GREATBALL, :ULTRABALL,
+    :ESCAPEROPE,
+    :REPEL, :SUPERREPEL, :MAXREPEL,
+    :GRASSMAIL, :FLAMEMAIL,
+    :BUBBLEMAIL, :SPACEMAIL
+  ], speech: "ProSeller")
+end
+```
+➡️See [Seller Class](/documentation/poke-market/settings/speeches/seller-classes) for more info.
+
+---
+### useCat: true / false
+This enables or disables <Bl>Item Categories</Bl>.
+
+```ruby
+  useCat: true
+```
+
+```ruby
+def pbSomeMart
+  pbPokemonMart([
+    :POKEBALL, :GREATBALL, :ULTRABALL,
+    :ESCAPEROPE,
+    :REPEL, :SUPERREPEL, :MAXREPEL,
+    :GRASSMAIL, :FLAMEMAIL,
+    :BUBBLEMAIL, :SPACEMAIL
+  ], speech: "ProSeller", useCat: true)
+end
+```
+
+---
+### Discount: number
+Use this to apply a discount by refering a Game Variable ID:
+
+```ruby
+  discount: 26
+```
+
+```ruby
+def pbSomeMart
+  pbPokemonMart([
+    :POKEBALL, :GREATBALL, :ULTRABALL,
+    :ESCAPEROPE,
+    :REPEL, :SUPERREPEL, :MAXREPEL,
+    :GRASSMAIL, :FLAMEMAIL,
+    :BUBBLEMAIL, :SPACEMAIL
+  ], speech: "ProSeller", useCat: true, discount: 26)
+end
+```
+
+---
+### currency: "string"
+Sets which <Yl>currency</Yl> the Mart or Shelf should use.
+Valid default values:
+- `"money"` or `"gold"`
+- `"coins"`
+- `"bp"` or `"battle points"`
+- `:Item` (new v1.7.0)
+
+<br/>
+**Using a Default Currency (none Item)**
+```ruby 
+  currency: "coins"
+```
+
+```ruby
+def pbSomeMart
+  pbPokemonMart([
+    :POKEBALL, :GREATBALL, :ULTRABALL,
+    :ESCAPEROPE,
+    :REPEL, :SUPERREPEL, :MAXREPEL,
+    :GRASSMAIL, :FLAMEMAIL,
+    :BUBBLEMAIL, :SPACEMAIL
+  ], speech: "ProSeller", useCat: true, discount: 26, currency: "coins")
+end
+```
+
+<br/>
+**Using an Item Currency**
+<br/>
+If you want to use an Item as the currency for a mart store, this is not *possible since v1.7.0*. 
+```ruby 
+  currency: ":HEARTSCALE"
+```
+
+The one thing you need to **keep in mind** when using an **Item as the Currency** is that you still need to **define the price** for each item. Because otherwise the **default price** will be **1**.
+
+If you're familiar with the item limit system in this plugin then understanding the little code below should not be a problem. 
+
+The **Script** sees the **last element in the array** for an **Item slot** as **the Price**. But **only** when the **Currency** is set to **an Item**. **Otherwise** this will **be the limit** for **Poke balls** if a **Refresh Rate** was given, **if not** this number **will be ignored**.
+```ruby
+  [:POKEBALL, 5]
+```
+So now **1 Poke ball** will **cost 5 Heart scales**. But what if you want **1 Poke ball** to **cost 5 Red Shards**. Well then you can do it like this:
+```ruby
+  [:POKEBALL, [5, :REDSHARD]]
+```
+
+Once you did this for the other Items you should get a similar result to this:
+```ruby
+def pbSomeMart
+  pbPokemonMart([
+    [:POKEBALL, [5, :REDSHARD]], [:GREATBALL, [10, :REDSHARD]], [:ULTRABALL, [20, :REDSHARD]],
+    [:ESCAPEROPE, 8],
+    [:REPEL, [3, :YELLOWSHARD]], [:SUPERREPEL, [7, :YELLOWSHARD]], [:MAXREPEL, [15, :YELLOWSHARD]],
+    [:GRASSMAIL, 4], [:FLAMEMAIL, 4],
+    [:BUBBLEMAIL, 4], [:SPACEMAIL, 6]
+  ], speech: "ProSeller", useCat: true, discount: 26, currency: :HEARTSCALE)
+end
+```
+
+Or when you're using the Item Limit System as well:
+```ruby
+def pbSomeMart
+  pbPokemonMart(["2daily",
+    [:POKEBALL, 10, 15, [5, :REDSHARD]], [:GREATBALL, 12, 16, [10, :REDSHARD]], [:ULTRABALL, 15, 18, [20, :REDSHARD]],
+    [:ESCAPEROPE, 1, 8],
+    [:REPEL, 20, 25, [3, :YELLOWSHARD]], [:SUPERREPEL, 15, [7, :YELLOWSHARD]], [:MAXREPEL, 12, [15, :YELLOWSHARD]],
+    [:GRASSMAIL, 5, 4], [:FLAMEMAIL, 5, 4],
+    [:BUBBLEMAIL, 5, 4], [:SPACEMAIL, 3, 6]
+  ], speech: "ProSeller", useCat: true, discount: 26, currency: :HEARTSCALE)
+end
+```
+
+<Callout type="attention">
+  **<Rd>Very important</Rd>** is that **first comes the Price** and **then the Currency**. If you **only put the Currency** then this will be **ignored**.
+  You can also not set the Item specific Currency to a none Item Currency, this will give you a warning in the console and will be ignored to prevent issues. 
+</Callout>
+---
+### cantSell: true / false 
+Disables the ability to sell items in this event.
+This is *optional* and defaults to `false` (meaning selling is allowed).
+
+```ruby 
+  cantSell: true
+```
+
+```ruby
+def pbSomeMart
+  pbPokemonMart([
+    :POKEBALL, :GREATBALL, :ULTRABALL,
+    :ESCAPEROPE,
+    :REPEL, :SUPERREPEL, :MAXREPEL,
+    :GRASSMAIL, :FLAMEMAIL,
+    :BUBBLEMAIL, :SPACEMAIL
+  ], speech: "ProSeller", useCat: true, discount: 26, currency: "money", cantSell: true)
+end
+```
+
+---
+### billEnd: true / false 
+If enabled, the Mart event will end after paying the bill.
+
+```ruby
+  billEnd: true
+```
+
+```ruby 
+def pbSomeMart
+  pbPokemonMart([
+    :POKEBALL, :GREATBALL, :ULTRABALL,
+    :ESCAPEROPE,
+    :REPEL, :SUPERREPEL, :MAXREPEL,
+    :GRASSMAIL, :FLAMEMAIL,
+    :BUBBLEMAIL, :SPACEMAIL
+  ], speech: "ProSeller", useCat: true, discount: 26, currency: "money", cantSell: true, billEnd: true)
+end
+```
+
+--- 
+### random: ["string", number]
+Use this to select a specific or random amount of items from the given item list. 
+- The first element is the refresh time for items to be repicked randomly. 
+- The second element is the amount of items you want to be selected randomly.
+<br/>
+Allowed refresh times are the same as the Refresh Rate for Item Limits with exception for `"random"` not being supported.
+<br/>
+- select a fixed amount.
+
+```ruby 
+  random: ["daily", 4]
+```
+
+- select a random amount.
+```ruby
+  random: ["daily", rand(1..4)]
+```
+
+```ruby 
+def pbSomeMart
+  pbPokemonMart([
+    :POKEBALL, :GREATBALL, :ULTRABALL,
+    :ESCAPEROPE,
+    :REPEL, :SUPERREPEL, :MAXREPEL,
+    :GRASSMAIL, :FLAMEMAIL,
+    :BUBBLEMAIL, :SPACEMAIL
+  ], speech: "ProSeller", useCat: true, discount: 26, currency: "money", cantSell: true, billEnd: true, random: ["daily", rand(1..4)])
+end
+```
+
+---
+<Callout type="attention">
+  **Note:** The only options **<Rd>not supported</Rd>** for `pbShelfMart` (Shelf events) are `useCat`, `cantSell` and `billEnd`. All other options are shared between Shelf and Mart events. 
+</Callout>
+<Callout type="attention">
+  **Note:** The only options **<Gr>supported</Gr>** for `pbSpeciesMart` (Species events) are `speech`, `discount`, `currency` and `random`. All other options are **<Rd>not supported</Rd>**.
+</Callout>

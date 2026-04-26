@@ -1,0 +1,24 @@
+## v2.6.2: Bug Fixes and Improvements
+<Callout type="attention" blend="light">
+  This plugin (update) now requires [Arcky's Utilities](https://drive.google.com/file/d/19xrRavd1CpbC0p1UQtOUZzuEeHL_WHB5/view?usp=sharing) v1.0.2 or higher to function correctly. Once you've installed this, start a new save to avoid malfunction.
+</Callout>
+### Improvement 
+- In the Encounter Table, it'll show the last Seen Form on each Species.
+<br/>
+### Bug Fixes 
+- Fixed Location Searcher and Quick Fly updating the Cursor incorrectly when the setting `REGION_MAP_BEHIND_UI` is set to true.
+- Fixed an eventual crash in the Pokedex in case the `mapPosition` would not have been defined for the Species Location.
+<br/>
+### New Settings
+- Added a new Setting to Fix the Wild, Trainer and Item Text's position when the Special UI is used.
+- Added 2 new Settings (`EXTENDED_TEXT_MAIN_WILD_X` and `EXTENDED_TEXT_MAIN_WILD_Y`) to change the X and Y positions of the Wild Counter Text.
+- Added 2 new Settings (`EXTENDED_TEXT_MAIN_TRAINER_X`  and  `EXTEND_TEXT_MAIN_TRAINER_Y`) to change the X and Y position of the Trainer Counter Text.
+- Added 2 new Settings (`EXTENDED_TEXT_MAIN_ITEM_X` and `EXTENDED_TEXT_MAIN_ITEM_Y`) to change the X and Y position of the Item Counter Text.
+- Added 2 new Settings (`EXTENDED_TEXT_MAIN_BASE` and `EXTENDED_TEXT_MAIN_SHADOW`) to change the Color of the Wild, Trainer and Item Counter Text.
+- Added a new Setting `ENCOUNTER_TYPES` to list and add your custom Encounter Types and choose how you want them to be displayed in the Extended Location Preview.
+- Added a new Setting `CHANGE_EXT_BOX_ON_ENCOUNTER_TYPE` to allow you to make the mapExtBoxMain.png Graphic change depending on the Encounter Type currently displayed in the Extended Location Preivew.
+- Added a new Setting `CHANGE_ENC_BOX_ON_ENCOUNTER_TYPE` to allow you to make the mapEncBox.png Grahic change depending on the Encounter Type currently displayed in the Extended Location Preview.
+- Added 2 new Settings (`EXTENDED_TEXT_SUB_X` and `EXTENDED_TEXT_SUB_Y`) to change the X and Y position of the Species Info Text (only the Info on the first page when viewing a species' info).
+- Added 2 new Settings (`EXTENDED_TEXT_SUB_BASE` and `EXTENDED_TEXT_SUB_SHADOW`) to change the Color of the Species Info Text (both Species' info pages).
+- Added a new Setting USE_SPECIAL_UI to either use the Special UI or use the default or PokeGear ones (or your own).
+- Added a new Setting `PROGRESS_SWITCHES` which allow you to link a switch to each District, if used, that will be set to ON when the respective District is at 100%.

@@ -1,0 +1,32 @@
+## Make Automatic daily backups
+Create a backup script:
+```bash
+nano /root/backup-vaultwarden.sh
+```
+Add this as it's content:
+```bash
+#!/bin/bash
+
+BACKUP_DIR="/root/backups/vaultwarden"
+DATA_DIR="/opt/vaultwarden/data"
+DATE=$(date +%F)
+
+mkdir -p $BACKUP_DIR
+
+# Stop container
+docker stop vaultwarden
+
+# Copy database
+cp -r $DATA_DIR $BACKUP_DIR/backup-$DATE
+
+# Start again
+docker start vaultwarden
+
+# Delete backups older than 14 days
+find $BACKUP_DIR -type f -mtime +14 -delete
+```
+save (press ctrl + 0, then enter, then ctrl + x)
+Make the file executable:
+```bash 
+chmod +x /root/backup-vaultwarden.sh
+```

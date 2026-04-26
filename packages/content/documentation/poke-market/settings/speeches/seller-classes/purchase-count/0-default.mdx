@@ -1,0 +1,20 @@
+## PurchaseCount
+
+The `PurchaseCount` determines what the NPC will say wehn the player has purchased 1 amount of an Item that has been defined in the ItemPurchaseCounter setting.
+<br/>
+See [ItemPurchaseCounter](../../../settings/item-purchase-counter) for more information 
+<br/>
+<Callout type="hint">
+  The `PurchaseCount` is **optional**, if not included,  it'll not be used by the script.
+</Callout>
+
+<PMSpeeches speech="PurchaseCount"/>
+
+To define the `PurchaseCount`, use this structure:
+
+```ruby
+PurchaseCount: [
+  "Congratulations, you've earned 1 loyalty point!"
+]
+```
+<ImageWithCaption src="/images/documentation/poke-market/PurchaseCount.png" caption="PurchaseCount"/>

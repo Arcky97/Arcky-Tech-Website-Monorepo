@@ -1,0 +1,21 @@
+## BuyItem
+
+The `BuyItem` determines what the NPC says when the player has confirmed the chosen amount of the item (only 1) they want to buy.
+
+<PMSpeeches speech="BuyItem" />
+
+To define the `BuyItem`, use this structure:
+
+```ruby
+BuyItem: [
+  "So you want {1} {2}?\nIt'll be ${3}. All right?", 
+  "So you would like to buy {1} {2}?\nThat's going to cost you ${3}!"
+]
+```
+### Placeholder Reference
+- `{1}` = Chosen Item's amount (**always 1**) — e.g., `"1"`
+- `{2}` = Chosen Item's name (singular) — e.g., `"Poké Ball"`
+- `{3}` = Final Item price (after discount/overcharge if any) — e.g., `$200`
+
+<ImageWithCaption src="/images/documentation/poke-market/BuyItem 1.png" caption="BuyItem 1"/>
+<ImageWithCaption src="/images/documentation/poke-market/BuyItem 2.png" caption="BuyItem 2"/>

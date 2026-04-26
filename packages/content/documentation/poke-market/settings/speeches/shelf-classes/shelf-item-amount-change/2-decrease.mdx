@@ -1,0 +1,18 @@
+## ShelfItemAmountDecrease
+
+The `ShelfItemAmountDecrease` determines what the player will be prompted with when they confirm a quantity **lower but not 0** than the amount of the same Item they previously added to the basket.
+
+<SHSpeeches speech="ShelfItemAmountDecrease"/>
+
+To define the `ShelfItemAmountDecrease`, use this structure:
+
+```ruby
+ShelfItemAmountDecrease: [
+  "You took {1} {2} out of your basket. Your bill was decreased by {3}."]
+```
+### Placeholder Reference
+- `{1}` = The quantity removed — e.g., `"2"`
+- `{2}` = The chosen Item's name (singular or plural) — e.g., `"Potions"`
+- `{3}` = Total price of the removed quantity — e.g., `"$400"`
+
+<ImageWithCaption src="/images/documentation/poke-market/ShelfItemAmountDecrease.png" caption="ShelfItemAmountDecrease"/>

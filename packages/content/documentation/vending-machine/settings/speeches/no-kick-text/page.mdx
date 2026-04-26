@@ -1,0 +1,20 @@
+<Header title="NoKickText">
+  How to use and define various NoKickText speeches.
+</Header>
+
+The `NoKickText` determines what the Vending Machine will say when you don't want to kick.
+<br/>
+As shown in the example below, you can include multiple variations. The script will randomly choose one line from the array each time the player interacts with the Vending Machine Event.
+<br/>
+To define the `NoKickText`, use this structure:
+
+```ruby 
+NoKickText: [
+  "Looks like you don't mind wasting your {1}! ({2})"
+]
+```
+### Placeholder Reference
+- `{1}` = used currency — e.g., `"money"`
+- `{2}` = total price of items remaining stuck — e.g., `"$400"`
+
+<ImageWithCaption src="/images/documentation/vending machine/NoKickText.png" caption="NoKickText"/>

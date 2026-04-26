@@ -1,0 +1,58 @@
+<Header title="MenuText">
+  How to use and define MenuText speeches.
+</Header>
+
+The `MenuText` is used by a Mart event when presenting the player with different options — such as **Buy**, **Sell** (if allowed), **Exit**, or **Pay the Bill** (if you've added items to your basket from a Shelf event).
+<br/>
+These dialogues can be customized through the following speech parameters. If you don't define them in a Seller Class, the default values will be used. 
+<br/>
+--- 
+
+## MenuTextBuy
+
+Defines the text shown when selecting the **Buy** option.
+
+```ruby
+MenuTextBuy: [
+  "I want to buy!"
+]
+```
+<br/>
+---
+
+## MenuTextSell
+
+Defines the text shown when selecting the **Sell** option.
+
+```ruby
+MenuTextSell: [
+  "Give me your money!"
+]
+```
+<br/>
+---
+
+## MenuTextQuit
+
+Defines the text shown when choosing to **exit the Mart event**
+
+```ruby
+MenuTextQuit: [
+  "Bye bye!"
+]
+```
+
+<ImageWithCaption src="/images/documentation/poke-market/MenuText 1.png" caption="MenuText Example 1" align="center"/>
+
+---
+
+## MenuTextBill
+<br/>
+Defines the text shown when selecting the **Pay Bill** option (used when items were added in your basket from a Shelf event).
+
+```ruby
+MenuTextBill: [
+  "I'm paying my debt"
+]
+```
+<ImageWithCaption src="/images/documentation/poke-market/MenuText 2.png" caption="MenuText Example 2" align="center"/>

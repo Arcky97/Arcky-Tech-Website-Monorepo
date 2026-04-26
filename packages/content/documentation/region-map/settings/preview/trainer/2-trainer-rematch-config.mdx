@@ -1,0 +1,52 @@
+## TrainerRematchesConfig
+
+Use this Setting to define your Trainer Rematches to show in the Trainer Mode on the Region Map when a Rematch is available for one or more Trainers.
+
+```ruby
+TrainerRematchesConfig = {
+  59 => [
+    {
+      name: "Crissy",
+      type: "LASS",
+      event: 10,
+      map: 31
+    },
+    {
+      name: "Bridget",
+      type: "BEAUTY",
+      event: 7,
+      map: 31
+    },
+    {
+      name: "Ford",
+      type: "HIKER",
+      event: 8,
+      map: 31
+    },
+    {
+      name: "Andrew",
+      type: "FISHERMAN",
+      event: 9,
+      map: 31
+    }
+  ],
+  "B" => {
+    name: "Liam",
+    type: "CAMPER",
+    event: 4,
+    map: 10
+  },
+}
+```
+
+### Possible Values
+
+The Setup won't be explained in detail here, for that check [Trainer Preview](../../basic-setup/trainer-preview). 
+<br/>There are 3 ways to define and register your rematches so the Trainer Mode can detect them.
+- Using the Phone Registration System (setup for that is explained on the Essentials Wiki)
+- Using a Game Switch followed by an array of items each containing the following:
+  - `name: "Crissy` = The name of the Trainer.
+  - `type: "LASS` = The class of the Trainer.
+  - `event: 10` = The Game Event ID of the Trainer.
+  - `map: 31` = The Game Map ID the Trainer event is on.
+- Using the Self Switch of the Event itself.

@@ -1,0 +1,18 @@
+<Header title="NoRoomInStorage">
+  How to use and define NoRoomInStorage speeches.
+</Header>
+
+the `NoRoomInStorage` determines what the NPC says when the player selects a Species but there would be no more room in the PC Storage for that species.
+
+<SPSpeeches speech="NoRoomInStorage"/>
+
+To define the `NoRoomInStorage`, use this structure:
+
+```ruby
+NoRoomInStorage: [
+  "Your PC Storage is full, you can't buy {1}"
+]
+```
+### Placeholder Reference
+- `{1}` = The chosen Species' name — e.g., `"Squirtle"`
+<ImageWithCaption src="/images/documentation/poke-market/NoRoomInStorage.png" caption="NoRoomInStorage"/>

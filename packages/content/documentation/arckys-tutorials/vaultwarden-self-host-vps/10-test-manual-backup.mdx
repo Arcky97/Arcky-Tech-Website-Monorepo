@@ -1,0 +1,18 @@
+## Test manual backup
+We'll create a backup folder:
+```bash
+mkdir -p /root/backups/vaultwarden
+```
+Now copy the database:
+```bash
+cp -r /opt/vaultwarden/data /root/backups/vaultwarden/backup-$(date +%F)
+```
+Confirm with:
+```bash 
+ls /root/backups/vaultwarden
+```
+You should see:
+```bash
+backup-yyyy-mm-dd
+```
+Obviously `yyyy-mm-dd` will be the current year, month and day.

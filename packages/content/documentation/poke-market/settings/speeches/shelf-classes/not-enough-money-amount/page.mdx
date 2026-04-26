@@ -1,0 +1,19 @@
+<Header title="NotEnoughMoneyAmount">
+  How to use and define NotEnoughMoneyAmount speeches.
+</Header>
+
+The `NotEnoughMoneyAmount` determines what the player will be prompted with when they selected `"Yes"` in response to the [NotEnoughMoneyItem](not-enough-money-item) prompt. It allows the player to adjust the quantity of an Item in their  basket after trying to add more than they can afford.
+
+<SHSpeeches speech="NotEnoughMoneyAmount"/>
+
+To define the `NotEnoughMoneyAmount`, use this structure:
+
+```ruby
+NotEnoughMoneyAmount: [
+  "Change the amount of {1} in your basket to how many?"
+]
+```
+### Placeholder Reference
+- `{1}` = Chosen Item's name (plural) — e.g., `"Potions"`
+
+<ImageWithCaption src="/images/documentation/poke-market/ShelfNotEnoughMoneyAmount.png" caption="NotEnoughMoneyAmount"/>

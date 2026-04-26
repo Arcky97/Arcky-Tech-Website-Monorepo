@@ -1,0 +1,20 @@
+## Create your Peronal Backup key
+This key is the only thing that can decrypt your vault backups.
+
+Run:
+```bash
+age-keygen -o /riit/vaultwarden-backup.key
+```
+You should sees something like:
+```bash
+Public key: age1m9v...abcxyz
+```
+Two important things were created:
+
+<Table
+  headers={["File", "Purpose"]}
+  rows={[["`/root/vaulwarden-backup.key`", "SECRET - keep forever"], ["public key (printed)", "used to encrypt"]]}
+/>
+<Callout type="attention">
+  **Download vaultwarden-backup.key** to your PC using **FileZilla or winSCP** and save it on a **USB drive and write it down** as well on that **same paper** you wrote the **Vaultwarden master password** on. **<Rd>If you lose this file, your backups are unrecoverable</Rd>**.
+</Callout>

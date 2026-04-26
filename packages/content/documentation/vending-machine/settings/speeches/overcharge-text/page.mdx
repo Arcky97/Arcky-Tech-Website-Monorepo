@@ -1,0 +1,20 @@
+<Header title="OverchargeText">
+  How to use and define various OverchargeText speeches.
+</Header>
+
+The `OverchargeText` determines what the Vending Machine will say when using an overcharge on the items.
+<br/>
+As shown in the example below, you can include multiple variations. The script will randomly choose one line from the array each time the player interacts with the Vending Machine Event.
+<br/>
+To define the `OverchargeText`, use this structure:
+
+```ruby 
+OverchargeText: [
+  "Ow, you have to pay an overcharge of {1}% on all {2}s!"
+]
+```
+### Placeholder Reference
+- `{1}` = Overcharge amount — e.g., `11`
+- `{2}` = value of `type` parameter  — e.g., `"item"`
+
+<ImageWithCaption src="/images/documentation/vending machine/OverchargeText.png" caption="OverchargeText"/>

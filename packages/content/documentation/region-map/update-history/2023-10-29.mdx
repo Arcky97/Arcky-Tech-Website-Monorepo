@@ -1,0 +1,26 @@
+## v1.2.0: Improved Mode Switching
+
+<Callout type="attention" blend="light">
+  There's a new Graphic file named "mapButtonPreview.png". Don't forget to put this in the Correct Graphics Folder:
+    - Graphics < Pictures < RegionMap < UI for v20.1
+    - Graphics < UI < Town Map < UI for v21.1
+</Callout>
+
+### New Feature
+- Added a new Feature to change between modes in style.
+  - The "Button: Change Mode" text is displayed in the Mode Preview Window. It'll dissapear when Previewing a Quest.
+  - 2 or less modes will change Modes directly.
+  - 3 or more Modes (4 is max for now) will give you a Choice Menu to Change Modes.
+    You can go from the First Mode (Normal Map) to the 4th mode (Berry Map) instead of needing to press the Button (set to change modes) 3 times and then experience the pain of having pressed too much XD.
+<br/>
+### Improvements
+- The Mode Preview Graphic will not show on the Fly Map and Wall Map.
+- When on the Quest Map and on a Position that has a Quest Icon, the "Button: Change Mode" will instead say "Button: View Quest(s)".
+- When on the Fly Map and Quick Fly is enabled (either by default or by the Switch), it'll always say "Button: Quick Fly".
+<br/>
+**Remember that each Button can be changed in the `001_RegionMap_Settings.rb` file.**
+<br/>
+### New Settings 
+- Added a new setting to change the Button to Change Modes.
+- Added a new Setting to change the Name of each Mode.
+- Added a new Setting to change the Opacity of the Highlight Graphics on a Location.

@@ -1,0 +1,22 @@
+## BuyItemImportant
+
+The `BuyItemImportant` determines what the NPC says when the player has confirmed amount of the important item (always 1) they want to buy.
+<br/>
+See the [Essentials Wiki's Items](https://essentialsengine.miraheze.org/wiki/Items) page for more information.
+
+<PMSpeeches speech="BuyItemImportant"/>
+
+To define the `BuyItemImportant`, use this structure:
+
+```ruby
+BuyItemImportant: [
+  "So you want {1}?\nIt'll be ${2}. All right?"
+]
+```
+### Placeholder Reference 
+- `{1}` = Chosen (important) Item's name (singular) — e.g., `"Escape Rope"`
+- `{2}` = Total price chosen (important) Item's name (after discount/overcharge if any) — e.g., `"$500"`
+
+<ImageWithCaption src="/images/documentation/poke-market/BuyItemImportant.png" caption="BuyItemImportant"/>
+Once you've bought an **Important Item**, it'll no longer show in the Item's list.
+<ImageWithCaption src="/images/documentation/poke-market/BuyItemImportant Out of Stock.png" caption="BuyItemImportant Out of Stock"/>

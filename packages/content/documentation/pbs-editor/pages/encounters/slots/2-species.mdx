@@ -1,0 +1,14 @@
+## Species
+
+<InputSelect
+  label="Species:"
+  width={250}
+  initValue="TENTACOOL"
+  placeholder="Select Species"
+  options={["BULBASAUR", "GROWLITHE", "TENTACOOL", "MANTYKE", "REMORAID"]
+    .map(option => ({ label: option, value: option }))
+  }
+/>
+This dropdown lists all available <Or>Species</Or> defined in your `"pokemon.txt"` and `"pokemon_forms.txt"` PBS files.
+<br/> 
+Entries are orignized by <Or>Species</Or> and their respective froms, and are identified using their ID.

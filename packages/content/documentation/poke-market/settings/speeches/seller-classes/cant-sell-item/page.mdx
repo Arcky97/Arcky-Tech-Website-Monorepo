@@ -1,0 +1,19 @@
+<Header title="CatSellItem">
+  How to use and define CantSellItem speeches.
+</Header>
+
+The `CantSellItem` determines what the NPC will say when the player has chosen an Item that can't be sold.
+
+<PMSpeeches speech="CantSellItem"/>
+
+To define the `CantSellItem`, use this structure:
+
+```ruby
+CantSellItem: [
+  "Oh, no. I can't buy {1}."
+]
+```
+### Placeholder Reference
+- `{1}` = Chose Item's name (plural) — e.g., `"Town Maps"`
+
+<ImageWithCaption src="/images/documentation/poke-market/CantSellItem.png" caption="CantSellItem"/>

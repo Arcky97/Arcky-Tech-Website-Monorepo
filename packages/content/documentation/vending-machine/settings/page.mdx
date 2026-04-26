@@ -1,0 +1,194 @@
+<Header title="Settings and Setup file">
+  The different customization options this plugin offers.
+</Header>
+
+## Settings 
+Below are the links to each of the customizable features available in this plugin:
+
+- [Badges for Items](settings/badges-items)
+- [Discounts](settings/discounts)
+- [Text Colors](settings/text-colors)
+- [Speeches](settings/speeches)
+
+---
+
+## Setup 
+
+To add settings in a Vending Machine script call is very similar to how it's done in the Poké Market plugin.
+- You no longer need to worry about the *order* of arguments (except for the item list, which should **always come first**).
+- Here's how you'd define a Vending Machine event:
+
+```ruby
+def someVendingMachine
+  advancedVendingMachine([
+    :POKEBALL, :GREATBALL,
+    :POTION, :SUPERPOTION, :HYPERPOTION,
+    :REPEL, :SUPERREPEL, 
+    :REVIVE, 
+    :ANTIDOTE, :PARALYZEHEAL,
+  ])
+end
+```
+
+Each optional argument is explained below and in more detail on its corresponding Settings page.
+
+---
+### speech: "string"
+This lets you assign a specific <Yl>Vending Machine Class</Yl> to the event.
+
+```ruby 
+  speech: "ProVend"
+```
+
+```ruby
+def someVendingMachine
+  advancedVendingMachine([
+    :POKEBALL, :GREATBALL,
+    :POTION, :SUPERPOTION, :HYPERPOTION,
+    :REPEL, :SUPERREPEL, 
+    :REVIVE, 
+    :ANTIDOTE, :PARALYZEHEAL,
+  ], speech: "ProVend")
+end
+```
+➡️See [Vending Machine Class](settings/speeches) for more info.
+
+---
+### type: "string"
+This defines the "type" of items you can buy from the Vending Machine rather than make it say "What item do you want to buy", it could say "What drink do you want to buy" if you're only selling dinkable items.
+
+```ruby 
+  type: "drink"
+```
+
+```ruby
+def someVendingMachine
+  advancedVendingMachine([
+    :POKEBALL, :GREATBALL,
+    :POTION, :SUPERPOTION, :HYPERPOTION,
+    :REPEL, :SUPERREPEL, 
+    :REVIVE, 
+    :ANTIDOTE, :PARALYZEHEAL,
+  ], speech: "ProVend", type: "drink")
+end
+```
+
+---
+### discount: number
+Use this to apply a discount by refering a Game Variable ID:
+
+```ruby 
+  discount: 26
+```
+
+```ruby
+def someVendingMachine
+  advancedVendingMachine([
+    :POKEBALL, :GREATBALL,
+    :POTION, :SUPERPOTION, :HYPERPOTION,
+    :REPEL, :SUPERREPEL, 
+    :REVIVE, 
+    :ANTIDOTE, :PARALYZEHEAL,
+  ], speech: "ProVend", type: "drink", discount: 26)
+end
+```
+---
+### currency: "string"
+Set which <Yl>currency</Yl> the Vending Machine should use.
+Valid default values: 
+- `"money"` or `"gold"`
+- `"coins"`
+- `"bp"` or `"battle points"`
+
+<br/>
+```ruby 
+  currency: "battle points"
+```
+
+```ruby
+def someVendingMachine
+  advancedVendingMachine([
+    :POKEBALL, :GREATBALL,
+    :POTION, :SUPERPOTION, :HYPERPOTION,
+    :REPEL, :SUPERREPEL, 
+    :REVIVE, 
+    :ANTIDOTE, :PARALYZEHEAL,
+  ], speech: "ProVend", type: "drink", discount: 26, currency: "battle points")
+end
+```
+---
+### bonusChance: number
+Set the chance the player has to receive a bonus item when buying 1 or more items from the Vending Machine. The higher the number, the higher the chance of getting a bonus item.
+
+```ruby 
+  bonusChance: 20
+```
+
+```ruby
+def someVendingMachine
+  advancedVendingMachine([
+    :POKEBALL, :GREATBALL,
+    :POTION, :SUPERPOTION, :HYPERPOTION,
+    :REPEL, :SUPERREPEL, 
+    :REVIVE, 
+    :ANTIDOTE, :PARALYZEHEAL,
+  ], speech: "ProVend", type: "drink", discount: 26, currency: "battle points", bonusChance: 20)
+end
+```
+---
+### stuckChance: number 
+Set the chance the player has of an item getting stuck when buying 1 or more items from the Vending Machine. Not providing this setting will disable items getting stuck completely.
+
+```ruby 
+  stuckChance: 5
+```
+
+```ruby
+def someVendingMachine
+  advancedVendingMachine([
+    :POKEBALL, :GREATBALL,
+    :POTION, :SUPERPOTION, :HYPERPOTION,
+    :REPEL, :SUPERREPEL, 
+    :REVIVE, 
+    :ANTIDOTE, :PARALYZEHEAL,
+  ], speech: "ProVend", type: "drink", discount: 26, currency: "battle points", bonusChance: 20, stuckChance: 5)
+end
+```
+---
+### kickChance: number 
+Set the chance the player's kick will be successful upon items getting stuck in the Vending Machine. This setting is only used if a stuckChance was given as well, otherwise this setting has no effect.
+
+```ruby 
+  kickChance: 80
+```
+
+```ruby
+def someVendingMachine
+  advancedVendingMachine([
+    :POKEBALL, :GREATBALL,
+    :POTION, :SUPERPOTION, :HYPERPOTION,
+    :REPEL, :SUPERREPEL, 
+    :REVIVE, 
+    :ANTIDOTE, :PARALYZEHEAL,
+  ], speech: "ProVend", type: "drink", discount: 26, currency: "battle points", bonusChance: 20, stuckChance: 5, kickChance: 80)
+end
+```
+---
+### multiBuy: `{ min: number, max: number }`
+Set the minimum and maximum amount of a same item the player can buy at once. By default this would be 1 at a time when not providing this setting at all. When not providing a minimum, the default is 1. Whene not providing a maximum, the amount will be the minumum.
+
+```ruby 
+  multiBuy: { min: 1, max: 15 }
+```
+
+```ruby
+def someVendingMachine
+  advancedVendingMachine([
+    :POKEBALL, :GREATBALL,
+    :POTION, :SUPERPOTION, :HYPERPOTION,
+    :REPEL, :SUPERREPEL, 
+    :REVIVE, 
+    :ANTIDOTE, :PARALYZEHEAL,
+  ], speech: "ProVend", type: "drink", discount: 26, currency: "battle points", bonusChance: 20, stuckChance: 5, kickChance: 80, multiBuy: { min: 1, max: 15})
+end
+```

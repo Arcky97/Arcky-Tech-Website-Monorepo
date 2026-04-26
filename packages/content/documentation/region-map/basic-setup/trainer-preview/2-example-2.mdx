@@ -1,0 +1,59 @@
+## Example 2
+
+In the second example, 1 or more Trainer Rematches are registered by using a Game Switch.
+<Callout type="attention">
+  When using this method, once the Switch is `ON`, **all the Trainers asigned** to this Switch **will be shown at once** on the Region Map. 
+  <br/>**<Rd>It's up to you to have extra checks to know when all Trainers have been defeated. The Plugin is not going to handle that for you.</Rd>**
+  <br/>The **Trainer Icons will be shown** on the Trainer Mode as long as the **asigned Switch is `ON`**.
+</Callout>
+
+```ruby
+TrainerRematchesConfig = {
+  59 => [
+    {
+      name: "Crissy",
+      type: "LASS",
+      event: 10,
+      map: 31
+    },
+    {
+      name: "Bridget",
+      type: "BEAUTY",
+      event: 7,
+      map: 31
+    },
+    {
+      name: "Ford",
+      type: "HIKER",
+      event: 8,
+      map: 31
+    },
+    {
+      name: "Andrew",
+      type: "FISHERMAN",
+      event: 9,
+      map: 31
+    }
+  ]
+}
+```
+
+<EmblaCarousel 
+  slides={[
+    "documentation/region-map/Trainer Icons 4",
+    "documentation/region-map/Trainer Icons 5",
+    "documentation/region-map/Trainer Icons 6",
+    "documentation/region-map/Trainer Icons 7",
+    "documentation/region-map/Trainer Icons 8",
+    "documentation/region-map/Trainer Icons 9"
+  ]}
+  captions={[
+    "Trainers on Route 3",
+    "4 Rematches on Region Map",
+    "Rematch Trainer Lass Crissy",
+    "Rematch Trainer Beauty Bridget",
+    "Rematch Trainer Hiker Ford",
+    "Rematch Trainer Fisherman Andrew"
+  ]}
+  options={{ loop: true }}
+/>

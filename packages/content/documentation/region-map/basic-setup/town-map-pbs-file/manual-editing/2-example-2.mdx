@@ -1,0 +1,30 @@
+## Example 2
+
+The 3rd and 4th points are Cedolan City:
+<ImageWithCaption src="/images/documentation/region-map/CedolanCity-0.png" caption="Cedolan City" align="left" size="tiny"/>
+This Location has a size of 2 by 1 tiles on the Region Map => 2 Points are defined:
+```
+Point = 13,10,Cedolan City,Cedolan Dept. Store,7,47,11,
+Point = 14,10,Cedolan City,,7,47,11,
+```
+Looking into the Highlight folder, we'll find a Graphic named "mapSize2x1.png" (2 tiles wide and 1 tile high).
+- Graphics > Pictures > RegionMap > Highlights > Others for v20.1
+- Graphics > UI > Town Map > Highlights > Others for v21.1
+<br/>
+To make the Script use this Graphic when the Cursor is on one of these 2 Points, we add "Size2x1" at the end of both line for these Points:
+```
+Point = 13,10,Cedolan City,Cedolan Dept. Store,7,47,11,,Size2x1
+Point = 14,10,Cedolan City,,7,47,11,,Size2x1
+```
+Pay attention that before "Size2x1" I added an extra `,` as that would normally be where we define a Switch for that Point.
+Result when the Cursor is on this Location:
+<ImageWithCaption src="/images/documentation/region-map/CedolanCity-1.png" caption="Cedolan City Highlighted" align="left" size="tiny"/>
+Result when this Location hasn't been visited yet:
+<ImageWithCaption src="/images/documentation/region-map/CedolanCity-2.png" caption="Cedolan City Unvisited" align="left" size="tiny"/>
+You can also add "CedolanCity" instead of "Size2x1" (the Graphic name should then be "mapCedolanCity.png").
+```
+Point = 13,10,Cedolan City,Cedolan Dept. Store,7,47,11,,CedolanCity
+Point = 14,10,Cedolan City,,7,47,11,,CedolanCity
+```
+When changing or adding new Graphics, always recompile your game an extra time. I noticed this for myself too that it would say that a Graphic is missing while it's actually present in the folder.
+<br/>

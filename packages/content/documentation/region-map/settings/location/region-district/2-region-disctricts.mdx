@@ -1,0 +1,39 @@
+## RegionDistricts 
+
+This Setting may be used to assign a District to a certain area on the Region Map. The District Name will be used instead of the Region Name within this area. It allows a set of arrays, each containing the necessary details for a district.
+
+<SetVer
+  v201={`REGION_DISTRICTS = [
+    [0, [9, 19],  [4, 6],   _INTL("North Essen")],
+    [0, [15, 15], [7, 7],   _INTL("North Essen")],
+    [0, [16, 19], [7, 7],  _INTL("East Essen")],
+    [0, [15, 19], [8, 11],  _INTL("East Essen")],
+    [0, [9, 19],  [12, 15], _INTL("South Essen")],
+    [0, [9, 12],  [7, 11],  _INTL("West Essen")],
+    [0, [13, 14], [7, 11],  _INTL("Central Essen")],
+    [1, [10, 20], [5, 15],  _INTL("Central Tiall")]
+  ]`}
+  v211={`RegionDistricts = [
+    [0, [9, 19],  [4, 6],   _INTL("North Essen")],
+    [0, [15, 15], [7, 7],   _INTL("North Essen")],
+    [0, [16, 19], [7, 7],  _INTL("East Essen")],
+    [0, [15, 19], [8, 11],  _INTL("East Essen")],
+    [0, [9, 19],  [12, 15], _INTL("South Essen")],
+    [0, [9, 12],  [7, 11],  _INTL("West Essen")],
+    [0, [13, 14], [7, 11],  _INTL("Central Essen")],
+    [1, [10, 20], [5, 15],  _INTL("Central Tiall")]
+  ]`}
+/>
+
+### Possible Values
+
+Each Item you add here must contain the following:
+- `0` = Region Map ID.
+- `[9, 19]` = The start and end X Position.
+- `[4, 6]` = The start and end Y Position.
+- `_INTL("North Essen")` = The name of the District.
+
+<Callout type="hint">
+  The `_INTL("")` is optional but it allows the game to detect the name for translation. 
+  <br/>You may just add `"North Essen"` instead.
+</Callout>

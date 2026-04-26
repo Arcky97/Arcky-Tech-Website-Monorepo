@@ -1,0 +1,19 @@
+<Header title="BuySpecies">
+  How to use and define BuySpecies speeches.
+</Header>
+
+The `BuySpecies` determines what the NPC says when the player is prompted to comfirm buying the selected species.
+
+<SPSpeeches speech="BuySpecies"/>
+
+To define the `BuySpecies`, use this structure:
+
+```ruby
+BuySpecies: [
+  "So you want {1}? That'll be {2}"
+]
+```
+### Placeholder Reference
+- `{1}` = The chosen Species' name — e.g, `"Growlithe"`
+- `{2}` = The chosen Species' price — e.g., `"$11000"`
+<ImageWithCaption src="/images/documentation/poke-market/BuySpecies.png" caption="BuySpecies"/>

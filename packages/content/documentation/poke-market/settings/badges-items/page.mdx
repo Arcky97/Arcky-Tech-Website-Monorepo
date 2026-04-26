@@ -1,0 +1,82 @@
+<Header title="Badges for Items">
+  How to Limit an Item to a certain amount of Badges.
+</Header>
+
+In default Essentials, managing which items are available in a Mart based on badge count requires setting up separate item lists for each scenario.
+<br/>This plugin simplifies that process with a dedicated setting: `BadgesForItems`
+<ImageWithCaption src="/images/documentation/poke-market/Default Mart Event for Badges.png" caption="Default Mart Event for Badges" align="left"/>
+
+<Callout type="hint">
+  Introduced in v1.6.0 — there's a new setting `BadgesForSpecies`, which can only be used for Species events. The setup is completely the same as for `BadgesForItems` with exceptions you should specify Species instead of Items.
+</Callout>
+---
+
+### The Easy Way with `BadgesForItems`
+
+Use the following setup in your `000_PokeMarket_Settings_and_Setup.rb` file:
+
+```ruby
+BadgesForItems = {
+  1 => [:GREATBALL, :SUPERPOTION, :ANTIDOTE, :PARALYZEHEAL, :AWAKENING, :BURNHEAL, :ICEHEAL, :REPEL, :ESCAPEROPE],
+  3 => [:HYPERPOTION, :SUPERREPEL, :REVIVE],
+  5 => [:ULTRABALL, :FULLHEAL, :MAXREPEL],
+  7 => [:MAXPOTION],
+  8 => [:FULLRESTORE]
+}
+```
+
+Each key in the hash represents a badge requirement.
+<br/>Once the player has at least that many badges, the associated **items** become available for purchase.
+<Callout type="hint">
+  This system is similar to how HMs unlock with badge milestones — but even better, you can also configure the specific badge ID if needed.
+</Callout>
+
+---
+
+### Items Available from the Start 
+
+Any items **not listed** in the `BadgesForItems` hash will be available by default, with 0 badges.
+
+---
+
+### Example Usage 
+
+Let's say we define a Mart like this:
+
+```ruby
+def pbSomeMart
+  pbPokemonMart([
+    :POKEBALL, :GREATBALL, :ULTRABALL,
+    :POTION, :SUPERPOTION, :HYPERPOTION, :MAXPOTION,
+    :FULLRESTORE, :REVIVE,
+    :ANTIDOTE, :PARALYZEHEAL, :AWAKENING, :BURNHEAL, :ICEHEAL,
+    :FULLHEAL,
+    :REPEL, :SUPERREPEL, :MAXREPEL
+  ], useCat: true)
+end
+```
+
+Now simply call `pbSomeMart` in your event using a script command.
+<ImageWithCaption src="/images/documentation/poke-market/Shorter Mart Event for Badges.png" caption="Shorter Mart Event for Badges" align="left"/>
+
+---
+
+### Result in Game 
+
+🔒 With 0 Badges:
+<ImageWithCaption src="/images/documentation/poke-market/0 Badges Item Category 1.png" caption="No Badges Item Category 1" align="left"/>
+<ImageWithCaption src="/images/documentation/poke-market/0 Badges Item Category 2.png" caption="No Badges Item Category 2" align="left"/>
+
+🔓 With 1 Badge:
+<ImageWithCaption src="/images/documentation/poke-market/1 Badge Item Category 1.png" caption="1 Badge Item Category 1" align="left"/>
+<ImageWithCaption src="/images/documentation/poke-market/1 Badge Item Category 2.png" caption="1 Badge Item Category 2" align="left"/>
+<ImageWithCaption src="/images/documentation/poke-market/1 Badge Item Category 3.png" caption="1 Badge Item Category 3" align="left"/>
+<ImageWithCaption src="/images/documentation/poke-market/1 Badge Item Category 4.png" caption="1 Badge Item Category 4" align="left"/>
+
+As shown, once a badge treshold is crossed, all items defined at or below that level become available.
+<br/>For example, reaching 3 badges will unlock:
+
+```ruby
+  [:HYPERPOTION, :SUPERREPEL, :REVIVE]
+```
+...and so on, all the way to 8 or more badges.

@@ -1,0 +1,35 @@
+## Link a P.O.I. to a Map
+
+This Setting may be used to link a P.O.I. (Point of Interest) to a Game Map. This allows you to give the P.O.I. a different name on the Region Map than the actual Game Map name. 
+<br/>Not using this Setting will make the P.O.I. reveal together with the location on the Region Map.
+
+<SetVer
+  v211={`LinkPoiToMap = {
+    "Oak's Lab" => 4,
+    "Kurt's House" => 6,
+    "\\v[12]'s house" => 8,
+    "Cedolan Dept. Store" => 14,
+    "Ice Cave" => 34,
+    "Rock Cave 1F" => 49,
+    "Rock Cave B1F" => 50,
+    "Dungeon" => 51,
+    "Diving area" => 70,
+    "Cedolan City Gym" => 10
+  }`}
+  v201={`LINK_POI_TO_MAP = {
+    "Oak's Lab" => 4,
+    "Kurt's House" => 6,
+    "\\v[12]'s house" => 8,
+    "Cedolan Dept. Store" => 14,
+    "Ice Cave" => 34,
+    "Rock Cave 1F" => 49,
+    "Rock Cave B1F" => 50,
+    "Dungeon" => 51,
+    "Diving area" => 70,
+    "Cedolan City Gym" => 10
+  }`}
+/>
+
+### Possible Values 
+
+Each item you add here must exist out of a `"string"` followed by `=>` and a `Game Map ID` of the Map you want to link it to.

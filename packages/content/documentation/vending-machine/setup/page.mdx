@@ -1,0 +1,39 @@
+<Header title="Vending Machine Event Setup">
+  How to set up a Vending Machine event.
+</Header>
+
+## Vending Machine Event
+The script command is very similar to that of the poke market command. For those who are familiar with my Poké Market plugin, the setup should be very easy.
+<br/>
+Here's how a vending machine is setup in Essentials by default:
+
+<Callout type="hint">
+  You can define a method in the `000_VendingMachine_Setup.rb` file to clean up your event commands.
+</Callout>
+As you might have experienced, you need to define the price and all items manually with a lot of conditionals which can make the event look really big and very hard to maintain.
+But with Arcky's Advanced Vending Machine, the setup is a lot easier:
+
+For example at the bottom of the file, add:
+
+```ruby 
+def someVendingMachine
+  advancedVendingMachine([
+    :POKEBALL, :GREATBALL,
+    :POTION, :SUPERPOTION, :HYPERPOTION,
+    :REPEL, :SUPERREPEL, 
+    :REVIVE, 
+    :ANTIDOTE, :PARALYZEHEAL,
+  ])
+end
+```
+Now inside your event, you only need to call:
+
+```ruby
+someVendingMachine
+```
+<Callout type="hint">
+  Using methods like this helps you:
+    - <Gr>Reuse item lists</Gr> across multiple events
+    - <Gr>Quickly update</Gr> all associated events by changing just one method
+    - <Gr>Keep your event clean</Gr> and easier to manage
+</Callout>

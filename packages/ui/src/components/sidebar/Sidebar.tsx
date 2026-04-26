@@ -95,7 +95,7 @@ export function Sidebar({ menuItems, docType, mainDocs, mainRef, isOpen, onClose
       </aside>
       {/* Overlay on Small Screens */}
       <div
-        className={`fixed inset-0 bg-black/50 lg:hidden z-40 transition-opacity duration-300 ease-in-out ${
+        className={`fixed inset-0 bg-black/50 lg:hidden z-40 transition-opacity duration-300 ease-in-out w-full ${
           isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
         onClick={onClose}

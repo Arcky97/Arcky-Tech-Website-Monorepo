@@ -1,0 +1,36 @@
+## v1.6.0 - Buying Species
+
+<Callout type="attention" blend="light">
+  This plugin (update) requires v1.0.9 or higher of [Arcky's Utilities](https://drive.google.com/file/d/19xrRavd1CpbC0p1UQtOUZzuEeHL_WHB5/view?usp=sharing) to function correctly.<br/>
+  Once you have installed this, start a new save to avoid malfunction.
+</Callout>
+
+### New Feature
+- A new type of Store was added which allows the player to buy Species from those shady NPC's.
+<br/>
+### Improvements
+  - renamed Shelf Class parameters:
+    <Table 
+      headers={["Old name", "", "New name"]} 
+      rows={[
+        ["ShelfAmountItem", "<=>", "ShelfItemAmount"],
+        ["ShelfChangeAmountItem", "<=>", "ShelfItemAmountChange"],
+        ["ShelfLimitAmountItem", "<=>", "ShelfItemAmountLimit"],
+        ["ShelfIncreaseAmountItem", "<=>", "ShelfItemAmountIncrease"],
+        ["ShelfDecreaseAmountItem", "<=>", "ShelfItemAmountDecrease"],
+        ["ShelfRemoveAmountItem", "<=>", "ShelfItemAmountRemove"]
+      ]}
+      alignment={["center", "center", "center"]}
+    />
+  
+  - `ShelfItemAmountdiscount` and `ShelfItemAmountOvercharge` can now use the `new price` and `original price` placeholders.
+  - The percentage placeholder used by `ShelfItemAmountdiscount` and `ShelfItemAmountOvercharge` don't add "of" anymore by default.
+<br/>
+### Bug Fixes 
+  - Fixed `buyBonusMult` not being used by the script.
+  - Fixed the Item name being singular for `ShelfItemAmount`.
+<br/>
+### New Settings
+- Added a new setting `StockItems` which allows you to more easily manage items and species used by a store.
+- Added a new setting `ShowShinySpecies` which allows you to choose if you want species to be shown as shiny or not.
+- Added a new setting `BadgesForSpecies` which is actually the same as `BadgesForItems` with exception that it should be only used for Species instead of Items.

@@ -1,0 +1,34 @@
+## Example 1
+
+```ruby 
+LappetTown = {  
+  description: "A fairly old and loud town. It's a big and not so pretty place.",  
+  south: [13, 13],  
+  north: [13, 11],  
+  west: [12, 12],  
+  icon: "LappetTown" 
+}
+```
+Let's break down this piece of data:
+<br/>
+- `LappetTown` => This is the name of the location you are referring to (it's important that this is the same as the Points name in the townmap.txt PBS file but then withouth spaces).
+- `description:` => Contains a string with a short description for this location.
+- `south:` `north:` `west:` => each contain an array with an X and Y position ([X, Y]), this will be converted to the location's name with those coordinates from the townmap.txt PBS file. [13, 13] will be converted to "Route 8", [13, 11] will be converted to "Route 1" and [12, 12] will be converted to "Safari Zone".
+- `icon:`  => the name of the image that should be used as a "mini map" on the location preview. The image's name is "mapLappetTown.png" (so "map" is not included again in this parameter) and is located in 
+  - Graphics > Pictures > RegionMap > UI > Default (or Region folder) > LocationPreview > MiniMaps for v20.1
+  - Graphics > UI > Town Map > UI > Default (or Region folder) > LocationPreview > MiniMaps for v21.1
+<br/>
+Currently you don't need to worry yet what I mean with Region folder, this is an optional Setting. If an image is not found, it'll tell you in the console log to where it expect it to be located.
+<br/>
+Result in game:
+<ImageWithCaption src="/images/documentation/region-map/Location Preview 1.png" caption="Example 1" align="left" size="medium"/>
+
+The "???" for 2 out of the 3 directions are because I have the Setting `NoUnvisitedMapInfo` set to `true`. If this setting is `false`, then you'll see the actual location name, otherwise it's the text you set in the `UnvisitedMapText` Setting. 
+<br/>Check this page to learn what these settings do.
+<br/>
+As you also might have noticed, you see an arrow icon before each direction, this is automatically done by the script, these icons are located in:
+<br/>
+- Graphics > Icons in both v20.1 and v21.1. 
+<br/>
+If you're wondering why they are located in that folder, that's because the text drawing method expects them to be there as they are drawn as text icons.
+<br/>

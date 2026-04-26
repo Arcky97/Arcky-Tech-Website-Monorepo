@@ -1,0 +1,31 @@
+## Example 2
+
+```ruby
+LappetTown = {
+  description: "A fairly old and loud town. \nIt's a big and not so pretty place.",
+  south: [13, 13],
+  north: [13, 11],
+  west: [12, 12],
+  icon: "LappetTown" 
+}
+```
+The only difference with Example 1 is in the `description:` parameter. As you might have noticed, before the second sentence, there's an `\n` (new line) command. This will put this second sentence on a new line. 
+<br/>
+Result in Game:
+<ImageWithCaption src="/images/documentation/region-map/Location Preview 2.png" caption="Example 2" align="left" size="medium"/>
+Other formatting possibilities are:
+<br/>
+- `<b> ... </b>` => Formats the text in bold.
+- `<i> ... </i>` => Formats the text in italics.
+- `<u> ... </u>` => Underlines the text.
+- `<s> ... </s>` => Draws a strikout line over the text.
+- `<al> ... </al>` => Left-aligns the text. Causes line breaks before and after the text.
+- `<r> ... </r>` => Right-aligns the text until the next line break.
+- `<ar> ... </ar>` => Right-aligns the text. Causes line breaks before and after the text.
+- `<ac> ... </ac>` => Centers the text. Causes line breaks before and after the text.
+- `<br>` or `</n>` => causes a line break.
+- `<o=X>` => Displays the text in the given opacity (0-255)
+- `<outln>` => Displays the text in outline format.
+- `<outln2>` => Displays the text in outline format (outlines more exaggerated).
+- `<icon=X>` => Displays the icon X (in Graphics/Icons/).
+<br/>

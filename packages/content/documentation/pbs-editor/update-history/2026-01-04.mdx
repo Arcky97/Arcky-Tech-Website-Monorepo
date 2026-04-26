@@ -1,0 +1,10 @@
+## v1.0.1: Bug Fixes and Improvements
+
+### Improvements
+
+- Added warning messages incase some Settings are missing for any reason from the Config file. This should never be the case unless you've manually edited the Config File outside of the editor but it'll not prevent a crash as well.
+
+### Bug Fixes
+
+- Fixed the Pokémon and Pokémon Forms Page to crash when a loaded pokemon has an Evolution Method that hasn't been added to the Evolutions in the Config file. It'll now default the Parameter of this method to "None" to prevent a total crash of the application. 
+- Fixed a bug with fields like "Consumable", "ShowQuantity", "Outdoor", etc. which have values either "true" or "false", where when saving these fields as "false", in the editor it would be displayed as "true". 

@@ -1,0 +1,31 @@
+## v1.1.2: Bug Fixes
+
+### Recently Reported Issue
+- The game might crash if you open the Region Map from a Game Map that has not a MapPosition defined in the map_metadata PBS file. To fix this, just make sure you have a position defined on the region map. Even if I find a work around for this issue, every single Game Map should have a position defined on the Region Map.
+<br/>
+### Bug Fixes
+- Fixed an issue with the script not using the correct (or expected) unvisited map image. This issue only appears when a location is set on the top left point of a city/town. As you might set a different highlight image for the location.
+- Fixed the Quest Preview not showing and disappearing properly (I fixed this but removed the animation for now)
+<br/>
+### New Setting
+
+To fix the above mentioned issue, I've added a new setting in `001_RegionMap_Settings.rb`.
+The Points set in the PBS for a location like this would be:
+```
+Point = 11, 11, Example City, Example Location, 3, 11, 12, ,Size1x1Small
+Point = 12, 11, Example City, , 3, 11, 12, ,Size2x2
+Point = 11, 12, Example City, ,3, 11, 12, ,Size2x2
+Point = 12, 12, Example City, ,3, 11, 12, ,Size2x2
+```
+As you can see on the above shown points, the first poing (top left one) has "Size1x1Small" set as highlight location.
+As you might know, this name is as well used to find the Unvisited Map Graphic for this location.
+The script only looks at the top left position.
+So to fix this, you can either name your unvisited Map Graphic "mapSize1x1Small" but then you can't use this name if you have a location in a city with a different size.
+The actual fix is a new Setting:
+
+```ruby
+USE_UNVISITED_IMAGE_EXCEPTION = [
+  [3, 11, 12, "Size2x2"]
+]
+```
+You can add the fly point (MapID, MapX, MapY) and the name of the Unvisited Map Graphic you want the script to use for this point. (don't include "map" in this setting but don' forget to include it in the Graphic name itself).

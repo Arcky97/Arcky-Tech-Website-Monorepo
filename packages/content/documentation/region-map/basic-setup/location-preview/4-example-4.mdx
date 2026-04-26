@@ -1,0 +1,33 @@
+## Example 4
+
+```ruby
+Route3 = {
+  west_14_6: [13, 6],
+  east_14_6: "Ice Cave",
+  west_15_6: [13, 6],
+  south_15_6: [15, 8],
+  south_15_7: [15, 8],
+  north_15_7: "Ice Cave",
+  description: "A Route full with Trainers.",
+  description_15_6: "An Icy Cold Cave located here... And still a lot of Trainers!" 
+}
+```
+Let's break down this piece of data:
+<br/>
+- `Route3` => This is the name of the location you are referring to (it's important that this is the same as the Points name in the townmap.txt PBS file but then without spaces).
+- `west_14_6:` , `east_14_6:` =>  Just like explained on Example 3, the "_14_6" specifies on which point of this location this direction information should be used (Since Route 3 has 3 points). [13, 6] will be converted to "Ingido Plateau". east_14_6: has a string defined "Ice Cave" so this will be displayed for this direction.
+- `west_15_6:` , `south_15_6:` => Same as above, "_15_6" specifies on which point of this location this direction information should be used. [13, 6] will be converted to "Ingido Plateau" and [15, 8] will be converted to "Lerucean Town".
+- `south_15_7:` , `north_15_7: => Once again, "_15_7" specifies on which point of this location this direction information should be used. [15, 8] will be converted to "Lerucean Town". north_15_7: has a string defined "Ice Cave" so this will be displayed for this direction.
+- `description:` => Contains a string with a short description for this location. This description will be used for all points of this location except for point [15, 6] since it has a specific description defined. In other words, this is the default one unless a specific one for a point is defined.
+- `description_15_6:` => Contains a string with a short description for this location. One more time, the "_15_6" specifies on which point of this location this description should be used. The other points will use the default one (like explained above).
+Result in Game (point 13, 10)
+<ImageWithCaption src="/images/documentation/region-map/Location Preview 5.png" caption="Example 4" align="left" size="medium"/>
+Result in Game (point 14, 10)
+<ImageWithCaption src="/images/documentation/region-map/Location Preview 6.png" caption="Example 4" align="left" size="medium"/>
+There's no screenshot for point 15, 7 since the description is the same as for point 14, 6. 
+<br/>The only difference will be the directions, "Ice Cave" to the north and "Lerucean Town" to the south.
+<br/>
+The "???" for 1 out of the 2 directions are because I have the Setting `NoUnvisitedMapInfo` turned on. 
+<br/>If this setting is `false`, then you'll see the actual location name, otherwise it's the text you set in the `UnvisitedMapText` Setting. 
+<br/>Check this page to learn what these settings do.
+<br/>

@@ -1,0 +1,43 @@
+## IntroText + Time
+
+It's possible to define an `IntroText` based on the in-game **Time of Day**. Like with the default `IntroText`, you can provide multiple lines for variety, and the script will randomly select one each time.
+<br/>
+Here are the available time-based keys:
+- `IntroTextMorning` — Used from 5:00 to 9:59 AM
+- `IntroTextNoon` — Used from 10:00 AM to 1:59 PM
+- `IntroTextAfternoon` — Used from 2:00 PM to 4:59 PM
+- `IntroTextEvening` — Used from 5:00 to 7:59 PM
+- `IntroTextDay` — Used from 5:00 AM to 7:59 PM (general fallback for daytime)
+- `IntroTextNight` — Used from 8:00 PM to 4:59 AM
+<br/>
+Note: `IntroTextDay` overlaps with Morning, Noon, Afternoon, and Evening. It acts as a fallback if no specific period is defined.
+<br/>
+Here's how you can define `IntroTextAfternoon`:
+
+```ruby
+IntroTextAfternoon: [
+  "Good Afternoon, what can I do for you?"
+]
+```
+
+This will be used by the script when the in-game time is between 2:00 and 4:59 PM:
+<ImageWithCaption src="/images/documentation/poke-market/IntroTextAfternoon.png" caption="IntroTextAfternoon" align="center"/>
+
+### Fallback Behavior: 
+1. The script first determines the current in-game hour.
+2. Based on that, it checks for one of the specific keys:
+    - Morning, Noon, Afternoon, Evening
+3. If none of the specifc ones exist, it checks for:
+    - `IntroTextDay` (if between 5 AM and 8 PM)
+    - `IntroTextNight` (if between 8 PM and 5 AM)
+4. If none of those are found, it finally falls back to:
+    - The default `IntroText`
+<br/>
+### Simplified Breakdown
+- If 3 PM: => `IntroTextAfternoon` => `IntroTextDay` => `IntroText`
+- If 11 AM: => `IntroTextNoon` => `IntroTextDay` => `IntroText`
+- If 6 AM: => `IntroTextMorning` => `IntroTextDay` => `IntroText`
+- If 9 PM: => `IntroTextNight` => `IntroText`
+<br/>
+No matter the time or fallback path, **you should always define a default** `IntroText`, since it is the ultimate fallback and ensures there's always a valid message.
+<br/>

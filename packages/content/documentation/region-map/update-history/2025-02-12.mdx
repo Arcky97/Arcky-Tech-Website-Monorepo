@@ -1,0 +1,26 @@
+## v3.1.0: Region Map Connecting
+<Callout type="attention" blend="light">
+  This plugin (update) now requires [Arcky's Utilities](https://drive.google.com/file/d/19xrRavd1CpbC0p1UQtOUZzuEeHL_WHB5/view?usp=sharing) v1.0.7 or higher to function correctly. Once you've installed this, start a new save to avoid malfunction.
+</Callout>
+### New Feature 
+
+- Region Map Connecting allows you to Connect 2 or more Regions to make it act like 1 big Region instead of 2 or more smaller ones.
+
+### Improvement
+
+- Renamed internal Constants used by the Region Map Plugin (less relevant and shouldn't affect anyone's game in most cases).
+
+### Bug Fixes 
+
+- Fixed a scrolling issue in the Pokedex when a Region Map has a greater height but not width than the default size.
+- Fixed a crash in the Extended Preview when the ProgressCounter Setting is disabled.
+- Fixed a bug with the Arrow Animating when a Quest or Berry Preview is being Activated or Deactivated.
+- Fixed a bug (CursorMapOffset Setting enabled) when clicking on the right or left side of the Screen, the Cursor goes 1 Position off to the right.
+- Fixed a bug with the Quest or Berry Preview that when you press the Use Button again, the Show Animation plays again.
+- Fixed a bug with the Quest and Berry Preview that when you have multiple to view on 1 same Location but the Preview Box is the same Height (when chaning from 1 to another), it also plays an Updata Animation while it shouldn't.
+
+### New Settings
+
+- Added a new Setting `QuickTravelInsteadOfFly` which allows you to choose when flying to make it quick fly instead of the fly animation playing first before being transfered to the chosen fly location. (The Mode is still called "Fly Mode" but you can rename this mode in the Settings of the plugin)
+- Added a new Setting `UseRegionConnecting` which allows you to enable the new Feature of this update Region Connecting.
+- Added a new Setting `RegionConnections` which allows you to setup the Regions that are Connected to each other and the Ranges they have (which is important for the Region Connecting to work properly).

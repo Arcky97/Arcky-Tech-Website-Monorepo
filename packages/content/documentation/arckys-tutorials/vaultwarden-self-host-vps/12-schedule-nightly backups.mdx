@@ -1,0 +1,13 @@
+## Schedule nightly backups
+Open cron:
+```bash
+crontab -e
+```
+Choose 1 if asked.
+
+Add this line at the bottom:
+```bash 
+0 4 * * * /root/backup-vaultwarden.sh >> /root/backup.log 2>&1
+```
+This means:
+> Every day at 04:00 will a backup be taken.

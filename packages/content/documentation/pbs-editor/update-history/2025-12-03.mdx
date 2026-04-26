@@ -1,0 +1,31 @@
+## Open Beta Release 2
+
+### New Features
+- A Reset Button has been added on each editor page.
+- Multi-language support in the Editor. Suported languages are: French, Deutch, Dutch, English, Spanish and Portuguese.
+
+### Bug Fixed:
+- All pages: Fixed only able to cancel "Create New" by switching to a different page. (fixed by adding the Reset Button).
+- Encounter Page: 
+  - Fixed a bug when tabbing through Encounters Table, upper level threshold hightlights but doesn't update if number typed is the same as the lower threshold. Trying same upper as lower when not tabbing in does update.
+  - Fixed unable to hit save after editing, foced to disable then re-enable "Overwrite Existing Encounter".
+  - Fixed a typo in "Overwrite existing Encounter".
+- Items Page: 
+  - Fixed a typo in "Plural Portion Name".
+  - Fixed an issue with not able to delete sell price value, deleting sets to 1 instead of original calculated value.
+  - Fixed a typo in the "Move" field as it can only asign 1 move and also fixed unable to clear this field.
+- Map Metadata page: 
+  - Fixed a bug with save is only saving flags, all other fields do not save to the PBS file and all the fields get cleared.
+  - Fixed the visualizer for map size with buttons instead of number input for the "width".
+- Moves page: 
+  - Fixed the ID being prefiled with "NEWMOVE" but doesn't actually apply that as ID.
+  - Fixed able to define power level for status moves, this is not disabled when "Status" is selected.
+- Pokémon Page: 
+  - Fixed an issue with hitting "New Move" making the box dissapear.
+  - Fixed an issue with the Height and Weight fields.
+- Forms Page:
+  - Fixed similar issue with the Height and Weight fields as in the Pokémon Page.
+- Trainers Page: 
+  - Fixed an issue with the "Ability" field not saving to the PBS and also fixed unable to clear this field.
+- Types Page: 
+  - Fixed a crash when changing the "Weaknesses", "Resistances" or "Immunities" values.

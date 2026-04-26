@@ -1,0 +1,17 @@
+<Header title="Text Colors">
+  Apply a text color for certain elements in the speeches.
+</Header>
+
+This feature allows you to change the color of the "item name" and the "money amount". You can specify a formatted color as well in the speech class as well but with this setting it always applies them by default for all stores without you needing to add the manually.
+
+```ruby
+TextColor = {
+  :items => "\\c[1]",
+  :money => "\\c[3]"
+}
+```
+
+- `\\c[1]` will make the *Item Name* become blue.
+- `\\c[3]` will make the *Money Amount* become green.
+
+Refer to the [Messages Text Colours](https://essentialsengine.miraheze.org/wiki/Messages) wiki page for more information. 

@@ -1,0 +1,18 @@
+## ShelfItemAmountChange
+
+The `ShelfItemAmountChange` determines what the player will be prompted with when they select an Item that has been already added to their basket. Additionally, the player will be prompted with the option to change the amount or not.
+
+<SHSpeeches speech="ShelfItemAmountChange"/>
+
+To define the `ShelfItemAmountChange`, use this structure:
+
+```ruby
+ShelfItemAmountChange: [
+  "You currently have {2} {1} in your basket, change it to how many?"
+]
+```
+### Placeholder Reference
+- `{1}` = The chosen Item's name (singular or plural) — e.g., `"Potions"`
+- `{2}` = The current quantity of chosen Item added in the Basket — e.g., `"5"`
+
+<ImageWithCaption src="/images/documentation/poke-market/ShelfItemAmountChange.png" caption="ShelfItemAmountChange"/>

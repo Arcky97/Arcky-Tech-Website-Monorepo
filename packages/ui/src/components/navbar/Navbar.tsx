@@ -64,9 +64,9 @@ useEffect(() => {
       >
         {/* Sidebar toggle */}
         {hasSidenav && (
-          <div className="h-0 bg-gray-900 flex items-center transition-opacity duration-300 ease-in-out">
+          <div className="h-0 flex items-center transition-opacity duration-300 ease-in-out">
             <button
-              className="fixed top-1.5 left-2 z-50 bg-gray-900 p-2 rounded-md flex flex-col justify-center items-center space-y-1 group"
+              className="p-2 rounded-md flex flex-col justify-center items-center space-y-1 group"
               onClick={onToggleSideNav}
             >
               <span
@@ -94,12 +94,12 @@ useEffect(() => {
         {/* Logo (Arcky-Tech) */}
         <h1
           className={`${
-            isShrunk || !enableShrink
+            isShrunk || variant === "docs"
               ? "lg:text-2xl sm:text-xl text-base"
               : "lg:text-3xl sm:text-2xl text-base"
-          } font-bold transition-all duration-300 ease-in-out ${
-            variant === "web" || variant === "docs"
-              ? hasScrolled || !enableShrink
+          } font-bold transition-all duration-300 ease-in-out text-left ${
+            variant !== "docs"
+              ? hasScrolled
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 -translate-5"
               : "opacity-100"
@@ -107,9 +107,9 @@ useEffect(() => {
         >
           <Link 
             href="/"
-            className="hover:text-gray-400 transition-all duration-300 ease-in-out md:inline hidden"
+            className="hover:text-gray-400 transition-all duration-300 ease-in-out sm:inline hidden"
           >
-            {!hasSidenav ? "Arcky-Tech" : ""}
+            Arcky-Tech
           </Link>
         </h1>
         {/* Icons and Name */}

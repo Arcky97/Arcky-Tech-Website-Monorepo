@@ -1,0 +1,15 @@
+## ZoomOutButton
+
+Use this Setting to set which button needs to be pressed to zoom out on the Region Map while the Zoom Mode is active.
+
+```ruby 
+ZoomOutButton = Input::JUMPDOWN 
+```
+
+### Possible Values 
+
+- `Input::JUMPDOWN`
+
+<Callout type="hint">
+  For this button, just like with [ZoomInButton](#zoominbutton), you can assign one that's been used for another feature as the Zoom Mode isolates those features. Only don't set it to the [ToggleZoomButton](#togglezoombutton) or the [ZoomInButton](#zoominbutton) or the `USE` and `BACK` buttons to avoid unexpected behavior.
+</Callout>

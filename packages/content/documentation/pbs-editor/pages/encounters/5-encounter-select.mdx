@@ -1,0 +1,16 @@
+## Encounter Select
+
+<InputSelect
+  label="Current Encounter:"
+  width={250}
+  initValue="002,0 - Lappet Town"
+  placeholder="Select Encounter"
+  options={["002,0 - Lappet Town", "005 - Route 1", "005,1 - Route 1", "021 - Route 2", "028 - National Park"]
+    .map(option => ({ label: option, value: option }))
+  }
+/>
+This dropdown lists all available <Gr>Encounter entries</Gr> for the currently selected file, identified by their ID.
+<br/>
+In the PBS file, these IDs are defined using the format <Yl>[xxx] or [xxx,y]</Yl> (with y being the optional version number). For improved readability, the editor display them <Gr>without brackets</Gr> but with the matching **Game Map Name** from the **map_metadata.txt** file(s) in the interface.
+<br/>
+Despite this visual simplification, the brackets are still <Rd>required</Rd> in the actual PBS structure. When saving, the editor will automatically restore the correct <Yl>[xxx]</Yl> or <Yl>[xxx,y]</Yl> (when a version is provided) format, even though it is not shown within the editor itself.

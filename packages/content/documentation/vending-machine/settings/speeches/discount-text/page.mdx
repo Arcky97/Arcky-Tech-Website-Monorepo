@@ -1,0 +1,20 @@
+<Header title="DiscountText">
+  How to use and define various DiscountText speeches.
+</Header>
+
+The `DiscountText` determines what the Vending Machine will say when using a discount on items.
+<br/>
+As shown in the example below, you can include multiple variations. The script will randomly choose one line from the array each time the player interacts with the Vending Machine Event.
+<br/>
+To define the `DiscountText`, use this structure:
+
+```ruby 
+DiscountText: [
+  "Amazing, you have a discount of {1}% on all {2}s!"
+]
+```
+### Placeholder Reference
+- `{1}` = Discount amount — e.g., `9`
+- `{2}` = value of `type` parameter  — e.g., `"item"`
+
+<ImageWithCaption src="/images/documentation/vending machine/DiscountText.png" caption="DiscountText"/>

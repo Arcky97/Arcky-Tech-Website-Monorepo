@@ -1,0 +1,20 @@
+<Header title="ItemDropText">
+  How to use and define various ItemDropText speeches.
+</Header>
+
+The `ItemDropText` determines what the Vending Machine will say when the chosen (amount of) item(s) dropped down.
+<br/>
+As shown in the example below, you can include multiple variations. The script will randomly choose one line from the array each time the player interacts with the Vending Machine Event.
+<br/>
+To define the `ItemDropText`, use this structure:
+
+```ruby 
+ItemDropText: [
+  "{1} {2} dropped down!"
+]
+```
+### Placeholder Reference
+- `{1}` = Amount of items dropping — e.g., `9`
+- `{2}` = Item's name (singular or plural) — e.g., `Potion`
+
+<ImageWithCaption src="/images/documentation/vending machine/ItemDropText.png" caption="ItemDropText"/>

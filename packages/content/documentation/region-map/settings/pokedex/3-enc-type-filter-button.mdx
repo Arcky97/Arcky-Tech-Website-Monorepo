@@ -1,0 +1,20 @@
+## ToggleEncTypeFilterButton
+
+Use this Setting to set which button needs to be pressed to activate the Encounter Type Filter function on the Pokedex Area Section.
+
+```ruby 
+ToggleEncTypeFilterButton = Input::JUMPDOWN
+```
+
+### Possible Values 
+
+- `Input::JUMPDOWN` = The Game Button 
+- `nil` = disabled.
+
+<Callout type="attention">
+  The Encounter Type names it'll show in the filter are defined in the [EncounterType Setting](./preview/extended#encountertypes). If you have any custom ones, make sure to add them there so it uses the correct name, if it's missing it'll use the raw Encounter Type ID.
+</Callout>
+
+<Callout type="hint">
+  You may set this to any game button except `USE`, `BACK` and the button you've set for `ToggleRegionSwitchButton` and `ToggleLocFilterButton`.
+</Callout>

@@ -1,0 +1,20 @@
+<Header title="NotEnoughMoney">
+  How to use and define NotEnoughMoney speeches.
+</Header>
+
+The `NotEnoughMoney` determines what the NPC says when the player does not have enough money to buy a Species.
+
+<SPSpeeches speech="NotEnoughMoney"/>
+
+To define the `NotEnoughMoney`, use this structure:
+
+```ruby
+NotEnoughMoney: [
+  "You don't have enough {1} to buy {2}", 
+  "Please come back when you have enough {1}."
+]
+```
+### Placeholder Reference
+- `{1}` = The currency used by the Species event — e.g., `"money"`
+- `{2}` = The chosen Species' name — e.g., `"Charmander"`
+<ImageWithCaption src="/images/documentation/poke-market/SpeciesNotEnoughMoney.png" caption="NotEnoughMoney"/>

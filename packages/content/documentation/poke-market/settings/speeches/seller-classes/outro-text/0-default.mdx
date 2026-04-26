@@ -1,0 +1,30 @@
+## OutroText
+
+The `OutroText` determines what the NPC says when the player has chosen the **Exit** option.
+<br/>
+As shown in the example below, you can include multiple variations. The script will randomy choose one line from the array each time the player exits the Mart event.
+<br/>
+To define the `OutroText`, use this structure:
+
+```ruby
+OutroText: [
+  "Do come again!", 
+  "Thank you, I hope to see you again.", 
+  "Thank you for your purchase, come again!"
+]
+```
+
+<EmblaCarousel
+  slides={[
+    "documentation/poke-market/OutroText 1",
+    "documentation/poke-market/OutroText 2",
+    "documentation/poke-market/OutroText 3"
+  ]}
+  captions={[
+    "OutroText Example 1",
+    "OutroText Example 2",
+    "OutroText Example 3"
+  ]}
+  options={{ loop: true }}
+/>
+<br/>

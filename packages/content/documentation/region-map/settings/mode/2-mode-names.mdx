@@ -1,0 +1,41 @@
+## ModeNames
+
+Use this Setting to change the name of each Mode this Region Map Plugin offers. Currently there are 6 Modes.
+<br/>Each Mode has it's requirements before you can change to it. 
+
+<SetVer
+  v201={`MODE_NAMES = {
+    :normal => _INTL("Normal Map"),
+    :fly => _INTL("Fly Map"),
+    :quest => _INTL("Quest Map"),
+    :berry => _INTL("Berry Map"),
+    :roaming => _INTL("Roaming Map"), 
+    :trainer => _INTL("Trainer Map")
+  }`}
+  v211={`ModeNames = {
+    :normal => _INTL("Normal Map"),
+    :fly => _INTL("Fly Map"),
+    :quest => _INTL("Quest Map"),
+    :berry => _INTL("Berry Map"),
+    :roaming => _INTL("Roaming Map"), 
+    :trainer => _INTL("Trainer Map")
+  }`}
+/>
+
+### Possible Values
+
+Only change what's after `=>` as the `:normal` is the Mode ID and should not be changed.
+<br/> I'll explain what each modes requires below.
+- `_INTL("Normal Map")` = Default Mode on the Region Map.
+- `_INTL("Fly Map")` = Fly Mode, requires:
+  - [CanFlyToTownMap](fly#canflyfromtownmap) Setting to be enabled.
+- `_INTL("Quest Map")` = Quest Mode, requires: 
+  - [ShowQuestIcons](preview/quest#showquesticons) Setting to be enabled.
+  - [Modern Quest System](../plugin-setup/quest-icons-and-preview) Plugin to be installed.
+- `_INTL("Berry Map")` = Berry Mode, requires:
+  - [ShowBerryIcons](preview/berry#showberryicons) Setting to be enabled.
+  - [Berry Planting Improvements](../plugin-setup/berry-icons-and-preview) Plugin to be installed.
+- `_INTL("Roaming Map")` = Roaming Mode, requires:
+  - [ShowRoamingIcons](preview/roaming#showroamingicons) to be enabled.
+- `_INTL("Trainer Map")` = Trainer Mode, requires:
+  - [ShowTrainerIcons](preview/trainer#showtrainericons) to be enabled.

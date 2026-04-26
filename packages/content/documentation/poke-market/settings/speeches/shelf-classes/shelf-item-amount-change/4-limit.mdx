@@ -1,0 +1,18 @@
+## ShelfItemAmountLimit
+
+The `ShelfItemAmountLimit` determines what the player will be prompted with when they select an Item that has the max quantity added in the basket. (Only when this item has an Item Limit applied to it.)
+The ShelfItemAmountLimit is what the shelf will say when selecting an item that you have the max amount off in your basket (only when the Item has an Item Limit).
+
+<SHSpeeches speech="ShelfItemAmountLimit"/>
+
+To define the `ShelfItemAmountLimit`, use this structure:
+
+```ruby
+ShelfItemAmountLimit: [
+  "Your basket has all {1} in stock, change it to how many?"
+]
+```
+### Placeholder Reference
+- `{1}` = The chosen Item's name (singular or plural) — e.g., `"Potions"`
+
+<ImageWithCaption src="/images/documentation/poke-market/ShelfItemAmountLimit.png" caption="ShelfItemAmountLimit"/>

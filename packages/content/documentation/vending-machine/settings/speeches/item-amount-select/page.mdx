@@ -1,0 +1,19 @@
+<Header title="ItemAmountSelect">
+  How to use and define various ItemAmountSelect speeches.
+</Header>
+
+The `ItemAmountSelect` determines what the Vending Machine will say when multiBuy is enabled.
+<br/>
+As shown in the example below, you can include multiple variations. The script will randomly choose one line from the array each time the player interacts with the Vending Machine Event.
+<br/>
+To define the `ItemAmountSelect`, use this structure:
+
+```ruby 
+ItemAmountSelect: [
+  "Please choose how many {1} you would like to buy."
+]
+```
+### Placeholder Reference
+- `{1}` = Chosen item's name (plural) — e.g., `Potions`
+
+<ImageWithCaption src="/images/documentation/vending machine/ItemAmountSelect.png" caption="ItemAmountSelect"/>

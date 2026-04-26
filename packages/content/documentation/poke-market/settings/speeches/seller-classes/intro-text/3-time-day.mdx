@@ -1,0 +1,48 @@
+## IntroText + Time + Day
+
+We've already covered how to define `IntroText` by **Time** and by **Day** — but what if you want to combine both?
+<br/>
+Yes, it might sound a little wild — and it kind of is — but this feature gives you complete control. You can make the NPC greet the player differently on a **Monday morning** then on a **Friday evening**, or anything in between.
+<br/>
+Just like with `IntroText + Day`, you can use broader categories like `Week` and `weekend`, and just like the default `IntroText`, you can define multiple lines for variation.
+<br/>
+---
+
+Here's an example:
+
+```ruby
+IntroTextDayWeek: [
+  "Good Day, welcome to our store, what can I do for you?"
+]
+```
+This text is used when the current **Time** is within `Day` (5:00 AM to 7:59 PM) and the **Day** is Monday through Friday.
+<ImageWithCaption src="/images/documentation/poke-market/IntroTextDayWeek.png" caption="IntroTextDayWeek" align="center"/>
+Another example:
+
+```ruby
+IntroTextDayTuesday: [
+  "Hello, what can I do for you on this fine Tuesday Noon?"
+]
+```
+This text is used when the current **Time** is within `Day` (5:00 AM to 7:59 PM) and the **Day** is Tuesday.
+
+<ImageWithCaption src="/images/documentation/poke-market/IntroTextDayTuesday.png" caption="IntroTextDayTuesday" align="center"/>
+
+---
+
+### Fallback Behavior
+
+Let's say the current in-game time is **Wednesday Morning**. The script will try to match in the following order:
+1. `IntroTextMorningWednesday`
+2. `IntrotextDayWednesday`
+3. `IntroTextWednesday`
+4. `IntroTextMorningWeek`
+5. `IntroTextDayWeek`
+6. `IntroTextWeek`
+7. `IntroTextMorning`
+8. `IntroTextDay`
+9. `IntroText`
+
+<Callout type="hint">
+  You're not expected to define every possible combination. Just include what matters most to you — the script handles the fallbacks intelligently.
+</Callout>

@@ -1,0 +1,45 @@
+## Create the Project
+
+> Through the entire tutorial I'll be using Visual Studio Code (VS Code for short) as my code editor.
+
+Create a new folder: `discord-bot`
+<br/>
+Inside the terminal (in VS Code):
+```bash
+npm init -y
+```
+A file named "package.json" will be created and shown in this folder.
+<br/>
+Inside the terminal:
+```bash
+npm install discord.js dotenv
+```
+2 packages called *discord.js* and *dotenv* will be installed in your projects folder. You should also see a new folder *node_modules*.
+<br/>
+**VERY IMPORTANT**
+<br/>Open `package.json` and add:
+```json:package.json
+{
+  "name": "discord-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "arcky",
+  "license": "ISC",
+--  "type": "commonjs",
+++  "type": "module",
+  "dependencies": {
+    "discord.js": "^14.25.1",
+    "dotenv": "^17.3.1"
+  }
+}
+```
+> This enables modern JavaScript imports instead of require.
+
+<br/>Create files:
+- `src/index.js`
+- `.env`

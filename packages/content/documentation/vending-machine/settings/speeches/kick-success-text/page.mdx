@@ -1,0 +1,20 @@
+<Header title="KickSuccessText">
+  How to use and define various KickSuccessText speeches.
+</Header>
+
+The `KickSuccessText` determines what the Vending Machine will say when kick is successful.
+<br/>
+As shown in the example below, you can include multiple variations. The script will randomly choose one line from the array each time the player interacts with the Vending Machine Event.
+<br/>
+To define the `KickSuccessText`, use this structure:
+
+```ruby 
+KickSuccessText: [
+  "Your kick worked and {1} {2} dropped down!"
+]
+```
+### Placeholder Reference
+- `{1}` = amount of stuck items dropping down — e.g., `"1"`
+- `{2}` = stuck item's name (singular or plural) if any — e.g., `"Potion"`
+
+<ImageWithCaption src="/images/documentation/vending machine/KickSuccessText.png" caption="KickSuccessText"/>

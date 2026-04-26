@@ -1,0 +1,69 @@
+<Header title="Custom Item Categories">
+  How to create Custom Item Categories.
+</Header>
+Custom Item Categories are where the real flexibility kicks in!
+<br/>They allow you to group specific items into their own custom-defined categories, making your shop menus cleaner and more personalized.
+<br/>
+Here's how you define them:
+
+```ruby
+ CustomCategoryNames = {
+  "Evolution Stones" => { 
+    :items => [:FIRESTONE, :THUNDERSTONE, :WATERSTONE, :LEAFSTONE, :MOONSTONE, :SUNSTONE, :DUSKSTONE, :DAWNSTONE, :SHINYSTONE, :ICESTONE],
+    :order => 11
+  },
+  "Type Plates" => {
+    :items => [:FLAMEPLATE, :SPLASHPLATE, :ZAPPLATE, :MEADOWPLATE, :ICICLEPLATE, :FISTPLATE, :TOXICPLATE, :EARTHPLATE, :SKYPLATE, :MINDPLATE, :INSECTPLATE, :STONEPLATE, :SPOOKYPLATE, :DRACOPLATE, :DREADPLATE, :IRONPLATE, :PIXIEPLATE],
+    :order => 12
+  },
+  "Type Gems" => {
+    :items => [:FIREGEM, :WATERGEM, :ELECTRICGEM, :GRASSGEM, :ICEGEM, :FIGHTINGGEM, :POISONGEM, :GROUNDGEM, :FLYINGGEM, :PSYCHICGEM, :BUGGEM, :ROCKGEM, :GHOSTGEM, :DRAGONGEM, :DARKGEM, :STEELGEM, :FAIRYGEM, :NORMALGEM],
+    :order => 13
+  }
+}
+```
+---
+### How it works 
+- The key(`"Evolution Stones"`, etc.) is the display name of the category.
+- The `:items` array defines which items go to that category.
+- The optional `:order` sets the position of the category in the list.
+<br/>
+If you don't assign an `:order`, the custom category will appear **after all default categories**.
+<br/>
+---
+### Understand the Order
+Default categories use the formula: `pocket ID * 10`.
+<br/>This helps place your custom categories exactly where you want them.
+<br/>Here's a reference:
+<br/>
+<Table
+  headers={["Category", "Order"]}
+  alignment={["center", "center"]}
+  rows={[
+    ["Items", 10],
+    ["Medicine", 20],
+    ["Poké Balls", 30],
+    ["TMs & HMs", 40],
+    ["Berries", 50],
+    ["Mail", 60],
+    ["Battle Items", 70],
+    ["Key Items", 80]
+  ]}
+/>
+<br/>
+For example:
+- If you assign your custom category an `:order` of **11**, it will appear **after** "items" but **before** "Medicine".
+- `:order => 35` would place it **between** "Poké Balls" and "TMs".
+<br/>
+---
+
+<ImageWithCaption src="/images/documentation/poke-market/Custom Item Categories.png" caption="Custom Item Categories" align="left"/>
+In the example shown above:
+- "Evolution Stones" appears first because its `:order` is 11.
+- Followed by "Type Plates" (`:order` = 12)
+- Then "Type Gems" (`:order` = 13)
+- Finally, "Medicine" appears if any item belongs to that category.
+
+<Callout type="hint">
+  If no items in a Mart event match a given category (default or custom), that category will not be shown in the UI.
+</Callout>

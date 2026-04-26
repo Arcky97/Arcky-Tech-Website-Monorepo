@@ -1,0 +1,20 @@
+## BuyItemAmountOvercharge
+
+The `BuyItemAmountOvercharge` determines what the NPC says when the player is prompted to choose how many of an item they want to buy **and an Overcharge has been applied to the Mart event**.
+
+<PMSpeeches speech="BuyItemAmountOvercharge"/>
+
+Defining `BuyItemAmountOvercharge` looks like this:
+
+```ruby
+BuyItemAmountOvercharge: [
+  "There's overcharge on {1}, you must pay ${2} instead of ${3}. So how many?"
+]
+```
+
+### Placeholder Reference
+- `{1}` = chosen item's name (plural) — e.g., `"Poké Balls"`
+- `{2}` = Overcharged price — e.g., `"$220"`
+- `{3}` = Original price — e.g., `"$200"` (optional)
+
+<ImageWithCaption src="/images/documentation/poke-market/BuyItemAmountOvercharge.png" caption="BuyItemAmountOvercharge"/>

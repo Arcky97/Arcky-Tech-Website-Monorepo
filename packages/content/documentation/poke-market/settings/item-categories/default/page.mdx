@@ -1,0 +1,67 @@
+<Header title="Default Item Categories">
+  What the default categories are and how to customize them.
+</Header>
+
+<ImageWithCaption src="/images/documentation/poke-market/Item Categories.png" caption="Item Categories" align="center"/>
+
+### How It Works
+
+When `useCat: true` is enabled in your Mart event, the plugin will automatically split items into cetagories based on the default **bag pocket names**. This makes the UI cleaner and more intuitive, especially when selling a large variety of items.
+<br/>
+These categories are shown at the top of the screen, along with the page number.
+<br/>
+---
+### Customizing Category Names 
+
+
+This feature will split up the items in their respective category following the bag pocket names, they'll be ordered by alphabet. It is possible to set up custom categories as well, for example, evolution stones.
+<br/>
+You can change the display names of these default categories in the `000_PokeMarket_Settings_and_Setup.rb` file.
+
+```ruby
+CategoryNames = [
+  "Items",
+  "Medicines",
+  "Poké Balls",
+  "TMs & HMs",
+  "Berries",
+  "Mail",
+  "Battle Items",
+  "Key Items"
+]
+```
+
+This array matches the order of pockets in your game's Bag on defines how they appear in the shop UI?
+
+<Callout type="hint">
+  **Translating your game?** If you're plannnig to localize your game, use this format instead to make the category names translatable:
+</Callout>
+
+```ruby
+CategoryNames = [
+  _INTL("Items"),
+  _INTL("Medicines"),
+  _INTL("Poké Balls"),
+  _INTL("TMs & HMs"),
+  _INTL("Berries"),
+  _INTL("Mail"),
+  _INTL("Battle Items"),
+  _INTL("Key Items")
+]
+```
+<br/>
+---
+### Optional: Auto-Fetch from the Bag
+
+If you prefer a more dynamic solution — especially if your game modifies or adds new pockets — you can auto-generate the list like this:
+Or you can use the following line instead:
+
+```ruby
+CategoryNames = PokemonBag.pocket_names.map { |pocket| pocket.to_s }
+```
+
+This will automatically generate category names based on your bag's pockets.
+<br/>If you translate or add new pockets later, they'll be reflected here without any manual changes.
+<Callout type="attention">
+  **Note:** If you're unfamiliar with Ruby methods, stick with the first example above. It's easier to manage manually. :D
+</Callout>

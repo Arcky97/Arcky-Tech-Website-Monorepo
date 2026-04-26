@@ -1,0 +1,29 @@
+## Overview
+
+The following guide and examples are applyable for both v20.1 and v21.1.
+<br/>
+If some parts of examples are confusing to you, try this feature in a new project first and mess around with the settings to see what changes. You can also just ask me either on the Plugin's Discussion page or contact me on Discord.
+<br/>
+---
+Let's start with a list of all possible parameters the data for each location may contain:
+<br/>
+- `description:` (required) a short description of the location
+- `icon:` (optional) a MiniMap of the location.
+- directions (optional) allow you to add to which other locations you can go from this location. They may either be coordinates (like you define a point in the PBS) or text with the name of the location (if you want a different name than from the PBS). Possible directions are:
+  - `north:`
+  - `northEast:`
+  - `east:`
+  - `southEast:`
+  - `south:`
+  - `southWest:`
+  - `west:`
+  - `northWest:`
+<br/>
+The parameters will become more clear along with the examples below.
+<br/>
+In the `000_Settings_and_Setup` folder of this plugin's folder (Arcky's Region Map), you'll find a file called `001_RegionMap_LocationInfo.rb`. Open this file with notepad++ or any code editor program.
+<br/>
+([Check this page](../settings) on how to edit the `000_RegionMap_Settings.rb` file.)
+<br/>
+This feature is also associated with a lot of Settings which are explained on this page.
+<br/>

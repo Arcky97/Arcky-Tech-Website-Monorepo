@@ -1,0 +1,21 @@
+<Header title="NoRoomInBag">
+  How to use and define various NoRoomInBag speeches.
+</Header>
+
+The `NoRoomInBag` determines what the Vending Machine will say when you have not enough room in your bag left. A part of the items can be added eventually.
+<br/>
+As shown in the example below, you can include multiple variations. The script will randomly choose one line from the array each time the player interacts with the Vending Machine Event.
+<br/>
+To define the `NoRoomInBag`, use this structure:
+
+```ruby 
+NoRoomInBag: [
+  "You don't have enough room left in your Bag. Added {1} of {2} {3}."
+]
+```
+### Placeholder Reference
+- `{1}` = Amount of items added — e.g., `9`
+- `{2}` = total amount of items chosen  — e.g., `"11"`
+- `{3}` = item's name (plural) — e.g., `"Potions"`
+
+<ImageWithCaption src="/images/documentation/vending machine/NoRoomInBag.png" caption="NoRoomInBag"/>

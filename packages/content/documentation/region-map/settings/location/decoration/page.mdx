@@ -1,0 +1,36 @@
+<Header title="Region Map Decoration">
+  Add Decorations to be shown on the Region Map if appropriate.
+</Header>
+
+## Function of the Setting
+
+The **Decoration Setting Section** includes a single Setting. It allows a set of arrays, each containing details of a Graphic to be shown wheather or not on top of the Highlight Graphics on the Region Map if appropriate.
+
+<SetVer
+  v201={`REGION_MAP_DECORATION = [
+    [0, nil, 8, 6, "mapTrees"],
+    [0, 51, 16, 15, "mapTrees"]
+  ]`}
+  v211={`RegionMapDecoration = [
+    [0, nil, 8, 6, "mapTrees"],
+    [0, 51, 16, 15, "mapTrees"]
+  ]`}
+/>
+
+---
+
+## Possible Values 
+
+Each Item you add here must contain the following:
+- `0` = Region Map ID.
+- Game Switch ID:
+  - `nil` = Graphic will always be shown.
+  - `51` = Graphic will be shown while this Game Switch is `OFF`.
+- `8` = Map X Position.
+- `15` = Map Y Position.
+- `mapTrees` = Graphic name (located in Graphics/UI/Town Map/Decoration)
+- optional value:
+  - `true` = (default) Graphic is shown above the Highlight Graphics.
+  - `false` = Graphic is shown below the Highlight Graphics.
+
+If the last value is not given, it'll default to `true`.

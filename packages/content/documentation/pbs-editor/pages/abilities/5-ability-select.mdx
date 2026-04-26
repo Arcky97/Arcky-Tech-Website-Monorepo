@@ -1,0 +1,16 @@
+## Ability Selection
+
+<InputSelect 
+  label="Current Abilty:" 
+  width={250} 
+  initValue="STENCH" 
+  placeholder="Select Ability" 
+  options={["STENCH", "DRIZZLE", "SPEEDBOOST", "BATTLEARMOR", "STURDY"]
+    .map(option => ({ label: option, value: option }))
+  }
+/>
+This dropdown lists all available <Gr>Ability entries</Gr> for the currently selected file, identified by their ID.
+<br/>
+In the PBS file, these IDs are defined using the format <Yl>[xxx]</Yl>. For improved readability, the editor displays them <Gr>without brackets</Gr> in the interface.
+<br/>
+Despite this visual simplification, the brackets are still <Rd>required</Rd> in the actual PBS structure. When saving, the editor will automatically restore the correct <Yl>[xxx]</Yl> format, even though it is not shown within the editor itself.

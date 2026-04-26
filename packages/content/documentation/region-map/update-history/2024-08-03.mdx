@@ -1,0 +1,31 @@
+## v2.7.0: Region Map Zooming
+<Callout type="attention" blend="light">
+  This plugin (update) now requires [Arcky's Utilities](https://drive.google.com/file/d/19xrRavd1CpbC0p1UQtOUZzuEeHL_WHB5/view?usp=sharing) v1.0.4 or higher to function correctly. Once you've installed this, start a new save to avoid malfunction.
+</Callout>
+### New Feature
+- Region Map Zooming: This is enabled by default and the Script will detect if you can zoom out or not. See the new Settings for those I've added.
+<br/>
+### Improvements 
+- Added a flag "EnExtPrev" which allows this map to be an Exception on the new Setting below (`EXCLUDE_MAPS_WITH_NO_DATA`) when it's set to true. Otherwise this flag has no effect. (This flag is set for a Game Map in the map_metadata.txt PBS file.)
+- Added a flag "DisExtPrev" which allows you to disable the Extended Location Preview for a specific Game Map. (This is basically the manual way of what the `EXCLUDE_MAPS_WITH_NO_DATA` does.) (And just like with the "EnExtPrev" flag, you set this flag for a Game Map in the map_metadata.txt PBS file.)
+- Renamed the `PROGRESS_COUNT_VISITEDLOCATIONS` Setting to `PROGRESS_COUNT_VISITED_LOCATIONS`
+- Changed the position of the Arrow Graphics on the Area Page in the Pokedex. Yes, something may improve here too. :D
+- Changed the SE (Sound Effect) that plays when Activating the Scrolling on the Area Page in the Pokedex. It now won't play when you can't Activate the Scrolling for the Region Map.
+<br/>
+### Bug Fixes 
+- Fixed missing Graphic issue when the `CHANGE_ENC_BOX_ON_ENCOUNTER_TYPE` Setting is set to false.
+- Fixed the Cursor when the `CURSOR_MAP_OFFSET` Setting is set to false.
+- Fixed the Cursor when the `REGION_MAP_BEHIND_UI` Setting is set to true.
+- Fixed the Cursor when combining the `CURSOR_MAP_OFFSET` and `REGION_MAP_BEHIND_UI` Settings in all possible ways (4 possibilities).
+- Fixed a crash on the Extended Location Preview when there's no Data for a Location.
+- Fixed a crash on the Extended Location Preview when the `PROGRESS_COUNTER` Setting is set to false. (This now disables the Extended Location Preview.)
+<br/>
+### New Settings
+- Added a new Setting (`EXCLUDE_MAPS_WITH_NO_DATA`) which allows you to filter out the Game Map that would show "No Data for this Location" on the Extended Location Preview.
+- Added a new Setting (`DISABLE_PROGRESS_COUNTER_PERCENTAGE`) which allows you to disable the Percentage shown on the Region Map (next to the Region/District Name).
+- Added a new Setting (`DISABLE_EXTENDED_PREVIEW_PERCENTAGE`) which allows you to disable the Percentage shown on the Extended Location Preview (next to the Location's name). 
+- Added a new Setting (`USE_REGION_MAP_ZOOM`) which allows you to enable or disable the Region Map Zoom feature.
+- Added a new Setting (`ZOOM_SPEED`) which allows you to change the Speed of the Zoom in/out animation.
+- Added a new Setting (`TOGGLE_ZOOM_BUTTON`) which allows you to set which button needs to be pressed to go in "Zoom Mode" which then enables Zooming.
+- Added a new Setting (`ZOOM_IN_BUTTON`) which allows you to set which button needs to be pressed to Zoom in.
+- Added a new Setting (`ZOOM_OUT_BUTTON`) which allows you to set which button needs to be pressed to Zoom out.

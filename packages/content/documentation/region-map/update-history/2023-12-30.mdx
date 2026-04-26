@@ -1,0 +1,73 @@
+## v2.0.0: Big New Year Update
+
+### New Features
+- Detailed Location Preview
+- Region Map Switching with Menu
+- Possibility to Change the UI for each Region or for specified Regions.
+- Possibility to Change the max number of choices being shown at the same time. (Most likely used for Quick Fly.)
+<br/>
+### Imrovements and Changes
+- Renamed **mapBackGround.png** to **mapBackground.png**
+- Renamed **mapButtonPreview.png** to **mapButtonBox.png**
+- Renamed
+  - **QuestPreview2**.png to **QuestBox2.png**
+  - **QuestPreview3**.png to **QuestBox3.png**
+  - **QuestPreview4**.png to **QuestBox4.png**
+- Created a new Folder named `"Default"` and moved all UI elements in there.
+- Added
+  - mapDownArrow.png
+  - mapLeftArrow.png
+  - mapRightArrow.png
+  - mapUpArrow.png
+- Created a new Folder named `"LocationPreview"` and moved all **LocationBox** Graphics in there (new graphics with this update).
+- Created a new Folder named `"QuestPreview"` and moved all **QuestBox** Graphics in there.
+- Created a new Folder named `"WeatherPreview"` and moved the **WeatherBox** Graphics in there (new graphic with this update).
+<Callout type="hint" blend="light">
+  You'll see that aside from the "Default" Folder, there's also a folder name "Region1". This is only used for Region1. The "Default" folder is used for all Regions that don't have a specific folder.
+</Callout>
+<br/>
+### Bug Fixes
+- Fixed an issue with the Button to change the Map Mode not being applied by the Script.
+- Fixed an issue with the Quest Icons and System not properly working when opening the map from another Region.
+- Fixed an issue with Quick Fly crashing the game on a Region Map that has no Fly Locations.
+- Fixed an issue with being able to change Region on the Fly Map (used from the Field Move).
+- Fixed an issue with Quick Fly showing twice on the Fly Map.
+- Fixed an issue with the Button Text showing on the Wall Map.
+<br/>
+### New Settings
+- Added 2 new Settings (`BUTTON_BOX_TEXT_OFFSET_X` and `BUTTON_BOX_TEXT_OFFSET_Y`) to change the X and Y positions of the Text in the Button Box.
+- Added 2 new Settings (`BUTTON_BOX_TEXT_MAIN` and `BUTTON_BOX_TEXT_SHADOW`) to change the Color of the Text in the Button Box.
+- Added 2 new Settings (`REGION_TEXT_MAIN` and `REGION_TEXT_SHADOW`) to change the Color of the Region and District Text.
+- Added 2 new Setting (`LOCATION_TEXT_MAIN` and `LOCATION_TEXT_SHADOW`) to change the Color of the Location Text.
+- Added 2 new Settings (`POI_TEXT_MAIN` and `POI_TEXT_SHADOW`) to change the Color of the Poin of Interest Text.
+- Added 2 new Settings (`MODE_TEXT_MAIN` and `MODE_TEXT_SHADOW`) to change the Color of the Mode Text.
+- Added a new Setting (`CHANGE_UI_ON_REGION`) to choose if you want the UI to change for a specific Region (Detailed explanation in the settings file itself.)
+- Added a new Setting (`MAX_OPTIONS_CHOICE_MENU`) to change how many choices should be shown at the same time when for example using the Quick Fly feature.
+- Added a new Setting (`PREVIEW_LINE_HEIGHT`) to change the line height for the Text in Previews (Location and Quest Preview).
+- Added a new Setting (`USE_LOCATION_PREVIEW`) to enable or disable the Location Preview feature.
+- Added a new Setting (`SHOW_LOCATION_BUTTON`) to change the button to activate the location preview for a location.
+- Added a new Setting (`CAN_VIEW_INFO_UNVISITED_MAPS`) to enable or disable if you want to be able to view a preview box with the Text set in the Setting below.
+- Added a new Setting (`UNVISITED_MAP_INFO_TEXT`) to set the Message text when the Setting Above is Enabled.
+- Added a new Setting (`MAX_DESCRIPTION_LINES`) to change the max number of lines the Location Description Text may take on the Preview Box.
+- Added 2 new Settings (`DESCRIPTION_TEXT_OFFSET_X` and `DESCRIPTION_TEXT_OFFSET_Y`) to change the X and Y positions of the Description Text.
+- Added 2 new Settings (`DESCRIPTION_TEXT_MAIN` and `DESCRIPTION_TEXT_SHADOW`) to change the Color of the Description Text.
+- Added a new Setting (`CENTER_DESCRIPTION_TEXT`) to choose if the Description Text should be horizontally Centered (`true`) or not (`false`).
+- Added a new Setting (`MAX_ICON_HEIGHT`) to set the Max Height a Location MinMap Icon can be.
+- Added 2 new Settigns (`ICON_OFFSET_X` and `ICON_OFFSET_Y`) to change the X and Y position of the Icon.
+- Added a new Setting (`CENTER_ICON`) to enable to disable if the Icon should be centered Vertically (`true`) (if the Height of the Description Text is bigger than the Icon's Height) or not (`false`).
+- Added a new Setting (`DIRECTION_HEIGHT_SPACING`) to change the distance between the Description Text and the Direction Text.
+- Added a new Setting (`DRAW_DASH_IMAGES`) to enable or disable if there should be a dash line (`true`) between the Description Text and Direction Text of the Location Preview or not (`false`).
+- Added a new Setting (`DASH_OFFSET_X` and `DASH_OFFSET_Y`) to change the X and Y Position of the Dash line.
+- Added a new Setting (`MAX_DIRECTION_LINES`) to change the max number of lines the Location Direction Text may take on the Preview Box.
+- Added 2 new Settings (`DIRECTION_TEXT_OFFSET_X` and `DIRCTION_TEXT_OFFSET_Y`) to change the X and Y positions of the Direction Text.
+- Added 2 new Settings (`DIRECTION_TEXT_MAIN` and `DIRECTION_TEXT_SHADOW`) to change the Color of the Direction Text.
+- Added a new Setting (`LOCATION_DIRECTION_SPACES`) to change the amount of spaces there are between each Direction.
+- Added a new Setting (`USE_WEATHER_PREVIEW`) to enable or disable a small box showing the Weather on a location. (Requires Lin's Weather System)
+- Added a new Setting (`WEATHER_ON_LOCATION_PREVIEW_ACTIVE`) to enable or disable if the Weather Box should only show when the Location Preview is Active (Normal Map only).
+- Added a new Setting (`WEATHER_ON_MODES`) to choose on which modes the Weather Preview should be shown
+  - Normal Map either always or only when Location Preview is active
+  - All the other modes always or never.
+- Added 2 new Settings (`QUEST_NAME_OFFSET_X` and `QUEST_NAME_OFFSET_Y`) to change the X and Y Position of the Quest Name Text.
+- Added 2 new Settings (`QUEST_TEXT_MAIN` and `QUEST_TEXT_SHADOW`) to change the Color of the Quest Name Text.
+- Added 2 new Settings (`QUEST_INFO_OFFSET_X` and `QUEST_INFO_OFFSET_Y`) to change the X and Y Position of the Quest Task and Quest Location Text.
+- Added 2 new Settings (`QUEST_INFO_MAIN` and `QUEST_INFO_SHADOW`) to change the Color of the Quest Task and the Quest Location Text.

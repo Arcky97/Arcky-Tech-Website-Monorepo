@@ -1,0 +1,30 @@
+## IntroText
+
+The `IntroText` determines what the NPC says when your first talk to them (i.e., at the start of the interaction).
+<br/>
+As shown in the example below, you can include multiple variations. The script will randomly choose one line from the array each time the player interacts with the NPC.
+<br/>
+To define the `IntroText`, use this structure:
+
+```ruby
+IntroText: [
+  "Good Day, welcome, how may I serve you?", 
+  "Hello, welcome, what can I mean for you?", 
+  "Hello, Welcome what can I get for you?"
+]
+```
+
+<EmblaCarousel
+  slides={[
+    "documentation/poke-market/IntroText 1",
+    "documentation/poke-market/IntroText 2",
+    "documentation/poke-market/IntroText 3"
+  ]}
+  captions={[
+    "IntroText Example 1",
+    "IntroText Example 2",
+    "IntroText Example 3"
+  ]}
+  options={{ loop: true }}
+/>
+<br/>

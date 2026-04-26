@@ -1,0 +1,39 @@
+## OutroText + Time + Day
+
+We've already covered how to define `OutroText` by **Time** and by **Day** — but what if you want to combine both?
+<br/>
+Yes, it might sound a little wild — and it kind of is — but this feature gives you complete control. You can make the NPC salut the player differently on a **Wednesday Afternoon** then on a **Thursday Morning**, or anything in between.
+<br/>
+Just like with `OutroText + Day`, you can use broader categories like `Week` and `Weekend`, and just like the default `OutroText`, you can define multiple lines for variation.
+<br/>
+---
+
+Here's an example: 
+
+```ruby
+OutroTextDayWeekend: [
+  "Thank you for your visit, enjoy your weekend."
+]
+```
+This text is used when the current **Time** is within `Day` (5:00 AM to 7:59 PM) and the **Day** is Saturday or Sunday.
+<ImageWithCaption src="/images/documentation/poke-market/OutroTextDayWeekend.png" caption="OutroTextDayWeekend" align="center"/>
+Another example:
+
+```ruby
+OutroTextDaySaturday: [
+  "Thank you for your purchase. \nEnjoy the rest of your Saturday."
+]
+```
+This text is used when the current **Time** is within `Day` (5:00 AM to 7:59 PM) and the **Day** is Saturday.
+
+<ImageWithCaption src="/images/documentation/poke-market/OutroTextDaySaturday.png" caption="OutroTextDaySaturday" align="center"/>
+
+--- 
+
+### fallback Behavior
+
+See [IntroText + Time + Day](intro-text#3-time-day) for the full explanation of the Fallback Behavior.
+
+<Callout type="hint">
+  You're not expected to define every possible combination. Just include what matter most to you — the script handles the fallbacks intelligently.
+</Callout>

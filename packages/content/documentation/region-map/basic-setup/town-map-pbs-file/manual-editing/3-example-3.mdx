@@ -1,0 +1,33 @@
+## Example 3
+
+The 5th and 6th points are Route 2:
+<ImageWithCaption src="/images/documentation/region-map/Route2-0.png" caption="Route 2" align="left" size="tiny"/>
+This Location has a size of 1 by 2 tiles on the Region Map => 2 Points are defined:
+```
+Point = 14,9,Route 2
+Point = 14,8,Route 2
+```
+Looking into the Highlight folder, we'll find a Graphic named "mapRoute2.png" (1 tile wide and 2 tiles high).
+- Graphics > Pictures > RegionMap > Highlights > Routes for v20.1
+- Graphics > UI > Town Map > Highlights > Routes for v21.1
+<br/>
+To make the Script use this Graphic when the Cursor is on one of these 2 Points, we add "Route2" at the end of both line for these Points:
+```
+Point = 14,9,Route 2,,,,,,Route2
+Point = 14,8,Route 2,,,,,,Route2
+```
+Pay attention that before "Route2" I added 6 extra `,` as that would normally be where we define
+- a point of interest 
+- fly point (map id, x and y value)
+- a Switch.
+for this Point.
+Result when the Cursor is on this Location:
+<ImageWithCaption src="/images/documentation/region-map/Route2-1.png" caption="Route 2 Highlighted" align="left" size="tiny"/>
+You can also add "BridgeRoute" instead of "Route2" (the Graphic name should then be "mapBridgeRoute.png"). Make sure this Graphic is in the "Routes" folder and "Route" is included in the name. If you don't include "Route", the Script will assume the Graphic is in the "Others" folder.
+
+```
+Point = 14,9,Route 2,,,,,,BridgeRoute
+Point = 14,8,Route 2,,,,,,BridgeRoute
+```
+When changing or adding new Graphics, always recompile your game an extra time. I noticed this for myself too that it would say that a Graphic is missing while it's actually present in the folder.
+<br/>

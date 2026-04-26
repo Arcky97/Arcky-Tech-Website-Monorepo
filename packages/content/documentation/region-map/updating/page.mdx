@@ -1,0 +1,25 @@
+<Header title="Updating">
+  How to Update this plugin.
+</Header>
+<Callout type="warning">
+  This page is meant for guiding you through updating this Plugin, in case you have installed it before. Please refer to [Installation](installation) if you're installing the Plugin for the first time.
+</Callout>
+## Big Update (v3.0.0)
+Follow the guidance below if you're upgrading from a lower version than v3.0.0. See Regular Update section below for updating to any version later than v3.0.0 from any version above v3.0.0.
+<br/>
+1. Currently you should see 2 folders and 1 file in the "Arcky's Region Map" folder. <ImageWithCaption src="/images/documentation/region-map/Big Update 1.png" align="left" size="large"/>
+2. Let's start by opening `000_Settings_and_Setup` folder. <ImageWithCaption src="/images/documentation/region-map/Big Update 2.png" align="left" size="large"/>
+3. Let's copy the `000_RegionMap_Settings.rb` and `001_RegionMap_LocationInfo.rb` file to our desktop (or any location on your pc) as a back up.
+4. After doing that, we can now remove all the content inside the "Arcky's Region Map" folder and replace it with the v3.0.0 update content.
+5. Copy these 6 folders and the meta file into the empty "Arcky's Region Map" plugin folder of your project. <ImageWithCaption src="/images/documentation/region-map/Big Update 3.png" align="left" size="large"/>
+6. The next step is to copy and replace the `001_RegionMap_LocationInfo.rb` file from your back-up location on your pc into the `000_Settings_and_Setup` folder.
+7. The final step is a bit more work unless you don't mind starting over, open the back-up file `000_RegionMap_Settings.rb` and the one in `000_Settings_and_Setup` and place them side by side. Copy the settings values you had before over to the new file. But be careful as the Settings names have all be changed but the order didn't change.
+8. That's all for updating to v3.0.0 of this Plugin. If you would have encountered any issues or you're not sure about something, feel free to contact me through discord.
+<br/>
+## Regular Update
+Updating this plugin is very easy but there are a few thing you need to keep in mind before doing this blindly.
+- When updating this plugin, always make a back-up of these 2 files.<ImageWithCaption src="/images/documentation/region-map/Updating 1.png" align="left" size="large"/>
+- If you're a bit more familiar with this Plugin already, you might understand better why these 2 files are so important and to better not loose them.
+- These files contain all your modifications you've made for the Plugin to use.
+- When updating the plugin and you would just replace the whole Plugin folder, all your settings and locationInfo data would be lost and replaced by the default values that come with the plugin.
+- Also always make a back up of your Town Map (v21.1) folder. This is important when a new update comes with modified or new Graphics to add. You can also copy the new one over manually to make sure nothing unwanted is replaced.

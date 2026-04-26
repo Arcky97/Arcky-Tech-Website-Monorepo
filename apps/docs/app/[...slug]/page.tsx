@@ -4,6 +4,7 @@ import { notFound, redirect } from "next/navigation";
 import { getStyles, slugify, StyleGroup } from "ui";
 import { compileMDX } from "next-mdx-remote/rsc";
 import { mdxComponents } from "ui/mdx/mdx-components";
+import { DocsTableOfContents } from "ui/mdx/DocsTableOfContents"
 
 const CONTENT_ROOT = path.join(
   process.cwd(),
@@ -135,6 +136,7 @@ export default async function Page({
           )}
           <section className="pb-6">
             <h3 className="text-2xl lg:text-3xl mt-4 font-bold mb-4">Table of Contents</h3>
+            <DocsTableOfContents items={tablePosts.map(({ title, anchorId }) => ({ title, anchorId }))}/>
             <hr className="border-gray-600/75 border-t mt-2"></hr>
           </section>
         </>

@@ -1,0 +1,65 @@
+<Header title="Items by Badge">
+  How to Limit and Item tot a certain amount of Badges.
+</Header>
+
+In default Essentials, there's not a clean way to make the Vending Machine have different items or more items depending on the Badges the player currently has.
+<br/>This plugin simplifies that process witht a dedicated setting: `ItemsByBadge`.
+
+---
+
+### The Easy Way with `ItemsByBadge`
+
+Use the following setup in your `000_VendingMachine_Setup.rb` file:
+
+```ruby 
+ItemsByBadge = {
+  1 => [:GREATBALL, :SUPERPOTION, :ANTIDOTE, :PARALYZEHEAL],
+  3 => [:HYPERPOTION, :SUPERREPEL, :REVIVE]
+}
+```
+
+Each key in the hash represents a badge requirement.
+<br/>Once the player has at least that many badges, the associated **items** become available for purchase.
+
+---
+
+### Items Available from the Start 
+
+Any items **not listed** in the `ItemsByBadge` hash will be available by default, with 0 badges.
+
+---
+
+### Example Usage 
+
+Let's say we define a Vending Machine like this:
+
+```ruby
+def someVendingMachine
+  advancedVendingMachine([
+    :POKEBALL, :GREATBALL,
+    :POTION, :SUPERPOTION, :HYPERPOTION,
+    :REPEL, :SUPERREPEL, 
+    :REVIVE, 
+    :ANTIDOTE, :PARALYZEHEAL,
+  ], speech: "ProVend")
+end
+```
+
+Now simply call `someVendingMachine` in your event using a script command.
+
+
+---
+
+### Result in Game 
+
+🔒 With 0 Badges:
+
+🔓 With 1 Badge:
+
+As shown, once a badge treshold is crossed, all items defined at or below that level become available.
+<br/>For example, reaching 3 badges will unlock:
+
+```ruby
+  [:HYPERPOTION, :SUPERREPEL, :REVIVE]
+```
+...and so on, all the way to 8 or more badges.

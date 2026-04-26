@@ -1,0 +1,26 @@
+## CountItemsToMainMap
+
+Use this Setting to link Game Maps with the same Map Position to the "Main" Game Map. This way the Extended Preview Main Page for the "Main" Game Map will show the total Items to find accross all Game Maps on the current Location on the Region Map.
+
+<SetVer
+  v201={`COUNT_ITEMS_TO_MAIN_MAP = {
+    2 => [3, 4, 8],
+    3 => [2, 4, 8],
+    4 => [2, 3, 8],
+    8 => [2, 3, 4]
+  }`}
+  v211={`CountItemsToMainMap = {
+    2 => [3, 4, 8],
+    3 => [2, 4, 8],
+    4 => [2, 3, 8],
+    8 => [2, 3, 4]
+  }`}
+/>
+
+### Possible Values
+
+Each Item exist out of the `Game ID` of the Main Map followed by an array of the `Game IDs` of the Game Maps with the same Map Position. 
+
+<Callout type="hint">
+  There's no additional validation so if you link Game Maps with a different Map Position, it'll work just fine
+</Callout>

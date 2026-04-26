@@ -1,0 +1,18 @@
+## v2.6.4: Bug Fixes and Improvements
+<Callout type="attention" blend="light">
+  This plugin (update) now requires [Arcky's Utilities](https://drive.google.com/file/d/19xrRavd1CpbC0p1UQtOUZzuEeHL_WHB5/view?usp=sharing) v1.0.3 or higher to function correctly. Once you've installed this, start a new save to avoid malfunction.
+</Callout>
+### Improvements
+- You can now have `'` in your Location Names. It'll be ignored by the Script so the Location Preview still works as it should. (You can't include `'` in constant names anyway in the `001_RegionMap_LocationInfo.rb` setup but you can for the Location Names in `townmap.txt PBS` File.)
+- For the `BUTTON_BOX_POSITION` Setting, it is now possible to give it a value of nil which will disable the Button Preview completely.
+<br/>
+### Bug Fixes 
+- Fixed a crash when disabling the Roaming Icons (Roaming Mode) on the Region Map.
+- Fixed a bug when the `REGION_MAP_BEHIND_UI` Setting is turned on and you use the Mouse to Choose a Location (to change the Cursor's Postion), it would give you the wrong Location Info.
+- Fixed an issue with the Arrows not updating properly when moving the Region Map using the Mouse.
+<br/>
+### New Settings 
+- Added a new Setting (`COUNT_ITEMS_TO_MAIN_MAP`) that allows you to link multiple maps together to the "main map" so total amount of Items shown on the main map include those of the linked maps as well.
+- Added a new Setting (`USE_SPRITES_FOR_UNSEEN_SPECIES`) which allows you to have the Unseen Species Icons be shown with a black overlay instead of the ? icon in the Extended Preview.
+- Added a new Setting (`UNSEEN_SPECIES_COLOR`) which allows you to change the overlay color (related to the setting above) of Unseen Species Icons in the Extended Preview.
+- Added a new Setting (`UNCAUGHT_SPECIES_TONE`) which allows you to change the tone of Uncaught Species Icons in the Extended Preview.

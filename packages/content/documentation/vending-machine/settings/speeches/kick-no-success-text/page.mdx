@@ -1,0 +1,22 @@
+<Header title="KickNoSuccessText">
+  How to use and define various KickNoSuccessText speeches.
+</Header>
+
+The `KickNoSuccessText` determines what the Vending Machine will say when kick is not or half successful (1 or more items remained stuck).
+<br/>
+As shown in the example below, you can include multiple variations. The script will randomly choose one line from the array each time the player interacts with the Vending Machine Event.
+<br/>
+To define the `KickNoSuccessText`, use this structure:
+
+```ruby 
+KickNoSuccessText: [
+  "{1} {2} dropped down and {3} {4} remained stuck!"
+]
+```
+### Placeholder Reference
+- `{1}` = amount of stuck items dropping down — e.g., `"1"`
+- `{2}` = stuck item's name (singular or plural) if any — e.g., `"Potion"`
+- `{3}` = amount of stuck items remaining stuck — e.g., `"1"`
+- `{4}` = remain stuck item's name (singular or plural) if any — e.g., `"Potion"`
+
+<ImageWithCaption src="/images/documentation/vending machine/KickNoSuccessText.png" caption="KickNoSuccessText"/>
