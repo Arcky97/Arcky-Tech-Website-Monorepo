@@ -1,3 +1,4 @@
+export * from "./docs"
 export * from "./errors";
 export * from "./footer";
 export * from "./layout";
@@ -5,6 +6,6 @@ export * from "./navbar";
 export * from "./sidebar"
 export * from "./TextColor";
 export * from "./LinkWithPreview";
-export * from "./MediaGallery"
-export * from "./ColorButton"
-export * from "./ImageWithCaption"
+export * from "./MediaGallery";
+export * from "./ColorButton";
+export * from "./ImageWithCaption";

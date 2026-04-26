@@ -1,21 +1,21 @@
 // packages/ui/mdx/mdx-components.tsx
 import { Children, cloneElement, isValidElement, ReactNode } from "react";
 import type { MDXComponents } from "mdx/types";
-import { DocsHeader as Header } from "./DocsHeader";
-import { InlineCode } from "./InlineCode";
-import { CodeBlock } from "./CodeBlock";
+import { DocsHeader as Header } from "../src/components/docs/DocsHeader";
+import { InlineCode } from "../src/components/docs/InlineCode";
+import { CodeBlock } from "../src/components/docs/CodeBlock";
 import { TextColor, LinkWithPreview, MediaGallery, TextColor as TC, ColorButton, ImageWithCaption } from "ui"
-import { Callout } from "./Callout";
-import { DocsTable as Table } from "./DocsTable";
-import { DocsPokeMarketSpeeches as PMSpeeches, DocsShelfSpeeches as SHSpeeches, DocsSpeciesSpeeches as SPSpeeches} from "./Speeches";
-import { YouTubeEmbed } from "./YoutubeEmbed";
-import { DocsVersionBlock as VerBlock } from "./DocsVerBlock";
-import { DocsInputText as InputText } from "./docsInput/DocsInputText";
-import { DocsInputNumber as InputNumber } from "./docsInput/DocsInputNumber";
-import { DocsInputSelect as InputSelect } from "./docsInput/DocsInputSelect";
-import { DocsInputMultiSelect as InputMultiSelect } from "./docsInput/DocsInputMultiSelect";
-import { DocsInputToggle as InputToggle } from "./docsInput/DocsInputToggle";
-import { DocsInputTextArea as InputTextArea } from "./docsInput/DocsInputTextArea";
+import { Callout } from "../src/components/docs/Callout";
+import { DocsTable as Table } from "../src/components/docs/DocsTable";
+import { DocsPokeMarketSpeeches as PMSpeeches, DocsShelfSpeeches as SHSpeeches, DocsSpeciesSpeeches as SPSpeeches} from "../src/components/docs/Speeches";
+import { YouTubeEmbed } from "../src/components/docs/YoutubeEmbed";
+import { DocsVersionBlock as VerBlock } from "../src/components/docs/DocsVerBlock";
+import { DocsInputText as InputText } from "../src/components/docs/docsInput/DocsInputText";
+import { DocsInputNumber as InputNumber } from "../src/components/docs/docsInput/DocsInputNumber";
+import { DocsInputSelect as InputSelect } from "../src/components/docs/docsInput/DocsInputSelect";
+import { DocsInputMultiSelect as InputMultiSelect } from "../src/components/docs/docsInput/DocsInputMultiSelect";
+import { DocsInputToggle as InputToggle } from "../src/components/docs/docsInput/DocsInputToggle";
+import { DocsInputTextArea as InputTextArea } from "../src/components/docs/docsInput/DocsInputTextArea";
 
 function wrapWithKeys(children: ReactNode) {
   return Children.map(children, (child, i) => {
