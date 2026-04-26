@@ -13,7 +13,8 @@ interface InputSelectProps {
 }
 
 export function DocsInputSelect ({label, width, initValue, initLabel, placeholder, options, isClearable = false }: InputSelectProps) {
-  if (!options) return <div>no options</div>
+  if (!options) return <div>no options</div> // I added this because it otherwise crashes when options is undefined
+  
   return (
     <div className="my-4 p-2 text-left">
       <span className="label-box">{label}</span>

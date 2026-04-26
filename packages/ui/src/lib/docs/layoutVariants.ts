@@ -26,7 +26,7 @@ const baseStyles: Record<StyleGroup, StyleConfig> = {
   }
 }
 
-export function getStyles(slug: string[], layout: StyleGroup | null): StyleConfig {
+export function getStyles(layout: StyleGroup | null): StyleConfig {
   const base = baseStyles[layout || "default"];
   return {
     ...base

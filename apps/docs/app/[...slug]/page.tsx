@@ -1,10 +1,9 @@
 import path from "path";
 import fs from "fs";
 import { notFound, redirect } from "next/navigation";
-import { getStyles, slugify, StyleGroup } from "ui";
+import { getStyles, slugify, StyleGroup, DocsTableOfContents } from "ui";
 import { compileMDX } from "next-mdx-remote/rsc";
 import { mdxComponents } from "ui/mdx/mdx-components";
-import { DocsTableOfContents } from "ui"
 
 const CONTENT_ROOT = path.join(
   process.cwd(),
@@ -103,6 +102,8 @@ export default async function Page({
         
         layout = frontmatter.layout ?? null;
 
+        console.log(layout);
+
       } catch (err) {
         console.error(`❌ Error loading MDX file: ${nestedPath}/${file}`, err);
         Component = function FailedToLoadComponent() {
@@ -123,7 +124,7 @@ export default async function Page({
 
   const pageLayout: StyleGroup | null = headerPost?.layout ?? null;
 
-  const styles = getStyles(slug, pageLayout);
+  const styles = getStyles(pageLayout);
 
   return (
     <article key={slug[0]} className={`${styles.wrapper} pb-4`} >
