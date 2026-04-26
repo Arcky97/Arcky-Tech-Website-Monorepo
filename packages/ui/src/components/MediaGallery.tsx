@@ -61,6 +61,7 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
     return () => lightbox.destroy();
   }, [backdropOpacity]);
 
+  if (!items) return <div>no items</div>
   return (
     <div
       id="pswp-gallery"

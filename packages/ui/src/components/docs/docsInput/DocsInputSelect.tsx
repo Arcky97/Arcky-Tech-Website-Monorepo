@@ -13,6 +13,7 @@ interface InputSelectProps {
 }
 
 export function DocsInputSelect ({label, width, initValue, initLabel, placeholder, options, isClearable = false }: InputSelectProps) {
+  if (!options) return <div>no options</div>
   return (
     <div className="my-4 p-2 text-left">
       <span className="label-box">{label}</span>

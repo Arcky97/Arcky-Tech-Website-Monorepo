@@ -82,6 +82,183 @@ aside {
   background: #1e2939
 }
 
+.label-box {
+  display: flex;
+  color: white;
+  font-size: 1.125rem;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+  margin-left: 0.25rem;
+  width: auto;
+}
+
+[class^="content-box-w"] {
+  border: 1px solid #4a5565;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  color: white;
+  background-color: #1e2939;
+  transition: all 0.3s ease-in-out;
+  display: flex;
+}
+
+[class^="content-box-w"].row {
+  margin-bottom: 0.75rem;
+}
+
+.inline-flex input {
+  flex: 0 0 auto;
+}
+
+.content-box-w5 {
+  width: 50px;
+}
+
+.content-box-w7 {
+  width: 75px;
+}
+
+.content-box-w9 {
+  width: 90px;
+}
+
+.content-box-w10 {
+  width: 100px;
+}
+
+.content-box-w11 {
+  width: 110px;
+}
+
+.content-box-w12 {
+  width: 120px;
+}
+
+.content-box-w14 {
+  width: 140px;
+}
+
+.content-box-w15 {
+  width: 150px;
+}
+
+.content-box-w16 {
+  width: 160px
+}
+
+.content-box-w19 {
+  width: 190px;
+}
+
+.content-box-w21 {
+  width: 210px;
+}
+
+.content-box-w25 {
+  width: 250px;
+}
+
+.content-box-w29 {
+  width: 290px;
+}
+
+.content-box-w31 {
+  width: 310px;
+}
+
+.content-box-w33 {
+  width: 330px;
+}
+
+.content-box-w38 {
+  width: 380px;
+}
+
+.content-box-w42 {
+  width: 420px;
+}
+
+.content-box-w44 {
+  width: 440px;
+}
+
+.content-box-w50 {
+  width: 500px;
+}
+
+.content-box-w56 {
+  width: 560px;
+}
+
+.content-box-w63 {
+  width: 630px;
+}
+
+.content-box-w66 {
+  width: 660px;
+}
+
+.content-box-w69 {
+  width: 690px;
+}
+
+.content-box-w75 {
+  width: 750px;
+}
+
+.content-box-w81 {
+  width: 810px;
+}
+
+.content-box-w88 {
+  width: 880px;
+}
+
+.content-box-w100 {
+  width: 1000px;
+}
+
+.content-box-wauto {
+  width: auto;
+}
+
+[class^="content-box-w"]:focus,
+.content-box-auto:focus {
+  border: 1px solid #3b82f6;
+  box-shadow: 0 0 0 1px #3b82f6;
+  transition: all 0.3s ease-in-out;
+  outline: none;
+}
+
+[class^="content-box-w"]:disabled {
+  background-color: #364153;
+  color: #99a1af;
+  cursor: not-allowed;
+  transition: all 0.3s ease-in-out;
+}
+
+[class^="content-box-w"]:hover:not(:disabled):not(:focus),
+.content-box-auto:hover {
+  border-color: #64748b;
+}
+
+.content-box-auto {
+  border: 1px solid #4a5565;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  color: white;
+  background-color: #1e2939;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease-in-out;
+  box-sizing: content-box;
+  width: fit-content;
+  display: inline-block;
+  min-width: 3rem;
+  flex: 0 0 auto;
+
+  white-space: nowrap;
+}
+
 /* Responsive embla */
 @media only screen and (max-width: 1440) {
   .embla {
