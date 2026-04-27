@@ -1,8 +1,9 @@
 import path from "path";
 import fs from "fs";
-import { env } from "@/config/env";
 
-if (!env.API_BASE_URL || !env.API_KEY_WEBSITE) {
+const API_BASE_URL = process.env.API_BASE_URL;
+const API_KEY_WEBSITE = process.env.API_KEY_WEBSIT;
+if (!API_BASE_URL || !API_KEY_WEBSITE) {
   throw new Error("Missing API environment variables");
 }
 
@@ -69,11 +70,11 @@ export async function generateUpdates() {
     .slice(0, 3)
     .reverse();
 
-  await fetch(`${env.API_BASE_URL}/api/updates/v1`, {
+  await fetch(`${API_BASE_URL}/api/updates/v1`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${env.API_KEY_WEBSITE}`
+      "Authorization": `Bearer ${API_KEY_WEBSITE}`
     },
     body: JSON.stringify({ updates: updatesToJson })
   });

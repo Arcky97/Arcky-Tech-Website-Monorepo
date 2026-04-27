@@ -4,13 +4,9 @@ WORKDIR /app
 
 ARG NEXT_PUBLIC_WEB_URL
 ARG NEXT_PUBLIC_DISCORD_URL
-ARG API_BASE_URL
-ARG API_KEY_WEBSITE
 
 ENV NEXT_PUBLIC_WEB_URL=$NEXT_PUBLIC_WEB_URL
 ENV NEXT_PUBLIC_DISCORD_URL=$NEXT_PUBLIC_DISCORD_URL
-ENV API_BASE_URL=$API_BASE_URL
-ENV API_KEY_WEBSITE=$API_KEY_WEBSITE
 
 # Copy dependency files first (better caching)
 COPY package.json package-lock.json ./
@@ -23,7 +19,11 @@ COPY packages ./packages
 RUN npm ci
 
 # Build only docs app
-RUN npm run build --workspace=docs
+RUN --mount=type=secret,id=API_KEY_WEBSITE \
+    --mount=type=secret,id=API_BASE_URL \
+    export API_KEY_WEBSITE=$(cat /run/secrets/API_KEY_WEBSITE) && \
+    export API_BASE_URL=$(cat /run/secrets/API_BASE_URL) && \
+    npm run build --workspace=docs
 
 # ---------- RUN ----------
 FROM node:20 AS runner

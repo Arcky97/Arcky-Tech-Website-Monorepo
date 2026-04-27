@@ -18,6 +18,7 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: API 
 
     permissions:
       contents: read
@@ -39,7 +40,7 @@ jobs:
           else
             echo "✅ API_KEY_WEBSITE is set"
           fi
-          
+
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -122,6 +123,7 @@ jobs:
           build-args: |
             NEXT_PUBLIC_WEB_URL=${{ vars.WEB_URL }}
             NEXT_PUBLIC_DISCORD_URL=${{ vars.DISCORD_URL }}
+          secrets: |
             API_KEY_WEBSITE=${{ secrets.API_KEY_WEBSITE }}
             API_BASE_URL=${{ secrets.API_BASE_URL }}
 
