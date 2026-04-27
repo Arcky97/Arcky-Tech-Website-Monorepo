@@ -1,5 +1,10 @@
 import path from "path";
 import fs from "fs";
+import { env } from "@/config/env";
+
+if (!env.API_BASE_URL || !env.API_KEY_WEBSITE) {
+  throw new Error("Missing API environment variables");
+}
 
 const ROOT = path.join(process.cwd(), "content/documentation");
 const OUTPUT = path.join(process.cwd(), "public", "updates.json");
@@ -64,11 +69,14 @@ export async function generateUpdates() {
     .slice(0, 3)
     .reverse();
 
-  fs.writeFileSync(
-    OUTPUT,
-    JSON.stringify(updatesToJson, null, 2),
-    "utf-8"
-  );
+  await fetch(`${env.API_BASE_URL}/api/updates/v1`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${env.API_KEY_WEBSITE}`
+    },
+    body: JSON.stringify({ updates: updatesToJson })
+  });
 
   console.log(`✅ Updates written to ${OUTPUT}`);
 }

@@ -3,5 +3,5 @@ export const env = {
   CONTACT_FROM_EMAIL: process.env.CONTACT_FROM_EMAIL,
   CONTACT_TO_EMAIL: process.env.CONTACT_TO_EMAIL,
   API_KEY_WEBSITE: process.env.API_KEY_WEBSITE,
-  API_BASE: process.env.API_BASE
+  API_BASE_URL: process.env.API_BASE_URL
 }

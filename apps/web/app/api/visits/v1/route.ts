@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   const body = await req.json();
 
-  const res = await fetch(`${env.API_BASE}/api/visits/v1`, {
+  const res = await fetch(`${env.API_BASE_URL}/api/visits/v1`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

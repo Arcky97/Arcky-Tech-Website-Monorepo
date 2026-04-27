@@ -11,7 +11,9 @@ env:
   REGISTRY: ghcr.io
   WEB_URL: ${{ vars.WEB_URL }}
   DOCS_URL: ${{ vars.DOCS_URL }}
-  DISCORD_URL: ${{ vars.DISCORD_URL }}  
+  DISCORD_URL: ${{ vars.DISCORD_URL }}
+  API_KEY_WEBSITE: ${{ secrets.API_KEY_WEBSITE }}
+  API_BASE_URL: ${{ secrets.API_BASE_URL }}
 
 jobs:
   build:
@@ -28,7 +30,16 @@ jobs:
           echo "web url: $WEB_URL"
           echo "docs url: $DOCS_URL"
           echo "discord url: $DISCORD_URL"
+          echo "api url: $API_BASE_URL"
 
+      - name: Debug API key
+        run: |
+          if [ -z "$API_KEY_WEBSITE" ]; then
+            echo "❌ API_KEY_WEBSITE is EMPTY"
+          else
+            echo "✅ API_KEY_WEBSITE is set"
+          fi
+          
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -111,6 +122,8 @@ jobs:
           build-args: |
             NEXT_PUBLIC_WEB_URL=${{ vars.WEB_URL }}
             NEXT_PUBLIC_DISCORD_URL=${{ vars.DISCORD_URL }}
+            API_KEY_WEBSITE=${{ secrets.API_KEY_WEBSITE }}
+            API_BASE_URL=${{ secrets.API_BASE_URL }}
 
       # =========================================================
       # SCOREBOARD
