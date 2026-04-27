@@ -11,7 +11,8 @@ const withMDX = createMDX({
 const nextConfig: NextConfig = {
   /* config options here */
   output: "standalone",
-  pageExtensions: ["ts", "tsx", "md", "mdx"]
+  transpilePackages: ["ui"],
+  pageExtensions: ["ts", "tsx", "md", "mdx"],
 };
 
 export default withMDX(nextConfig);

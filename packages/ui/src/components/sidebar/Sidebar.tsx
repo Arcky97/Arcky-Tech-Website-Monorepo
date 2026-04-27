@@ -2,13 +2,15 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { SidebarItem, MenuItem } from "./SidebarItem"; // ← nieuw: import subcomponent
+import { useMainRef } from "../MainRefContext";
 
 type DocType = "main" | "region-map" | "arcky-tutorials" | "pbs-editor" | "poke-market" | "vending-machine" | string;
 
-export function Sidebar({ menuItems, docType, mainDocs, mainRef, isOpen, onClose }: { menuItems: MenuItem[];  docType?: DocType, mainDocs?: boolean, mainRef?: React.RefObject<HTMLElement | null>, isOpen: boolean, onClose: () => void }) {
+export function Sidebar({ menuItems, docType, mainDocs, isOpen, onClose }: { menuItems: MenuItem[];  docType?: DocType, mainDocs?: boolean, isOpen: boolean, onClose: () => void }) {
   const pathname = usePathname();
   const router = useRouter();
   const hasScrolledToActive = useRef(false);
+  const mainRef = useMainRef()
 
   const basePath = (() => {
     const segments = pathname.split("/").filter(Boolean);
@@ -18,7 +20,7 @@ export function Sidebar({ menuItems, docType, mainDocs, mainRef, isOpen, onClose
   useEffect(() => {
     if (hasScrolledToActive.current) return;
     const scrollSidebarToActiveItem = () => {
-      const sidebar = document.getElementById("sidebar");
+      const sidebar = document.getElementById("side-scroll");
       if (!sidebar) return;
       const activeItems = Array.from(sidebar.querySelectorAll(".bg-blue-900"));
       if (activeItems.length === 0) return;
@@ -48,6 +50,9 @@ export function Sidebar({ menuItems, docType, mainDocs, mainRef, isOpen, onClose
     const fullPath = path.replace(subPath, "");
     if (pathname !== fullPath) {
       router.push(path);
+      if (window.innerWidth < 1024) {
+        onClose()
+      }
       return;
     }
     if (target) {
@@ -57,7 +62,7 @@ export function Sidebar({ menuItems, docType, mainDocs, mainRef, isOpen, onClose
       applyHighlightEffect(subPath.replace("#", ""));
     }
     if (window.innerWidth < 1024) {
-      onClose
+      onClose()
     }
     history.pushState(null, "", path);
   };
@@ -79,7 +84,7 @@ export function Sidebar({ menuItems, docType, mainDocs, mainRef, isOpen, onClose
         style={{ height: "calc(100vh - 48px)" }}
       >
         {/* Scroll container */}
-        <div className="h-full overflow-y-scroll pt-4 pb-16">
+        <div id="side-scroll" className="h-full overflow-y-scroll pt-4 pb-16">
           {menuItems.map((item, index) => (
             <SidebarItem
               key={`${item.path}-${index}`}
@@ -106,7 +111,7 @@ export function Sidebar({ menuItems, docType, mainDocs, mainRef, isOpen, onClose
         className="flex-1 transition-all duration-300 ease-in-out lg:inline hidden "
         style={{
           marginLeft:
-            isOpen ? "275px" : "0",
+            isOpen ? "336px" : "0",
         }}
       />
     </div>

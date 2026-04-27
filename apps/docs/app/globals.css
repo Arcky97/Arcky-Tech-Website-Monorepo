@@ -7,6 +7,19 @@
   --navbar-height: 80px;
 }
 
+@keyframes blinkGlow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 123, 255, 1);
+  }
+}
+
+.highlight-blink {
+  animation: blinkGlow 0.6s ease-in-out 3; /* Adjusted timing to make it smoother */
+}
+
 html {
   height: 100%;
 }
@@ -69,7 +82,7 @@ aside {
 
 .section-wrapper h2, .section-wrapper-history h2 {
   position: sticky;
-  top: 2.5rem;
+  top: 0rem;
   z-index: 10;
   padding: 0.4rem 0;
 }

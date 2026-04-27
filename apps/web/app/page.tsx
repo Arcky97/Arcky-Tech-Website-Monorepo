@@ -1,3 +1,5 @@
+import { InfoCards } from "@/components/InfoCards";
+
 export default function Home() {
   return (
     <article className="flex flex-col items-center h-full text-white">
@@ -10,7 +12,9 @@ export default function Home() {
         <hr className="border-gray-600/75 border-t mt-2 mb-4"/>
       </section>
       {/* Latest Updates */}
+      
       {/* Project Cards */}
+      <InfoCards title="Projects" page="projects"/>
     </article>
   );
 }

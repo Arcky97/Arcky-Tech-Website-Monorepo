@@ -1,5 +1,5 @@
 import { Callout } from "./Callout"
-import { InlineCode } from "./InlineCode"
+import { InlineCode } from "ui/src/components/InlineCode"
 import { TextColor } from "ui"
 
 export function DocsPokeMarketSpeeches ({speech}: {speech: string}) {

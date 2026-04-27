@@ -3,3 +3,4 @@ export * from "./slugify";
 export * from "./docs"
 export * from "./reactSelectStyles";
 export * from "./reactMultiSelectStyles"
+export * from "./logPageVisit";

@@ -1,18 +1,8 @@
 import path from "path";
 import fs from "fs";
-import { notFound, redirect } from "next/navigation";
-import { getStyles, slugify, StyleGroup, DocsTableOfContents } from "ui";
-import { compileMDX } from "next-mdx-remote/rsc";
-import { mdxComponents } from "ui/mdx/mdx-components";
-
-const CONTENT_ROOT = path.join(
-  process.cwd(),
-  "../../packages/content/documentation"
-);
-
-type FrontMatter = {
-  layout?: StyleGroup;
-}
+import { redirect } from "next/navigation";
+import { getStyles, NotFoundComp, slugify } from "ui";
+import { DocsTableOfContents } from "@/components/DocsTableOfContents";
 
 export default async function Page({
   params
@@ -22,13 +12,18 @@ export default async function Page({
   const { slug } = await params;
   const nestedPath = slug.join('/');
 
-  const updatesDir = path.join(CONTENT_ROOT, nestedPath);
+  const updatesDir = path.join(
+    process.cwd(),
+    'content/documentation/', 
+    nestedPath
+  );
 
   if (!fs.existsSync(updatesDir)) {
     return (
-      <p>The page was not found!</p>
-    )
+      <NotFoundComp/>
+    );
   }
+
   const files = fs
     .readdirSync(updatesDir)
     .filter(file => file.endsWith('.mdx'));
@@ -49,10 +44,10 @@ export default async function Page({
         const newSlug = [...slug, firstSub].join('/');
         redirect(`/documentation/${newSlug}`);
       } else {
-        notFound();
+        <NotFoundComp/>;
       }
     } else {
-      notFound();
+      <NotFoundComp/>;
     }
   }
 
@@ -88,41 +83,35 @@ export default async function Page({
       const match = raw.match(/^## (.+)$/m);
       const title = match?.[1] || file.replace('.mdx', '');
       const anchorId = slugify(title);
-
+      
       let Component;
-      let layout;
-
+      let layout = null;
+      
       try {
-        const { content, frontmatter } = await compileMDX<FrontMatter>({
-          source: raw,
-          components: mdxComponents
-        });
-
-        Component = () => content;
-        
-        layout = frontmatter.layout ?? null;
-
-        console.log(layout);
-
+        const mod = await import(
+          `@/content/documentation/${nestedPath}/${file}`
+        );
+        Component = mod.default;
+        layout = mod.layout || null;
       } catch (err) {
         console.error(`❌ Error loading MDX file: ${nestedPath}/${file}`, err);
         Component = function FailedToLoadComponent() {
           return (
             <div className="text-red-500 border border-red-500 bg-red-100 p-4 rounded">
-              ⚠️ Failed to load <strong>{file}</strong>.
+              ⚠️ Failed to load <strong>{file}</strong>. Check the MDX syntax or code blocks.
             </div>
-          );
-        };
+          )
+        }
       }
 
-      return { name: file.replace('.mdx', ''), title, anchorId, Component, layout };
+      return { name: file.replace('.mdx', ''), title, anchorId, Component, layout }
     })
   );
 
   const tablePosts = posts.filter(({name}) => name !== 'header');
   const headerPost = posts.find(p => p.name === 'header');
 
-  const pageLayout: StyleGroup | null = headerPost?.layout ?? null;
+  const pageLayout = headerPost?.layout || null;
 
   const styles = getStyles(pageLayout);
 

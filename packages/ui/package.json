@@ -5,8 +5,6 @@
   "types": "src/index.ts",
   "module": "index.ts",
   "dependencies": {
-    "highlight.js": "^11.11.1",
-    "photoswipe": "^5.4.4",
-    "simple-markdown": "^0.7.3"
+    "photoswipe": "^5.4.4"
   }
 }

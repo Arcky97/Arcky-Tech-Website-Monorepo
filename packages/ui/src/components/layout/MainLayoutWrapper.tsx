@@ -1,4 +1,5 @@
 import { Navbar, NavbarProps } from "../navbar";
+import PageVisitTracker from "../PageVisitTracker";
 
 type Props = {
   navbar: NavbarProps;
@@ -8,10 +9,10 @@ type Props = {
 export function MainLayoutWrapper({ navbar, children }: Props) {
   return (
     <>
+      <PageVisitTracker/>
       <header>
         <Navbar
           variant={navbar?.variant}
-          mainRef={navbar?.mainRef}
           hasSidenav={navbar?.hasSidenav}
           enableShrink={navbar?.enableShrink}
           isSidebarOpen={navbar?.isSidebarOpen}

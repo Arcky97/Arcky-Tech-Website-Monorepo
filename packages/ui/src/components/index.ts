@@ -1,4 +1,3 @@
-export * from "./docs"
 export * from "./errors";
 export * from "./footer";
 export * from "./layout";
@@ -9,3 +8,5 @@ export * from "./LinkWithPreview";
 export * from "./MediaGallery";
 export * from "./ColorButton";
 export * from "./ImageWithCaption";
+export * from "./MainRefContext";
+export * from "./InlineCode";

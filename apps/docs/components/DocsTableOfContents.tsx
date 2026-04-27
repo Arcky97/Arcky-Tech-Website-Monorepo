@@ -1,6 +1,6 @@
 "use client";
 import { useRef } from "react";
-import { LinkWithPreview, useResponsiveColumns } from "ui";
+import { LinkWithPreview, useMainRef, useResponsiveColumns } from "ui";
 
 type Item = {
   title: string;
@@ -14,10 +14,14 @@ type Props = {
 
 export function DocsTableOfContents({ items, offset = 60 }: Props) {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const mainRef = useMainRef();
 
   const columns = useResponsiveColumns(Math.ceil(items.length / 15));
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    const mainEl = mainRef?.current;
+    if (!mainEl) return;
+
     e.preventDefault();
     const element = document.getElementById(id);
     if (element) {
@@ -27,8 +31,8 @@ export function DocsTableOfContents({ items, offset = 60 }: Props) {
       return;
     }
 
-    const targetPosition = element.getBoundingClientRect().top + window.scrollY - offset;
-    window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+    const targetPosition = element.getBoundingClientRect().top + mainEl.scrollTop - offset;
+    mainEl.scrollTo({ top: targetPosition, behavior: 'smooth' });
     history.pushState(null, "", `#${id}`);
   };
 

@@ -1,0 +1,23 @@
+[
+  {
+    "project": "pbs-editor",
+    "date": "2026-04-18",
+    "title": "v1.3.0: Keyboard Shortcuts and Improvements",
+    "excerpt": "### New Features\n- Added Keyboard Shortcuts:\n  - `Ctrl + t`: Opens a new Entry Tab.\n  - `Ctrl + w`: Closes the Active Entry Tab.\n  - `Ctrl + Tab` or `Ctrl + PgDn`: Jumps to the next Opened Entry Tab.\n...",
+    "slug": "/documentation/pbs-editor/update-history#2026-04-18"
+  },
+  {
+    "project": "poke-market",
+    "date": "2026-01-18",
+    "title": "v1.7.0 - Item as Currency",
+    "excerpt": "### New Feature\n- Added support for an Item to be used as the Currency of a store. It is even possible to define a different *Item Currency* for 1 or more *Item Slots*. But you can't combine the non-item currencies with item currencies. *Item Currencies* is also **<Gr>only supported</Gr>** for the **<Gr>normal Seller Stores</Gr>**, **<Rd>not the Shelf or Species Stores</Rd>**.",
+    "slug": "/documentation/poke-market/update-history#2026-01-18"
+  },
+  {
+    "project": "region-map",
+    "date": "2025-10-07",
+    "title": "v3.3.0: New Pokedex Features",
+    "excerpt": "### New Features:\n- It is now possible to change the Current Region in the Pokedex Area Section.\n- You can now filter the Location Areas you can find a species in. Filtering is possible on both Location and Encounter Type.",
+    "slug": "/documentation/region-map/update-history#2025-10-07"
+  }
+]

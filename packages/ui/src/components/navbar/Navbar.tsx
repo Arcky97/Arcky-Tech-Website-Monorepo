@@ -2,21 +2,22 @@
 import { useEffect, useRef, useState } from "react"
 import Link from "next/link";
 import { NavbarItem } from "./NavbarItem";
+import { useMainRef } from "../MainRefContext";
 
 export type NavbarProps = {
   routes: { home: string, projects: string, discord: string, docs: string, about: string, contact: string }
   variant?: "web" | "docs" | "doggo-bot" | "scoreboard";
   enableShrink?: boolean;
   hasSidenav?: boolean;
-  mainRef?: React.RefObject<HTMLElement | null>;
   isSidebarOpen?: boolean;
   onToggleSideNav?: () => void;
 }
 
-export function Navbar({ variant = "web", enableShrink, hasSidenav, mainRef, isSidebarOpen, onToggleSideNav, routes }: NavbarProps) {
+export function Navbar({ variant = "web", enableShrink, hasSidenav, isSidebarOpen, onToggleSideNav, routes }: NavbarProps) {
   const [hasScrolled, setHasScrolled] = useState(false);
   const [isShrunk, setIsShrunk] = useState(false || !enableShrink);
   const navRef = useRef<HTMLElement>(null);
+  const mainRef = useMainRef();
 
   useEffect(() => {
     const mainEl = mainRef?.current;
