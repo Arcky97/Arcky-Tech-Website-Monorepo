@@ -30,6 +30,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-, "../../packages/ui/src/components/MainRefContext.tsx", "../../packages/ui/src/components/InlineCode.tsx"  ],
+, "../../packages/ui/src/components/MainRefContext.tsx", "../../packages/ui/src/components/InlineCode.tsx", "scripts/generateUpdates.js"  ],
   "exclude": ["node_modules"]
 }

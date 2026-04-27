@@ -1,21 +1,14 @@
 import path from "path";
-import fs, { Dirent } from "fs";
+import fs from "fs";
 
 const ROOT = path.join(process.cwd(), "content/documentation");
 const OUTPUT = path.join(process.cwd(), "public", "updates.json");
 
-export type UpdateEntry = {
-  project: string;
-  date: string;
-  title: string;
-  excerpt: string;
-  slug: string;
-}
 export async function generateUpdates() {
-  const updates: UpdateEntry[] = [];
+  const updates = [];
 
   const projects = fs.readdirSync(ROOT, { withFileTypes: true })
-    .filter((dirent: Dirent) => dirent.isDirectory());
+    .filter((dirent) => dirent.isDirectory());
 
   for (const dir of projects) {
     const updateDir = path.join(ROOT, dir.name, "update-history");
