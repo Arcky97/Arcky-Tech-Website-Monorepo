@@ -79,7 +79,7 @@ export async function generateUpdates() {
     body: JSON.stringify({ updates: updatesToJson })
   });
 
-  console.log(`✅ Updates written to ${OUTPUT}`);
+  console.log(`✅ Updates written to Database at ${API_BASE_URL}/api/updates/v1`);
 }
 
 generateUpdates();
