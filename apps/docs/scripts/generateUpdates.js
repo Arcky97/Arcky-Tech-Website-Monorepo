@@ -2,7 +2,7 @@ import path from "path";
 import fs from "fs";
 
 const API_BASE_URL = process.env.API_BASE_URL;
-const API_KEY_WEBSITE = process.env.API_KEY_WEBSIT;
+const API_KEY_WEBSITE = process.env.API_KEY_WEBSITE;
 if (!API_BASE_URL || !API_KEY_WEBSITE) {
   throw new Error("Missing API environment variables");
 }
