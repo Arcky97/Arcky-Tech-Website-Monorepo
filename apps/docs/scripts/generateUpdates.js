@@ -73,7 +73,6 @@ export async function generateUpdates() {
 
   const updatesToJson = updates
     .sort((a, b) => a.date.localeCompare(b.date))
-    .slice(0, 3)
     .reverse();
 
   console.log("📦 Sending updates:", updatesToJson);
