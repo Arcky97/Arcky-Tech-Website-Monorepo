@@ -75,7 +75,7 @@ export async function generateUpdates() {
     .reverse();
 
   try {
-    await fetch(`${API_BASE_URL}/api/updates/v1`, {
+    const res = await fetch(`${API_BASE_URL}/api/updates/v1`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -83,7 +83,15 @@ export async function generateUpdates() {
       },
       body: JSON.stringify({ updates: updatesToJson })
     });
-    console.log(`✅ Writting Updates to Database at '${API_BASE_URL}/api/updates/v1' succeeded!`);
+
+    const text = await res.text();
+
+    if (!res.ok) {
+      console.error("❌ API ERROR:", res.status, text);
+      process.exit(1);
+    }
+
+    console.log("✅ API SUCCESS:", text);
   } catch (error) {
    console.log(`❌ Writting Updates to Databse at '${API_BASE_URL}/api/updates/v1' failed!`);
   }
