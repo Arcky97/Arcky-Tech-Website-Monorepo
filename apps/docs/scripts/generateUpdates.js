@@ -74,6 +74,8 @@ export async function generateUpdates() {
     .slice(0, 3)
     .reverse();
 
+  console.log("📦 Sending updates:", updatesToJson);
+  
   try {
     const res = await fetch(`${API_BASE_URL}/api/updates/v1`, {
       method: "POST",
