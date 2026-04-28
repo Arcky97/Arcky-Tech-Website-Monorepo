@@ -62,9 +62,7 @@ export async function generateUpdates() {
           title,
           excerpt,
           slug: `/documentation/${dir.name}/update-history#${dateStr}`
-        })
-        
-        break;
+        });
       }
     }
   }
@@ -75,7 +73,7 @@ export async function generateUpdates() {
     .reverse();
 
   console.log("📦 Sending updates:", updatesToJson);
-  
+
   try {
     const res = await fetch(`${API_BASE_URL}/api/updates/v1`, {
       method: "POST",
