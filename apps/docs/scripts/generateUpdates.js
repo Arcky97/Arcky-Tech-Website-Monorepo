@@ -32,10 +32,20 @@ export async function generateUpdates() {
       for (const file of files) {
         const raw = file.replace(".mdx", "");
 
-        // remove "-a", "-b", "-c", etc. at the end
-        const dateStr = raw.replace(/-[a-z]$/i, "");
+        // 1. remove suffix like -a, -b, etc.
+        const withoutSuffix = raw.replace(/-[a-z]$/i, "");
 
-        const fileDate = new Date(dateStr);
+        // 2. remove all spaces
+        const cleaned = withoutSuffix.replace(/\s+/g, "");
+
+        // 3. split into parts
+        const [year, month, day] = cleaned.split("-");
+
+        // 4. normalize with leading zeros
+        const normalizedDateStr = `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+
+        // 5. safe date
+        const fileDate = new Date(`${normalizedDateStr}T00:00:00Z`);
         const today = new Date();
 
         if (fileDate > today) continue;
