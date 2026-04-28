@@ -1,6 +1,4 @@
-// components/MainRefContext.tsx
 'use client';
-
 import { createContext, RefObject, useContext } from 'react';
 
 export const MainRefContext = createContext<

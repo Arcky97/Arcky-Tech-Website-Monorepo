@@ -1,7 +1,12 @@
 export function NotFoundComp() {
+
   return (
-    <div className="flex flex-col h-full items-center justify-center text-white">
-      <h1 className="text-3xl font-bold">404 | This page was not found.</h1>
+    <div id="notfound"
+      className="flex text-center items-center justify-center text-white w-full"
+    >
+      <h1 className="text-3xl font-bold">
+        404 | This page was not found.
+      </h1>
     </div>
   );
 }

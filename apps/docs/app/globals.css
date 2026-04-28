@@ -34,7 +34,7 @@ body {
 }
 
 main {
-  scrollbar-color: #4a5565 #030712;
+  scrollbar-color: #4a5565 #101828;
   overflow-y: scroll !important;
 }
 
@@ -68,6 +68,10 @@ aside {
   margin-top: 3px;
   padding-top: 8px;
   margin-bottom: 6px;
+}
+
+#notfound {
+  height: calc(100vh - var(--footer-height) - var(--navbar-height));
 }
 
 .horRule {

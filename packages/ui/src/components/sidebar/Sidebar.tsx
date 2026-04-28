@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { SidebarItem, MenuItem } from "./SidebarItem"; // ← nieuw: import subcomponent
 import { useMainRef } from "../MainRefContext";
@@ -12,9 +12,23 @@ export function Sidebar({ menuItems, docType, mainDocs, isOpen, onClose }: { men
   const hasScrolledToActive = useRef(false);
   const mainRef = useMainRef()
 
+  const validBasePaths = menuItems.map(item => item.name);
+
   const basePath = (() => {
+    if (pathname === "/") {
+      return "";
+    }
+
     const segments = pathname.split("/").filter(Boolean);
-    return `/${segments.slice(0, 1).join("/")}`;
+    const first = segments[0];
+
+    if (validBasePaths.some(path => path === first)) {
+      return `/${first}`;
+    } else if (docType !== "main") {
+      return `/${docType}`
+    } else {
+      return "/"
+    }
   })();
 
   useEffect(() => {
@@ -111,7 +125,7 @@ export function Sidebar({ menuItems, docType, mainDocs, isOpen, onClose }: { men
         className="flex-1 transition-all duration-300 ease-in-out lg:inline hidden "
         style={{
           marginLeft:
-            isOpen ? "336px" : "0",
+            isOpen ? "323px" : "0",
         }}
       />
     </div>

@@ -1,6 +1,11 @@
 import path from "path";
 import fs from "fs";
 
+if (process.env.NODE_ENV !== "production") {
+  console.log("⏭️ generateUpdates skipped (not production)");
+  process.exit(0);
+}
+
 const API_BASE_URL = process.env.API_BASE_URL;
 const API_KEY_WEBSITE = process.env.API_KEY_WEBSITE;
 if (!API_BASE_URL || !API_KEY_WEBSITE) {
@@ -8,7 +13,6 @@ if (!API_BASE_URL || !API_KEY_WEBSITE) {
 }
 
 const ROOT = path.join(process.cwd(), "content/documentation");
-const OUTPUT = path.join(process.cwd(), "public", "updates.json");
 
 export async function generateUpdates() {
   const updates = [];
@@ -70,16 +74,19 @@ export async function generateUpdates() {
     .slice(0, 3)
     .reverse();
 
-  await fetch(`${API_BASE_URL}/api/updates/v1`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${API_KEY_WEBSITE}`
-    },
-    body: JSON.stringify({ updates: updatesToJson })
-  });
-
-  console.log(`✅ Updates written to Database at ${API_BASE_URL}/api/updates/v1`);
+  try {
+    await fetch(`${API_BASE_URL}/api/updates/v1`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${API_KEY_WEBSITE}`
+      },
+      body: JSON.stringify({ updates: updatesToJson })
+    });
+    console.log(`✅ Writting Updates to Database at '${API_BASE_URL}/api/updates/v1' succeeded!`);
+  } catch (error) {
+   console.log(`❌ Writting Updates to Databse at '${API_BASE_URL}/api/updates/v1' failed!`);
+  }
 }
 
 generateUpdates();

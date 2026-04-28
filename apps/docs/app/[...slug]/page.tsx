@@ -42,7 +42,7 @@ export default async function Page({
 
       if (redFiles.length > 0) {
         const newSlug = [...slug, firstSub].join('/');
-        redirect(`/documentation/${newSlug}`);
+        redirect(`/${newSlug}`);
       } else {
         <NotFoundComp/>;
       }

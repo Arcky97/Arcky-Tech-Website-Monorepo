@@ -12,6 +12,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
+    document.documentElement.style.setProperty("--navbar-height", "48px");
     const isDesktop = window.innerWidth >= 1024;
     setSidebarOpen(isDesktop);
   }, []);
@@ -41,7 +42,6 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
           routes
         }}
       >
-        {/* ✅ ÉÉN flex container */}
         <div className="relative flex overflow-hidden">
           <Sidebar
             menuItems={menuItemToUse}
@@ -54,14 +54,15 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
             ref={mainRef}
             className="flex-1 bg-gray-900 h-full"
           >
-            <div className="flex flex-col min-h-[calc(100vh-48px)]">
-              <div className="flex-1">{children}</div>
+            <div className="flex flex-col min-h-[calc(100vh-48px)] px-2">
+              <div className="flex-1 flex">
+                {children}
+              </div>
               <Footer />
             </div>
           </main>
         </div>
       </MainLayoutWrapper>
     </MainRefContext.Provider>
-
   );
 }
