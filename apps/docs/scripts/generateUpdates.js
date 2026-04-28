@@ -72,10 +72,10 @@ export async function generateUpdates() {
 
         updates.push({
           project: dir.name,
-          date: dateStr,
+          date: normalizedDateStr,
           title,
           excerpt,
-          slug: `/documentation/${dir.name}/update-history#${dateStr}`
+          slug: `/documentation/${dir.name}/update-history#${normalizedDateStr}`
         });
       }
     }
