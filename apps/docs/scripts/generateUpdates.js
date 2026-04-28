@@ -79,7 +79,7 @@ export async function generateUpdates() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${API_KEY_WEBSITE}`
+        "x-api-key": API_KEY_WEBSITE
       },
       body: JSON.stringify({ updates: updatesToJson })
     });
