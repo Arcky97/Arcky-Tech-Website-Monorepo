@@ -30,7 +30,11 @@ export async function generateUpdates() {
         .reverse()
 
       for (const file of files) {
-        const dateStr = file.replace(".mdx", "");
+        const raw = file.replace(".mdx", "");
+
+        // remove "-a", "-b", "-c", etc. at the end
+        const dateStr = raw.replace(/-[a-z]$/i, "");
+
         const fileDate = new Date(dateStr);
         const today = new Date();
 
