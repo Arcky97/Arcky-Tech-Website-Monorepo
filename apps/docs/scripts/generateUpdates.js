@@ -1,8 +1,7 @@
 import path from "path";
 import fs from "fs";
 
-console.log(process.env.NODE_ENV);
-if (process.env.NODE_ENV !== "production") {
+if (process.env.NODE_ENV && process.env.NODE_ENV !== "production") {
   console.log("⏭️ generateUpdates skipped (not production)");
   process.exit(0);
 }
