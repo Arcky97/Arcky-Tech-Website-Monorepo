@@ -10,7 +10,7 @@ export function AutoTOCWrapper({ children }: { children: React.ReactNode }) {
   useAutoTOC(ref);
 
   return (
-    <div ref={ref}>
+    <div ref={ref} className="flex-1 flex">
       {children}
     </div>
   );

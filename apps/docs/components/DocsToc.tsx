@@ -2,7 +2,6 @@
 import { useMainRef, useTOC } from "ui";
 import { useActiveHeading } from "@/hooks/useActiveHeading";
 import { useEffect, useRef } from "react";
-import { useTOCSectionProgress } from "@/hooks/useSectionProgress";
 
 export function DocsTOC() {
   const { items } = useTOC();
@@ -87,7 +86,7 @@ export function DocsTOC() {
             <div key={`${item.anchorId}-${index}`} className="relative pl-3">
               {isActive && (
                 <span
-                  className="absolute left-0 top-0 w-0.5 bg-blue-500 transition-[height] duration-150 ease-linear"
+                  className="absolute left-0 top-0 w-0.5 bg-blue-500 transition-all duration-150 ease-in-out"
                   style={{ height: `100%` }}
                 />
               )}
@@ -99,9 +98,9 @@ export function DocsTOC() {
                   scrollTo(item.anchorId)
                 }}
                 className={`
-                  block text-left w-full text-sm transition
+                  block text-left w-full text-sm transition-all duration-300 ease-in-out font-semibold not-last-of-type:
                   ${item.level === 3 ? "pl-4 text-xs opacity-70 pointer-events-none" : ""}
-                  ${isActive ? "text-white font-semibold" : "text-gray-400 hover:text-white"}
+                  ${isActive ? "text-white" : "text-gray-400 hover:text-white"}
                 `}
               >
                 {item.title}

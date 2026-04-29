@@ -2,7 +2,7 @@
 import { useEffect, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { SidebarItem, MenuItem } from "./SidebarItem"; // ← nieuw: import subcomponent
-import { useMainRef } from "../MainRefContext";
+import { useMainRef } from "../context/MainRefContext";
 
 type DocType = "main" | "region-map" | "arcky-tutorials" | "pbs-editor" | "poke-market" | "vending-machine" | string;
 
@@ -88,11 +88,11 @@ export function Sidebar({ menuItems, docType, mainDocs, isOpen, onClose }: { men
         id="sidebar"
         className={`
           fixed left-0 z-51
-          bg-gray-800 text-white
-          border-y border-r border-gray-700
-          rounded-tr-lg rounded-br-lg
+          bg-gray-900 text-white
+          border-y lg:border-y-0 border-r border-gray-700
+          rounded-tr-lg rounded-br-lg lg:rounded-none
           overflow-hidden
-          transition-all duration-300 ease-in-out ${
+          transition-all duration-300 ease-in-out w-80 ${
             isOpen ? "translate-x-0 opacity-100" : "-translate-x-full"
           }`}
         style={{ height: "calc(100vh - 48px)" }}
@@ -125,7 +125,7 @@ export function Sidebar({ menuItems, docType, mainDocs, isOpen, onClose }: { men
         className="flex-1 transition-all duration-300 ease-in-out lg:inline hidden "
         style={{
           marginLeft:
-            isOpen ? "323px" : "0",
+            isOpen ? "320px" : "0",
         }}
       />
     </div>

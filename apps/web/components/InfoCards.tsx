@@ -9,7 +9,7 @@ export function InfoCards({ title, page }: { title: string; page: string }) {
 
   return (
     <section className="w-7/8 lg:w-6/8">
-      <h2 className="head2 sticky top-0 w-full bg-gray-900 px-2 pb-2 z-50">{title}</h2>
+      <h2 className="head2 sticky top-0 w-full bg-gray-900 px-2 pb-2 z-75">{title}</h2>
       <div className="flex flex-wrap justify-center gap-8 p-4">
         {infoCards.map((u, idx) => (
           <div

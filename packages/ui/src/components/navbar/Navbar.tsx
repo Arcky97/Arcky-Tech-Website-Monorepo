@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react"
 import Link from "next/link";
 import { NavbarItem } from "./NavbarItem";
-import { useMainRef } from "../MainRefContext";
+import { useMainRef } from "../context/MainRefContext";
 
 export type NavbarProps = {
   routes: { home: string, projects: string, discord: string, docs: string, about: string, contact: string }
@@ -65,7 +65,7 @@ useEffect(() => {
       >
         {/* Sidebar toggle */}
         {hasSidenav && (
-          <div className="h-0 flex items-center transition-opacity duration-300 ease-in-out">
+          <div className="lg:hidden h-0 flex items-center transition-opacity duration-300 ease-in-out">
             <button
               className="p-2 rounded-md flex flex-col justify-center items-center space-y-1 group"
               onClick={onToggleSideNav}
