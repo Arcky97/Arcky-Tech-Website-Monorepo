@@ -42,15 +42,24 @@ export function DocsTOC() {
 
     if (!activeEl) return;
 
-    const containerHeight = container.clientHeight;
-    const itemTop = activeEl.offsetTop;
-    const itemHeight = activeEl.offsetHeight;
+    const containerRect = container.getBoundingClientRect();
+    const itemRect = activeEl.getBoundingClientRect();
 
-    const scrollTop = itemTop - containerHeight / 2 + itemHeight / 2;
+    const isInView =
+      itemRect.top >= containerRect.top + 96 &&
+      itemRect.bottom <= containerRect.bottom - 96;
 
-    container.scrollTo({
-      top: scrollTop,
-      behavior: "smooth"
+    if (isInView) return;
+
+    const offset =
+      itemRect.top -
+      containerRect.top -
+      container.clientHeight / 2 +
+      itemRect.height / 2;
+
+    container.scrollBy({
+      top: offset,
+      behavior: "smooth",
     });
   }, [activeId]);
 
@@ -84,12 +93,12 @@ export function DocsTOC() {
 
           return (
             <div key={`${item.anchorId}-${index}`} className="relative pl-3">
-              {isActive && (
+              
                 <span
-                  className="absolute left-0 top-0 w-0.5 bg-blue-500 transition-all duration-150 ease-in-out"
-                  style={{ height: `100%` }}
+                  className={`absolute left-0 top-0 w-0.5 bg-blue-500 h-full ${isActive ? "opacity-100" : "opacity-0" } transition-all duration-300 ease-in-out`}
+                  
                 />
-              )}
+              
               <button
                 key={`${item.anchorId}-${index}`}
                 data-anchor={item.anchorId}
