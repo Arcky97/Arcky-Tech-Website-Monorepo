@@ -2,7 +2,7 @@ import path from "path";
 import fs from "fs";
 import { redirect } from "next/navigation";
 import { getStyles, NotFoundComp, slugify } from "ui";
-import { DocsTableOfContents } from "@/components/DocsTableOfContents";
+import { AutoTOCWrapper } from "@/components/AutoTOCWrapper";
 
 export default async function Page({
   params
@@ -116,29 +116,22 @@ export default async function Page({
   const styles = getStyles(pageLayout);
 
   return (
-    <article key={slug[0]} className={`${styles.wrapper} pb-4`} >
-      {styles.card && 
-        <>
-          {headerPost && (
-            <>
-              <headerPost.Component/>
-            </>
-          )}
-          <section className="pb-6">
-            <h3 className="text-2xl lg:text-3xl mt-4 font-bold mb-4">Table of Contents</h3>
-            <DocsTableOfContents items={tablePosts.map(({ title, anchorId }) => ({ title, anchorId }))}/>
-            <hr className="border-gray-600/75 border-t mt-2"></hr>
-          </section>
-        </>
-      }
-      <div className={styles.section}>
-        {tablePosts.map(({ name, anchorId, Component }, i) => (
-          <section key={`section-${i}`} id={anchorId} className={`anchor-target ${styles.card ?? ''}`}>
-            {styles.date && <h4 className={styles.date}>{name}</h4>}
-            <Component/>
-          </section>
-        ))}
-      </div>
-    </article>
+    <AutoTOCWrapper>
+      <article key={slug[0]} className={`${styles.wrapper} pb-4`} >
+        {styles.card && headerPost && (
+            <headerPost.Component/>
+          )
+        }
+        <div className={styles.section}>
+          {tablePosts.map(({ name, anchorId, Component }, i) => (
+            <section key={`section-${i}`} id={anchorId} className={`anchor-target ${styles.card ?? ''}`}>
+              {styles.date && <h4 className={styles.date}>{name}</h4>}
+              <Component/>
+            </section>
+          ))}
+        </div>
+      </article>
+    </AutoTOCWrapper>
+
   )
 }

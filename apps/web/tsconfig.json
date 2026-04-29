@@ -35,7 +35,7 @@
     ".next/dev/types/**/*.ts",
     "../../packages/ui/**/*.ts",
     "../../packages/ui/**/*.tsx"
-  ],
+, "../docs/components/DocsToc.tsx"  ],
 
   "exclude": ["node_modules"]
 }

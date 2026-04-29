@@ -5,6 +5,7 @@ import { LinkWithPreview, useMainRef, useResponsiveColumns } from "ui";
 type Item = {
   title: string;
   anchorId: string;
+  level: 2 | 3
 };
 
 type Props = {

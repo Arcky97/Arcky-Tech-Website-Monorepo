@@ -1,0 +1,116 @@
+"use client";
+import { useMainRef, useTOC } from "ui";
+import { useActiveHeading } from "@/hooks/useActiveHeading";
+import { useEffect, useRef } from "react";
+import { useTOCSectionProgress } from "@/hooks/useSectionProgress";
+
+export function DocsTOC() {
+  const { items } = useTOC();
+  const activeId = useActiveHeading(items);
+  const mainRef = useMainRef();
+  const tocRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (!hash) return;
+
+    const id = hash.slice(1);
+    const mainEl = mainRef.current;
+    if (!mainEl) return;
+
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    const offset = 48;
+
+    const top =
+      el.getBoundingClientRect().top +
+      mainEl.scrollTop -
+      offset;
+    
+    mainEl.scrollTo({ top });
+
+    history.replaceState(null, "", `${hash}`);
+  }, [mainRef]);
+
+  useEffect(() => {
+    if (!activeId || !tocRef.current) return;
+
+    const container = tocRef.current;
+    const activeEl = container.querySelector(
+      `[data-anchor="${activeId}"]`
+    ) as HTMLElement | null;
+
+    if (!activeEl) return;
+
+    const containerHeight = container.clientHeight;
+    const itemTop = activeEl.offsetTop;
+    const itemHeight = activeEl.offsetHeight;
+
+    const scrollTop = itemTop - containerHeight / 2 + itemHeight / 2;
+
+    container.scrollTo({
+      top: scrollTop,
+      behavior: "smooth"
+    });
+  }, [activeId]);
+
+  const scrollTo = (id: string) => {
+    const mainEl = mainRef.current;
+    if (!mainEl) return;
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    const offset = 48;
+    const top = 
+      el.getBoundingClientRect().top + 
+      mainEl.scrollTop - 
+      offset;
+
+    mainEl.scrollTo({ top, behavior: "smooth" });
+
+    history.replaceState(null, "", `#${id}`);
+  };
+
+  if (items.length === 0) {
+    return null;
+  }
+
+  return (
+    <aside ref={tocRef} className="w-52 sticky top-0 h-[calc(100vh-48px)] overflow-auto border-l border-gray-700/40 px-3 py-4 hidden lg:inline">
+      <div className="text-white text-xs uppercase opacity-60 mb-3">On this page</div>
+      <nav className="space-y-1">
+        {items.map((item, index) => {
+          const isActive = item.level === 2 && activeId === item.anchorId;
+
+          return (
+            <div key={`${item.anchorId}-${index}`} className="relative pl-3">
+              {isActive && (
+                <span
+                  className="absolute left-0 top-0 w-0.5 bg-blue-500 transition-[height] duration-150 ease-linear"
+                  style={{ height: `100%` }}
+                />
+              )}
+              <button
+                key={`${item.anchorId}-${index}`}
+                data-anchor={item.anchorId}
+                onClick={() => {
+                  if (!item.anchorId) return;
+                  scrollTo(item.anchorId)
+                }}
+                className={`
+                  block text-left w-full text-sm transition
+                  ${item.level === 3 ? "pl-4 text-xs opacity-70 pointer-events-none" : ""}
+                  ${isActive ? "text-white font-semibold" : "text-gray-400 hover:text-white"}
+                `}
+              >
+                {item.title}
+              </button>
+            </div>
+
+          )
+        })}
+      </nav>
+    </aside>
+  )
+} 
