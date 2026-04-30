@@ -11,3 +11,4 @@ export * from "./ColorButton";
 export * from "./ImageWithCaption";
 export * from "./context/MainRefContext";
 export * from "./InlineCode";
+export * from "./Skeleton";

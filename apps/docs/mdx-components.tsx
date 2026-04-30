@@ -7,6 +7,7 @@ import { Callout } from "./components/Callout";
 import { DocsTable as Table } from "./components/DocsTable";
 import { DocsPokeMarketSpeeches as PMSpeeches, DocsShelfSpeeches as SHSpeeches, DocsSpeciesSpeeches as SPSpeeches} from "./components/Speeches";
 import { YouTubeEmbed } from "./components/YoutubeEmbed";
+import { SettingsVersions as SetVer } from "./components/SettingsVersion";
 import { DocsVersionBlock as VerBlock } from "./components/DocsVerBlock";
 import { DocsInputText as InputText } from "./components/docsInput/DocsInputText";
 import { DocsInputNumber as InputNumber } from "./components/docsInput/DocsInputNumber";
@@ -116,6 +117,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     SPSpeeches,
     YouTubeEmbed,
     ColorButton,
+    SetVer,
     VerBlock,
     InputText,
     InputNumber,
