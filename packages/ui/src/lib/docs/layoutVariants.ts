@@ -14,13 +14,13 @@ const baseStyles: Record<StyleGroup, StyleConfig> = {
     section: 'text-center space-y-8',
   },
   'updateHistory': {
-    wrapper: 'text-white w-[95%] lg:w-full lg:px-2 mx-auto',
+    wrapper: 'text-white w-[95%] lg:w-full lg:pr-2 mx-auto',
     section: 'text-center space-y-4 mb-4',
     card: 'border border-gray-700 rounded-lg px-2 lg:px-6 py-4 bg-gray-800 section-wrapper-history',
     date: 'text-gray-600 text-sm text-left'
   },
   'contentSection': {
-    wrapper: 'text-white w-[95%] lg:w-full pr-2 mx-auto',
+    wrapper: 'text-white w-[95%] lg:w-full lg:pr-2 mx-auto',
     section: 'text-center space-y-4 mb-4',
     card: 'border border-gray-700 rounded-lg py-4 px-6 section-wrapper'
   }

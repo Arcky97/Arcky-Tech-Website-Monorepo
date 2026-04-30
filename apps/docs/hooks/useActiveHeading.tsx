@@ -1,3 +1,4 @@
+// Good example of Scroll Spy: https://linear.app/docs/triage#overview
 "use client";
 import { useEffect, useState } from "react";
 import { useMainRef } from "ui";
@@ -15,7 +16,7 @@ export function useActiveHeading(items: { anchorId?: string, level: number }[]) 
 
       const threshold = 96;
 
-      const h2Items = items.filter(i => i.level === 2 && i.anchorId);
+      const h2Items = items.filter(i => i.anchorId);
       const offsets = h2Items
         .map(item => {
           const el = document.getElementById(item.anchorId!);
@@ -36,7 +37,10 @@ export function useActiveHeading(items: { anchorId?: string, level: number }[]) 
     mainEl.addEventListener("scroll", handler, { passive: true });
     handler();
 
-    return () => mainEl.removeEventListener("scroll", handler);
+    return () => {
+      mainEl.removeEventListener("scroll", handler);
+      setActiveId(null);
+    };
   }, [items]);
 
   return activeId;

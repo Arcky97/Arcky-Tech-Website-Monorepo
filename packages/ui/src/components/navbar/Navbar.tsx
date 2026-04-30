@@ -61,7 +61,7 @@ useEffect(() => {
       <div
         className={`w-full px-4 lg:px-10 flex justify-between items-center transition-all duration-300 ease-in-out ${
           isShrunk ? "h-12" : "h-20"
-        } ${hasSidenav ? "pl-14 lg:pl-14" : "" }`}
+        }`}
       >
         {/* Sidebar toggle */}
         {hasSidenav && (

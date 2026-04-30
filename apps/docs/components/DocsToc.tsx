@@ -1,13 +1,14 @@
 "use client";
 import { useMainRef, useTOC } from "ui";
 import { useActiveHeading } from "@/hooks/useActiveHeading";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function DocsTOC() {
   const { items } = useTOC();
   const activeId = useActiveHeading(items);
   const mainRef = useMainRef();
   const tocRef = useRef<HTMLDivElement | null>(null);
+  const [indicator, setIndicator] = useState<{top: number, height: number}>({top: 0, height: 0})
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -45,6 +46,16 @@ export function DocsTOC() {
     const containerRect = container.getBoundingClientRect();
     const itemRect = activeEl.getBoundingClientRect();
 
+    const relativeTop =
+      itemRect.top -
+      containerRect.top +
+      container.scrollTop;
+
+    setIndicator({
+      top: Math.max(0, relativeTop - 46),
+      height: itemRect.height,
+    });
+
     const isInView =
       itemRect.top >= containerRect.top + 96 &&
       itemRect.bottom <= containerRect.bottom - 96;
@@ -63,13 +74,13 @@ export function DocsTOC() {
     });
   }, [activeId]);
 
-  const scrollTo = (id: string) => {
+  const scrollTo = (id: string, level: number) => {
     const mainEl = mainRef.current;
     if (!mainEl) return;
     const el = document.getElementById(id);
     if (!el) return;
 
-    const offset = 48;
+    const offset = level === 2 ? 48 : 96;
     const top = 
       el.getBoundingClientRect().top + 
       mainEl.scrollTop - 
@@ -87,35 +98,30 @@ export function DocsTOC() {
   return (
     <aside ref={tocRef} className="w-52 sticky top-0 h-[calc(100vh-48px)] overflow-auto border-l border-gray-700/40 px-3 py-4 hidden lg:inline">
       <div className="text-white text-xs uppercase opacity-60 mb-3">On this page</div>
-      <nav className="space-y-1">
+
+      <nav className="space-y-1 relative">
+        <div className="absolute bg-blue-500 w-0.5 transition-all duration-150 ease-out" style={{ top: indicator.top, height: indicator.height }}/>
         {items.map((item, index) => {
-          const isActive = item.level === 2 && activeId === item.anchorId;
+          const isActive = activeId === item.anchorId || (!activeId && index === 0);
 
           return (
             <div key={`${item.anchorId}-${index}`} className="relative pl-3">
-              
-                <span
-                  className={`absolute left-0 top-0 w-0.5 bg-blue-500 h-full ${isActive ? "opacity-100" : "opacity-0" } transition-all duration-300 ease-in-out`}
-                  
-                />
-              
               <button
                 key={`${item.anchorId}-${index}`}
                 data-anchor={item.anchorId}
                 onClick={() => {
                   if (!item.anchorId) return;
-                  scrollTo(item.anchorId)
+                  scrollTo(item.anchorId, item.level)
                 }}
                 className={`
                   block text-left w-full text-sm transition-all duration-300 ease-in-out font-semibold not-last-of-type:
-                  ${item.level === 3 ? "pl-4 text-xs opacity-70 pointer-events-none" : ""}
+                  ${item.level === 3 ? "pl-4 text-xs opacity-70" : item.level === 4 ? "pl-8 text-xs opacity-60" : ""}
                   ${isActive ? "text-white" : "text-gray-400 hover:text-white"}
                 `}
               >
                 {item.title}
               </button>
             </div>
-
           )
         })}
       </nav>

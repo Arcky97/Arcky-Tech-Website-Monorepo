@@ -33,6 +33,9 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     h3: ({ children }) => (
       <h3 className="head3">{children}</h3>
     ),
+    h4: ({ children }) => (
+      <h4 className="head3">{children}</h4>
+    ),
     p: ({ children }) => (
       <p className="text-white text-base font-normal text-left">{children}</p>
     ),

@@ -132,6 +132,5 @@ export default async function Page({
         </div>
       </article>
     </AutoTOCWrapper>
-
   )
 }
