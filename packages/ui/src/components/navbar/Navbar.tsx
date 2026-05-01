@@ -134,12 +134,6 @@ useEffect(() => {
             isShrunk={isShrunk}
           />
           <NavbarItem
-            href={routes.docs}
-            icon="BookOpenIcon"
-            text="Documentation"
-            isShrunk={isShrunk}
-          />
-          <NavbarItem
             href={routes.about}
             icon="InformationCircleIcon"
             text="About"

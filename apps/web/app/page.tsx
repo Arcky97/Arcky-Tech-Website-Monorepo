@@ -14,7 +14,7 @@ export default function Home() {
       {/* Latest Updates */}
       
       {/* Project Cards */}
-      <InfoCards title="Projects" page="projects"/>
+      <InfoCards title="Projects"/>
     </article>
   );
 }

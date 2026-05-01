@@ -1,10 +1,19 @@
-import { getHomeInfoCards } from "@/lib/getInfoCards";
+import { projects } from "@/config/projects";
 import { useMDXComponents } from "@/mdx-components";
-import { MDXRemote } from "next-mdx-remote/rsc";
+import { ColorButton, TextColor } from "ui";
 
+interface Project {
+  title: string,
+  content: string,
+  button: {
+    color?: string,
+    text?: string,
+    href: string
+  };
+};
 
-export function InfoCards({ title, page }: { title: string; page: string }) {
-  const infoCards = getHomeInfoCards(page);
+export function InfoCards({ title }: { title: string; }) {
+  const infoCards = projects as Project[];
   const mdxComponents = useMDXComponents({});
 
   return (
@@ -16,7 +25,13 @@ export function InfoCards({ title, page }: { title: string; page: string }) {
             key={`project-${idx}`}
             className="bg-gray-800 p-6 rounded-lg shadow-lg w-full sm:w-[47%] xl:w-[31%] 2xl:w-[23%] transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-blue-500/50 hover:ring-2 hover:ring-blue-500"
           >
-            <MDXRemote source={u.content} components={mdxComponents}/>
+            <h3 className="head3">{u.title}</h3>
+            <TextColor color="gray-300">{u.content}</TextColor>
+            {u.button && (
+              <div className="text-center mt-5">
+                <ColorButton color={u.button?.color || "blue-600"} text={u.button?.text || "View Info"} href={u.button.href}/>
+              </div>
+            )}
           </div>
         ))}
       </div>
