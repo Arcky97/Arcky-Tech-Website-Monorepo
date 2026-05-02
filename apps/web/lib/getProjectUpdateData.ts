@@ -1,5 +1,3 @@
-import { env } from "@/config/env";
-
 export type ProjectUpdate = {
   id: number,
   project: string;
