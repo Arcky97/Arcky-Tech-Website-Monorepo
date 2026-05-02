@@ -1,6 +1,8 @@
+import { publicEnv } from "@/config/env.public";
+
 export async function logPageVisit(path: string) {
   try {
-    await fetch("/api/visits", {
+    await fetch(`${publicEnv.WEB_URL}/api/visits`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
