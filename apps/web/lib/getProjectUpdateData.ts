@@ -7,6 +7,6 @@ export type ProjectUpdate = {
 };
 
 export async function getProjectUpdateData(limit = 3): Promise<ProjectUpdate[]> {
-  return fetch(`api/docs/updates?limit=${limit}`)
+  return fetch(`/api/docs/updates`)
     .then(res => res.json());
 }
