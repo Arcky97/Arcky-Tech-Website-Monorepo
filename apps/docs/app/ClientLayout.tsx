@@ -10,13 +10,12 @@ import { DocsTOC } from "@/components/DocsToc";
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   const mainRef = useRef<HTMLElement | null>(null);
   const pathname = usePathname();
-  const [sidebarOpen, setSidebarOpen] = useState(window.innerWidth >= 1024);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     document.documentElement.style.setProperty("--navbar-height", "48px");
 
     let lastIsDesktop = window.innerWidth >= 1024;
-    console.log(lastIsDesktop);
 
     const handleResize = () => {
       const isDesktop = window.innerWidth >= 1024;
@@ -27,6 +26,8 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
       }
     };
 
+    setSidebarOpen(window.innerWidth >= 1024);
+    
     window.addEventListener("resize", handleResize);
     handleResize();
     
