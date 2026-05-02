@@ -1,6 +1,3 @@
-import { env } from "@/config/env";
-import { publicEnv } from "@/config/env.public";
-
 export type ProjectUpdate = {
   id: number,
   project: string;
@@ -10,7 +7,14 @@ export type ProjectUpdate = {
 };
 
 export async function getProjectUpdateData(limit = 3): Promise<ProjectUpdate[]> {
-  const res = await fetch(`${publicEnv.WEB_URL}/api/updates?limit=${limit}`);
+  const res = await fetch(
+    `${process.env.API_BASE_URL}/api/updates/v1/latest?limit=${limit}`,
+    {
+      headers: {
+        "x-api-key": process.env.API_KEY_WEBSITE!,
+      },
+    }
+  );
 
   if (!res.ok) {
     throw new Error(`Failed to fetch updates: ${res.status}`);
