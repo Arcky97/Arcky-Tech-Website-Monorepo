@@ -16,13 +16,15 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
     document.documentElement.style.setProperty("--navbar-height", "48px");
 
     let lastIsDesktop = window.innerWidth >= 1024;
+    console.log(lastIsDesktop);
 
     const handleResize = () => {
       const isDesktop = window.innerWidth >= 1024;
-
+      console.log(isDesktop);
       if (isDesktop !== lastIsDesktop) {
         setSidebarOpen(isDesktop);
         lastIsDesktop = isDesktop;
+        console.log(lastIsDesktop);
       }
     };
 
@@ -31,10 +33,6 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
     
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  useEffect(() => {
-    console.log("sidebarOpen:", sidebarOpen);
-  }, [sidebarOpen]);
 
   const menuItems = [
     pbsEditor,
