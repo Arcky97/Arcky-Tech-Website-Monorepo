@@ -8,7 +8,7 @@ export type ProjectUpdate = {
 
 export async function getProjectUpdateData(limit = 3): Promise<ProjectUpdate[]> {
   const res = await fetch(
-    `${process.env.API_BASE_URL}/api/updates/v1/latest?limit=${limit}`,
+    `${process.env.API_BASE_URL!}/api/updates/v1/latest?limit=${limit}`,
     {
       headers: {
         "x-api-key": process.env.API_KEY_WEBSITE!,
