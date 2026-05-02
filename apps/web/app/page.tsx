@@ -1,5 +1,3 @@
-export const dynamic = "force-dynamic";
-
 import { ProjectUpdateCards } from "@/components/ProjectUpdateCards";
 import { InfoCards } from "@/components/InfoCards";
 
