@@ -1,9 +1,12 @@
+import { env } from "@/config/env";
+
 export async function logPageVisit(path: string) {
   try {
-    await fetch(`${process.env.API_BASE_URL}/api/visits`, {
+    await fetch(`${env.API_BASE_URL}/api/visits`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "x-api-key": env.API_KEY_WEBSITE!,
       },
       body: JSON.stringify({
         path,

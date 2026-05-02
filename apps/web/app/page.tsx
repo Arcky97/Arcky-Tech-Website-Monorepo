@@ -13,6 +13,8 @@ export default function Home() {
         <hr className="border-gray-600/75 border-t mt-2 mb-4"/>
       </section>
       {/* Latest Updates */}
+      <p>Updates</p>
+      <p>We'll add this soon</p>
       {/* Project Cards */}
       <InfoCards title="Projects"/>
     </article>
