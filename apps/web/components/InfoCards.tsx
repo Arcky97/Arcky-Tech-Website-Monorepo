@@ -1,5 +1,4 @@
 import { projects } from "@/config/projects";
-import { useMDXComponents } from "@/mdx-components";
 import { ColorButton, TextColor } from "ui";
 
 interface Project {
@@ -14,7 +13,6 @@ interface Project {
 
 export function InfoCards({ title }: { title: string; }) {
   const infoCards = projects as Project[];
-  const mdxComponents = useMDXComponents({});
 
   return (
     <section className="w-7/8 lg:w-6/8">
