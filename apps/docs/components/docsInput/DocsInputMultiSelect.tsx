@@ -5,7 +5,7 @@ import { multiSelectStyles } from "ui";
 interface InputMultiSelectProps {
   label: string,
   maxWidth: number,
-  initValue: string,
+  initValue: string[],
   initLabel?: string,
   placeholder: string,
   options: readonly ({ value: string, label: string })[]
@@ -17,7 +17,7 @@ export function DocsInputMultiSelect ({ label, maxWidth, initValue, initLabel, p
       <span className="label-box">{label}</span>
       <div className="inline-flex">
         <Select
-          value={{ value: initValue, label: initLabel || initValue }}
+          value={initValue.map(inVal => ({ value: inVal, label: inVal }))}
           options={options}
           placeholder={placeholder}
           isSearchable

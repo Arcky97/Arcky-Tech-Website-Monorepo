@@ -1,1 +1,32 @@
 ## Battle Use
+
+<InputSelect
+  label="Battle Use:"
+  width={250}
+  initValue="OnBattler"
+  placeholder="Select Battle Use"
+  options={["OnPokemon", "OnMove", "OnBattler", "OnFoe", "Direct"]
+    .map(option => ({ label: option, value: option}))
+  }
+/>
+
+This <Or>Battle Use</Or> Field is a dropdown which allows you to assign how the **Item** can be used in battle.
+<br/>
+The available options in the dropdown can be manged through the <Gr>Item Editor Settings</Gr>.
+<br/>
+---
+
+### Default Value 
+
+<Or>Battle Use</Or> doesn ot have a default value.
+<br/>
+---
+
+### Options 
+
+By default, the editor includes the following <Or>Battle Uses</Or>:
+- OnPokemon - The **Item** can be used on one of your party Pokémon (e.g. Potions, Elixirs, Blue Flute). The party screen will appear when using this **Item**, allowing you to choose the Pokémon to use it on.
+- OnMove - The **Item** can be used on one of the moves known by one of your party Pokémon (e.g. Ether). The party screen will appear when using this **Item**, following by a list of moves to choose from.
+- OnBattler - The **Item** is used on the Pokémon in battle that you are choosing a command for (e.g. X Accuracy, Red/Yellow Flutes).
+- OnFoe - The **Item** is used on an opposing Pokémon in battle (Poké Balls). If there is more than one opposing Pokémon, you will be able to choose which of them to use it on.
+- Direct - The **Item** is used with no target (e.g. Poké Doll, Guard Spec., Poké Flute).

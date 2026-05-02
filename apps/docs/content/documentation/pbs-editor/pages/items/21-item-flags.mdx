@@ -1,1 +1,11 @@
 ## Flags
+
+<InputMultiSelect
+  label="Flags"
+  maxWith={275}
+  initValue={["Repel", "Fling_30"]}
+  placeholder="Select Flags"
+  options={["Mail", "IconMail", "PokeBall", "SnagBall"]
+    .map(option => ({ label: option, value: option }))
+  }
+/>

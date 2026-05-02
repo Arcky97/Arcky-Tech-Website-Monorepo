@@ -1,1 +1,32 @@
 ## Field Use
+
+<InputSelect 
+  label="Field Use:"
+  width={250}
+  initValue="Direct"
+  placeholder="Select Field Use"
+  options={["OnPokemon", "Direct", "TR", "TM", "HM"]
+    .map(option => ({ label: option, value: option }))
+  }
+/>
+
+This <Or>Field Use</Or> Fields is a dropdown which allows you to assign how the **Item** can be used outside of battle.
+<br/>
+The available options in this dropdown can be managed through the <Gr>Item Editor Settings</Gr>.
+<br/>
+---
+
+### Default Value 
+
+<Or>Field Use</Or> does not have a default value.
+<br/>
+---
+
+### Options
+
+By default, the editor includes the following <Or>Field Uses</Or>:
+- OnPokemon - The **Item** can be used on a Pokémon (e.g. Potions, Elixirs). The party screen will appear when using this **Item**, allowing you to choose the Pokémon to use it on. Not for TMs, TRs and HMs, though.
+- Direct - The **Item** can be used out of battle, but isn't used on a Pokémon (e.g. Repel, Escape Rope, usable Key Items)
+- TR - The **Item** is a TR. It teaches a move to a Pokémon, and disappears after use.
+- TM - The **Item** is a TM. It teaches a move to a Pokémon, but does not dissapear after use.
+- HM - The **Item** is a HM. It teaches a move to a Pokémon, but does not dissapear after use. Moves taught by a HM cannot be forgotten.

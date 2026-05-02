@@ -22,7 +22,7 @@ interface SidebarItemProps {
   basePath: string;
   pathname: string;
   mainDocs?: boolean;
-  onLeafClick?: (e: React.MouseEvent<HTMLElement>, href: string, path: string) => void;
+  onClick: () => void;
 }
 
 export const SidebarItem: React.FC<SidebarItemProps> = ({
@@ -31,7 +31,7 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
   basePath,
   pathname,
   mainDocs,
-  onLeafClick,
+  onClick
 }) => {
   let { name, path, icon, text, subItems, noPage, disabled, defaultOpen } = item;
 
@@ -94,60 +94,48 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
               : "hover:bg-blue-700 cursor-pointer"
         )}
       >
-        {isDeepest && isHashLink ? (
-          <Link
-            href={fullPath.replace("/#", "#")}
-            className="flex items-center gap-3 w-full"
-            onClick={(e) => onLeafClick?.(e, fullPath.replace("/#", "#"), path)}
-          >
-            {icon}
-            <span className="transition-opacity duration-300 ease-in-out">{text}</span>
-          </Link>
-        ) : (
-          <div className="flex items-center gap-3 w-full">
-            <>
-              {!noPage && !isDisabled ? (
-                <Link
-                  href={fullPath}
-                  className={clsx("flex items-center gap-3 grow", isDisabled && "cursor-not-allowed")}
-                >
-                  {icon}
-                  <span className="transition-opacity duration-300 ease-in-out">{text}</span>
-                </Link>
-              ) : (
-                <div
-                  className={clsx("flex items-center gap-3 grow", isDisabled && "text-gray-500")}
-                  onClick={() => {
-                    if (!isDisabled) toggle();
-                  }}
-                >
-                  {icon}
-                  <span className="transition-opacity duration-300 ease-in-out">{text}</span>
-                </div>
+        <div className="flex items-center gap-3 w-full">
+          {!noPage && !isDisabled ? (
+            <Link
+              href={fullPath}
+              onClick={onClick}
+              className={clsx("flex items-center gap-3 grow", isDisabled && "cursor-not-allowed")}
+            >
+              {icon}
+              <span className="transition-opacity duration-300 ease-in-out">{text}</span>
+            </Link>
+          ) : (
+            <div
+              className={clsx("flex items-center gap-3 grow", isDisabled && "text-gray-500")}
+              onClick={() => {
+                if (!isDisabled) toggle();
+              }}
+            >
+              {icon}
+              <span className="transition-opacity duration-300 ease-in-out">{text}</span>
+            </div>
+          )}
+          {!isDeepest && (
+            <button
+              onClick={toggle}
+              className={clsx(
+                "p-1 rounded transition-colors",
+                !isDisabled ? "hover:bg-blue-600" : "cursor-not-allowed text-gray-500"
               )}
-            </>
-            {!isDeepest && (
-              <button
-                onClick={toggle}
+              aria-label="Toggle Submenu"
+              aria-expanded={isOpen}
+              aria-controls={regionId}
+              disabled={isDisabled || animating}
+            >
+              <ChevronDownIcon
                 className={clsx(
-                  "p-1 rounded transition-colors",
-                  !isDisabled ? "hover:bg-blue-600" : "cursor-not-allowed text-gray-500"
+                  "w-5 h-5 transition-transform duration-300 ease-in-out",
+                  isOpen ? "rotate-180" : "rotate-0"
                 )}
-                aria-label="Toggle Submenu"
-                aria-expanded={isOpen}
-                aria-controls={regionId}
-                disabled={isDisabled || animating}
-              >
-                <ChevronDownIcon
-                  className={clsx(
-                    "w-5 h-5 transition-transform duration-300 ease-in-out",
-                    isOpen ? "rotate-180" : "rotate-0"
-                  )}
-                />
-              </button>
-            )}
-          </div>
-        )}
+              />
+            </button>
+          )}
+        </div>
       </div>
 
       {subItems && (
@@ -173,7 +161,7 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
                 basePath={basePath}
                 pathname={pathname}
                 mainDocs={mainDocs}
-                onLeafClick={onLeafClick}
+                onClick={onClick}
               />
             ))}
           </div>

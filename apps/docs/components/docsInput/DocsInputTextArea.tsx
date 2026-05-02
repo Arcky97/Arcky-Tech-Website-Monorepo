@@ -7,7 +7,7 @@ export function DocsInputTextArea ({label, value = "", width, placeholder = ""}:
       <textarea
         value={value}
         readOnly
-        className={`content-box-w33 lg:content-box-w${width || 50} min-h-18`}
+        className={`content-box-w25 lg:content-box-w${width || 50} min-h-30 lg:min-h-18`}
         placeholder={placeholder}
       />
     </div>

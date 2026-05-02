@@ -6,11 +6,9 @@ import { useMainRef } from "../context/MainRefContext";
 
 type DocType = "main" | "region-map" | "arcky-tutorials" | "pbs-editor" | "poke-market" | "vending-machine" | string;
 
-export function Sidebar({ menuItems, docType, mainDocs, isOpen, onClose }: { menuItems: MenuItem[];  docType?: DocType, mainDocs?: boolean, isOpen: boolean, onClose: () => void }) {
+export function Sidebar({ menuItems, docType, mainDocs, isOpen, onClose }: { menuItems: MenuItem[]; docType?: DocType, mainDocs?: boolean, isOpen: boolean, onClose: () => void }) {
   const pathname = usePathname();
-  const router = useRouter();
   const hasScrolledToActive = useRef(false);
-  const mainRef = useMainRef()
 
   const validBasePaths = menuItems.map(item => item.name);
 
@@ -48,38 +46,11 @@ export function Sidebar({ menuItems, docType, mainDocs, isOpen, onClose }: { men
     setTimeout(scrollSidebarToActiveItem, 100);
   }, [pathname]);
 
-  const handleClick = async (e: React.MouseEvent<HTMLElement>, path: string, subPath: string) => {
-    const mainEl = mainRef?.current;
-    if (!mainEl) return;
-
-    e.preventDefault();
-    const applyHighlightEffect = (id: string) => {
-      const target = document.getElementById(id);
-      if (target) {
-        target.classList.add("highlight-blink");
-        setTimeout(() => target.classList.remove("highlight-blink"), 2000);
-      }
-    };
-    const target = document.getElementById(subPath.replace("#", ""));
-    const fullPath = path.replace(subPath, "");
-    if (pathname !== fullPath) {
-      router.push(path);
-      if (window.innerWidth < 1024) {
-        onClose()
-      }
-      return;
-    }
-    if (target) {
-      const offset = 60;
-      const targetPosition = target.getBoundingClientRect().top + mainEl.scrollTop - offset;
-      mainEl.scrollTo({ top: targetPosition, behavior: "smooth" });
-      applyHighlightEffect(subPath.replace("#", ""));
-    }
+  const handleClick = () => {
     if (window.innerWidth < 1024) {
-      onClose()
+      onClose();
     }
-    history.pushState(null, "", path);
-  };
+  }
 
   return (
     <div className="flex h-full transition-all duration-300 ease-in-out">
@@ -107,7 +78,7 @@ export function Sidebar({ menuItems, docType, mainDocs, isOpen, onClose }: { men
               basePath={basePath}
               pathname={pathname}
               mainDocs={mainDocs}
-              onLeafClick={handleClick}
+              onClick={handleClick}
             />
           ))}
         </div>
