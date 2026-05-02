@@ -6,13 +6,20 @@ export type ProjectUpdate = {
   date: string;
 };
 
+const API_BASE_URL = process.env.API_BASE_URL;
+const API_KEY_WEBSITE = process.env.API_KEY_WEBSITE;
+if (!API_BASE_URL || !API_KEY_WEBSITE) {
+  throw new Error("Missing API environment variables");
+}
+
 export async function getProjectUpdateData(limit = 3): Promise<ProjectUpdate[]> {
   const res = await fetch(
-    `${process.env.API_BASE_URL!}/api/updates/v1/latest?limit=${limit}`,
+    `${API_BASE_URL!}/api/updates/v1/latest?limit=${limit}`,
     {
       headers: {
-        "x-api-key": process.env.API_KEY_WEBSITE!,
+        "x-api-key": API_KEY_WEBSITE!,
       },
+      cache: "no-store"
     }
   );
 
