@@ -16,6 +16,11 @@ export  function ProjectUpdateCards() {
     getData();
   }, []);
 
+  console.log(updateData);
+  console.log(typeof updateData[0].createdAt);
+  console.log(typeof updateData[0].date);
+  console.log(typeof updateData[0].updatedAt);
+  
   return (
     <div>
       {updateData.length !== 0 && (
