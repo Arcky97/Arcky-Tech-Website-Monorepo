@@ -1,3 +1,5 @@
+import { env } from "@/config/env";
+
 export type ProjectUpdate = {
   id: number,
   project: string;
@@ -11,11 +13,12 @@ export type ProjectUpdate = {
 
 export async function getProjectUpdateData(limit = 3): Promise<ProjectUpdate[]> {
   const res = await fetch(
-    `/api/updates?limit=${limit}`,
+    `${env.API_BASE_URL}/api/updates/v1/latest/?limit=${limit}`,
     {
       headers: {
-        "Content-Type": "application/json"
-      }
+        "x-api-key": env.API_KEY_WEBSITE!
+      },
+      next: { revalidate: 3600 }
     }
   );
 
