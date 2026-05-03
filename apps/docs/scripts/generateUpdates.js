@@ -75,7 +75,7 @@ export async function generateUpdates() {
           date: normalizedDateStr,
           title,
           excerpt,
-          slug: `/documentation/${dir.name}/update-history#${normalizedDateStr}`
+          slug: `${process.env.NEXT_PUBLIC_DOCS_URL}/${dir.name}/update-history#${normalizedDateStr}`
         });
       }
     }
