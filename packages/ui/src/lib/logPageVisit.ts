@@ -1,5 +1,3 @@
-import { env } from "@/config/env";
-
 export async function logPageVisit(path: string) {
   try {
     await fetch(`/api/visits`, {

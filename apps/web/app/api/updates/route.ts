@@ -1,4 +1,5 @@
 import { env } from "@/config/env";
+import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
   try {
@@ -19,10 +20,10 @@ export async function GET(request: Request) {
 
     const data = await res.json();
 
-    return Response.json(data);
+    return NextResponse.json(data);
   } catch (error) {
     console.error("Failed to fetch updates:", error);
-    return Response.json(
+    return NextResponse.json(
       { error: "Failed to fetch updates" },
       { status: 500 }
     );

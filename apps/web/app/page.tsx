@@ -15,6 +15,7 @@ export default function Home() {
       {/* Latest Updates */}
       <p>Updates</p>
       <p>We'll add this soon</p>
+      <ProjectUpdateCards/>
       {/* Project Cards */}
       <InfoCards title="Projects"/>
     </article>
