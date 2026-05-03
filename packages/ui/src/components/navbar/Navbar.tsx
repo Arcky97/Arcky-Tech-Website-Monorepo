@@ -122,12 +122,6 @@ useEffect(() => {
             isShrunk={isShrunk}
           />
           <NavbarItem
-            href={routes.projects}
-            icon="BriefcaseIcon"
-            text="Projects"
-            isShrunk={isShrunk}
-          />
-          <NavbarItem
             href={routes.discord}
             icon="ChatBubbleLeftRightIcon"
             text="Discord"
