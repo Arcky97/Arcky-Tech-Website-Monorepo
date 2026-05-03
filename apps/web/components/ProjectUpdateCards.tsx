@@ -17,8 +17,10 @@ export  function ProjectUpdateCards() {
   }, []);
 
   return (
-    <>
-      {updateData}
-    </>
+    <div>
+      {updateData.length !== 0 && (
+        <p>UpdateData is not empty so it worked i guess...</p>
+      )}
+    </div>
   )
 }
