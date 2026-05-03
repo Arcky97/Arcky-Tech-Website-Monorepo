@@ -3,22 +3,25 @@ import { getProjectUpdateData, ProjectUpdate } from "@/lib/getProjectUpdateData"
 import { useMDXComponents } from "@/mdx-components";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { useEffect, useState } from "react";
-import { TextColor } from "ui";
 
-export  function ProjectUpdateCards() {
+export function ProjectUpdateCards() {
   const [updateData, setUpdateData] = useState<ProjectUpdate[]>([]);
   const mdxComponents = useMDXComponents({});
 
-  useEffect(() => {
-    if (process.env.NODE_ENV !== "production") return;
+useEffect(() => {
+  if (process.env.NODE_ENV !== "production") return;
 
-    const getData = async () => {
+  const fetchData = async () => {
+    try {
       const data = await getProjectUpdateData(5);
       setUpdateData(data);
+    } catch (error) {
+      console.error("Failed to fetch updates:", error);
     }
+  };
 
-    getData();
-  }, []);
+  fetchData();
+}, []);
   
   return (
     <section className="w-7/8 lg:w-6/8">
