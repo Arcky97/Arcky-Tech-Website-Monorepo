@@ -11,10 +11,10 @@ export function ProjectUpdateCards() {
 useEffect(() => {
   if (process.env.NODE_ENV !== "production") return;
 
-  const fetchData = async () => {
+  const fetchData = () => {
     try {
-      const data = await getProjectUpdateData(5);
-      setUpdateData(data);
+      //const data = getProjectUpdateData(5);
+      //setUpdateData(data);
     } catch (error) {
       console.error("Failed to fetch updates:", error);
     }
