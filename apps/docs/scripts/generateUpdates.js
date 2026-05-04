@@ -1,5 +1,6 @@
 import path from "path";
 import fs from "fs";
+import { slugify } from "ui";
 
 if (process.env.NODE_ENV && process.env.NODE_ENV !== "production") {
   console.log("⏭️ generateUpdates skipped (not production)");
@@ -75,7 +76,7 @@ export async function generateUpdates() {
           date: normalizedDateStr,
           title,
           excerpt,
-          slug: `${process.env.NEXT_PUBLIC_DOCS_URL}/${dir.name}/update-history#${normalizedDateStr}`
+          slug: `${process.env.NEXT_PUBLIC_DOCS_URL}/${dir.name}/update-history#${slugify(title)}`
         });
       }
     }
