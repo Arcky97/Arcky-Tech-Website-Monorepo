@@ -1,6 +1,14 @@
 import path from "path";
 import fs from "fs";
-import { slugify } from "ui";
+
+function slugify (string) {
+  return string 
+    .toLowerCase()
+    .replace("é", "e")
+    .replace(/[^\w\s-]/g,'')
+    .trim()
+    .replace(/\s+/g,'-')
+}
 
 if (process.env.NODE_ENV && process.env.NODE_ENV !== "production") {
   console.log("⏭️ generateUpdates skipped (not production)");
