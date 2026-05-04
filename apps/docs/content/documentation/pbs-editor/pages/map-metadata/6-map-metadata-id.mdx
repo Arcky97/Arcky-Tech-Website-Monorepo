@@ -1,1 +1,9 @@
 ## ID
+
+<InputNumber label={"ID"} value={"002"} width={15}/>
+
+The <Or>ID</Or> servers as the <Gr>internal identifier</Gr> used by the engine to reference a **Map Metadata**. Each **Map Metadata** must have a <Rd>unique ID</Rd> to function correctly and should match the <Or>ID</Or> of an existing Game Map.
+<br/>
+The <Or>ID</Or> is formatted as a <Yl>3-digit number</Yl> (e.g. 002, 011). To help prevent errors, the editor will automatically <Gr>pad the value with leading zeroes</Gr> as you type.
+<br/>
+Within the PBS file, the <Or>ID</Or> defines the <Gr>start of a new Map Metadata entry</Gr> and must always appear first in each block. This structure is handled automatically by the editor when saving, so no manual formatting is required.

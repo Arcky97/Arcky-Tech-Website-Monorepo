@@ -1,1 +1,16 @@
 ## Map Metadata Selection
+
+<InputSelect
+  label="Current Encounter:"
+  width={250}
+  initValue="002 - Lappet Town"
+  placeholder="Select Encounter"
+  options={["001 - Intro", "002 - Lappet Town", "003- \PN's house", "004 - Pokémon Lab", "005 - Route 1"]
+    .map(option => ({ label: option, value: option }))
+  }
+/>
+This dropdown lists all available <Gr>Map Metadata entries</Gr> for the currently selected file, identified by their ID.
+<br/>
+In the PBS file, these IDs are defined using the format <Yl>[xxx]</Yl>. For improved readability, the editor display them <Gr>without brackets</Gr> but with the matching **Name Field value** in the interface.
+<br/>
+Despite this visual simplification, the brackets are still <Rd>required</Rd> in the actual PBS structure. When saving, the editor will automatically restore the correct <Yl>[xxx]</Yl> format, even though it is not shown within the editor itself.

@@ -1,1 +1,21 @@
 ## Item Move
+
+<InputSelect
+  label="Move:"
+  width={250}
+  initValue="FLAMETHROWER"
+  placeholder="Select Move"
+  options={["FLAMETHROWER", "THUNDER", "DRACOMETEOR", "SOLARBEAM", "HYDROCANNON"]
+    .map(option => ({ label: option, value: option}))
+  }
+/>
+
+This <Or>Move</Or> Field is a dropdown which allows you to assign a <Or>Move</Or> to the **Item**. It lists up all the **Moves** from the `moves.txt` PBS files.
+<br/>
+For HMs, TMs and TRs only.
+<br/>
+---
+
+### Default Value 
+
+<Or>Move</Or> does not have a default value.
