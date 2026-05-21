@@ -1,5 +1,5 @@
 # ---------- BUILD ----------
-FROM node:20 AS builder
+FROM node:24 AS builder
 WORKDIR /app
 
 ARG NEXT_PUBLIC_WEB_URL

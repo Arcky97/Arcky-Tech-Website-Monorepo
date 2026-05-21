@@ -1,5 +1,5 @@
 # ---------- BUILD ----------
-FROM node:20 AS builder
+FROM node:24 AS builder
 WORKDIR /app
 
 # Copy dependency files first (better caching)
