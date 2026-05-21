@@ -8,7 +8,7 @@ export default function PageVisitTracker() {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (process.env.NODE_ENV !== "production") return;
+    //if (process.env.NODE_ENV !== "production") return;
     
     logPageVisit(pathname);
   }, [pathname]);

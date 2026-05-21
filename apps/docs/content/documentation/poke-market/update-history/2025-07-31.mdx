@@ -10,18 +10,19 @@
 <br/>
 ### Improvements
   - renamed Shelf Class parameters:
-    <Table 
-      headers={["Old name", "", "New name"]} 
-      rows={[
-        ["ShelfAmountItem", "<=>", "ShelfItemAmount"],
-        ["ShelfChangeAmountItem", "<=>", "ShelfItemAmountChange"],
-        ["ShelfLimitAmountItem", "<=>", "ShelfItemAmountLimit"],
-        ["ShelfIncreaseAmountItem", "<=>", "ShelfItemAmountIncrease"],
-        ["ShelfDecreaseAmountItem", "<=>", "ShelfItemAmountDecrease"],
-        ["ShelfRemoveAmountItem", "<=>", "ShelfItemAmountRemove"]
-      ]}
-      alignment={["center", "center", "center"]}
-    />
+
+<Table 
+  headers={["Old name", "", "New name"]} 
+  rows={[
+    ["ShelfAmountItem", "<=>", "ShelfItemAmount"],
+    ["ShelfChangeAmountItem", "<=>", "ShelfItemAmountChange"],
+    ["ShelfLimitAmountItem", "<=>", "ShelfItemAmountLimit"],
+    ["ShelfIncreaseAmountItem", "<=>", "ShelfItemAmountIncrease"],
+    ["ShelfDecreaseAmountItem", "<=>", "ShelfItemAmountDecrease"],
+    ["ShelfRemoveAmountItem", "<=>", "ShelfItemAmountRemove"]
+  ]}
+  alignment={["center", "center", "center"]}
+/>
   
   - `ShelfItemAmountdiscount` and `ShelfItemAmountOvercharge` can now use the `new price` and `original price` placeholders.
   - The percentage placeholder used by `ShelfItemAmountdiscount` and `ShelfItemAmountOvercharge` don't add "of" anymore by default.

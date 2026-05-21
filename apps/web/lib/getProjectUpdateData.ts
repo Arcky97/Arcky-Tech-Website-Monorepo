@@ -13,7 +13,7 @@ export type ProjectUpdate = {
 
 export async function getProjectUpdateData(limit = 3): Promise<ProjectUpdate[]> {
   const res = await fetch(
-    `${env.API_BASE_URL}/api/updates/v1/latest/?limit=${limit}`,
+    `${env.API_BASE_URL}/v1/project-updates/latest/?limit=${limit}`,
     {
       headers: {
         "x-api-key": env.API_KEY_WEBSITE!

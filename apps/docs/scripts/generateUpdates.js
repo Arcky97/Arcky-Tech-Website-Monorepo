@@ -97,7 +97,7 @@ export async function generateUpdates() {
   console.log("📦 Sending updates:", updatesToJson);
 
   try {
-    const res = await fetch(`${API_BASE_URL}/api/updates/v1`, {
+    const res = await fetch(`${API_BASE_URL}/v1/project-updates/bulk`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
