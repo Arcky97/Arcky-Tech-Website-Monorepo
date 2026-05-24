@@ -4,8 +4,10 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 
 export async function ProjectUpdateCards() {
   if (process.env.NODE_ENV !== "production") return;
-  
+
   const updates = await getProjectUpdateData();
+  console.log(updates);
+  if (!updates || !updates.length) return <div>Unable to get latest updates</div>;
   const mdxComponents = useMDXComponents({});
 
   const convertDate = (date: string) => {
