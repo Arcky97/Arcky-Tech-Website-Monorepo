@@ -26,5 +26,7 @@ export async function getProjectUpdateData(limit = 3): Promise<ProjectUpdate[]> 
     throw new Error(`Failed to fetch updates: ${res.status}`);
   }
 
+  console.log(res);
+
   return res.json();
 }
