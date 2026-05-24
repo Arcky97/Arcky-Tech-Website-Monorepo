@@ -3,6 +3,8 @@ import { useMDXComponents } from "@/mdx-components";
 import { MDXRemote } from "next-mdx-remote/rsc";
 
 export async function ProjectUpdateCards() {
+  if (process.env.NODE_ENV !== "production") return;
+  
   const updates = await getProjectUpdateData();
   const mdxComponents = useMDXComponents({});
 
