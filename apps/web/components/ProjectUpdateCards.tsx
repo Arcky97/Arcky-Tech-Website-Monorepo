@@ -7,7 +7,7 @@ export async function ProjectUpdateCards() {
 
   const updates = await getProjectUpdateData();
   console.log(updates);
-  if (!updates || !updates.length) return <div>Unable to get latest updates</div>;
+  if (!updates || !updates.length) return <div>Unable to get latest updates {String(updates)} </div>;
   const mdxComponents = useMDXComponents({});
 
   const convertDate = (date: string) => {
