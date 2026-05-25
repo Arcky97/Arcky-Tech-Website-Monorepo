@@ -6,7 +6,6 @@ export async function ProjectUpdateCards() {
   if (process.env.NODE_ENV !== "production") return;
 
   const updates = await getProjectUpdateData();
-  console.log(updates);
   if (!updates || !updates.length) return <div>Unable to get latest updates {String(updates)} </div>;
   const mdxComponents = useMDXComponents({});
 
