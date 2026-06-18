@@ -5,7 +5,7 @@ import { NavbarItem } from "./NavbarItem";
 import { useMainRef } from "../context/MainRefContext";
 
 export type NavbarProps = {
-  routes: { home: string, projects: string, discord: string, docs: string, about: string, contact: string }
+  routes: { home: string, main?: string, projects?: string, discord?: string, docs: string, about: string, contact: string }
   variant?: "web" | "docs" | "doggo-bot" | "scoreboard";
   enableShrink?: boolean;
   hasSidenav?: boolean;
@@ -121,12 +121,14 @@ useEffect(() => {
             text="Home"
             isShrunk={isShrunk}
           />
-          <NavbarItem
-            href={routes.discord}
-            icon="ChatBubbleLeftRightIcon"
-            text="Discord"
-            isShrunk={isShrunk}
-          />
+          {routes.discord && (
+            <NavbarItem
+              href={routes.discord}
+              icon="ChatBubbleLeftRightIcon"
+              text="Discord"
+              isShrunk={isShrunk}
+            />
+          )}
           <NavbarItem
             href={routes.about}
             icon="InformationCircleIcon"
