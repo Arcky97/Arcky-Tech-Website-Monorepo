@@ -13,6 +13,7 @@ export const arckyTutorials = {
     {
       path: "discord-bot",
       text: "Discord Bot Tutorial",
+      noPage: true,
       subItems: [
         {
           path: "episode-1",

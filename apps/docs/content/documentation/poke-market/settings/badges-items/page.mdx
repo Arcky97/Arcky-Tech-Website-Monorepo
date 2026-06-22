@@ -4,7 +4,17 @@
 
 In default Essentials, managing which items are available in a Mart based on badge count requires setting up separate item lists for each scenario.
 <br/>This plugin simplifies that process with a dedicated setting: `BadgesForItems`
-<ImageWithCaption src="/images/documentation/poke-market/Default Mart Event for Badges.png" caption="Default Mart Event for Badges" align="left"/>
+<MediaGallery
+  items={[
+    {
+      src: "documentation/poke-market/Default Mart Event for Badges.png",
+      alt: "Default Mart Event for Badges",
+      width: 673,
+      height: 640
+    }
+  ]}
+  size="large"
+/>
 
 <Callout type="hint">
   Introduced in v1.6.0 — there's a new setting `BadgesForSpecies`, which can only be used for Species events. The setup is completely the same as for `BadgesForItems` with exceptions you should specify Species instead of Items.
@@ -57,21 +67,71 @@ end
 ```
 
 Now simply call `pbSomeMart` in your event using a script command.
-<ImageWithCaption src="/images/documentation/poke-market/Shorter Mart Event for Badges.png" caption="Shorter Mart Event for Badges" align="left"/>
+<MediaGallery
+  items={[
+    {
+      src: "documentation/poke-market/Shorter Mart Event for Badges.png",
+      alt: "Shorter Mart Event for Badges",
+      width: 673,
+      height: 640
+    }
+  ]}
+  size="large"
+/>
 
 ---
 
 ### Result in Game 
 
 🔒 With 0 Badges:
-<ImageWithCaption src="/images/documentation/poke-market/0 Badges Item Category 1.png" caption="No Badges Item Category 1" align="left"/>
-<ImageWithCaption src="/images/documentation/poke-market/0 Badges Item Category 2.png" caption="No Badges Item Category 2" align="left"/>
+<MediaGallery
+  items={[
+    {
+      src: "documentation/poke-market/0 Badges Item Category 1.png",
+      alt: "No Badges Item Category 1",
+      width: 673,
+      height: 640
+    },
+    {
+      src: "documentation/poke-market/0 Badges Item Category 2.png",
+      alt: "No Badges Item Category 2",
+      width: 673,
+      height: 640
+    }
+  ]}
+  size="large"
+/>
 
 🔓 With 1 Badge:
-<ImageWithCaption src="/images/documentation/poke-market/1 Badge Item Category 1.png" caption="1 Badge Item Category 1" align="left"/>
-<ImageWithCaption src="/images/documentation/poke-market/1 Badge Item Category 2.png" caption="1 Badge Item Category 2" align="left"/>
-<ImageWithCaption src="/images/documentation/poke-market/1 Badge Item Category 3.png" caption="1 Badge Item Category 3" align="left"/>
-<ImageWithCaption src="/images/documentation/poke-market/1 Badge Item Category 4.png" caption="1 Badge Item Category 4" align="left"/>
+<MediaGallery
+  items={[
+    {
+      src: "documentation/poke-market/1 Badge Item Category 1.png",
+      alt: "1 Badge Item Category 1",
+      width: 673,
+      height: 640
+    },
+    {
+      src: "documentation/poke-market/1 Badge Item Category 2.png",
+      alt: "1 Badge Item Category 2",
+      width: 673,
+      height: 640
+    },
+    {
+      src: "documentation/poke-market/1 Badge Item Category 3.png",
+      alt: "1 Badge Item Category 3",
+      width: 673,
+      height: 640
+    },
+    {
+      src: "documentation/poke-market/1 Badge Item Category 4.png",
+      alt: "1 Badge Item Category 4",
+      width: 673,
+      height: 640
+    }
+  ]}
+  size="large"
+/>
 
 As shown, once a badge treshold is crossed, all items defined at or below that level become available.
 <br/>For example, reaching 3 badges will unlock:

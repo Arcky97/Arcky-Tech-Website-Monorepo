@@ -6,7 +6,7 @@ import clsx from "clsx";
 import Image from "next/image";
 
 type Align = "left" | "center" | "right";
-type Size = "full" | "tiny" | "small" | "medium" | "large";
+type Size = "full" | "tiny" | "small" | "medium" | "big" | "large";
 
 const alignMargins: Record<Align, string> = {
   left: "ml-0",
@@ -19,6 +19,7 @@ const sizeValues: Record<Size, string> = {
   tiny: "max-w-1/5",
   small: "max-w-2/5",
   medium: "max-w-1/2",
+  big: "max-w-3/5",
   large: "max-w-4/5"
 };
 
@@ -79,23 +80,28 @@ export const MediaGallery: React.FC<MediaGalleryProps> = ({
     >
       {items.map((item, idx) => {
         return (
-          <div key={`gallery-${idx}`} className="relative">
+          <div key={`gallery-${idx}`} className="inline-block max-w-full">
             <a
               href={"/images/" + item.src}
               data-pswp-width={item.width}
               data-pswp-height={item.height}
-              data-caption={item.alt || ""}
+              data-caption={item?.alt || ""}
             >
               <Image
                 src={"/images/" + item.src}
-                alt={item.alt || ""}
+                alt={item?.alt || ""}
                 width={item.width}
                 height={item.height}
                 style={{ display: "block" }}
+                className="w-full h-auto"
               />
             </a>
             {item.alt && (
-              <p className="text-center text-[#ccc] text-sm mt-2">{item.alt}</p>
+              <p 
+                className="text-center text-[#ccc] text-sm mt-2"
+              >
+                {item.alt}
+              </p>
             )}
           </div>
         )

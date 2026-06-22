@@ -5,14 +5,47 @@ It's important to understand this process, you should only execute these steps w
 - Extract this zip file and copy `age.exe` and `age-keygen.exe` to another folder on your pc. e.g.: Documents/age. You should then place the `vaultwarden-backup.key` from [step 14](vaultwarden-self-host-vps#create-your-peronal-backup-key) in that same folder Documents/age. If you hadn't downloaded that file yet, now it's the time to do so.
 - Then download as well the encrypted backup file (the most recent one) using **FileZilla or winSCP** and place it in that same folder.
 - Now you should have a total of 4 files in Documents/age. 
-- Type `cmd` in the path bar on the top and press enter <ImageWithCaption src="/images/documentation/arcky-tutorials/Vaultwarden Documents Age cmd.png" caption="Documents/age cmd" align="left" size="large"/>
+- Type `cmd` in the path bar on the top and press enter 
+  <MediaGallery
+    items={[
+      {
+        src: "documentation/arcky-tutorials/discord-bot-tutorial/Vaultwarden Documents Age cmd.png",
+        alt: "Vaultwarden Documents Age cmd",
+        width: 812,
+        height: 236
+      }
+    ]}
+    size="large"
+  />
 - Run this command: 
 ```bash
 age -d -i vaultwarden-backup.key backup-2026-02-15.tar.gz.age > backup.tar.gz
 ```
-- You'll see this file in `Documents/age`: <ImageWithCaption src="/images/documentation/arcky-tutorials/Vaultwarden Documents Age.png" caption="Documents/age backup.tar" align="left" size="large"/>
+- You'll see this file in `Documents/age`: 
+  <MediaGallery
+    items={[
+      {
+        src: "documentation/arcky-tutorials/discord-bot-tutorial/Vaultwarden Documents Age.png",
+        alt: "Vaultwarden Documents Age.tar",
+        width: 487,
+        height: 172
+      }
+    ]}
+    size="large"
+  />
 - Windows can extract `tar.gz` file directly. or run:
 ```bash
 tar -xzf backup.tar.gz
 ```
-- You should now see a `data` folder and that is exactly what goes back into a new Vaulwarden server. <ImageWithCaption src="/images/documentation/arcky-tutorials/Vaultwarden Documents Age data.png" caption="Documents/age data folder" align="left" size="large"/>
+- You should now see a `data` folder and that is exactly what goes back into a new Vaulwarden server.
+  <MediaGallery
+    items={[
+      {
+        src: "documentation/arcky-tutorials/discord-bot-tutorial/Vaultwarden Documents Age data.png",
+        alt: "Documents/age data folder",
+        width: 478,
+        height: 198
+      }
+    ]}
+    size="large"
+  />

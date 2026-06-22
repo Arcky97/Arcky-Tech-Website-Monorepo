@@ -276,9 +276,9 @@ export default function Scoreboard() {
                   />
                   <StateRadio
                     rowIndex={rowIndex}
-                    side="right"
-                    selectedState={row.right.state}
-                    species={row.right.species}
+                    side="left"
+                    selectedState={row.left.state}
+                    species={row.left.species}
                     onChange={(newState) =>
                       handleRowChange(rowIndex, "right", "state", newState)
                     }
@@ -287,9 +287,9 @@ export default function Scoreboard() {
                 <div className={`${getPaddingByIndex("right", rowIndex)} pt-5`}>
                   {/* Right Image */}
                   <FadeImage
-                    src={getImageSrc(row.right.species, row.right.state)}
-                    alt={`Right Species ${rowIndex}`}
-                    size={setDynamicSize(row.right.state)}
+                    src={getImageSrc(row.left.species, row.left.state)}
+                    alt={`Left Species ${rowIndex}`}
+                    size={setDynamicSize(row.left.state)}
                   />
                 </div>
               </div>
