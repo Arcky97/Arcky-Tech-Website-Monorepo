@@ -1,7 +1,17 @@
 ## Example 3
 
 The 5th and 6th points are Route 2:
-<ImageWithCaption src="/images/documentation/region-map/Route2-0.png" caption="Route 2" align="left" size="tiny"/>
+<MediaGallery
+  items={[
+    {
+      src: "documentation/region-map/Route2-0.png",
+      alt: "Route 2",
+      width: 48,
+      height: 48
+    }
+  ]}
+  size="tiny"
+/>
 This Location has a size of 1 by 2 tiles on the Region Map => 2 Points are defined:
 ```
 Point = 14,9,Route 2
@@ -22,7 +32,18 @@ Pay attention that before "Route2" I added 6 extra `,` as that would normally be
 - a Switch.
 for this Point.
 Result when the Cursor is on this Location:
-<ImageWithCaption src="/images/documentation/region-map/Route2-1.png" caption="Route 2 Highlighted" align="left" size="tiny"/>
+
+<MediaGallery
+  items={[
+    {
+      src: "documentation/region-map/Route2-1.png",
+      alt: "Route 2 Highlighted",
+      width: 48,
+      height: 48
+    }
+  ]}
+  size="tiny"
+/>
 You can also add "BridgeRoute" instead of "Route2" (the Graphic name should then be "mapBridgeRoute.png"). Make sure this Graphic is in the "Routes" folder and "Route" is included in the name. If you don't include "Route", the Script will assume the Graphic is in the "Others" folder.
 
 ```

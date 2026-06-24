@@ -5,8 +5,16 @@ The Graphics are based on the HGSS style for the Region Map. If you are using a 
 <br/>
 Inside the Highlights folder, you'll see these 2 folders: 
 
-<ImageWithCaption src="/images/documentation/region-map/Highlight Graphics 1.png" align="left" size="large"/>
-
+<MediaGallery
+  items={[
+    {
+      src: "documentation/region-map/Highlight Graphics 1.png",
+      width: 619,
+      height: 89
+    }
+  ]}
+  size="big"
+/>
 You'll find this folder in:
 <br/>
 - Graphics > Pictures > RegionMap > Highlights (v20.1)
@@ -19,7 +27,17 @@ By default, the "Others" folder is used for locations like Cities, Towns and oth
 
 Let's start with the "Others" Folder:
 
-<ImageWithCaption src="/images/documentation/region-map/Highlight Graphics 2.png" caption="Others folder content" align="left" size="large"/>
+<MediaGallery
+  items={[
+    {
+      src: "documentation/region-map/Highlight Graphics 2.png",
+      alt: "Other folder content",
+      width: 681,
+      height: 287
+    }
+  ]}
+  size="big"
+/>
 
 These are the example Graphics I've provided with the Plugin. Feel free to use/modify them to your needs.
 <br/>
@@ -27,7 +45,17 @@ The way of creating your own is each time the same so we'll take "mapSize1x1.png
 <br/>
 The name is not so important at this moment but following the same naming logic as the examples will make it easier later when editing the PBS file. In any case, the Graphics' name always needs to start with "map".
 
-<ImageWithCaption src="/images/documentation/region-map/Highlight Graphics 3.png" caption="mapSize1x1.png" size="small" align="left"/>
+<MediaGallery
+  items={[
+    {
+      src: "documentation/region-map/Highlight Graphics 3.png",
+      alt: "mapSize1x1.png",
+      width: 768,
+      height: 768
+    }
+  ]}
+  size="small"
+/>
 
 <Callout type="attention">The Graphic is 48x48, this is because as you can see, the red edge is exceeding the center tile.</Callout>
 
@@ -37,20 +65,64 @@ It is possible that for your Graphic style, this isn't the case. If that's so th
 ## Routes 
 The difference with Routes is that they don't need to be larger than the area they cover on the Region Map as the red edge is not exceeding the center tiles.
 
-<ImageWithCaption src="/images/documentation/region-map/Highlight Graphics 4.png" caption="Routes folder content" align="left" size="large"/>
+<MediaGallery
+  items={[
+    {
+      src: "documentation/region-map/Highlight Graphics 4.png",
+      alt: "Routes folder content",
+      width: 646,
+      height: 177
+    }
+  ]}
+  size="large"
+/>
 
 Let's take a look at the first one "mapRoute1.png"
 
-<ImageWithCaption src="/images/documentation/region-map/Highlight Graphics 5.png" caption="mapRoute1.png" align="left" size="small"/>
+<MediaGallery
+  items={[
+    {
+      src: "documentation/region-map/Highlight Graphics 5.png",
+      alt: "mapRoute1.png",
+      width: 511,
+      height: 512
+    }
+  ]}
+  size="small"
+/>
 
 The Graphic has a gray stroke on the top and bottom because this part will overlap a part of the town/city above and below it.
 <br/>
 Alternativly you could also remove this gray stroke of this Graphic but you can't change the Graphic size itself because the placement on the Region Map would not be correct anymore.
 
-<ImageWithCaption src="/images/documentation/region-map/Highlight Graphics 6.png" caption="mapRoute1.png" align="left" size="small"/>
+<MediaGallery
+  items={[
+    {
+      src: "documentation/region-map/Highlight Graphics 6.png",
+      alt: "mapRoute1.png",
+      width: 511,
+      height: 511
+    }
+  ]}
+  size="small"
+/>
 
 Both Graphics are 16x16 as Route 1 is only 1 by 1 tile big and will result into this on the Region Map:
 
-<ImageWithCaption src="/images/documentation/region-map/Highlight Graphics 7.png" caption="Route 1" align="left" size="tiny"/>
-
-<ImageWithCaption src="/images/documentation/region-map/Highlight Graphics 8.png" caption="Route 1 Highlighted" align="left" size="tiny"/>
+<MediaGallery
+  items={[
+    {
+      src: "documentation/region-map/Highlight Graphics 7.png",
+      alt: "Route 1",
+      width: 48,
+      height: 48
+    },
+    {
+      src: "documentation/region-map/Highlight Graphics 8.png",
+      alt: "Route 1 Highlighted",
+      width: 48,
+      height: 48
+    }
+  ]}
+  size="tiny"
+/>

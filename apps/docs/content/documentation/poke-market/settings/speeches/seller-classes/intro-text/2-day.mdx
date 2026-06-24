@@ -25,7 +25,17 @@ IntroTextWeekend: [
 ```
 
 This makes it possible, for example, to make the NPC behave differently — perhaps ruder — on the weekend.
-<ImageWithCaption src="/images/documentation/poke-market/IntroTextWeekend.png" caption="IntroTextWeekend Example" align="center"/>
+<MediaGallery
+  items={[
+    {
+      src: "documentation/poke-market/IntroTextWeekend.png",
+      alt: "IntroTextWeekend",
+      width: 770,
+      height: 608
+    }
+  ]}
+  size="big"
+/>
 Similarly, you can define speech for specific days. Here's an example for Monday:
 
 ```ruby
@@ -34,8 +44,17 @@ IntroTextMonday: [
 ]
 ```
 This will be used by the script when the in-game day in Monday:
-<ImageWithCaption src="/images/documentation/poke-market/IntroTextMonday.png" caption="IntroTextMonday" align="center"/>
-
+<MediaGallery
+  items={[
+    {
+      src: "documentation/poke-market/IntroTextMonday.png",
+      alt: "IntroTextMonday",
+      width: 770,
+      height: 608
+    }
+  ]}
+  size="big"
+/>
 
 ### Fallback Behavior
 The script checks the following order when deciding which `IntroText` to use:

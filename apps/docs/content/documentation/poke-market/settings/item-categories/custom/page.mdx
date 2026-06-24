@@ -57,7 +57,18 @@ For example:
 <br/>
 ---
 
-<ImageWithCaption src="/images/documentation/poke-market/Custom Item Categories.png" caption="Custom Item Categories" align="left"/>
+<MediaGallery
+  items={[
+    {
+      src: "documentation/poke-market/Custom Item Categories.png",
+      alt: "Custom Item Categories",
+      width: 770,
+      height: 608
+    }
+  ]}
+  size="big"
+/>
+
 In the example shown above:
 - "Evolution Stones" appears first because its `:order` is 11.
 - Followed by "Type Plates" (`:order` = 12)

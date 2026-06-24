@@ -21,7 +21,18 @@ Let's break down this piece of data:
 Currently you don't need to worry yet what I mean with Region folder, this is an optional Setting. If an image is not found, it'll tell you in the console log to where it expect it to be located.
 <br/>
 Result in game:
-<ImageWithCaption src="/images/documentation/region-map/Location Preview 1.png" caption="Example 1" align="left" size="medium"/>
+
+<MediaGallery
+  items={[
+    {
+      src: "documentation/region-map/Location Preview 1.png",
+      alt: "Example 1",
+      width: 770,
+      height: 608
+    }
+  ]}
+  size="big"
+/>
 
 The "???" for 2 out of the 3 directions are because I have the Setting `NoUnvisitedMapInfo` set to `true`. If this setting is `false`, then you'll see the actual location name, otherwise it's the text you set in the `UnvisitedMapText` Setting. 
 <br/>Check this page to learn what these settings do.

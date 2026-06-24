@@ -1,7 +1,17 @@
 ## Example 1
 
 The 1st point is Lappet Town.
-<ImageWithCaption src="/images/documentation/region-map/LappetTown-0.png" caption="Lappet Town" align="left" size="tiny"/>
+<MediaGallery
+  items={[
+    {
+      src: "documentation/region-map/LappetTown-0.png",
+      alt: "Lappet Town",
+      width: 48,
+      height: 48
+    }
+  ]}
+  size="tiny"
+/>
 This Location has a size of 1 by 1 tiles on the Region Map => 1 Point is defined:
 ```
 Point = 13,12,Lappet Town,Oak's Lab,2,8,8
@@ -16,9 +26,29 @@ Point = 13,12,Lappet Town,Oak's Lab,2,8,8,,Size1x1
 ```
 Pay attention that before "Size1x1" I added an extra `,` as that would normally be where we define a Switch for that Point.
 Result when the Cursor is on this Location:
-<ImageWithCaption src="/images/documentation/region-map/LappetTown-1.png" caption="Lappet Town Highlighted" align="left" size="tiny"/>
+<MediaGallery
+  items={[
+    {
+      src: "documentation/region-map/LappetTown-1.png",
+      alt: "Lappet Town Highlighted",
+      width: 48,
+      height: 48
+    }
+  ]}
+  size="tiny"
+/>
 Result when this Location hasn't been visited yet:
-<ImageWithCaption src="/images/documentation/region-map/LappetTown-2.png" caption="Lappet Town Unvisited" align="left" size="tiny"/>
+<MediaGallery
+  items={[
+    {
+      src: "documentation/region-map/LappetTown-2.png",
+      alt: "Lappet Town Unvisited",
+      width: 48,
+      height: 48
+    }
+  ]}
+  size="tiny"
+/>
 You can also add "LappetTown" instead of "Size1x1" (the Graphic name should then be "mapLappetTown.png").
 Image (mapLappetTown.png) missing.
 ```

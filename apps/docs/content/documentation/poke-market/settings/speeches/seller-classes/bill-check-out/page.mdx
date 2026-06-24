@@ -10,7 +10,17 @@ See [MenuText](menu-text) for more information.
 <br/>
 Once the Player has paid the Bill, the `MenuReturnText` is used and the player will be prompted with the options **Buy**, **Sell** (if allowed) and **Exit**.
 
-<ImageWithCaption src="/images/documentation/poke-market/BuyCheckOut 1.png" caption="IntroText with Checkout option"/>
+<MediaGallery
+  items={[
+    {
+      src: "documentation/poke-market/BuyCheckOut 1.png",
+      alt: "IntroText with Checkout option",
+      width: 770,
+      height: 608
+    }
+  ]}
+  size="big"
+/>
 
 The `BillCheckOut` determines what the NPC will say when the option to **Pay the Bill** was chosen.
 
@@ -27,6 +37,26 @@ BillCheckOut: [
 - `{1}` = The list of Items (including their amounts) that were added to the Basket — e.g., `"25 Potions and 12 Poké Balls"`
 - `{2}` = The Total Price to pay — e.g., `"$7400"`
 
-<ImageWithCaption src="/images/documentation/poke-market/BuyCheckOut 2.png" caption="BillCheckOut"/>
+<MediaGallery
+  items={[
+    {
+      src: "documentation/poke-market/BuyCheckOut 2.png",
+      alt: "BillCheckOut",
+      width: 770,
+      height: 608
+    }
+  ]}
+  size="big"
+/>
 If any Items have a Bonus Item defined, this will be the next message the player will be prompted with (uses the `BuyBonusMult` Speech).
-<ImageWithCaption src="/images/documentation/poke-market/BuyCheckOut 3.png" caption="BuyBonusMult"/>
+<MediaGallery
+  items={[
+    {
+      src: "documentation/poke-market/BuyCheckOut 3.png",
+      alt: "BuyBonusMult",
+      width: 770,
+      height: 608
+    }
+  ]}
+  size="big"
+/>
