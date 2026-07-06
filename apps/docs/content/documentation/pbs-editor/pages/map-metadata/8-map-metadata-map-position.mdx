@@ -3,3 +3,15 @@
 <div className="flex space-x-4">
   <InputNumber label="Map Position:" value={["0", "13", "12"]} width={5}/>
 </div>
+
+The <Or>Map Position</Or> defines the <Gr>Region ID, X and Y positions</Gr> of the **Game Map**. 
+<br/>
+This is what the Town Map needs to show the Player's Icon on the correct Position and Region Map in-game. 
+<br/>
+---
+
+### Default Value 
+
+The <Or>Map Position</Or> field is <Yl>Required</Yl> and must be defined for every single <Gr>Game Map</Gr> the player can enter on.
+<br/>
+If left undefined, the Game might crash or show the wrong position on the Town Map for that **Game Map**

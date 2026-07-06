@@ -1,1 +1,19 @@
 ## Map Size
+
+<div className="flex space-x-4">
+  <InputNumber label={["Map Width", "Valid Squares"]} value={["2", "1101"]} width={[5, 11]}/>
+</div>
+
+The <Or>Map Size</Or> is split up in <Gr>Map Width</Gr> and <Gr>Valid Squares</Gr> and determines the size and shape of this map in region map squares. This metadata consists of 2 numbers:
+1. The width of the map, in squares. This can be 1.
+2. A string of 1s and 0s, which describe the shape of the map. 
+<br/>
+Luckily for you the Map Metadata Page provides a handy visual tool for you where you don't need to worry about filling in these 2 numbers, just use the buttons to add rows and colomns and click the squares to enable (1) or disable (0) them respectively.
+<br/>
+---
+
+### Default Value 
+
+The <Or>Map Size</Or> fields are <Yl>optional</Yl> and should only be defined for bigger maps. No default value is assigned by the editor.
+<br/>
+If left undefined, the **Map's** <Or>Map Size</Or> will be "1,1".
