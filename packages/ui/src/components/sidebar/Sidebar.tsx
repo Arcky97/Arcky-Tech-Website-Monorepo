@@ -1,10 +1,10 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { SidebarItem, MenuItem } from "./SidebarItem"; // ← nieuw: import subcomponent
+import { SidebarItem, MenuItem } from "./SidebarItem";
 import { useMainRef } from "../context/MainRefContext";
 
-type DocType = "main" | "region-map" | "arcky-tutorials" | "pbs-editor" | "poke-market" | "vending-machine" | string;
+type DocType = "main" | "region-map" | "arcky-tutorials" | "pbs-editor" | "poke-market" | "vending-machine" | "youtube-journal" | string;
 
 export function Sidebar({ menuItems, docType, mainDocs, isOpen, onClose }: { menuItems: MenuItem[]; docType?: DocType, mainDocs?: boolean, isOpen: boolean, onClose: () => void }) {
   const pathname = usePathname();

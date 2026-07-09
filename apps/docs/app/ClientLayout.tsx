@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { MainLayoutWrapper, Sidebar, Footer, TOCProvider } from "ui";
-import { arckyTutorials, graphicsTransparency, pbsEditor, pokeMarket, regionMap, vendingMachine  } from "@/config";
+import { arckyTutorials, graphicsTransparency, pbsEditor, pokeMarket, regionMap, vendingMachine, youtubeJourney } from "@/config";
 import { usePathname } from "next/navigation";
 import { ROUTES as routes } from "@/config/routes";
 import { MainRefContext } from "ui";
@@ -40,7 +40,8 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
     pokeMarket,
     graphicsTransparency,
     vendingMachine,
-    arckyTutorials
+    arckyTutorials,
+    youtubeJourney
   ];
 
   const menuItemToUse = pathname !== "/" 

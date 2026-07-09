@@ -52,7 +52,6 @@ export function useAutoTOC(containerRef: RefObject<HTMLElement | null>) {
         };
       }
 
-
       const baseSlug = slugify(title);
 
       const parentSlug = 
