@@ -1,9 +1,10 @@
 import { DocInputType } from "ui";
 
-export function DocsInputNumber ({ label, value, width }: DocInputType) {
+export function DocsInputNumber ({ label, value, width, placeholder }: DocInputType) {
   const values = Array.isArray(value) ? value : [value];
   const labels = Array.isArray(label) ? label : [label];
   const widths = Array.isArray(width) ? width : [width];
+  const placeholders = Array.isArray(placeholder) ? placeholder : [placeholder];
 
   return (
     <div className="my-4 p-2 text-left">
@@ -25,6 +26,7 @@ export function DocsInputNumber ({ label, value, width }: DocInputType) {
                 value={v}
                 readOnly
                 className={`content-box-w${currentWidth}`}
+                placeholder={placeholder}
               />
             </div>
           );

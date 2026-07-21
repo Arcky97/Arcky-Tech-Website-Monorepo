@@ -1,2 +1,43 @@
 ## Weather and Probability
 
+<div className='flex space-x-4'>
+  <InputSelect
+    label="Weather"
+    width={200}
+    initValue="Rain"
+    placeholder="Select Weather"
+    options={["Rain", "HeavyRain", "Storm", "Snow", "Blizzard", "Sandstorm", "Sun", "Fog"]
+      .map(option => ({ label: option, value: option }))
+    }
+  />
+  <InputNumber
+    label="Probability:"
+    value=""
+    width={9}
+    placeholder="e.g.: 5%"
+  />
+</div>
+
+The <Or>Weather</Or> consists of two fields: the weather type and the probability (our of 100) of that weather occuring when the player enters this map. 
+<br/>
+---
+
+### Default Value 
+
+<Or>Weather and Probability</Or> fields are <Yl>optional</Yl>, but no default value is assigned by the editor.
+<br/>
+If left undefined, the **Map** will have no weather. 
+<br/>
+---
+
+### Options
+
+By default, the editor includes the following <Or>Weathers</Or>:
+- Rain 
+- HeavyRain 
+- Storm 
+- Snow 
+- Blizzard 
+- Sandstorm
+- Sun 
+- Fog
