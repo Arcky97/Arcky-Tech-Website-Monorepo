@@ -172,7 +172,7 @@ export default function Youtube() {
           disabled={loading}
           onClick={() =>
             callRoute(
-              "/api/youtube/sync/fill/2026-05-23",
+              "/api/youtube/sync/fill/2026-07-01",
               "POST"
             )
           }
