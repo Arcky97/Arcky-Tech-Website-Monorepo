@@ -5,7 +5,7 @@ export const projects = [
     title: "Doggo Bot",
     content: "A Bot for your Discord Server with a ton of features. Including a customizable level system, moderation commands, fun commands and event a chat function and so much more.",
     button: {
-      href: `${publicEnv.DOCS_URL}/doggo-bot`
+      href: `${publicEnv.DOCS_URL}/dashboard`
     }
   },
   {

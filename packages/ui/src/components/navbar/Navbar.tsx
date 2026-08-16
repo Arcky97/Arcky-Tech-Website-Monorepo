@@ -6,7 +6,7 @@ import { useMainRef } from "../context/MainRefContext";
 
 export type NavbarProps = {
   routes: { home: string, main?: string, projects?: string, discord?: string, docs: string, about: string, contact: string }
-  variant?: "web" | "docs" | "doggo-bot" | "scoreboard";
+  variant?: "web" | "docs" | "dashboard" | "scoreboard";
   enableShrink?: boolean;
   hasSidenav?: boolean;
   isSidebarOpen?: boolean;

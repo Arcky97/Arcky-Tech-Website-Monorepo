@@ -61,8 +61,8 @@ jobs:
             scoreboard:
               - 'apps/scoreboard/**'
               - 'packages/**'
-            doggo-bot:
-              - 'apps/doggo-bot/**'
+            dashboard:
+              - 'apps/dashboard/**'
               - 'packages/**'
 
       # ----------------------------
@@ -148,16 +148,16 @@ jobs:
             ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-scoreboard:${{ github.sha }}
 
       # =========================================================
-      # DOGGO-BOT
+      # DASHBOARD
       # =========================================================
-      - name: Build doggo-bot
-        if: steps.changes.outputs.doggo-bot == 'true'
+      - name: Build dashboard
+        if: steps.changes.outputs.dashboard == 'true'
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: apps/doggo-bot/Dockerfile
+          file: apps/dashboard/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
-            ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-doggo-bot:latest
-            ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-doggo-bot:main
-            ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-doggo-bot:${{ github.sha }}
+            ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-dashboard:latest
+            ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-dashboard:main
+            ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-dashboard:${{ github.sha }}
