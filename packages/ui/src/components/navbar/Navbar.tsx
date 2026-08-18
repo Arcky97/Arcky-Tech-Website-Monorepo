@@ -3,6 +3,18 @@ import { useEffect, useRef, useState } from "react"
 import Link from "next/link";
 import { NavbarItem } from "./NavbarItem";
 import { useMainRef } from "../context/MainRefContext";
+import { ColorButton } from "../ColorButton";
+
+type NavbarAuth = {
+  status: 
+    | "checking"
+    | "signed-out"
+    | "signed-in"
+    | "logging-in"
+    | "logging-out";
+  onLogin: () => void;
+  onLogout: () => void;
+}
 
 export type NavbarProps = {
   routes: { home: string, main?: string, projects?: string, discord?: string, docs: string, about: string, contact: string }
@@ -11,9 +23,10 @@ export type NavbarProps = {
   hasSidenav?: boolean;
   isSidebarOpen?: boolean;
   onToggleSideNav?: () => void;
+  auth?: NavbarAuth
 }
 
-export function Navbar({ variant = "web", enableShrink, hasSidenav, isSidebarOpen, onToggleSideNav, routes }: NavbarProps) {
+export function Navbar({ variant = "web", enableShrink, hasSidenav, isSidebarOpen, onToggleSideNav, routes, auth }: NavbarProps) {
   const [hasScrolled, setHasScrolled] = useState(false);
   const [isShrunk, setIsShrunk] = useState(false || !enableShrink);
   const navRef = useRef<HTMLElement>(null);
@@ -129,6 +142,14 @@ useEffect(() => {
               isShrunk={isShrunk}
             />
           )}
+          {routes.docs && (
+            <NavbarItem
+              href={routes.docs}
+              icon="DocumentTextIcon"
+              text="Docs"
+              isShrunk={isShrunk}
+            />
+          )}
           <NavbarItem
             href={routes.about}
             icon="InformationCircleIcon"
@@ -141,6 +162,34 @@ useEffect(() => {
             text="Contact"
             isShrunk={isShrunk}
           />
+          {variant === "dashboard" && auth && (
+            <ColorButton
+              color={auth.status.includes("out") ? "red-800" : "blue-800"}
+              text={
+                auth.status === "checking"
+                  ? "Checking..."
+                  : auth.status === "logging-in"
+                    ? "Logging in..."
+                    : auth.status === "logging-out"
+                      ? "Logging out..."
+                      : auth.status === "signed-in"
+                        ? "Logout"
+                        : "Login"
+              }
+              action={
+                auth.status === "signed-in"
+                  ? auth.onLogout
+                  : auth.status === "signed-out"
+                    ? auth.onLogin
+                    : undefined
+              }
+              disabled={
+                auth.status === "checking" ||
+                auth.status === "logging-in" || 
+                auth.status === "logging-out"
+              }
+            />
+          )}
         </div>
       </div>
     </nav>

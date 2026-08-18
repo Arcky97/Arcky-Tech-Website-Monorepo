@@ -18,6 +18,7 @@ export function MainLayoutWrapper({ navbar, children }: Props) {
           isSidebarOpen={navbar?.isSidebarOpen}
           onToggleSideNav={navbar?.onToggleSideNav}
           routes={navbar.routes}
+          auth={navbar.auth}
         />
       </header>
       {children}

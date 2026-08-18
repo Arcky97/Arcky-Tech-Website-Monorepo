@@ -332,7 +332,7 @@ export default function Youtube() {
         <button
           disabled={loading}
           onClick={() =>
-            callRoute("/api/youtube/sync/fill/2026-07-01", "POST")
+            callRoute("/api/youtube/sync/fill/2026-05-23", "POST")
           }
         >
           Backfill Sync
