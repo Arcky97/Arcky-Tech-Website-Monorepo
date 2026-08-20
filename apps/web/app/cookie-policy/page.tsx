@@ -10,7 +10,7 @@ export default function CookiePolicy() {
           These include:
         </p>
         <ul className="list-disc pl-6 mt-2">
-          <li>Session cookies for logging in with Discord</li>
+          <li>Session cookies for logging in with YouTube through Google OAuth</li>
           <li>Anonymous preferences stored in your browser</li>
           <li>Traffic measurement via analytics</li>
         </ul>

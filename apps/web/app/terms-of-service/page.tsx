@@ -42,15 +42,15 @@ export default function TermsOfService() {
 
       {/* Section 3 */}
       <section className="my-6 text-left w-7/8 lg:w-5/8">
-        <h2 className="text-2xl font-semibold pb-4">3. Discord Login & Accounts</h2>
+        <h2 className="text-2xl font-semibold pb-4">3. YouTube Login & Accounts</h2>
         <div className="pl-6 space-y-4">
-          <p>Our site provides login functionality via Discord OAuth for personalized services, such as accessing your bot dashboard.</p>
+          <p>Our site provides login functionality via Google OAuth for YouTube-related personalized services, such as accessing your dashboard.</p>
           <ul className="list-disc pl-6">
-            <li>You consent to us storing your Discord ID, username, avatar, and necessary tokens</li>
-            <li>You are responsible for your own Discord account security</li>
+            <li>You consent to us storing your Google account ID, YouTube channel details, and necessary tokens</li>
+            <li>You are responsible for your own Google account security</li>
             <li>We may revoke access in the event of misuse or suspicious activity</li>
           </ul>
-          <p>We do not collect your Discord password or private messages.</p>
+          <p>We do not collect your Google password or private messages.</p>
         </div>
       </section>
 

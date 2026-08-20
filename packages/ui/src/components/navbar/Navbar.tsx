@@ -164,7 +164,7 @@ useEffect(() => {
           />
           {variant === "dashboard" && auth && (
             <ColorButton
-              color={auth.status.includes("out") ? "red-800" : "blue-800"}
+              color={auth.status.includes("out") ? "blue-800" : "red-800"}
               text={
                 auth.status === "checking"
                   ? "Checking..."

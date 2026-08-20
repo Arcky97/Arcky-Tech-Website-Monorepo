@@ -12,7 +12,7 @@ export default function PrivacyPolicy() {
         <div className="pl-6 space-y-4">
           <p>We collect the following types of personal information from users of ArckyTech:</p>
           <ul className="list-disc pl-6">
-            <li><strong>Discord Login Data:</strong> Discord ID, username, and avatar</li>
+            <li><strong>YouTube Login Data:</strong> Google account ID, YouTube channel ID, and channel name</li>
             <li><strong>Contact Form Submissions:</strong> Name and email address</li>
             <li><strong>Cookies:</strong> Session information and anonymous analytics</li>
           </ul>
@@ -28,7 +28,7 @@ export default function PrivacyPolicy() {
         <div className="pl-6 space-y-4">
           <p>Your information is used solely to provide and enhance our services:</p>
           <ul className="list-disc pl-6">
-            <li>Authenticate your identity via Discord</li>
+            <li>Authenticate your identity via Google OAuth for YouTube</li>
             <li>Respond to your messages and inquiries</li>
             <li>Analyze anonymous usage trends to improve site performance</li>
           </ul>
@@ -43,7 +43,7 @@ export default function PrivacyPolicy() {
         <div className="pl-6 space-y-4">
           <p>We do not sell or trade your data. We may share information only when necessary:</p>
           <ul className="list-disc pl-6">
-            <li>With trusted third-party providers (e.g., Discord, analytics tools)</li>
+            <li>With trusted third-party providers (e.g., Google, YouTube, and analytics tools)</li>
             <li>To comply with legal obligations</li>
           </ul>
         </div>
@@ -85,7 +85,7 @@ export default function PrivacyPolicy() {
         <h2 className="text-2xl font-semibold pb-4">6. Data Security</h2>
         <div className="pl-6 space-y-4">
           <p>We implement technical and organizational safeguards to protect your data. However, no system is completely secure.</p>
-          <p>We are not responsible for breaches caused by third-party services or platforms beyond our control (e.g., Discord).</p>
+          <p>We are not responsible for breaches caused by third-party services or platforms beyond our control (e.g., Google or YouTube).</p>
         </div>
       </section>
 
