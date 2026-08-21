@@ -115,7 +115,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   }
   
   useEffect(() => {
-    document.documentElement.style.setProperty("--navbar-height", "80px");
+    document.documentElement.style.setProperty("--navbar-height", "48px");
   }, []);
 
   return (

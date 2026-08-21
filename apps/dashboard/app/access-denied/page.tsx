@@ -1,9 +1,9 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import ErrorMain from "ui/src/components/errors/ErrorMain";
 
-const REDIRECT_DELAY_SECONDS = 10;
+const REDIRECT_DELAY_SECONDS = 5;
 
 export default function AccessDenied() {
   const router = useRouter();
@@ -32,10 +32,10 @@ export default function AccessDenied() {
   }, [redirect, router, secondsRemaining]);
 
   return (
-    <section className="mx-auto flex min-h-[calc(100vh-9rem)] w-full max-w-3xl flex-col items-center justify-center px-5 py-16 text-center text-white sm:px-10">
-      <p className="text-sm font-semibold uppercase tracking-[0.28em] text-red-300">Access restricted</p>
-      <h1 className="mt-4 text-4xl font-bold tracking-tight sm:text-6xl">You don&apos;t have access to this page</h1>
-      <p className="mt-6 text-lg text-slate-300">Returning you to your YouTube dashboard in {secondsRemaining} seconds.</p>
-    </section>
+    <ErrorMain
+      sub="Access restricted"
+      title="You don&apos;t have access to this page"
+      description={`Returning you to your YouTube dashboard in ${secondsRemaining} seconds.`}
+    />
   );
 }

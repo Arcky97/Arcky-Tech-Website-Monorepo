@@ -1,12 +1,11 @@
-export function NotFoundComp() {
+import ErrorMain from "./ErrorMain";
 
+export function NotFoundComp() {
   return (
-    <div id="notfound"
-      className="flex text-center items-center justify-center text-white w-full"
-    >
-      <h1 className="text-3xl font-bold">
-        404 | This page was not found.
-      </h1>
-    </div>
+    <ErrorMain
+      sub="Not found"
+      title="This Page was not found"
+      description="we searched far and wide but couldn't find what you're looking for..."
+    />
   );
 }
