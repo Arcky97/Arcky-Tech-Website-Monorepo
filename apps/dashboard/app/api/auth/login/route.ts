@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
   const requestedRedirect = new URL(request.url).searchParams.get("redirect");
-  const redirect = requestedRedirect === "/youtube" ? requestedRedirect : "/";
+  const redirect = requestedRedirect === "/" ? requestedRedirect : "/";
   const response = await fetch(
     `${env.API_BASE_URL}/v1/auth/youtube/login?redirect=${encodeURIComponent(redirect)}`,
     {

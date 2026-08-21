@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { ColorButton } from "ui";
 
 export default function Home() {
@@ -15,7 +14,7 @@ export default function Home() {
           <ColorButton
             color="red-500"
             text="Continue with YouTube"
-            href="/api/auth/login?provider=youtube&redirect=/youtube"
+            href="/api/auth/login?provider=youtube&redirect=/"
             padding="px-2 py-3 md:px-3 md:py-4 mt-2"
           />
         </div>
