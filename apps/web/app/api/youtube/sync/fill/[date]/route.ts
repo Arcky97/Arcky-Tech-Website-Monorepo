@@ -13,6 +13,7 @@ export async function POST(
       method: "POST",
       headers: {
         "x-api-key": env.API_KEY_WEBSITE!,
+        cookie: req.headers.get("cookie") ?? "",
       },
     }
   );

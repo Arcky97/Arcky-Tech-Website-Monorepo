@@ -12,6 +12,7 @@ export async function GET(
     {
       headers: {
         "x-api-key": env.API_KEY_WEBSITE!,
+        cookie: req.headers.get("cookie") ?? "",
       },
     }
   );
@@ -35,6 +36,7 @@ export async function PATCH(
       headers: {
         "Content-Type": "application/json",
         "x-api-key": env.API_KEY_WEBSITE!,
+        cookie: req.headers.get("cookie") ?? "",
       },
       body: JSON.stringify(body),
     }
@@ -57,6 +59,7 @@ export async function DELETE(
       method: "DELETE",
       headers: {
         "x-api-key": env.API_KEY_WEBSITE!,
+        cookie: req.headers.get("cookie") ?? "",
       },
     }
   );

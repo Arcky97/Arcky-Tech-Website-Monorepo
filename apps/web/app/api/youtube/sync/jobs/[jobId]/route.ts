@@ -2,7 +2,7 @@ import { env } from "@/config/env";
 import { NextResponse } from "next/server";
 
 export async function GET(
-  _req: Request,
+  request: Request,
   { params }: { params: Promise<{ jobId: string }> }
 ) {
   const { jobId } = await params;
@@ -10,6 +10,7 @@ export async function GET(
   const res = await fetch(`${env.API_BASE_URL}/v1/youtube/sync/jobs/${jobId}`, {
     headers: {
       "x-api-key": env.API_KEY_WEBSITE!,
+      cookie: request.headers.get("cookie") ?? "",
     },
   });
 
