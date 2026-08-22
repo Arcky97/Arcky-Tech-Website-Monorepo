@@ -3,15 +3,15 @@ import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { SidebarItem, MenuItem } from "./SidebarItem";
 
-type DocType = "main" | "region-map" | "arcky-tutorials" | "pbs-editor" | "poke-market" | "vending-machine" | "youtube-journal" | string;
+type SidebarSection = string;
 
-export function Sidebar({ menuItems, docType, mainDocs, isOpen, onClose }: { menuItems: MenuItem[]; docType?: DocType, mainDocs?: boolean, isOpen: boolean, onClose: () => void }) {
+export function Sidebar({ menuItems, docType, mainDocs, basePath, isOpen, onClose }: { menuItems: MenuItem[]; docType?: SidebarSection, mainDocs?: boolean, basePath?: string, isOpen: boolean, onClose: () => void }) {
   const pathname = usePathname();
   const hasScrolledToActive = useRef(false);
 
   const validBasePaths = menuItems.map(item => item.name);
 
-  const basePath = (() => {
+  const resolvedBasePath = basePath ?? (() => {
     if (pathname === "/") {
       return "";
     }
@@ -74,7 +74,7 @@ export function Sidebar({ menuItems, docType, mainDocs, isOpen, onClose }: { men
               key={`${item.path}-${index}`}
               item={item}
               parentPath=""
-              basePath={basePath}
+              basePath={resolvedBasePath}
               pathname={pathname}
               mainDocs={mainDocs}
               onClick={handleClick}

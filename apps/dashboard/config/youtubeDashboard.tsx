@@ -5,6 +5,7 @@ export const youtubeDashboard = {
   path: "",
   icon: <HomeIcon className="w-6 h-6"/>,
   text: "YouTube Dashboard",
+  noPage: true,
   subItems: [
     {
       path: "home",

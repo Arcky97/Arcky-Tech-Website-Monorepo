@@ -1,8 +1,10 @@
 "use client";
 import { ROUTES as routes } from "@/config/routes";
+import { youtubeDashboard } from "@/config/youtubeDashboard";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react"
-import { Footer, MainLayoutWrapper, MainRefContext } from "ui";
+import { Footer, MainLayoutWrapper, MainRefContext, Sidebar } from "ui";
+import QueryClientWrapper from "./QueryClientLayout";
 
 type AuthStatus =
   | "checking"
@@ -19,7 +21,9 @@ type SessionUser = {
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   const mainRef = useRef<HTMLElement | null>(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const pathname = usePathname();
+  const youtubeBasePath = `/${pathname.split("/").filter(Boolean)[0] ?? ""}`;
   const router = useRouter();
   const [authStatus, setAuthStatus] = useState<AuthStatus>("checking");
   const [sessionUser, setSessionUser] = useState<SessionUser | null>(null);
@@ -116,32 +120,64 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   
   useEffect(() => {
     document.documentElement.style.setProperty("--navbar-height", "48px");
+
+    let lastIsDesktop = window.innerWidth >= 1024;
+
+    const handleResize = () => {
+      const isDesktop = window.innerWidth >= 1024;
+      if (isDesktop !== lastIsDesktop) {
+        setSidebarOpen(isDesktop);
+        lastIsDesktop = isDesktop;
+        console.log(lastIsDesktop);
+      }
+    };
+
+    setSidebarOpen(window.innerWidth >= 1024);
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize)
   }, []);
 
   return (
-    <MainRefContext.Provider value={mainRef}>
-      <MainLayoutWrapper
-        navbar={{
-          variant: "dashboard",
-          enableShrink: false,
-          routes,
-          auth: {
-            status: authStatus,
-            onLogin: handleLogin,
-            onLogout: handleLogout
-          }
-        }}
-      >
-        <main
-          ref={mainRef}
-          className="flex flex-col flex-1 min-h-0 bg-gray-900 px-2"
+    <QueryClientWrapper>
+      <MainRefContext.Provider value={mainRef}>
+        <MainLayoutWrapper
+          navbar={{
+            variant: "dashboard",
+            enableShrink: false,
+            onToggleSideNav: () => setSidebarOpen(s => !s),
+            isSidebarOpen: sidebarOpen,
+            hasSidenav: true,
+            routes,
+            auth: {
+              status: authStatus,
+              onLogin: handleLogin,
+              onLogout: handleLogout
+            }
+          }}
         >
-          <div className="flex-1">
-            {children}
-          </div>
-          <Footer/>
-        </main>
-      </MainLayoutWrapper>
-    </MainRefContext.Provider>
+            <div className="relative flex min-h-[calc(100vh-48px)]">
+              <Sidebar
+                menuItems={[youtubeDashboard]}
+                basePath={youtubeBasePath}
+                mainDocs={false}
+                isOpen={sidebarOpen}
+                onClose={() => setSidebarOpen(false)}
+              />
+              <main
+                ref={mainRef}
+                className="flex min-w-0 flex-1 flex-col bg-gray-900"
+              >
+                <div className="flex-1 px-2">
+                  {children}
+                </div>
+                <Footer />
+              </main>
+            </div>
+        </MainLayoutWrapper>
+      </MainRefContext.Provider>
+    </QueryClientWrapper>
   )
 }
