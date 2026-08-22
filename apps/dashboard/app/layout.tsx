@@ -1,6 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import ClientLayout from "./clientLayout"
+import ClientLayout from "./ClientLayout"
 
 export const metadata: Metadata = {
   title: "Arcky-Tech Dashbobard",

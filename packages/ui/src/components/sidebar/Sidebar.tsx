@@ -1,8 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { SidebarItem, MenuItem } from "./SidebarItem";
-import { useMainRef } from "../context/MainRefContext";
 
 type DocType = "main" | "region-map" | "arcky-tutorials" | "pbs-editor" | "poke-market" | "vending-machine" | "youtube-journal" | string;
 
