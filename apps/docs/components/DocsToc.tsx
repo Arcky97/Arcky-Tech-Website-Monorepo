@@ -1,6 +1,6 @@
 "use client";
 import { useMainRef, useTOC } from "ui";
-import { useActiveHeading } from "@/hooks/useActiveHeading";
+import { useActiveHeading } from "./../hooks/useActiveHeading";
 import { useEffect, useRef, useState } from "react";
 
 export function DocsTOC() {
