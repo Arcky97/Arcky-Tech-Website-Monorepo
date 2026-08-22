@@ -12,8 +12,7 @@ type JobStatus = {
 
 const SYNC_STATUS_PATHS = [
   "/api/youtube/sync/status?jobId=",
-  "/api/youtube/sync/jobs/",
-  "/api/youtube/sync/job/",
+  "/api/youtube/sync/jobs/"
 ];
 
 const isSyncRoute = (url: string) => url.includes("/api/youtube/sync");
