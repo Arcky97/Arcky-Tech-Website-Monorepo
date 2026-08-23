@@ -15,7 +15,23 @@ type Video = {
   thumbnailUrl: string;
   publishedAt: string;
   goalProfileId: number;
+  series: string;
+  episodeNumber: string;
 };
+
+type VideoSnapshot = {
+  videoId: string;
+  views: number;
+  likes: number;
+  comments: number;
+  shares: number;
+  watchHours: number;
+  averageViewDuration: number;
+  averageViewPercentage: number;
+  subscribersGained: number;
+  subscribersLost: number;
+  snapshotDate: Date;
+}
 
 type SyncJob = {
   jobId: string;
@@ -171,6 +187,7 @@ export function ExampleClient() {
               <p>{videoQuery.data.title}</p>
               <p>{videoQuery.data.publishedAt}</p>
               <p>{JSON.stringify(videoQuery.data)}</p>
+              <p>{JSON.stringify(snapshotsQuery.data)}</p>
             </div>
           }
 
