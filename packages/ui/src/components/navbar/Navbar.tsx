@@ -165,6 +165,7 @@ useEffect(() => {
           {variant === "dashboard" && auth && (
             <ColorButton
               color={auth.status.includes("out") ? "blue-800" : "red-800"}
+              extraClass="hidden lg:inline-flex"
               text={
                 auth.status === "checking"
                   ? "Checking..."

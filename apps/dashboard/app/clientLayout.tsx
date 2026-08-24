@@ -1,10 +1,11 @@
 "use client";
 import { ROUTES as routes } from "@/config/routes";
-import { youtubeDashboard } from "@/config/youtubeDashboard";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react"
-import { Footer, MainLayoutWrapper, MainRefContext, Sidebar } from "ui";
+import { Footer, MainLayoutWrapper, MainRefContext } from "ui";
 import QueryClientWrapper from "./QueryClientLayout";
+import SmallScreenError from "@/components/SmallScreen";
+import DashboardNav from "@/components/DashboardNav";
 
 type AuthStatus =
   | "checking"
@@ -21,9 +22,7 @@ type SessionUser = {
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   const mainRef = useRef<HTMLElement | null>(null);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const pathname = usePathname();
-  const youtubeBasePath = `/${pathname.split("/").filter(Boolean)[0] ?? ""}`;
   const router = useRouter();
   const [authStatus, setAuthStatus] = useState<AuthStatus>("checking");
   const [sessionUser, setSessionUser] = useState<SessionUser | null>(null);
@@ -117,28 +116,6 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
       setAuthStatus("signed-in");
     }
   }
-  
-  useEffect(() => {
-    document.documentElement.style.setProperty("--navbar-height", "48px");
-
-    let lastIsDesktop = window.innerWidth >= 1024;
-
-    const handleResize = () => {
-      const isDesktop = window.innerWidth >= 1024;
-      if (isDesktop !== lastIsDesktop) {
-        setSidebarOpen(isDesktop);
-        lastIsDesktop = isDesktop;
-        console.log(lastIsDesktop);
-      }
-    };
-
-    setSidebarOpen(window.innerWidth >= 1024);
-
-    window.addEventListener("resize", handleResize);
-    handleResize();
-
-    return () => window.removeEventListener("resize", handleResize)
-  }, []);
 
   return (
     <QueryClientWrapper>
@@ -147,9 +124,6 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
           navbar={{
             variant: "dashboard",
             enableShrink: false,
-            onToggleSideNav: () => setSidebarOpen(s => !s),
-            isSidebarOpen: sidebarOpen,
-            hasSidenav: true,
             routes,
             auth: {
               status: authStatus,
@@ -158,24 +132,21 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
             }
           }}
         >
-            <div className="relative flex min-h-[calc(100vh-48px)]">
-              <Sidebar
-                menuItems={[youtubeDashboard]}
-                basePath={youtubeBasePath}
-                mainDocs={false}
-                isOpen={sidebarOpen}
-                onClose={() => setSidebarOpen(false)}
-              />
-              <main
-                ref={mainRef}
-                className="flex min-w-0 flex-1 flex-col bg-gray-900"
-              >
-                <div className="flex-1 px-2">
-                  {children}
-                </div>
-                <Footer />
-              </main>
-            </div>
+          <div className="relative flex min-h-[calc(100vh-48px)]">
+            <main
+              ref={mainRef}
+              className="flex min-w-0 flex-1 flex-col bg-gray-900"
+            >
+              <DashboardNav/>
+              <div className="hidden lg:block flex-1 px-2">
+                {children}
+              </div>
+              <div className="lg:hidden flex-1 px-2">
+                <SmallScreenError/>
+              </div>
+              <Footer />
+            </main>
+          </div>
         </MainLayoutWrapper>
       </MainRefContext.Provider>
     </QueryClientWrapper>
