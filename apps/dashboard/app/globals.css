@@ -104,6 +104,85 @@ main {
   margin-bottom: 8px;
 }
 
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.modal-overlay.show {
+  opacity: 1;
+}
+
+.modal-overlay.hide {
+  opacity: 0;
+}
+
+.modal-content {
+  background: #030712;
+  scrollbar-color: #4a5565 #030712;
+  max-height: 100%;
+  border-radius: 8px;
+  transform: scale(0.95);
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.modal-content.show {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.modal-content.hide {
+  transform: scale(0.95);
+  opacity: 0;
+}
+
+.modal-header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* centers the title horizontally */
+  background-color: #030712;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #1f2937;
+  z-index: 10;
+}
+
+/* Position the Close button absolutely in top-right corner */
+.modal-header button {
+  position: absolute;
+  right: 1rem;
+}
+
+/* Title styling */
+.modal-title {
+  font-size: 2.25rem;
+  font-weight: bolder;
+  color: white;
+  margin: 0;
+  text-align: center;
+  max-width: 80%;
+  margin-right: 5rem;
+}
+
+/* Scrollable body */
+.modal-body {
+  margin-bottom: 0.5rem;
+  overflow-y: auto;
+  max-height: 80vh;
+}
+
 @media only screen and (max-width: 768px) {
   .head1 {
     font-size: 30px;

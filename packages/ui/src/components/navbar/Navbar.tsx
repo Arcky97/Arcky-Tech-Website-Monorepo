@@ -28,13 +28,13 @@ export type NavbarProps = {
 
 export function Navbar({ variant = "web", enableShrink, hasSidenav, isSidebarOpen, onToggleSideNav, routes, auth }: NavbarProps) {
   const [hasScrolled, setHasScrolled] = useState(false);
-  const [isShrunk, setIsShrunk] = useState(false || !enableShrink);
+  const [isShrunk, setIsShrunk] = useState(!enableShrink);
   const navRef = useRef<HTMLElement>(null);
   const mainRef = useMainRef();
 
   useEffect(() => {
     const mainEl = mainRef?.current;
-    if (!mainEl) return;
+    if (!mainEl || !enableShrink) return;
 
     const handleScroll = () => {
       const scrollTop = mainEl.scrollTop;
@@ -108,12 +108,12 @@ useEffect(() => {
         {/* Logo (Arcky-Tech) */}
         <h1
           className={`${
-            isShrunk || variant === "docs"
+            isShrunk || !enableShrink && !hasSidenav || variant === "docs"
               ? "lg:text-2xl sm:text-xl text-base"
               : "lg:text-3xl sm:text-2xl text-base"
           } font-bold transition-all duration-300 ease-in-out text-left ${
             variant !== "docs"
-              ? hasScrolled
+              ? hasScrolled || !enableShrink && !hasSidenav
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 -translate-5"
               : "opacity-100"
