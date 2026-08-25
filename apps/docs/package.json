@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "next dev -p 3001",
     "build": "npm run generate:updates && next build",
+    "build-s": "next build",
     "start": "next start -p 3001",
     "lint": "next lint",
     "generate:updates": "node scripts/generateUpdates.js"
