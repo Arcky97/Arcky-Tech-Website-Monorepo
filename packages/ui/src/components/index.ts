@@ -12,3 +12,4 @@ export * from "./ImageWithCaption";
 export * from "./context/MainRefContext";
 export * from "./InlineCode";
 export * from "./Skeleton";
+export * from "./InputNumber";
