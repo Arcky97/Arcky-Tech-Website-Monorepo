@@ -15,8 +15,6 @@ type Video = {
   thumbnailUrl: string;
   publishedAt: string;
   goalProfileId: number;
-  series: string;
-  episodeNumber: string;
 };
 
 type VideoSnapshot = {

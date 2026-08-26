@@ -65,7 +65,7 @@ export function Sidebar({ menuItems, docType, mainDocs, basePath, isOpen, onClos
           transition-all duration-300 ease-in-out w-80 ${
             isOpen ? "translate-x-0 opacity-100" : "-translate-x-full"
           }`}
-        style={{ height: "calc(100vh - 48px)" }}
+        style={{ height: "calc(100dvh - 48px)" }}
       >
         {/* Scroll container */}
         <div id="side-scroll" className="h-full overflow-y-scroll pt-4 pb-16">

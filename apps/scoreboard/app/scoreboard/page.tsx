@@ -196,7 +196,7 @@ export default function Scoreboard() {
     <>
       {/* Background wrapper */}
       <div
-        className="min-h-[calc(100vh-189px)] w-full bg-no-repeat bg-cover bg-center"
+        className="min-h-[calc(100dvh-189px)] w-full bg-no-repeat bg-cover bg-center"
         style={{
           backgroundImage: "url('/images/scoreboard/background.jpg')"
         }}

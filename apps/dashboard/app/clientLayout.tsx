@@ -14,7 +14,7 @@ type AuthStatus =
   | "logging-in"
   | "logging-out";
 
-type SessionUser = {
+export type SessionUser = {
   youtube?: {
     channelId?: string;
   } | null;
@@ -39,6 +39,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
 
         const data = await response.json() as { user?: SessionUser };
         setSessionUser(data.user ?? null);
+        console.log(data);
         setAuthStatus("signed-in");
       } catch (error) {
         setAuthStatus("signed-out");
@@ -62,7 +63,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
 
     if (pathname === "/") {
       if (authStatus === "signed-in" && channelId) {
-        router.replace(`/${channelId}/home`);
+        router.replace(`/youtube/${channelId}/home`);
       }
       return;
     }
@@ -77,17 +78,17 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
     }
 
     if (pathname === "/youtube") {
-      router.replace(`/${channelId}/home`);
+      router.replace(`/youtube/${channelId}/home`);
       return;
     }
 
-    if (pathParts[0] !== channelId) {
-      router.replace(`/access-denied?redirect=${encodeURIComponent(`/${channelId}/home`)}`);
+    if (pathParts[0] !== "youtube" || pathParts[1] !== channelId) {
+      router.replace(`/access-denied?redirect=${encodeURIComponent(`/youtube/${channelId}/home`)}`);
       return;
     }
 
-    if (pathParts.length === 1) {
-      router.replace(`/${channelId}/home`);
+    if (pathParts.length === 2) {
+      router.replace(`/youtube/${channelId}/home`);
     }
   }, [authStatus, pathname, router, sessionUser]);
 
@@ -132,12 +133,12 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
             }
           }}
         >
-          <div className="relative flex min-h-[calc(100vh-48px)]">
+          <div className="relative flex min-h-[calc(100dvh-48px)]">
             <main
               ref={mainRef}
               className="flex min-w-0 flex-1 flex-col bg-gray-900"
             >
-              <DashboardNav/>
+              <DashboardNav user={sessionUser}/>
               <div className="hidden lg:block flex-1 px-2">
                 {children}
               </div>

@@ -73,7 +73,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
               ref={mainRef}
               className="flex-1 bg-gray-900 h-full"
             >
-              <div className="flex min-h-[calc(100vh-48px)] px-2">
+              <div className="flex min-h-[calc(100dvh-48px)] px-2">
                 {children}
                 <DocsTOC/>
               </div>

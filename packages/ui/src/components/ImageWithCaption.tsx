@@ -119,8 +119,8 @@ export function ImageWithCaption ({
             style={{
               top: isOpen ? "0" : `${thumbnailRect.top}px`,
               left: isOpen ? "0" : `${thumbnailRect.left}px`,
-              width: isOpen ? "100vw" : `${thumbnailRect.width}px`,
-              height: isOpen ? "100vh" : `${thumbnailRect.height}px`,
+              width: isOpen ? "100dvw" : `${thumbnailRect.width}px`,
+              height: isOpen ? "100dvh" : `${thumbnailRect.height}px`,
               transform: isOpen
                 ? "translate(0, 0) scale(1)"
                 : "translate(0, 0) scale(1)",

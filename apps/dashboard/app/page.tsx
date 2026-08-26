@@ -2,7 +2,7 @@ import { ColorButton } from "ui";
 
 export default function Home() {
   return (
-    <section className="relative isolate flex min-h-[calc(100vh-9rem)] items-center overflow-hidden px-5 py-16 text-white sm:px-10">
+    <section className="relative isolate flex min-h-[calc(100dvh-9rem)] items-center overflow-hidden px-5 py-16 text-white sm:px-10">
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_80%_15%,rgba(239,68,68,0.22),transparent_32%),radial-gradient(circle_at_15%_80%,rgba(14,165,233,0.18),transparent_35%),#101828]" />
       <div className="mx-auto grid w-full max-w-6xl gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
         <div className="max-w-2xl">

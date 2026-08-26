@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GoalModal from "./modals/GoalModal";
+import { SessionUser } from "@/app/clientLayout";
 
-export default function DashboardNav() {
-  const { youtubeId } = useParams<{ youtubeId: string}>();
+export default function DashboardNav({ user }: { user: SessionUser | null }) {
 
   const [activeModal, setActiveModal] = useState<"goals" | "settings" | null>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -47,17 +47,19 @@ export default function DashboardNav() {
   return (
     <>
       <nav className="flex gap-4 px-2 py-2 text-white text-left sticky top-0 w-full bg-gray-900 justify-end text-lg font-bold ">
-        {navConfig.map(item => {
+        {navConfig.map((item, index) => {
           if (item.path) {
             return (
               <Link
+                key={`item-${index}`}
                 className="hover:text-gray-400 transition-all duration-300 ease-in-out"
-                href={`/youtube/${youtubeId}/${item.path}`}
+                href={`/youtube/${user?.youtube?.channelId}/${item.path}`}
               >{item.name}</Link>
             )
           }
           return (
             <button 
+              key={`item-${index}`}
               onClick={item.action}
               className="hover:text-gray-400 transition-all duration-300 ease-in-out cursor-pointer"
             >

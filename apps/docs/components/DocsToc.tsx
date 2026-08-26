@@ -96,7 +96,7 @@ export function DocsTOC() {
   }
 
   return (
-    <aside ref={tocRef} className="w-52 sticky top-0 h-[calc(100vh-48px)] overflow-auto border-l border-gray-700/40 px-3 py-4 hidden lg:inline">
+    <aside ref={tocRef} className="w-52 sticky top-0 h-[calc(100dvh-48px)] overflow-auto border-l border-gray-700/40 px-3 py-4 hidden lg:inline">
       <div className="text-white text-xs uppercase opacity-60 mb-3">On this page</div>
 
       <nav className="space-y-1 relative">
