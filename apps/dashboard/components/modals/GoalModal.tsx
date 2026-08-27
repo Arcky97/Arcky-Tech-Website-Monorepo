@@ -63,7 +63,8 @@ export default function GoalModal({ isVisible, onClose }: GoalModalProps) {
               {goalQuery.isLoading && (
                 <tr><td colSpan={6}>Loading Goals...</td></tr>
               )}
-              {goalQuery.data?.map(goal => (
+              {goalQuery.data && goalQuery.data?.length >= 1 ?
+              (goalQuery.data?.map(goal => (
                 <tr key={goal.id}>
                   <td>{goal.id}</td>
                   <td>{goal.name}</td>
@@ -76,11 +77,28 @@ export default function GoalModal({ isVisible, onClose }: GoalModalProps) {
                       handleBlur={() => ""}
                       width={7}
                       extra=""                    
-                    /></td>
+                    />
+                  </td>
                 </tr>
-              ))}
+              ))) : (
+                <tr className="border-t border-gray-700 hover:bg-gray-800 transition-colors duration-300 ease-in-out">
+                  <td
+                    colSpan={6}
+                    className="px-4 py-3 text-center"
+                  >
+                    No Goals added.
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
+          <div className="w-1/2 mx-auto mb-4">
+            <ColorButton
+              color="blue-800"
+              text="Add new Goal"
+              action={() => ""}
+            />
+          </div>
         </div>
       </div>
     </div>
