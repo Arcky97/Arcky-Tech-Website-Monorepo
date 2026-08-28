@@ -1,13 +1,8 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiFetch } from "@/lib/apiFetch";
 import { youtubeKeys } from "@/queries/youtube";
-
-// Backend backfill endpoint expects a plain YYYY-MM-DD date.
-function toDateOnly(value: string) {
-  return new Date(value).toISOString().slice(0, 10);
-}
 
 type Video = {
   videoId: string;
@@ -116,21 +111,13 @@ export function ExampleClient() {
 
   // Derive the earliest publish date from the already-loaded videos list —
   // no separate fetch needed, this just reduces data already in the cache.
-  const firstVideoDate = useMemo(() => {
-    if (!videosQuery.data || videosQuery.data.length === 0) return null;
 
-    const earliest = videosQuery.data.reduce((oldest, video) =>
-      new Date(video.publishedAt) < new Date(oldest.publishedAt) ? video : oldest
-    );
-
-    return toDateOnly(earliest.publishedAt);
-  }, [videosQuery.data]);
-
-  // 7. Same fire-and-track shape as sync, but the job kind ("backfill") and
-  // its start date come from derived data instead of user input.
-  const startFillMutation = useMutation({
-    mutationFn: (date: string) =>
-      apiFetch<{ jobId: string }>(`/api/youtube/sync/fill/${date}`, "POST"),
+  // 7. Same fire-and-track shape as sync, but scoped to a single video: only
+  // backfills snapshots for the video being viewed, back to its publish date
+  // (capped server-side at 2 years, or 5 years if a date is ever passed).
+  const startVideoFillMutation = useMutation({
+    mutationFn: (videoId: string) =>
+      apiFetch<{ jobId: string }>(`/api/youtube/sync/fill/${videoId}`),
     onSuccess: (data) => setFillJobId(data.jobId)
   });
 
@@ -159,7 +146,10 @@ export function ExampleClient() {
             <li key={video.videoId}>
               <button
                 className={video.videoId === selectedVideoId ? "font-bold" : ""}
-                onClick={() => setSelectedVideoId(video.videoId)}
+                onClick={() => {
+                  setSelectedVideoId(video.videoId);
+                  startVideoFillMutation.mutate(video.videoId);
+                }}
               >
                 {video.title}
               </button>
@@ -232,14 +222,14 @@ export function ExampleClient() {
         <h2 className="text-xl font-semibold">Backfill</h2>
 
         <button
-          onClick={() => firstVideoDate && startFillMutation.mutate(firstVideoDate)}
-          disabled={!firstVideoDate || startFillMutation.isPending}
+          onClick={() => selectedVideoId && startVideoFillMutation.mutate(selectedVideoId)}
+          disabled={!selectedVideoId || startVideoFillMutation.isPending}
         >
-          {startFillMutation.isPending
+          {startVideoFillMutation.isPending
             ? "Starting…"
-            : firstVideoDate
-              ? `Backfill from ${firstVideoDate}`
-              : "No videos yet"}
+            : selectedVideoId
+              ? "Backfill snapshots for this video"
+              : "Select a video first"}
         </button>
 
         {fillStatusQuery.data && (
