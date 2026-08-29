@@ -4,7 +4,7 @@ import { useMutation,  useQuery, useQueryClient } from "@tanstack/react-query";
 import { ColorButton } from "ui";
 import InputNumber from "ui/src/components/InputNumber";
 import LoadingOverlay from "../overlays/loadingOverlay";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import InputText from "ui/src/components/InputText";
 
 type GoalModalProps = {
@@ -22,7 +22,14 @@ type GoalProfile = {
   watchHours: number;
 };
 
+// Fields that are user-editable and saved when the modal closes
+const EDITABLE_FIELDS = ["name", "views", "likes", "comments", "watchHours"] as const;
+type EditableField = typeof EDITABLE_FIELDS[number];
+
+type GoalFields = Pick<GoalInput, EditableField>;
+
 type GoalInput = {
+  uid: string;
   id?: number;
   name: string;
   views: number;
@@ -31,18 +38,52 @@ type GoalInput = {
   watchHours: number;
 };
 
-const emptyGoal: GoalInput = {
+const MIN_SAVE_DISPLAY_MS = 2000;
+
+const createEmptyGoal = (): GoalInput => ({
+  uid: crypto.randomUUID(),
   name: "",
   views: 0,
   likes: 0,
   comments: 0,
   watchHours: 0
-};
+});
+
+const extractFields = (goal: GoalFields): GoalFields => ({
+  name: goal.name,
+  views: goal.views,
+  likes: goal.likes,
+  comments: goal.comments,
+  watchHours: goal.watchHours
+});
+
+const fieldsAreEqual = (a: GoalFields, b: GoalFields) =>
+  EDITABLE_FIELDS.every(field => a[field] === b[field]);
 
 export default function GoalModal({ isVisible, onClose }: GoalModalProps) {
   const queryClient = useQueryClient();
 
   const [goals, setGoals] = useState<GoalInput[]>([]);
+
+  // Snapshot of goals as they were when the modal was opened, used for "reset"
+  const originalGoalsRef = useRef<Record<string, GoalFields>>({});
+  // Snapshot of the last values successfully persisted to the server, used to decide what needs saving
+  const lastSavedGoalsRef = useRef<Record<string, GoalFields>>({});
+  // Always-current copy of goals, so the close handler reads the latest edits
+  const goalsRef = useRef<GoalInput[]>([]);
+  const initializedRef = useRef(false);
+
+  const [isSaving, setIsSaving] = useState(false);
+
+  useEffect(() => {
+    goalsRef.current = goals;
+  }, [goals]);
+
+  useEffect(() => {
+    if (!isVisible) {
+      initializedRef.current = false;
+    }
+  }, [isVisible]);
 
   const goalQuery = useQuery({
     queryKey: youtubeKeys.goalProfiles(),
@@ -51,52 +92,67 @@ export default function GoalModal({ isVisible, onClose }: GoalModalProps) {
   });
 
   useEffect(() => {
-    if (!goalQuery.data) {
-      setGoals([]);
+    if (!goalQuery.data || initializedRef.current) {
       return;
     }
 
-    setGoals(
-      goalQuery.data.map(goal => ({
-        id: goal.id,
-        name: goal.name,
-        views: goal.views,
-        likes: goal.likes,
-        comments: goal.comments,
-        watchHours: goal.watchHours
-      }))
-    );
+    const loadedGoals: GoalInput[] = goalQuery.data.map(goal => ({
+      uid: crypto.randomUUID(),
+      id: goal.id,
+      name: goal.name,
+      views: goal.views,
+      likes: goal.likes,
+      comments: goal.comments,
+      watchHours: goal.watchHours
+    }));
+
+    originalGoalsRef.current = {};
+    lastSavedGoalsRef.current = {};
+    loadedGoals.forEach(goal => {
+      const fields = extractFields(goal);
+      originalGoalsRef.current[goal.uid] = fields;
+      lastSavedGoalsRef.current[goal.uid] = fields;
+    });
+
+    setGoals(loadedGoals);
+    initializedRef.current = true;
   }, [goalQuery.data]);
 
   const createGoalMutation = useMutation({
-    mutationFn: (newGoal: GoalInput) => 
+    mutationFn: (vars: { uid: string; goal: GoalFields }) =>
       apiFetch<GoalProfile>("/api/youtube/profile", "POST", {
-        name: newGoal.name,
-        views: newGoal.views,
-        likes: newGoal.likes,
-        comments: newGoal.comments,
-        watchHours: newGoal.watchHours
+        name: vars.goal.name,
+        views: vars.goal.views,
+        likes: vars.goal.likes,
+        comments: vars.goal.comments,
+        watchHours: vars.goal.watchHours
       }),
 
-    onSuccess: () => {
-      queryClient.invalidateQueries({ 
+    onSuccess: (created, vars) => {
+      lastSavedGoalsRef.current[vars.uid] = vars.goal;
+      setGoals(prev =>
+        prev.map(goal =>
+          goal.uid === vars.uid ? { ...goal, id: created.id } : goal
+        )
+      );
+      queryClient.invalidateQueries({
         queryKey: youtubeKeys.goalProfiles()
       });
     }
   });
 
   const updateGoalMutation = useMutation({
-    mutationFn: (goal: GoalInput) =>
-      apiFetch(`/api/youtube/profile/${goal.id}`, "PUT", {
-        name: goal.name,
-        views: goal.views,
-        likes: goal.likes,
-        comments: goal.comments,
-        watchHours: goal.watchHours
-      }
-    ),
+    mutationFn: (vars: { uid: string; id: number; goal: GoalFields }) =>
+      apiFetch(`/api/youtube/profile/${vars.id}`, "PATCH", {
+        name: vars.goal.name,
+        views: vars.goal.views,
+        likes: vars.goal.likes,
+        comments: vars.goal.comments,
+        watchHours: vars.goal.watchHours
+      }),
 
-    onSuccess: () => {
+    onSuccess: (_data, vars) => {
+      lastSavedGoalsRef.current[vars.uid] = vars.goal;
       queryClient.invalidateQueries({
         queryKey: youtubeKeys.goalProfiles()
       });
@@ -104,10 +160,13 @@ export default function GoalModal({ isVisible, onClose }: GoalModalProps) {
   });
 
   const deleteGoalMutation = useMutation({
-    mutationFn: (id: number) =>
-      apiFetch(`/api/youtube/profile/${id}`, "DELETE"),
+    mutationFn: (vars: { uid: string; id: number }) =>
+      apiFetch(`/api/youtube/profile/${vars.id}`, "DELETE"),
 
-    onSuccess: () => {
+    onSuccess: (_data, vars) => {
+      delete originalGoalsRef.current[vars.uid];
+      delete lastSavedGoalsRef.current[vars.uid];
+      setGoals(prev => prev.filter(goal => goal.uid !== vars.uid));
       queryClient.invalidateQueries({
         queryKey: youtubeKeys.goalProfiles()
       });
@@ -115,13 +174,13 @@ export default function GoalModal({ isVisible, onClose }: GoalModalProps) {
   });
 
   const handleGoalChange = (
-    index: number,
-    field: keyof GoalInput,
+    uid: string,
+    field: EditableField,
     value: string | number
   ) => {
     setGoals(prev =>
-      prev.map((goal, i) => 
-        i === index 
+      prev.map(goal =>
+        goal.uid === uid
           ? {
               ...goal,
               [field]: value
@@ -132,39 +191,80 @@ export default function GoalModal({ isVisible, onClose }: GoalModalProps) {
   };
 
   const handleAddGoal = () => {
-    setGoals(prev => [
-      ...prev,
-      {
-        ...emptyGoal
-      }
-    ]);
+    const goal = createEmptyGoal();
+    originalGoalsRef.current[goal.uid] = extractFields(goal);
+
+    setGoals(prev => [...prev, goal]);
   };
 
-  const handleSaveGoal = (goal: GoalInput) => {
-    if (!goal.name.trim()) {
-      return;
-    }
-
-    if (goal.id !== undefined) {
-      updateGoalMutation.mutate(goal);
-    } else {
-      createGoalMutation.mutate(goal);
-    }
-  };
-
-  const handleDeleteGoal = (
-    index: number,
-    goal: GoalInput
-  ) => {
+  const handleDeleteGoal = (goal: GoalInput) => {
     if (goal.id === undefined) {
-      setGoals(prev =>
-        prev.filter((_, i) => i !== index)
-      );
+      delete originalGoalsRef.current[goal.uid];
+      delete lastSavedGoalsRef.current[goal.uid];
+
+      setGoals(prev => prev.filter(g => g.uid !== goal.uid));
 
       return;
     }
 
-    deleteGoalMutation.mutate(goal.id);
+    deleteGoalMutation.mutate({ uid: goal.uid, id: goal.id });
+  };
+
+  // Returns the fields to persist for a goal, or null if there's nothing new to save
+  const getPendingSave = (goal: GoalInput): GoalFields | null => {
+    const baseline =
+      lastSavedGoalsRef.current[goal.uid] ??
+      originalGoalsRef.current[goal.uid] ??
+      extractFields(createEmptyGoal());
+
+    const current = extractFields(goal);
+
+    if (!current.name.trim() || fieldsAreEqual(current, baseline)) {
+      return null;
+    }
+
+    return current;
+  };
+
+  const saveAllGoals = async () => {
+    await Promise.all(
+      goalsRef.current.map(async goal => {
+        const pending = getPendingSave(goal);
+        if (!pending) {
+          return;
+        }
+
+        if (goal.id !== undefined) {
+          await updateGoalMutation.mutateAsync({ uid: goal.uid, id: goal.id, goal: pending });
+        } else {
+          await createGoalMutation.mutateAsync({ uid: goal.uid, goal: pending });
+        }
+      })
+    );
+  };
+
+  const handleClose = async () => {
+    const hasPendingChanges = goalsRef.current.some(goal => getPendingSave(goal) !== null);
+
+    if (!hasPendingChanges) {
+      onClose();
+      return;
+    }
+
+    setIsSaving(true);
+    const start = Date.now();
+
+    try {
+      await saveAllGoals();
+    } finally {
+      const remaining = MIN_SAVE_DISPLAY_MS - (Date.now() - start);
+      if (remaining > 0) {
+        await new Promise(resolve => setTimeout(resolve, remaining));
+      }
+
+      setIsSaving(false);
+      onClose();
+    }
   };
 
   const isMutating =
@@ -172,14 +272,17 @@ export default function GoalModal({ isVisible, onClose }: GoalModalProps) {
     updateGoalMutation.isPending || 
     deleteGoalMutation.isPending;
 
+  const lastGoal = goals[goals.length - 1];
+  const isAddDisabled = !!lastGoal && !lastGoal.name.trim();
+
   return (
     <div
       className={`modal-overlay ${isVisible ? "show" : "hide"}`}
-      onClick={onClose}
+      onClick={handleClose}
     >
       <LoadingOverlay
-        text="Loading Goals"
-        disabled={goalQuery.isLoading}
+        text={goalQuery.isLoading ? "Loading Goals" : "Saving Changes"}
+        disabled={goalQuery.isLoading || isSaving}
       />
       <div 
         className={`modal-content ${isVisible ? "show" : "hide"} "max-w-[95%] w-[75%]"`}
@@ -187,14 +290,16 @@ export default function GoalModal({ isVisible, onClose }: GoalModalProps) {
       >
         {/* Sticky top bar */}
         <div className="modal-header">
-          <h1 className="modal-title">
-            Goals
-          </h1>
+          <div>
+            <h1 className="modal-title">
+              Goals
+            </h1>
+          </div>
 
           <ColorButton
             color="red-800"
             text="Close"
-            action={onClose}
+            action={handleClose}
           />
         </div>
 
@@ -228,11 +333,9 @@ export default function GoalModal({ isVisible, onClose }: GoalModalProps) {
 
             <tbody>
               {goals.length > 0 ?(
-                goals.map((goal, index) => (
+                goals.map((goal) => (
                   <tr 
-                    key={
-                      goal.id ?? `new-${index}`
-                    }
+                    key={goal.uid}
                     className="border-t border-gray-700"
                   >
                     <td className="px-4 py-2">
@@ -244,7 +347,7 @@ export default function GoalModal({ isVisible, onClose }: GoalModalProps) {
                         placeholder="Goal Name"
                         handleChange={(value) => 
                           handleGoalChange(
-                            index,
+                            goal.uid,
                             "name",
                             value
                           )
@@ -264,7 +367,7 @@ export default function GoalModal({ isVisible, onClose }: GoalModalProps) {
                         placeholder="Views"
                         handleChange={(value) => 
                           handleGoalChange(
-                            index,
+                            goal.uid,
                             "views",
                             value
                           )
@@ -284,7 +387,7 @@ export default function GoalModal({ isVisible, onClose }: GoalModalProps) {
                         placeholder="Likes"
                         handleChange={(value) =>
                           handleGoalChange(
-                            index,
+                            goal.uid,
                             "likes",
                             value
                           )
@@ -304,7 +407,7 @@ export default function GoalModal({ isVisible, onClose }: GoalModalProps) {
                         placeholder="Comments"
                         handleChange={(value) =>
                           handleGoalChange(
-                            index,
+                            goal.uid,
                             "comments",
                             value
                           )
@@ -324,7 +427,7 @@ export default function GoalModal({ isVisible, onClose }: GoalModalProps) {
                         placeholder="Watch Hours"
                         handleChange={(value) =>
                           handleGoalChange(
-                            index,
+                            goal.uid,
                             "watchHours",
                             value
                           )
@@ -334,12 +437,13 @@ export default function GoalModal({ isVisible, onClose }: GoalModalProps) {
                       />
                     </td>
 
-                    <td className="px-4 py-2">
+                    <td className="px-4 py-2 flex gap-2 justify-center">
                       <ColorButton
                         color="red-800"
                         text="Delete"
+                        disabled={goal.id === undefined}
                         action={() =>
-                          handleDeleteGoal(index, goal)
+                          handleDeleteGoal(goal)
                         }
                       />
                     </td>
@@ -357,11 +461,13 @@ export default function GoalModal({ isVisible, onClose }: GoalModalProps) {
               )}
             </tbody>
           </table>
-          <div className="w-1/2 mx-auto mb-4">
+          <div className="flex">
             <ColorButton
               color="blue-800"
               text="Add new Goal"
+              disabled={isAddDisabled}
               action={handleAddGoal}
+              extraClass="w-1/2 mx-auto mb-4"
             />
           </div>
         </div>

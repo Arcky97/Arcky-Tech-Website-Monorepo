@@ -46,7 +46,7 @@ export default function DashboardNav({ user }: { user: SessionUser | null }) {
 
   return (
     <>
-      <nav className="flex gap-4 px-2 py-2 text-white text-left sticky top-0 w-full bg-gray-900 justify-end text-lg font-bold ">
+      <nav className="flex gap-4 px-2 py-2 text-white text-left sticky top-0 w-full bg-gray-900 justify-end text-lg font-bold border-b border-gray-800">
         {navConfig.map((item, index) => {
           if (item.path) {
             return (

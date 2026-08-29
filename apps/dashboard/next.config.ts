@@ -13,6 +13,14 @@ const nextConfig: NextConfig = {
   output: "standalone",
   transpilePackages: ["ui"],
   pageExtensions: ["ts", "tsx", "md", "mdx"],
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "yt3.ggpht.com"
+      }
+    ]
+  },
 };
 
 export default withMDX(nextConfig);

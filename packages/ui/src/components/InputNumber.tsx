@@ -4,6 +4,7 @@ type InputNumberProps = {
   range: Record<string, number>,
   placeholder: string,
   handleChange: (e: number) => void;
+  handleFocus?: () => void;
   handleBlur?: () => void;
   width: number,
   extra?: string,
@@ -14,7 +15,7 @@ type InputNumberProps = {
   readOnly?: boolean
 }
 
-export default function InputNumber({ value, range, placeholder, handleChange, handleBlur, width, extra, noValidation = false, table = false, disabled = false, addKey = undefined, readOnly = false }: InputNumberProps) {
+export default function InputNumber({ value, range, placeholder, handleChange, handleFocus, handleBlur, width, extra, noValidation = false, table = false, disabled = false, addKey = undefined, readOnly = false }: InputNumberProps) {
   return (
     <div className={`flex ${table ? "items-center justify-center" : ""}`}>
       <div className={`${table ? "" : "relative"}`}>
@@ -28,6 +29,7 @@ export default function InputNumber({ value, range, placeholder, handleChange, h
           value={value}
           placeholder={placeholder}
           onChange={(e) => handleChange(Number(e.target.value))}
+          onFocus={handleFocus}
           onBlur={handleBlur}
           disabled={disabled}
           className={`content-box-w${width} ${!table && "mb-4"}`}

@@ -3,6 +3,8 @@ type InputTextProps = {
   value: string;
   placeholder: string;
   handleChange: (e: string) => void;
+  handleFocus?: () => void;
+  handleBlur?: () => void;
   width: number;
   key?: string;
   readOnly?: boolean;
@@ -10,7 +12,7 @@ type InputTextProps = {
   table?: boolean;
 }
 
-export default function InputText({ value, placeholder, handleChange, width, key, readOnly, disabled, table}: InputTextProps) {
+export default function InputText({ value, placeholder, handleChange, handleFocus, handleBlur, width, key, readOnly, disabled, table}: InputTextProps) {
   return (
     <input
       key={key}
@@ -18,6 +20,8 @@ export default function InputText({ value, placeholder, handleChange, width, key
       value={value}
       placeholder={placeholder}
       onChange={(e) => handleChange(String(e.target.value))}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
       readOnly={readOnly}
       className={`content-box-w${width} ${!table && "mb-4"}`}
       disabled={disabled}
