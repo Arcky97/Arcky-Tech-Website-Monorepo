@@ -279,10 +279,10 @@ export default function Youtube() {
               "POST",
               {
                 name: "Test Profile",
-                goalViews: 250,
-                goalWatchHours: 65,
-                goalLikes: 10,
-                goalComments: 10,
+                views: 250,
+                watchHours: 65,
+                likes: 10,
+                comments: 10,
               }
             )
           }
@@ -298,8 +298,8 @@ export default function Youtube() {
               "PATCH",
               {
                 name: "Test Profile",
-                goalViews: 500,
-                goalLikes: 25,
+                views: 500,
+                likes: 25,
               }
             )
           }

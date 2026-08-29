@@ -3,10 +3,10 @@ type InputNumberProps = {
   value: number,
   range: Record<string, number>,
   placeholder: string,
-  handleChange: () => void;
-  handleBlur: () => void;
+  handleChange: (e: number) => void;
+  handleBlur?: () => void;
   width: number,
-  extra: string,
+  extra?: string,
   noValidation?: boolean,
   table?: boolean,
   disabled?: boolean,
@@ -27,7 +27,7 @@ export default function InputNumber({ value, range, placeholder, handleChange, h
           step={range?.step ?? 1}
           value={value}
           placeholder={placeholder}
-          onChange={handleChange}
+          onChange={(e) => handleChange(Number(e.target.value))}
           onBlur={handleBlur}
           disabled={disabled}
           className={`content-box-w${width} ${!table && "mb-4"}`}
