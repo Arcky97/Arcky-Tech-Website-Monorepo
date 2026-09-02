@@ -39,7 +39,6 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
 
         const data = await response.json() as { user?: SessionUser };
         setSessionUser(data.user ?? null);
-        console.log(data);
         setAuthStatus("signed-in");
       } catch (error) {
         setAuthStatus("signed-out");
