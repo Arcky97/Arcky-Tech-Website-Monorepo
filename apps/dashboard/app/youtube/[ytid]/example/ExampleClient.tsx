@@ -55,7 +55,7 @@ export function ExampleClient() {
 
   // 3. Another dependent query, same enabled pattern, separate cache entry.
   const snapshotsQuery = useQuery({
-    queryKey: youtubeKeys.snapshots(selectedVideoId ?? ""),
+    queryKey: youtubeKeys.videoSnapshots(selectedVideoId ?? ""),
     queryFn: () => apiFetch<unknown[]>(`/api/youtube/videos/${selectedVideoId}/snapshots`),
     enabled: !!selectedVideoId
   });

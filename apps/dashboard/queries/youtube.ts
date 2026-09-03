@@ -4,14 +4,17 @@ export const youtubeKeys = {
   channel: () =>
     [...youtubeKeys.all, "channel"] as const,
 
+  channelSnapshots: () => 
+    [...youtubeKeys.all, "channel-snapshots"] as const,
+
   videos: () =>
     [...youtubeKeys.all, "videos"] as const,
 
   video: (videoId: string) =>
     [...youtubeKeys.all, "video", videoId] as const,
 
-  snapshots: (videoId: string) =>
-    [...youtubeKeys.all, "snapshots", videoId] as const,
+  videoSnapshots: (videoId: string) =>
+    [...youtubeKeys.all, "video-snapshots", videoId] as const,
 
   goalProfiles: () => 
     [...youtubeKeys.all, "goalProfiles"] as const,

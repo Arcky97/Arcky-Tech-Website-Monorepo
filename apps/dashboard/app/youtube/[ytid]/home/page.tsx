@@ -21,6 +21,18 @@ type Channel = {
 	publishedAt: Date;
 };
 
+type ChannelSnapshots = {
+	id: number;
+  channelId: string;
+  views: number;
+  watchHours: number;
+  subscribersGained: number;
+  subscribersLost: number;
+  snapshotDate: Date;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 type ChannelStatKey =
 	| "subscriberCount"
 	| "viewCount"
@@ -62,6 +74,11 @@ export default function YoutubeHome() {
 	const channelQuery = useQuery({
 		queryKey: youtubeKeys.channel(),
 		queryFn: () => apiFetch<Channel>("/api/youtube/channel")
+	});
+
+	const channelSnapshotQuery = useQuery({
+		queryKey: youtubeKeys.channelSnapshots(),
+		queryFn: () => apiFetch<ChannelSnapshots>("/api/youtube/channel/snapshots")
 	});
 
 	const searchParams = useSearchParams();
@@ -126,9 +143,9 @@ export default function YoutubeHome() {
 							})}
 						</div>
 					</div>
+					{channelSnapshotQuery.data && <p>{JSON.stringify(channelSnapshotQuery.data)}</p>}
 				</article>
 			)}
-
 		</>
 	);
 }
