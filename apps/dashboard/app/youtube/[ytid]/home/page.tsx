@@ -78,7 +78,7 @@ export default function YoutubeHome() {
 
 	const channelSnapshotQuery = useQuery({
 		queryKey: youtubeKeys.channelSnapshots(),
-		queryFn: () => apiFetch<ChannelSnapshots>("/api/youtube/channel/snapshots")
+		queryFn: () => apiFetch<ChannelSnapshots[]>("/api/youtube/channel/snapshots")
 	});
 
 	const searchParams = useSearchParams();
@@ -143,7 +143,6 @@ export default function YoutubeHome() {
 							})}
 						</div>
 					</div>
-					{channelSnapshotQuery.data && <p>{JSON.stringify(channelSnapshotQuery.data)}</p>}
 				</article>
 			)}
 		</>
