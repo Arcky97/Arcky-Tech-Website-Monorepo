@@ -1,6 +1,6 @@
 "use client";
 import { ROUTES as routes } from "@/config/routes";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react"
 import { Footer, MainLayoutWrapper, MainRefContext } from "ui";
 import QueryClientWrapper from "./QueryClientLayout";
@@ -23,6 +23,7 @@ export type SessionUser = {
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   const mainRef = useRef<HTMLElement | null>(null);
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const router = useRouter();
   const [authStatus, setAuthStatus] = useState<AuthStatus>("checking");
   const [sessionUser, setSessionUser] = useState<SessionUser | null>(null);
@@ -62,7 +63,11 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
 
     if (pathname === "/") {
       if (authStatus === "signed-in" && channelId) {
-        router.replace(`/youtube/${channelId}/home`);
+        const initialSyncJobId = searchParams.get("initialSyncJobId");
+        const initialSyncSearch = initialSyncJobId
+          ? `?initialSyncJobId=${encodeURIComponent(initialSyncJobId)}`
+          : "";
+        router.replace(`/youtube/${channelId}/home${initialSyncSearch}`);
       }
       return;
     }
@@ -89,7 +94,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
     if (pathParts.length === 2) {
       router.replace(`/youtube/${channelId}/home`);
     }
-  }, [authStatus, pathname, router, sessionUser]);
+  }, [authStatus, pathname, router, searchParams, sessionUser]);
 
   function handleLogin() {
     setAuthStatus("logging-in");

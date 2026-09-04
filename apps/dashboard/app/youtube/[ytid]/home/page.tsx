@@ -3,11 +3,12 @@ import { apiFetch } from "@/lib/apiFetch";
 import { youtubeKeys } from "@/queries/youtube";
 import { useQuery } from "@tanstack/react-query";
 import * as Icons from "@heroicons/react/24/outline";
-import type { ComponentType, SVGProps } from "react";
+import { useState, type ComponentType, type SVGProps } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import LoadingOverlay from "@/components/overlays/loadingOverlay";
 import { useSearchParams } from "next/navigation";
+import { calculateAnalyticsRanges } from "@/lib/calculateAnalyticsRanges";
 
 type Channel = {
 	channelId: string;
@@ -70,6 +71,7 @@ const stats: ChannelStat[] = [
 ];
 
 export default function YoutubeHome() {
+	const [videosdays, setvideosDays] = useState<number>(28);
 
 	const channelQuery = useQuery({
 		queryKey: youtubeKeys.channel(),
@@ -81,14 +83,24 @@ export default function YoutubeHome() {
 		queryFn: () => apiFetch<ChannelSnapshots[]>("/api/youtube/channel/snapshots")
 	});
 
+	const videosByDaysQuery = useQuery({
+		queryKey: youtubeKeys.videosByDays(videosdays),
+		queryFn: () => apiFetch<Number>(`/api/youtube/videos/${videosdays}`)
+	});
+
+	const analyticsRanges = channelSnapshotQuery.data
+		? calculateAnalyticsRanges(channelSnapshotQuery.data)
+		: null;
+
 	const searchParams = useSearchParams();
 	const initialSyncJobId = searchParams.get("initialSyncJobId");
+	const hasInitialSyncJob = Boolean(initialSyncJobId && initialSyncJobId !== "0");
 
 	const initialSyncQuery = useQuery({
 		queryKey: youtubeKeys.syncJob(initialSyncJobId ?? ""),
 		queryFn: () =>
 			apiFetch<SyncJob>(`/api/youtube/sync/status?jobId=${initialSyncJobId}`),
-		enabled: Boolean(initialSyncJobId),
+		enabled: hasInitialSyncJob,
 		refetchInterval: (query) => {
 			const status = query.state.data?.status;
 			return status === "completed" || status === "failed" ? false : 2000;
@@ -96,13 +108,14 @@ export default function YoutubeHome() {
 	});
 
 	const initialBackfillActive =
-		initialSyncQuery.isPending ||
+		initialSyncQuery.isLoading ||
+		!initialSyncQuery.data ||
 		initialSyncQuery.data?.status === "queued" ||
 		initialSyncQuery.data?.status === "running"
 
 	const shouldShowLoading =
-		Boolean(initialSyncJobId) &&
-		(initialSyncQuery.isLoading || initialBackfillActive) && !channelQuery.data;
+		hasInitialSyncJob &&
+		(initialSyncQuery.isLoading || initialBackfillActive);
 
 	return (
 		<>
@@ -136,7 +149,17 @@ export default function YoutubeHome() {
 											<p className="font-bold text-2xl">
 												{channelQuery.data[key].toLocaleString()}
 											</p>
-											<p>+ 0 in last 28 days</p>
+
+											{key === "viewCount" && (
+												<p>
+													+{analyticsRanges?.last28Days.views.toLocaleString() ?? 0} in last 28 days
+												</p>
+											)}
+											{key === "subscriberCount" && (
+												<p>
+													+{analyticsRanges?.last28Days.subscribersGained.toLocaleString() ?? 0} in last 28 days
+												</p>
+											)}
 										</div>
 									</div>
 								);

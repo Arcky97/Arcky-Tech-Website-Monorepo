@@ -24,7 +24,7 @@ type ChannelAnalyticsSnapshots = {
   updatedAt: Date;
 }
 
-function calculateAnalyticsRanges(
+export function calculateAnalyticsRanges(
   snapshots: ChannelAnalyticsSnapshots[]
 ) {
   const now = new Date();
