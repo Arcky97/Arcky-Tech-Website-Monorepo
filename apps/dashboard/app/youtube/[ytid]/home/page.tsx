@@ -34,6 +34,10 @@ type ChannelSnapshots = {
   updatedAt: Date;
 }
 
+type VideosByDays = {
+	result: number
+}
+
 type ChannelStatKey =
 	| "subscriberCount"
 	| "viewCount"
@@ -85,7 +89,7 @@ export default function YoutubeHome() {
 
 	const videosByDaysQuery = useQuery({
 		queryKey: youtubeKeys.videosByDays(videosdays),
-		queryFn: () => apiFetch<Number>(`/api/youtube/videos/${videosdays}`)
+		queryFn: () => apiFetch<VideosByDays>(`/api/youtube/videos/${videosdays}`)
 	});
 
 	const analyticsRanges = channelSnapshotQuery.data
@@ -116,11 +120,17 @@ export default function YoutubeHome() {
 	const shouldShowLoading =
 		hasInitialSyncJob &&
 		(initialSyncQuery.isLoading || initialBackfillActive);
+	const initialSyncProgress = initialSyncQuery.data?.progress;
+	const initialSyncMessage = initialSyncQuery.data?.message ?? "Preparing your YouTube data";
+	const initialSyncLoadingText =
+		initialSyncProgress === undefined
+			? initialSyncMessage
+			: `${initialSyncMessage} (${initialSyncProgress}%)`;
 
 	return (
 		<>
 			<LoadingOverlay
-				text="Loading Channel Data, please wait!"
+				text={initialSyncLoadingText}
 				disabled={shouldShowLoading}
 			/>
 			{!shouldShowLoading && channelQuery.data && (
@@ -158,6 +168,11 @@ export default function YoutubeHome() {
 											{key === "subscriberCount" && (
 												<p>
 													+{analyticsRanges?.last28Days.subscribersGained.toLocaleString() ?? 0} in last 28 days
+												</p>
+											)}
+											{key === "videoCount" && videosByDaysQuery && (
+												<p>
+													+{videosByDaysQuery.data?.result.toLocaleString() ?? 0} in last 28 days
 												</p>
 											)}
 										</div>
