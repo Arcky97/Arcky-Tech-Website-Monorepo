@@ -1,0 +1,19 @@
+.scrollArea {
+  scrollbar-color: #4a5565 #030712;
+}
+
+.scrollArea::-webkit-scrollbar {
+  width: 12px;
+}
+
+.scrollArea::-webkit-scrollbar-track {
+  background: #030712;
+}
+
+.scrollArea::-webkit-scrollbar-thumb {
+  background: #4a5565;
+}
+
+.scrollArea::-webkit-scrollbar-thumb:hover {
+  background: #6b7280;
+}

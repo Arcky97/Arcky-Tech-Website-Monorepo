@@ -5,6 +5,7 @@ import { ToggleSwitch } from "../ToggleSwitch";
 import { ColorButton } from "../ColorButton";
 import { CogIcon } from "lucide-react";
 import { defaultConsent, useCookieConsent, type Consent } from "./CookieConsentContext";
+import styles from "./CookieBanner.module.css";
 
 export function CookieBanner () {
   const { consent: storedConsent, hasConsent, isLoaded, saveConsent: persistConsent } = useCookieConsent();
@@ -94,7 +95,7 @@ export function CookieBanner () {
       {showBanner && (
         <>
           {/* Background overlay */}
-          <div className={`fixed inset-0 bg-black z-54 transition-opacity duration-400 ease-in-out ${
+          <div className={`fixed inset-0 bg-black z-98 transition-opacity duration-400 ease-in-out ${
             animationPhase === "entering" || animationPhase === "reentering"
               ? "opacity-0"
               : animationPhase === "idle"
@@ -103,8 +104,8 @@ export function CookieBanner () {
           }`}/>
 
           {/* Modal Content */}
-          <div className={`fixed inset-0 z-55 flex justify-center overflow-y-auto transition-all duration-400 transform ease-in-out ${animationClasses}`}>
-            <div className="bg-gray-900 text-white border border-gray-600/75 p-6 rounded-lg shadow-2xl max-w-3xl w-full mx-4 max-h-[90vh] overflow-y-auto my-auto">
+          <div className={`fixed inset-0 z-99 flex justify-center overflow-y-auto transition-all duration-400 transform ease-in-out ${styles.scrollArea} ${animationClasses}`}>
+            <div className={`bg-gray-900 text-white border border-gray-600/75 p-6 rounded-lg shadow-2xl max-w-3xl w-full mx-4 max-h-[90vh] overflow-y-auto my-auto ${styles.scrollArea}`}>
               <div className="max-w-3xl mx-auto flex flex-col sm:flew-row justify-between gap-4">
                 <div className="flex-1">
                   <h3 className="head3 px-2">We use cookies 🍪</h3>

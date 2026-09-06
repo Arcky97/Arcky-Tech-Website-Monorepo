@@ -116,14 +116,6 @@ main {
   overflow-y: scroll !important;
 }
 
-body.lock-scrollbar {
-  overflow-y: scroll !important;
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
 /* Common Used Styling */
 
 .head1 {
