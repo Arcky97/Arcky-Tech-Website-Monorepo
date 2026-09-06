@@ -2,7 +2,7 @@
 import { ROUTES as routes } from "@/config/routes";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react"
-import { Footer, MainLayoutWrapper, MainRefContext } from "ui";
+import { CookieBanner, CookieConsentProvider, Footer, MainLayoutWrapper, MainRefContext } from "ui";
 import QueryClientWrapper from "./QueryClientLayout";
 import SmallScreenError from "@/components/SmallScreen";
 import DashboardNav from "@/components/DashboardNav";
@@ -123,37 +123,40 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   }
 
   return (
-    <QueryClientWrapper>
-      <MainRefContext.Provider value={mainRef}>
-        <MainLayoutWrapper
-          navbar={{
-            variant: "dashboard",
-            enableShrink: false,
-            routes,
-            auth: {
-              status: authStatus,
-              onLogin: handleLogin,
-              onLogout: handleLogout
-            }
-          }}
-        >
-          <div className="relative flex min-h-[calc(100dvh-48px)]">
-            <main
-              ref={mainRef}
-              className="flex min-w-0 flex-1 flex-col bg-gray-900"
-            >
-              <DashboardNav user={sessionUser}/>
-              <div className="hidden lg:block flex-1 px-2">
-                {children}
-              </div>
-              <div className="lg:hidden flex-1 px-2">
-                <SmallScreenError/>
-              </div>
-              <Footer />
-            </main>
-          </div>
-        </MainLayoutWrapper>
-      </MainRefContext.Provider>
-    </QueryClientWrapper>
+    <CookieConsentProvider>
+      <QueryClientWrapper>
+        <MainRefContext.Provider value={mainRef}>
+          <MainLayoutWrapper
+            navbar={{
+              variant: "dashboard",
+              enableShrink: false,
+              routes,
+              auth: {
+                status: authStatus,
+                onLogin: handleLogin,
+                onLogout: handleLogout
+              }
+            }}
+          >
+            <div className="relative flex min-h-[calc(100dvh-48px)]">
+              <CookieBanner/>
+              <main
+                ref={mainRef}
+                className="flex min-w-0 flex-1 flex-col bg-gray-900"
+              >
+                <DashboardNav user={sessionUser}/>
+                <div className="hidden lg:block flex-1 px-2">
+                  {children}
+                </div>
+                <div className="lg:hidden flex-1 px-2">
+                  <SmallScreenError/>
+                </div>
+                <Footer />
+              </main>
+            </div>
+          </MainLayoutWrapper>
+        </MainRefContext.Provider>
+      </QueryClientWrapper>
+    </CookieConsentProvider>
   )
 }

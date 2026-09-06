@@ -3,7 +3,7 @@ import { apiFetch } from "@/lib/apiFetch";
 import { youtubeKeys } from "@/queries/youtube";
 import { useQuery } from "@tanstack/react-query";
 import * as Icons from "@heroicons/react/24/outline";
-import { useState, type ComponentType, type SVGProps } from "react";
+import { type ComponentType, type SVGProps } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import LoadingOverlay from "@/components/overlays/loadingOverlay";
@@ -35,7 +35,7 @@ type ChannelSnapshots = {
 }
 
 type VideosByDays = {
-	result: number
+	uploads: number
 }
 
 type ChannelStatKey =
@@ -75,7 +75,7 @@ const stats: ChannelStat[] = [
 ];
 
 export default function YoutubeHome() {
-	const [videosdays, setvideosDays] = useState<number>(28);
+	const videosdays = 28;
 
 	const channelQuery = useQuery({
 		queryKey: youtubeKeys.channel(),
@@ -89,7 +89,7 @@ export default function YoutubeHome() {
 
 	const videosByDaysQuery = useQuery({
 		queryKey: youtubeKeys.videosByDays(videosdays),
-		queryFn: () => apiFetch<VideosByDays>(`/api/youtube/videos/${videosdays}`)
+		queryFn: () => apiFetch<VideosByDays>(`/api/youtube/videos/days/${videosdays}`)
 	});
 
 	const analyticsRanges = channelSnapshotQuery.data
@@ -119,7 +119,7 @@ export default function YoutubeHome() {
 
 	const shouldShowLoading =
 		hasInitialSyncJob &&
-		(initialSyncQuery.isLoading || initialBackfillActive);
+		(initialSyncQuery.isLoading || channelSnapshotQuery.isLoading || videosByDaysQuery.isLoading || initialBackfillActive);
 	const initialSyncProgress = initialSyncQuery.data?.progress;
 	const initialSyncMessage = initialSyncQuery.data?.message ?? "Preparing your YouTube data";
 	const initialSyncLoadingText =
@@ -136,49 +136,57 @@ export default function YoutubeHome() {
 			{!shouldShowLoading && channelQuery.data && (
 				<article className="flex flex-col h-full
 				text-white m-4">
-					<div className="bg-gray-800 rounded-lg">
-						<div className="flex m-4 gap-4">
-							<Image src={channelQuery.data.thumbnailUrl} alt="Channel Logo" width="128" height="128" loading="eager" className="rounded-full border-white border-2"/>
-							<div className="flex flex-col justify-center gap-1">
-								<p className="text-xl font-bold">{channelQuery.data.channelName}</p>
-								<Link className="text-gray-400" href={`https://www.youtube.com/${channelQuery.data.customUrl ?? channelQuery.data.channelId}`} target="_blank" rel="noopener noreferrer">{"View Channel on YouTube"}</Link>
+					<div className="bg-gray-800 rounded-lg flex justify-between">
+						<div>
+							<div className="flex m-4 gap-4">
+								<Image src={channelQuery.data.thumbnailUrl} alt="Channel Logo" width="128" height="128" loading="eager" className="rounded-full border-white border-2"/>
+								<div className="flex flex-col justify-center gap-1">
+									<p className="text-xl font-bold">{channelQuery.data.channelName}</p>
+									<Link className="text-gray-400" href={`https://www.youtube.com/${channelQuery.data.customUrl ?? channelQuery.data.channelId}`} target="_blank" rel="noopener noreferrer">{"View Channel on YouTube"}</Link>
+								</div>
+							</div>
+							<div className="flex m-4 gap-4">
+								{stats.map(({ key, title, icon }) => {
+									const IconComp = Icons[icon] as ComponentType<SVGProps<SVGElement>>;
+
+									return (
+										<div key={key} className="flex items-start gap-3">
+											<div className="w-10 flex justify-center pt-1">
+												<IconComp className="w-7 h-7 text-red-500" />
+											</div>
+
+											<div className="flex flex-col">
+												<p className="text-gray-300">{title}</p>
+												<p className="font-bold text-2xl">
+													{channelQuery.data[key].toLocaleString()}
+												</p>
+
+												{key === "viewCount" && (
+													<p>
+														+{analyticsRanges?.last28Days.views.toLocaleString() ?? 0} in last 28 days
+													</p>
+												)}
+												{key === "subscriberCount" && (
+													<p>
+														+{analyticsRanges?.last28Days.subscribersGained.toLocaleString() ?? 0} in last 28 days
+													</p>
+												)}
+												{key === "videoCount" && videosByDaysQuery && (
+													<p>
+														+{videosByDaysQuery.data?.uploads.toLocaleString() ?? 0} in last 28 days
+													</p>
+												)}
+											</div>
+										</div>
+									);
+								})}
 							</div>
 						</div>
-						<div className="flex m-4 gap-4">
-							{stats.map(({ key, title, icon }) => {
-								const IconComp = Icons[icon] as ComponentType<SVGProps<SVGElement>>;
-
-								return (
-									<div key={key} className="flex items-start gap-3">
-										<div className="w-10 flex justify-center pt-1">
-											<IconComp className="w-7 h-7 text-red-500" />
-										</div>
-
-										<div className="flex flex-col">
-											<p className="text-gray-300">{title}</p>
-											<p className="font-bold text-2xl">
-												{channelQuery.data[key].toLocaleString()}
-											</p>
-
-											{key === "viewCount" && (
-												<p>
-													+{analyticsRanges?.last28Days.views.toLocaleString() ?? 0} in last 28 days
-												</p>
-											)}
-											{key === "subscriberCount" && (
-												<p>
-													+{analyticsRanges?.last28Days.subscribersGained.toLocaleString() ?? 0} in last 28 days
-												</p>
-											)}
-											{key === "videoCount" && videosByDaysQuery && (
-												<p>
-													+{videosByDaysQuery.data?.result.toLocaleString() ?? 0} in last 28 days
-												</p>
-											)}
-										</div>
-									</div>
-								);
-							})}
+						<div className="flex flex-col items-end m-4">
+							<div>
+								<input type="checkbox" id="7days" name="7days" value="7days"/>
+								<label htmlFor="7days">7 Days</label>
+							</div>
 						</div>
 					</div>
 				</article>
