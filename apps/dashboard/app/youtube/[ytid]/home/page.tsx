@@ -3,12 +3,13 @@ import { apiFetch } from "@/lib/apiFetch";
 import { youtubeKeys } from "@/queries/youtube";
 import { useQuery } from "@tanstack/react-query";
 import * as Icons from "@heroicons/react/24/outline";
-import { type ComponentType, type SVGProps } from "react";
+import { useState, type ComponentType, type SVGProps } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import LoadingOverlay from "@/components/overlays/loadingOverlay";
 import { useSearchParams } from "next/navigation";
 import { calculateAnalyticsRanges } from "@/lib/calculateAnalyticsRanges";
+import { ToggleSwitch } from "ui";
 
 type Channel = {
 	channelId: string;
@@ -75,8 +76,15 @@ const stats: ChannelStat[] = [
 ];
 
 export default function YoutubeHome() {
+	const [watchTimeRange, setWatchTimeRange] = useState<{ "today": boolean, "7days": boolean, "28days": boolean, "90days": boolean }>({ "today": true, "7days": true, "28days": true, "90days": true})
 	const videosdays = 28;
 
+	const handleWatchTimeRangeChange = (range: string, value: boolean) => {
+		setWatchTimeRange(prev => ({
+			...prev,
+			[range]: value
+		}))
+	}
 	const channelQuery = useQuery({
 		queryKey: youtubeKeys.channel(),
 		queryFn: () => apiFetch<Channel>("/api/youtube/channel")
@@ -120,6 +128,7 @@ export default function YoutubeHome() {
 	const shouldShowLoading =
 		hasInitialSyncJob &&
 		(initialSyncQuery.isLoading || channelSnapshotQuery.isLoading || videosByDaysQuery.isLoading || initialBackfillActive);
+
 	const initialSyncProgress = initialSyncQuery.data?.progress;
 	const initialSyncMessage = initialSyncQuery.data?.message ?? "Preparing your YouTube data";
 	const initialSyncLoadingText =
@@ -183,9 +192,32 @@ export default function YoutubeHome() {
 							</div>
 						</div>
 						<div className="flex flex-col items-end m-4">
-							<div>
-								<input type="checkbox" id="7days" name="7days" value="7days"/>
-								<label htmlFor="7days">7 Days</label>
+							<div className="flex space-x-4 mb-4">
+								<ToggleSwitch
+									label="Today"
+									state={watchTimeRange.today}
+									onChange={(value) => handleWatchTimeRangeChange("today", value)}
+								/>
+								<ToggleSwitch
+									label="7 days"
+									state={watchTimeRange["7days"]}
+									onChange={(value) => handleWatchTimeRangeChange("7days", value)}
+								/>
+								<ToggleSwitch
+									label="28 days"
+									state={watchTimeRange["28days"]}
+									onChange={(value) => handleWatchTimeRangeChange("28days", value)}
+								/>
+								<ToggleSwitch
+									label="90 days"
+									state={watchTimeRange["90days"]}
+									onChange={(value) => handleWatchTimeRangeChange("90days", value)}
+								/>
+							</div>
+							<div className="w-full">
+								<div className="h-2 w-full max-w-sm rounded bg-gray-700">
+									<div className="h-2 w-full max-w-sm rounded bg-blue-500"></div>
+								</div>
 							</div>
 						</div>
 					</div>

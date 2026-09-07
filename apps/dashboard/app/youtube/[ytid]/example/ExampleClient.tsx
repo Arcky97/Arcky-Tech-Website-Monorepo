@@ -206,12 +206,12 @@ export function ExampleClient() {
               Status: {syncStatusQuery.data.status} ({syncStatusQuery.data.progress ?? 0}%)
             </p>
             <div className="h-2 w-full max-w-sm rounded bg-gray-700">
-            <div className="h-2 w-full max-w-sm rounded bg-gray-700">
-              <div
-                className="h-2 rounded bg-blue-500 transition-all"
-                style={{ width: `${syncStatusQuery.data.progress ?? 0}%` }}
-              />
-            </div>
+              <div className="h-2 w-full max-w-sm rounded bg-gray-700">
+                <div
+                  className="h-2 rounded bg-blue-500 transition-all"
+                  style={{ width: `${syncStatusQuery.data.progress ?? 0}%` }}
+                />
+              </div>
             </div>
           </div>
 
