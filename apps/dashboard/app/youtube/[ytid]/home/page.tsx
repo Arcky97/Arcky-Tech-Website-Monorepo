@@ -191,8 +191,8 @@ export default function YoutubeHome() {
 								})}
 							</div>
 						</div>
-						<div className="flex flex-col items-end m-4">
-							<div className="flex space-x-4 mb-4">
+						<div className="flex flex-col flex-1 m-4">
+							<div className="flex self-start space-x-4 mb-4">
 								<ToggleSwitch
 									label="Today"
 									state={watchTimeRange.today}
@@ -214,9 +214,17 @@ export default function YoutubeHome() {
 									onChange={(value) => handleWatchTimeRangeChange("90days", value)}
 								/>
 							</div>
-							<div className="w-full">
-								<div className="h-2 w-full max-w-sm rounded bg-gray-700">
-									<div className="h-2 w-full max-w-sm rounded bg-blue-500"></div>
+							<div className="flex flex-col flex-1 justify-end w-full gap-2">
+								<p className="text-gray-300 text-left">Total Watch Hours (last 365 days)</p>
+								<div className="h-4 w-full rounded bg-gray-700">
+									<div 
+										className="h-4 w-full rounded bg-blue-500"
+										style={{ width: `${((analyticsRanges?.last365Days.watchHours ?? 0) / 4000) * 100}%`}}
+										/>
+								</div>
+								<div className="flex justify-between w-full">
+									<p>{Math.floor(analyticsRanges?.last365Days.watchHours ?? 0)} - {Math.floor(((analyticsRanges?.last365Days.watchHours ?? 0) / 4000) * 100)}%</p>
+									<p>4000</p>
 								</div>
 							</div>
 						</div>
