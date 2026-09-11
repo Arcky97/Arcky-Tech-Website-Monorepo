@@ -117,6 +117,15 @@ export default function YoutubeHome() {
 		last28Days: Math.max(watchTotals.last28Days - watchTotals.last7Days, 0),
 		last7Days: watchTotals.last7Days
 	};
+	const watchRemainingHours = Math.max(watchTargetHours - watchTotals.last365Days, 0);
+	const EstimagedDaysToTarget = Math.ceil((new Date("2027-01-31").getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
+	const dailyWatchAverage = watchTotals.last365Days / 365;
+	const targetDaiylyWatchAverage = watchTargetHours / EstimagedDaysToTarget;
+	const weeklyWatchAverage = watchTotals.last7Days / 7;
+	const targetWeeklyWatchAverage = watchTargetHours / (EstimagedDaysToTarget / 7);
+	const estimatedDaysToTarget = weeklyWatchAverage > 0
+		? Math.ceil(watchRemainingHours / weeklyWatchAverage)
+		: null;
 
 	const searchParams = useSearchParams();
 	const initialSyncJobId = searchParams.get("initialSyncJobId");
@@ -157,18 +166,17 @@ export default function YoutubeHome() {
 				disabled={shouldShowLoading}
 			/>
 			{!shouldShowLoading && channelQuery.data && (
-				<article className="flex flex-col h-full
-				text-white m-4">
-					<div className="bg-gray-800 rounded-lg flex justify-between">
-						<div>
-							<div className="flex m-4 gap-4">
+				<article className="flex text-white m-4 gap-4">
+					<div className="bg-gray-800 rounded-lg flex-1 flex-col w-[55%]">
+						<div className="flex flex-wrap items-center gap-6 p-4">
+							<div className="flex items-center gap-6">
 								<Image src={channelQuery.data.thumbnailUrl} alt="Channel Logo" width="128" height="128" loading="eager" className="rounded-full border-white border-2"/>
 								<div className="flex flex-col justify-center gap-1">
 									<p className="text-xl font-bold">{channelQuery.data.channelName}</p>
 									<Link className="text-gray-400" href={`https://www.youtube.com/${channelQuery.data.customUrl ?? channelQuery.data.channelId}`} target="_blank" rel="noopener noreferrer">{"View Channel on YouTube"}</Link>
 								</div>
 							</div>
-							<div className="flex m-4 gap-4">
+							<div className="flex flex-wrap items-start gap-6">
 								{stats.map(({ key, title, icon }) => {
 									const IconComp = Icons[icon] as ComponentType<SVGProps<SVGElement>>;
 
@@ -205,9 +213,10 @@ export default function YoutubeHome() {
 								})}
 							</div>
 						</div>
-						<div className="flex flex-col flex-1 m-5 justify-end">
+						<div className="grid w-full gap-6 px-8 pb-4">
+							<div className="flex min-w-0 flex-col justify-center">
 								<div className="mb-3 flex items-center justify-between gap-3">
-									<p className="text-gray-300">Watch time gained</p>
+									<p className="text-gray-300">Watch Time</p>
 									<p className="text-base font-semibold text-white">
 										{(analyticsRanges?.last365Days.watchHours ?? 0).toLocaleString(undefined, { maximumFractionDigits: 1 })}h / {watchTargetHours.toLocaleString()}h
 									</p>
@@ -250,6 +259,32 @@ export default function YoutubeHome() {
 										);
 									})}
 								</div>
+							</div>
+						</div>
+					</div>
+					<div className="bg-gray-800 rounded-lg flex flex-col w-[40%] p-4">
+						<p className="mb-3 text-2xl font-bold">Watch-time insights</p>
+						<div className="grid grid-cols-2 gap-x-6 gap-y-3 text-sm">
+							<div>
+								<p className="text-gray-400">Daily average/Target Daily Average</p>
+								<p className="font-semibold text-white">{dailyWatchAverage.toLocaleString(undefined, { maximumFractionDigits: 1 })}h/{targetDaiylyWatchAverage.toLocaleString(undefined, { maximumFractionDigits: 1 })}h</p>
+							</div>
+							<div>
+								<p className="text-gray-400">Last 7 days</p>
+								<p className="font-semibold text-white">{watchTotals.last7Days.toLocaleString(undefined, { maximumFractionDigits: 1 })}h/{targetWeeklyWatchAverage.toLocaleString(undefined, { maximumFractionDigits: 1})}h</p>
+							</div>
+							<div>
+								<p className="text-gray-400">Remaining Hours</p>
+								<p className="font-semibold text-white">{watchRemainingHours.toLocaleString(undefined, { maximumFractionDigits: 1 })}h</p>
+							</div>
+							<div>
+								<p className="text-gray-400">At recent pace</p>
+								<p className="font-semibold text-white">{estimatedDaysToTarget === null ? "No recent data" : `${estimatedDaysToTarget} days`}</p>
+							</div>
+							<div>
+								<p className="text-gray-400">Remaining Days</p>
+								<p className="font-semibold text-white">{EstimagedDaysToTarget} days</p>
+							</div>
 						</div>
 					</div>
 				</article>
