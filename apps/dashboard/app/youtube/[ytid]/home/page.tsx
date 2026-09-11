@@ -126,20 +126,19 @@ export default function YoutubeHome() {
 		initialSyncQuery.data?.status === "running"
 
 	const shouldShowLoading =
-		hasInitialSyncJob &&
-		(initialSyncQuery.isLoading || channelSnapshotQuery.isLoading || videosByDaysQuery.isLoading || initialBackfillActive);
+		hasInitialSyncJob && (
+			initialSyncQuery.isLoading || 
+			channelSnapshotQuery.isLoading || videosByDaysQuery.isLoading || initialBackfillActive || 
+				(!initialSyncQuery.data || !Object.entries(initialSyncQuery.data).length) || 
+				(!channelSnapshotQuery.data || !Object.entries(channelSnapshotQuery.data).length) || 
+				(!videosByDaysQuery.data || !Object.entries(videosByDaysQuery.data).length));
 
-	const initialSyncProgress = initialSyncQuery.data?.progress;
 	const initialSyncMessage = initialSyncQuery.data?.message ?? "Preparing your YouTube data";
-	const initialSyncLoadingText =
-		initialSyncProgress === undefined
-			? initialSyncMessage
-			: `${initialSyncMessage} (${initialSyncProgress}%)`;
 
 	return (
 		<>
 			<LoadingOverlay
-				text={initialSyncLoadingText}
+				text={initialSyncMessage}
 				disabled={shouldShowLoading}
 			/>
 			{!shouldShowLoading && channelQuery.data && (
