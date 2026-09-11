@@ -76,15 +76,8 @@ const stats: ChannelStat[] = [
 ];
 
 export default function YoutubeHome() {
-	const [watchTimeRange, setWatchTimeRange] = useState<{ "today": boolean, "7days": boolean, "28days": boolean, "90days": boolean }>({ "today": true, "7days": true, "28days": true, "90days": true})
 	const videosdays = 28;
 
-	const handleWatchTimeRangeChange = (range: string, value: boolean) => {
-		setWatchTimeRange(prev => ({
-			...prev,
-			[range]: value
-		}))
-	}
 	const channelQuery = useQuery({
 		queryKey: youtubeKeys.channel(),
 		queryFn: () => apiFetch<Channel>("/api/youtube/channel")
@@ -103,6 +96,27 @@ export default function YoutubeHome() {
 	const analyticsRanges = channelSnapshotQuery.data
 		? calculateAnalyticsRanges(channelSnapshotQuery.data)
 		: null;
+
+	const watchRangeConfig = [
+		{ key: "last365Days", label: "365d", color: "bg-blue-500", accent: "text-blue-400" },
+		{ key: "last90Days", label: "90d", color: "bg-violet-500", accent: "text-violet-400" },
+		{ key: "last28Days", label: "28d", color: "bg-teal-500", accent: "text-teal-400" },
+		{ key: "last7Days", label: "7d", color: "bg-amber-500", accent: "text-amber-400" }
+	] as const;
+
+	const watchTargetHours = 4000;
+	const watchTotals = {
+		last365Days: analyticsRanges?.last365Days.watchHours ?? 0,
+		last90Days: analyticsRanges?.last90Days.watchHours ?? 0,
+		last28Days: analyticsRanges?.last28Days.watchHours ?? 0,
+		last7Days: analyticsRanges?.last7Days.watchHours ?? 0
+	};
+	const watchContributions = {
+		last365Days: Math.max(watchTotals.last365Days - watchTotals.last90Days, 0),
+		last90Days: Math.max(watchTotals.last90Days - watchTotals.last28Days, 0),
+		last28Days: Math.max(watchTotals.last28Days - watchTotals.last7Days, 0),
+		last7Days: watchTotals.last7Days
+	};
 
 	const searchParams = useSearchParams();
 	const initialSyncJobId = searchParams.get("initialSyncJobId");
@@ -130,6 +144,7 @@ export default function YoutubeHome() {
 			initialSyncQuery.isLoading || 
 			channelSnapshotQuery.isLoading || videosByDaysQuery.isLoading || initialBackfillActive || 
 				(!initialSyncQuery.data || !Object.entries(initialSyncQuery.data).length) || 
+				(!channelQuery.data || !Object.entries(channelQuery.data).length) ||
 				(!channelSnapshotQuery.data || !Object.entries(channelSnapshotQuery.data).length) || 
 				(!videosByDaysQuery.data || !Object.entries(videosByDaysQuery.data).length));
 
@@ -190,42 +205,51 @@ export default function YoutubeHome() {
 								})}
 							</div>
 						</div>
-						<div className="flex flex-col flex-1 m-4">
-							<div className="flex self-start space-x-4 mb-4">
-								<ToggleSwitch
-									label="Today"
-									state={watchTimeRange.today}
-									onChange={(value) => handleWatchTimeRangeChange("today", value)}
-								/>
-								<ToggleSwitch
-									label="7 days"
-									state={watchTimeRange["7days"]}
-									onChange={(value) => handleWatchTimeRangeChange("7days", value)}
-								/>
-								<ToggleSwitch
-									label="28 days"
-									state={watchTimeRange["28days"]}
-									onChange={(value) => handleWatchTimeRangeChange("28days", value)}
-								/>
-								<ToggleSwitch
-									label="90 days"
-									state={watchTimeRange["90days"]}
-									onChange={(value) => handleWatchTimeRangeChange("90days", value)}
-								/>
-							</div>
-							<div className="flex flex-col flex-1 justify-end w-full gap-2">
-								<p className="text-gray-300 text-left">Total Watch Hours (last 365 days)</p>
-								<div className="h-4 w-full rounded bg-gray-700">
-									<div 
-										className="h-4 w-full rounded bg-blue-500"
-										style={{ width: `${((analyticsRanges?.last365Days.watchHours ?? 0) / 4000) * 100}%`}}
-										/>
+						<div className="flex flex-col flex-1 m-5 justify-end">
+								<div className="mb-3 flex items-center justify-between gap-3">
+									<p className="text-gray-300">Watch time gained</p>
+									<p className="text-base font-semibold text-white">
+										{(analyticsRanges?.last365Days.watchHours ?? 0).toLocaleString(undefined, { maximumFractionDigits: 1 })}h / {watchTargetHours.toLocaleString()}h
+									</p>
 								</div>
-								<div className="flex justify-between w-full">
-									<p>{Math.floor(analyticsRanges?.last365Days.watchHours ?? 0)} - {Math.floor(((analyticsRanges?.last365Days.watchHours ?? 0) / 4000) * 100)}%</p>
-									<p>4000</p>
+								<div className="relative h-3 w-full overflow-hidden rounded-full bg-gray-700">
+									<div className="absolute inset-0 rounded-full bg-gray-700" />
+									{watchRangeConfig.map(({ key, color }, index) => {
+										const value = watchContributions[key];
+										const width = Math.min((value / watchTargetHours) * 100, 100);
+										const left = watchRangeConfig
+											.slice(0, index)
+											.reduce((sum, item) => {
+												return sum + (watchContributions[item.key] / watchTargetHours) * 100;
+											}, 0);
+
+										return (
+											<div
+												key={key}
+												className={`absolute inset-y-0 last:rounded-r-full ${color}`}
+												style={{
+													width: `${width}%`,
+													left: `${left}%`,
+													opacity: 0.85 - index * 0.1,
+													zIndex: index + 1
+												}}
+											/>
+										);
+									})}
 								</div>
-							</div>
+
+								<div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-xs text-gray-400">
+									{watchRangeConfig.map(({ key, label, color, accent }) => {
+										const value = analyticsRanges?.[key].watchHours ?? 0;
+										return (
+											<div key={key} className="flex items-center gap-2">
+												<div className={`h-2.5 w-2.5 rounded-sm ${color}`} />
+												<span className={accent}>{label}</span>
+												<span>{value.toLocaleString(undefined, { maximumFractionDigits: 1 })}h</span>
+											</div>
+										);
+									})}
+								</div>
 						</div>
 					</div>
 				</article>
