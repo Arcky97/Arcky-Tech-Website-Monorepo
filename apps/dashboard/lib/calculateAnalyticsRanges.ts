@@ -1,11 +1,26 @@
-import { addSnapshot, Analytics, createEmptyAnalytics } from "./createEmptyAnalytics";
+import { addSnapshot, Analytics, createEmptyAnalytics, subtractAnalytics } from "./createEmptyAnalytics";
 
+// Each value is a cumulative day threshold (0-N days ago), not an exclusive window.
 const RANGES = {
   today: 1,
+  yesterday: 2,
   last7Days: 7,
+  previous7Days: 14,
   last28Days: 28,
+  previous28Days: 56,
   last90Days: 90,
-  last365Days: 365
+  previous90Days: 180,
+  last365Days: 365,
+  previous365Days: 730
+};
+
+// Cumulative window each "previous*" range should be reduced by to become exclusive (e.g. 8-14 days)
+const PREVIOUS_RANGE_BASE: Partial<Record<keyof typeof RANGES, keyof typeof RANGES>> = {
+  yesterday: "today",
+  previous7Days: "last7Days",
+  previous28Days: "last28Days",
+  previous90Days: "last90Days",
+  previous365Days: "last365Days"
 };
 
 type AnalyticsRanges = {
@@ -29,10 +44,10 @@ export function calculateAnalyticsRanges(
 ) {
   const now = new Date();
 
-  const result = {} as AnalyticsRanges;
+  const cumulative = {} as AnalyticsRanges;
 
   for (const range of Object.keys(RANGES) as Array<keyof typeof RANGES>) {
-    result[range] = createEmptyAnalytics();
+    cumulative[range] = createEmptyAnalytics();
   }
 
   for (const snapshot of snapshots) {
@@ -43,9 +58,19 @@ export function calculateAnalyticsRanges(
 
     for (const range of Object.keys(RANGES) as Array<keyof typeof RANGES>) {
       if (daysAgo < RANGES[range]) {
-        addSnapshot(result[range], snapshot);
+        addSnapshot(cumulative[range], snapshot);
       }
     }
+  }
+
+  const result = {} as AnalyticsRanges;
+
+  for (const range of Object.keys(RANGES) as Array<keyof typeof RANGES>) {
+    const baseRange = PREVIOUS_RANGE_BASE[range];
+
+    result[range] = baseRange
+      ? subtractAnalytics(cumulative[range], cumulative[baseRange])
+      : cumulative[range];
   }
 
   return result;

@@ -35,3 +35,13 @@ export function addSnapshot(
   result.subscribersGained += snapshot.subscribersGained,
   result.subscribersLost += snapshot.subscribersLost
 }
+
+// Turns two cumulative windows (e.g. 0-14 days and 0-7 days) into the exclusive gap between them (8-14 days)
+export function subtractAnalytics(a: Analytics, b: Analytics): Analytics {
+  return {
+    views: a.views - b.views,
+    watchHours: a.watchHours - b.watchHours,
+    subscribersGained: a.subscribersGained - b.subscribersGained,
+    subscribersLost: a.subscribersLost - b.subscribersLost
+  };
+}

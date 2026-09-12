@@ -22,7 +22,6 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
       if (isDesktop !== lastIsDesktop) {
         setSidebarOpen(isDesktop);
         lastIsDesktop = isDesktop;
-        console.log(lastIsDesktop);
       }
     };
 

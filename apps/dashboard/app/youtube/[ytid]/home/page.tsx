@@ -97,6 +97,14 @@ const stats: ChannelStat[] = [
 	}
 ];
 
+// % drop vs. the previous 28 days before it's marked yellow/orange/red; subscribers get looser
+// bands since the underlying counts are small and a couple fewer swings the percentage a lot.
+const GROWTH_THRESHOLDS: Record<"views" | "videos" | "subscribers", { yellow: number; orange: number }> = {
+	views: { yellow: -11, orange: -25 },
+	videos: { yellow: -2, orange: -5 },
+	subscribers: { yellow: -30, orange: -50 }
+};
+
 export default function YoutubeHome() {
 	const videosdays = 28;
 	const queryClient = useQueryClient();
@@ -116,9 +124,14 @@ export default function YoutubeHome() {
 		queryFn: () => apiFetch<VideosAndShorts>(`/api/youtube/videos/latest/5`)
 	});
 
-	const videosByDaysQuery = useQuery({
+	const videosLast28DaysQuery = useQuery({
 		queryKey: youtubeKeys.videosByDays(videosdays),
 		queryFn: () => apiFetch<VideosByDays>(`/api/youtube/videos/days/${videosdays}`)
+	});
+
+	const videosPrevious28DaysQuery = useQuery({
+		queryKey: youtubeKeys.videosByDays(videosdays * 2),
+		queryFn: () => apiFetch<VideosByDays>(`/api/youtube/videos/days/${videosdays * 2}`)
 	});
 
 	const analyticsRanges = channelSnapshotQuery.data
@@ -133,18 +146,21 @@ export default function YoutubeHome() {
 	] as const;
 
 	const watchTargetHours = 4000;
+
 	const watchTotals = {
 		last365Days: analyticsRanges?.last365Days.watchHours ?? 0,
 		last90Days: analyticsRanges?.last90Days.watchHours ?? 0,
 		last28Days: analyticsRanges?.last28Days.watchHours ?? 0,
 		last7Days: analyticsRanges?.last7Days.watchHours ?? 0
 	};
+
 	const watchContributions = {
 		last365Days: Math.max(watchTotals.last365Days - watchTotals.last90Days, 0),
 		last90Days: Math.max(watchTotals.last90Days - watchTotals.last28Days, 0),
 		last28Days: Math.max(watchTotals.last28Days - watchTotals.last7Days, 0),
 		last7Days: watchTotals.last7Days
 	};
+
 	const watchRemainingHours = Math.max(watchTargetHours - watchTotals.last365Days, 0);
 	const daysToTargetRemaining = Math.ceil((new Date("2027-01-31").getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
 	const dailyWatchAverage = watchTotals.last365Days / 365;
@@ -190,17 +206,55 @@ export default function YoutubeHome() {
 	const shouldShowLoading =
 		hasInitialSyncJob && (
 			initialSyncQuery.isLoading || 
-			channelSnapshotQuery.isLoading || videosByDaysQuery.isLoading || initialBackfillActive || 
+			channelSnapshotQuery.isLoading || videosLast28DaysQuery.isLoading || initialBackfillActive || 
 				(!initialSyncQuery.data || !Object.entries(initialSyncQuery.data).length) || 
 				(!channelQuery.data || !Object.entries(channelQuery.data).length) ||
 				(!channelSnapshotQuery.data || !Object.entries(channelSnapshotQuery.data).length) || 
-				(!videosByDaysQuery.data || !Object.entries(videosByDaysQuery.data).length) ||
+				(!videosLast28DaysQuery.data || !Object.entries(videosLast28DaysQuery.data).length) ||
 				(!LatestVideosAndShortsQuery.data || !Object.entries(LatestVideosAndShortsQuery.data).length)
 			);
 
-	console.log(LatestVideosAndShortsQuery.data);
-
 	const initialSyncMessage = initialSyncQuery.data?.message ?? "Preparing your YouTube data";
+
+	const StyleByCompareLastAndPrevious = (stat: "views" | "videos" | "subscribers", value: string) => {
+		if (!analyticsRanges) return "color-gray-300";
+		let color;
+		let last = 0;
+		let previous = 0
+		switch(stat) {
+			case "views":
+				last = analyticsRanges?.last28Days.views;
+				previous = analyticsRanges?.previous28Days.views
+				break;
+			case "videos":
+				last = videosLast28DaysQuery.data?.uploads ?? 0;
+				previous = videosPrevious28DaysQuery.data?.uploads ?? 0;
+				break;
+			case "subscribers":
+				last = analyticsRanges?.last28Days.subscribersGained;
+				previous = analyticsRanges?.previous28Days.subscribersGained;
+				break;
+		}
+		const growth = calculatePercentage(last, previous);
+		const { yellow, orange } = GROWTH_THRESHOLDS[stat];
+
+		if (growth >= 0) {
+			color = "text-green-500"
+		} else if (growth > yellow) {
+			color = "text-yellow-500";
+		} else if (growth > orange) {
+			color = "text-orange-500";
+		} else {
+			color = "text-red-500";
+		}
+		return <span className={`${color}`}>+{value}</span>;
+	}
+
+	const calculatePercentage = (value1: number, value2: number) => {
+		if (value2 === 0) return value1 > 0 ? 100 : 0;
+
+		return Math.round(((value1 - value2) / value2) * 100);
+	}
 
 	return (
 		<>
@@ -238,17 +292,17 @@ export default function YoutubeHome() {
 
 												{key === "viewCount" && (
 													<p>
-														+{analyticsRanges?.last28Days.views.toLocaleString() ?? 0} in last 28 days
+														{StyleByCompareLastAndPrevious("views", analyticsRanges?.last28Days.views.toLocaleString() ?? "0")} in last 28 days
 													</p>
 												)}
 												{key === "subscriberCount" && (
 													<p>
-														+{analyticsRanges?.last28Days.subscribersGained.toLocaleString() ?? 0} in last 28 days
+														{StyleByCompareLastAndPrevious("subscribers", analyticsRanges?.last28Days.subscribersGained.toLocaleString() ?? "0")} in last 28 days
 													</p>
 												)}
-												{key === "videoCount" && videosByDaysQuery && (
+												{key === "videoCount" && videosLast28DaysQuery && (
 													<p>
-														+{videosByDaysQuery.data?.uploads.toLocaleString() ?? 0} in last 28 days
+														{StyleByCompareLastAndPrevious("videos", videosLast28DaysQuery.data?.uploads.toLocaleString() ?? "0")} in last 28 days
 													</p>
 												)}
 											</div>
@@ -357,10 +411,35 @@ export default function YoutubeHome() {
 					</div>
 				</div>
 				<div className="bg-gray-800 rounded-lg block p-4">
-					<p className="mb-3 text-2xl font-bold">Latest Long-term Videos</p>
+					<p className="mb-3 text-2xl font-bold">Latest Videos</p>
+					<div className="flex px-4 py-2 justify-between">
+						<Image src={LatestVideosAndShortsQuery.data?.videos[0].thumbnailUrl ?? channelQuery.data.thumbnailUrl} alt="Channel Logo" width="196" height="196" loading="eager" className="rounded-lg border-white border-2"/>
+						<div className="flex flex-col justify-center max-w-[25%]">
+							<p className="flex text-2xl font-bold">Test</p>
+							<p className="">more text</p>
+							<p className="">and a bit more and what happens if we put even more text but it shouldn't take up all of it</p>
+						</div>
+						<div className="flex flex-col justify-center self-center text-center">
+							<p>first</p>
+							<p>with text</p>
+						</div>
+						<div className="flex flex-col justify-center self-center text-center">
+							<p>second</p>
+							<p>with text</p>
+						</div>
+						<div className="flex flex-col justify-center self-center text-center">
+							<p>third</p>
+							<p>with text</p>
+						</div>
+						<div className="flex flex-col justify-center self-center text-center">
+							<p>fourth and last</p>
+							<p>with text</p>
+						</div>
+					</div>
 				</div>
 				<div className="bg-gray-800 rounded-lg block p-4">
-					<p className="mb-3 text-2xl font-bold">Latest Short Videos</p>
+					<p className="mb-3 text-2xl font-bold">Latest Shorts</p>
+
 				</div>
 				</article>
 			)}
