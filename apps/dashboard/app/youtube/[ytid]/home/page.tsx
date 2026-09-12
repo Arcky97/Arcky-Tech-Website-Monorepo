@@ -1,9 +1,9 @@
 "use client";
 import { apiFetch } from "@/lib/apiFetch";
 import { youtubeKeys } from "@/queries/youtube";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import * as Icons from "@heroicons/react/24/outline";
-import { type ComponentType, type SVGProps } from "react";
+import { useEffect, type ComponentType, type SVGProps } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import LoadingOverlay from "@/components/overlays/loadingOverlay";
@@ -99,6 +99,7 @@ const stats: ChannelStat[] = [
 
 export default function YoutubeHome() {
 	const videosdays = 28;
+	const queryClient = useQueryClient();
 
 	const channelQuery = useQuery({
 		queryKey: youtubeKeys.channel(),
@@ -175,6 +176,17 @@ export default function YoutubeHome() {
 		initialSyncQuery.data?.status === "queued" ||
 		initialSyncQuery.data?.status === "running"
 
+	// The channel/snapshot/video queries above fetch on mount, before the backfill job
+	// finishes, so their data goes stale once the job completes; refetch them here.
+	useEffect(() => {
+		if (initialSyncQuery.data?.status !== "completed") return;
+
+		queryClient.invalidateQueries({ queryKey: youtubeKeys.channel() });
+		queryClient.invalidateQueries({ queryKey: youtubeKeys.channelSnapshots() });
+		queryClient.invalidateQueries({ queryKey: youtubeKeys.videosByDays(videosdays) });
+		queryClient.invalidateQueries({ queryKey: youtubeKeys.latestVideos() });
+	}, [initialSyncQuery.data?.status, queryClient, videosdays]);
+
 	const shouldShowLoading =
 		hasInitialSyncJob && (
 			initialSyncQuery.isLoading || 
@@ -187,7 +199,7 @@ export default function YoutubeHome() {
 			);
 
 	console.log(LatestVideosAndShortsQuery.data);
-	
+
 	const initialSyncMessage = initialSyncQuery.data?.message ?? "Preparing your YouTube data";
 
 	return (
