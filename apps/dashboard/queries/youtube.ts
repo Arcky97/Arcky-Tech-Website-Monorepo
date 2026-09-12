@@ -10,6 +10,9 @@ export const youtubeKeys = {
   videos: () =>
     [...youtubeKeys.all, "videos"] as const,
 
+  latestVideos: () =>
+    [...youtubeKeys.all, "videos-latest"] as const,
+
   videosByDays: (days: number) =>
     [...youtubeKeys.all, "videos-by-days"] as const, 
   video: (videoId: string) =>
