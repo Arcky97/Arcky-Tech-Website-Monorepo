@@ -9,8 +9,9 @@ import Link from "next/link";
 import LoadingOverlay from "@/components/overlays/loadingOverlay";
 import { useSearchParams } from "next/navigation";
 import { calculateAnalyticsRanges } from "@/lib/calculateAnalyticsRanges";
+import ChannelOverviewCard from "@/components/cards/ChannelOverview";
 
-type Channel = {
+export type Channel = {
 	channelId: string;
 	channelName: string;
 	description: string;
@@ -22,7 +23,7 @@ type Channel = {
 	publishedAt: Date;
 };
 
-type ChannelSnapshots = {
+export type ChannelSnapshots = {
 	id: number;
   channelId: string;
   views: number;
@@ -66,7 +67,7 @@ type ChannelStatKey =
 	| "viewCount"
 	| "videoCount";
 
-type ChannelStat = {
+export type ChannelStat = {
 	key: ChannelStatKey;
 	title: string;
 	icon: keyof typeof Icons;
@@ -235,6 +236,7 @@ export default function YoutubeHome() {
 				previous = analyticsRanges?.previous28Days.subscribersGained;
 				break;
 		}
+
 		const growth = calculatePercentage(last, previous);
 		const { yellow, orange } = GROWTH_THRESHOLDS[stat];
 
@@ -264,183 +266,186 @@ export default function YoutubeHome() {
 			/>
 			{!shouldShowLoading && channelQuery.data && (
 				<article className="flex flex-col text-white m-4 gap-4">
-				<div className="flex gap-4">
-					<div className="bg-gray-800 rounded-lg flex-1 flex-col w-[55%]">
-						<div className="flex flex-wrap items-center gap-6 p-4">
-							<div className="flex items-center gap-6">
-								<Image src={channelQuery.data.thumbnailUrl} alt="Channel Logo" width="128" height="128" loading="eager" className="rounded-full border-white border-2"/>
-								<div className="flex flex-col justify-center gap-1">
-									<p className="text-xl font-bold">{channelQuery.data.channelName}</p>
-									<Link className="text-gray-400" href={`https://www.youtube.com/${channelQuery.data.customUrl ?? channelQuery.data.channelId}`} target="_blank" rel="noopener noreferrer">{"View Channel on YouTube"}</Link>
+					<div className="flex gap-4">
+						<ChannelOverviewCard channel={channelQuery.data} snapshots={channelSnapshotQuery.data ?? []}/>
+					</div>
+					<div className="flex gap-4">
+						<div className="bg-gray-800 rounded-lg flex-1 flex-col w-[55%]">
+							<div className="flex flex-wrap items-center gap-6 p-4">
+								<div className="flex items-center gap-6">
+									<Image src={channelQuery.data.thumbnailUrl} alt="Channel Logo" width="128" height="128" loading="eager" className="rounded-full border-white border-2"/>
+									<div className="flex flex-col justify-center gap-1">
+										<p className="text-xl font-bold">{channelQuery.data.channelName}</p>
+										<Link className="text-gray-400" href={`https://www.youtube.com/${channelQuery.data.customUrl ?? channelQuery.data.channelId}`} target="_blank" rel="noopener noreferrer">{"View Channel on YouTube"}</Link>
+									</div>
 								</div>
-							</div>
-							<div className="flex flex-wrap items-start gap-6">
-								{stats.map(({ key, title, icon }) => {
-									const IconComp = Icons[icon] as ComponentType<SVGProps<SVGElement>>;
-
-									return (
-										<div key={key} className="flex items-start gap-3">
-											<div className="w-10 flex justify-center pt-1">
-												<IconComp className="w-7 h-7 text-red-500" />
-											</div>
-
-											<div className="flex flex-col">
-												<p className="text-gray-300">{title}</p>
-												<p className="font-bold text-2xl">
-													{channelQuery.data[key].toLocaleString()}
-												</p>
-
-												{key === "viewCount" && (
-													<p>
-														{StyleByCompareLastAndPrevious("views", analyticsRanges?.last28Days.views.toLocaleString() ?? "0")} in last 28 days
-													</p>
-												)}
-												{key === "subscriberCount" && (
-													<p>
-														{StyleByCompareLastAndPrevious("subscribers", analyticsRanges?.last28Days.subscribersGained.toLocaleString() ?? "0")} in last 28 days
-													</p>
-												)}
-												{key === "videoCount" && videosLast28DaysQuery && (
-													<p>
-														{StyleByCompareLastAndPrevious("videos", videosLast28DaysQuery.data?.uploads.toLocaleString() ?? "0")} in last 28 days
-													</p>
-												)}
-											</div>
-										</div>
-									);
-								})}
-							</div>
-						</div>
-						<div className="grid w-full gap-6 px-8 pb-4">
-							<div className="flex min-w-0 flex-col justify-center">
-								<div className="mb-3 flex items-center justify-between gap-3">
-									<p className="text-gray-300">Watch Time</p>
-									<p className="text-base font-semibold text-white">
-										{(analyticsRanges?.last365Days.watchHours ?? 0).toLocaleString(undefined, { maximumFractionDigits: 1 })}h / {watchTargetHours.toLocaleString()}h
-									</p>
-								</div>
-								<div className="relative h-3 w-full overflow-hidden rounded-full bg-gray-700">
-									<div className="absolute inset-0 rounded-full bg-gray-700"/>
-									{watchRangeConfig.map(({ key, color }, index) => {
-										const value = watchContributions[key];
-										const width = Math.min((value / watchTargetHours) * 100, 100);
-										const left = watchRangeConfig
-											.slice(0, index)
-											.reduce((sum, item) => {
-												return sum + (watchContributions[item.key] / watchTargetHours) * 100;
-											}, 0);
+								<div className="flex flex-wrap items-start gap-6">
+									{stats.map(({ key, title, icon }) => {
+										const IconComp = Icons[icon] as ComponentType<SVGProps<SVGElement>>;
 
 										return (
-											<div
-												key={key}
-												className={`absolute inset-y-0 last:rounded-r-full ${color}`}
-												style={{
-													width: `${width}%`,
-													left: `${left}%`,
-													opacity: 0.85 - index * 0.1,
-													zIndex: index + 1
-												}}
-											/>
-										);
-									})}
-								</div>
+											<div key={key} className="flex items-start gap-3">
+												<div className="w-10 flex justify-center pt-1">
+													<IconComp className="w-7 h-7 text-red-500" />
+												</div>
 
-								<div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-xs text-gray-400">
-									{watchRangeConfig.map(({ key, label, color, accent }) => {
-										const value = analyticsRanges?.[key].watchHours ?? 0;
-										return (
-											<div key={key} className="flex items-center gap-2">
-												<div className={`h-2.5 w-2.5 rounded-sm ${color}`} />
-												<span className={accent}>{label}</span>
-												<span>{value.toLocaleString(undefined, { maximumFractionDigits: 1 })}h</span>
+												<div className="flex flex-col">
+													<p className="text-gray-300">{title}</p>
+													<p className="font-bold text-2xl">
+														{channelQuery.data[key].toLocaleString()}
+													</p>
+
+													{key === "viewCount" && (
+														<p>
+															{StyleByCompareLastAndPrevious("views", analyticsRanges?.last28Days.views.toLocaleString() ?? "0")} in last 28 days
+														</p>
+													)}
+													{key === "subscriberCount" && (
+														<p>
+															{StyleByCompareLastAndPrevious("subscribers", analyticsRanges?.last28Days.subscribersGained.toLocaleString() ?? "0")} in last 28 days
+														</p>
+													)}
+													{key === "videoCount" && videosLast28DaysQuery && (
+														<p>
+															{StyleByCompareLastAndPrevious("videos", videosLast28DaysQuery.data?.uploads.toLocaleString() ?? "0")} in last 28 days
+														</p>
+													)}
+												</div>
 											</div>
 										);
 									})}
 								</div>
 							</div>
-						</div>
-					</div>
-					<div className="bg-gray-800 rounded-lg flex flex-col w-[40%] p-4">
-						<p className="mb-3 text-2xl font-bold">Watch-time insights</p>
-						<div className="mb-1 flex items-center justify-between gap-3">
-							<p className="text-gray-300">Daily Average</p>
-							<p className="text-gray-300">Target Average</p>
-						</div>
-						<div className="relative h-3 w-full overflow-hidden rounded-full bg-gray-700">
-							<div
-								className="absolute inset-y-0 rounded-full bg-blue-600"
-								style={{
-									width: `${Math.min((dailyWatchAverage / targetDaiylyWatchAverage) * 100, 100)}%`
-								}}
-							/>
-						</div>
-						<div className="mt-1 flex items-center justify-between gap-3">
-							<p className="text-white">{dailyWatchAverage.toLocaleString(undefined, { maximumFractionDigits: 1 })}h</p>
-							<p className="text-white">{targetDaiylyWatchAverage.toLocaleString(undefined, { maximumFractionDigits: 1 })}h</p>
-						</div>
-						<div className="mb-1 flex items-center justify-between gap-3">
-							<p className="text-gray-300">Weekly Average</p>
-							<p className="text-gray-300">Target Average</p>
-						</div>
-						<div className="relative h-3 w-full overflow-hidden rounded-full bg-gray-700">
-							<div
-								className="absolute inset-y-0 rounded-full bg-blue-600"
-								style={{
-									width: `${Math.min((weeklyWatchAverage / targetWeeklyWatchAverage) * 100, 100)}%`
-								}}
-							/>
-						</div>
-						<div className="mt-1 flex items-center justify-between gap-3">
-							<p className="text-white">{weeklyWatchAverage.toLocaleString(undefined, { maximumFractionDigits: 1 })}h</p>
-							<p className="text-white">{targetWeeklyWatchAverage.toLocaleString(undefined, { maximumFractionDigits: 1 })}h</p>
-						</div>
-						<div className="grid grid-cols-3 gap-x-6 gap-y-3 text-sm">
-							<div>
-								<p className="text-gray-400">Remaining Hours</p>
-								<p className="font-semibold text-white">{watchRemainingHours.toLocaleString(undefined, { maximumFractionDigits: 1 })}h</p>
-							</div>
-							<div>
-								<p className="text-gray-400">At recent pace</p>
-								<p className="font-semibold text-white">{estimatedDaysToTarget === null ? "No recent data" : `${estimatedDaysToTarget} days`}</p>
-							</div>
-							<div>
-								<p className="text-gray-400">Remaining Days</p>
-								<p className="font-semibold text-white">{daysToTargetRemaining} days</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div className="bg-gray-800 rounded-lg block p-4">
-					<p className="mb-3 text-2xl font-bold">Latest Videos</p>
-					<div className="flex px-4 py-2 justify-between">
-						<Image src={LatestVideosAndShortsQuery.data?.videos[0].thumbnailUrl ?? channelQuery.data.thumbnailUrl} alt="Channel Logo" width="196" height="196" loading="eager" className="rounded-lg border-white border-2"/>
-						<div className="flex flex-col justify-center max-w-[25%]">
-							<p className="flex text-2xl font-bold">Test</p>
-							<p className="">more text</p>
-							<p className="">and a bit more and what happens if we put even more text but it shouldn't take up all of it</p>
-						</div>
-						<div className="flex flex-col justify-center self-center text-center">
-							<p>first</p>
-							<p>with text</p>
-						</div>
-						<div className="flex flex-col justify-center self-center text-center">
-							<p>second</p>
-							<p>with text</p>
-						</div>
-						<div className="flex flex-col justify-center self-center text-center">
-							<p>third</p>
-							<p>with text</p>
-						</div>
-						<div className="flex flex-col justify-center self-center text-center">
-							<p>fourth and last</p>
-							<p>with text</p>
-						</div>
-					</div>
-				</div>
-				<div className="bg-gray-800 rounded-lg block p-4">
-					<p className="mb-3 text-2xl font-bold">Latest Shorts</p>
+							<div className="grid w-full gap-6 px-8 pb-4">
+								<div className="flex min-w-0 flex-col justify-center">
+									<div className="mb-3 flex items-center justify-between gap-3">
+										<p className="text-gray-300">Watch Time</p>
+										<p className="text-base font-semibold text-white">
+											{(analyticsRanges?.last365Days.watchHours ?? 0).toLocaleString(undefined, { maximumFractionDigits: 1 })}h / {watchTargetHours.toLocaleString()}h
+										</p>
+									</div>
+									<div className="relative h-3 w-full overflow-hidden rounded-full bg-gray-700">
+										<div className="absolute inset-0 rounded-full bg-gray-700"/>
+										{watchRangeConfig.map(({ key, color }, index) => {
+											const value = watchContributions[key];
+											const width = Math.min((value / watchTargetHours) * 100, 100);
+											const left = watchRangeConfig
+												.slice(0, index)
+												.reduce((sum, item) => {
+													return sum + (watchContributions[item.key] / watchTargetHours) * 100;
+												}, 0);
 
-				</div>
+											return (
+												<div
+													key={key}
+													className={`absolute inset-y-0 last:rounded-r-full ${color}`}
+													style={{
+														width: `${width}%`,
+														left: `${left}%`,
+														opacity: 0.85 - index * 0.1,
+														zIndex: index + 1
+													}}
+												/>
+											);
+										})}
+									</div>
+
+									<div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-xs text-gray-400">
+										{watchRangeConfig.map(({ key, label, color, accent }) => {
+											const value = analyticsRanges?.[key].watchHours ?? 0;
+											return (
+												<div key={key} className="flex items-center gap-2">
+													<div className={`h-2.5 w-2.5 rounded-sm ${color}`} />
+													<span className={accent}>{label}</span>
+													<span>{value.toLocaleString(undefined, { maximumFractionDigits: 1 })}h</span>
+												</div>
+											);
+										})}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className="bg-gray-800 rounded-lg flex flex-col w-[40%] p-4">
+							<p className="mb-3 text-2xl font-bold">Watch-time insights</p>
+							<div className="mb-1 flex items-center justify-between gap-3">
+								<p className="text-gray-300">Daily Average</p>
+								<p className="text-gray-300">Target Average</p>
+							</div>
+							<div className="relative h-3 w-full overflow-hidden rounded-full bg-gray-700">
+								<div
+									className="absolute inset-y-0 rounded-full bg-blue-600"
+									style={{
+										width: `${Math.min((dailyWatchAverage / targetDaiylyWatchAverage) * 100, 100)}%`
+									}}
+								/>
+							</div>
+							<div className="mt-1 flex items-center justify-between gap-3">
+								<p className="text-white">{dailyWatchAverage.toLocaleString(undefined, { maximumFractionDigits: 1 })}h</p>
+								<p className="text-white">{targetDaiylyWatchAverage.toLocaleString(undefined, { maximumFractionDigits: 1 })}h</p>
+							</div>
+							<div className="mb-1 flex items-center justify-between gap-3">
+								<p className="text-gray-300">Weekly Average</p>
+								<p className="text-gray-300">Target Average</p>
+							</div>
+							<div className="relative h-3 w-full overflow-hidden rounded-full bg-gray-700">
+								<div
+									className="absolute inset-y-0 rounded-full bg-blue-600"
+									style={{
+										width: `${Math.min((weeklyWatchAverage / targetWeeklyWatchAverage) * 100, 100)}%`
+									}}
+								/>
+							</div>
+							<div className="mt-1 flex items-center justify-between gap-3">
+								<p className="text-white">{weeklyWatchAverage.toLocaleString(undefined, { maximumFractionDigits: 1 })}h</p>
+								<p className="text-white">{targetWeeklyWatchAverage.toLocaleString(undefined, { maximumFractionDigits: 1 })}h</p>
+							</div>
+							<div className="grid grid-cols-3 gap-x-6 gap-y-3 text-sm">
+								<div>
+									<p className="text-gray-400">Remaining Hours</p>
+									<p className="font-semibold text-white">{watchRemainingHours.toLocaleString(undefined, { maximumFractionDigits: 1 })}h</p>
+								</div>
+								<div>
+									<p className="text-gray-400">At recent pace</p>
+									<p className="font-semibold text-white">{estimatedDaysToTarget === null ? "No recent data" : `${estimatedDaysToTarget} days`}</p>
+								</div>
+								<div>
+									<p className="text-gray-400">Remaining Days</p>
+									<p className="font-semibold text-white">{daysToTargetRemaining} days</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div className="bg-gray-800 rounded-lg block p-4">
+						<p className="mb-3 text-2xl font-bold">Latest Videos</p>
+						<div className="flex px-4 py-2 justify-between">
+							<Image src={LatestVideosAndShortsQuery.data?.videos[0].thumbnailUrl ?? channelQuery.data.thumbnailUrl} alt="Channel Logo" width="196" height="196" loading="eager" className="rounded-lg border-white border-2"/>
+							<div className="flex flex-col justify-center max-w-[25%]">
+								<p className="flex text-2xl font-bold">Test</p>
+								<p className="">more text</p>
+								<p className="">and a bit more and what happens if we put even more text but it shouldn't take up all of it</p>
+							</div>
+							<div className="flex flex-col justify-center self-center text-center">
+								<p>first</p>
+								<p>with text</p>
+							</div>
+							<div className="flex flex-col justify-center self-center text-center">
+								<p>second</p>
+								<p>with text</p>
+							</div>
+							<div className="flex flex-col justify-center self-center text-center">
+								<p>third</p>
+								<p>with text</p>
+							</div>
+							<div className="flex flex-col justify-center self-center text-center">
+								<p>fourth and last</p>
+								<p>with text</p>
+							</div>
+						</div>
+					</div>
+					<div className="bg-gray-800 rounded-lg block p-4">
+						<p className="mb-3 text-2xl font-bold">Latest Shorts</p>
+
+					</div>
 				</article>
 			)}
 		</>
