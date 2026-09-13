@@ -3,13 +3,14 @@ import { apiFetch } from "@/lib/apiFetch";
 import { youtubeKeys } from "@/queries/youtube";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import * as Icons from "@heroicons/react/24/outline";
-import { useEffect, type ComponentType, type SVGProps } from "react";
+import { useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import LoadingOverlay from "@/components/overlays/loadingOverlay";
 import { useSearchParams } from "next/navigation";
 import { calculateAnalyticsRanges } from "@/lib/calculateAnalyticsRanges";
 import ChannelOverviewCard from "@/components/cards/ChannelOverview";
+import WatchTimeInsightCard from "@/components/cards/WatchTimeInsights";
+import LatestVideosCard from "@/components/cards/LatestVideos";
 
 export type Channel = {
 	channelId: string;
@@ -35,7 +36,7 @@ export type ChannelSnapshots = {
   updatedAt: Date;
 }
 
-type YoutubeVideos = {
+export type YoutubeVideos = {
 	id: number;
 	channelId: number;
 	goalProfileId: number | null;
@@ -58,7 +59,7 @@ type VideosAndShorts = {
 	shorts: YoutubeVideos[];
 }
 
-type VideosByDays = {
+export type VideosByDays = {
 	uploads: number
 }
 
@@ -73,38 +74,29 @@ export type ChannelStat = {
 	icon: keyof typeof Icons;
 }
 
+export type Playlist = {
+	id: number;
+
+  channelId: number;
+  playlistId: string;
+
+  title: string;
+  description: string | null;
+  thumbnailUrl: string | null;
+  itemCount: number | null;
+
+  publishedAt: Date | null;
+
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 type SyncJob = {
   jobId: string;
   status: "queued" | "running" | "completed" | "failed";
   progress?: number;
   message?: string;
 }
-
-const stats: ChannelStat[] = [
-	{ 
-		key: "subscriberCount", 
-		title: "Subscribers",
-		icon: "UserGroupIcon"
-	},
-	{ 
-		key: "viewCount", 
-		title: "Total Views",
-		icon: "EyeIcon"
-	},
-	{ 
-		key: "videoCount", 
-		title: "Videos Uploaded",
-		icon: "VideoCameraIcon"
-	}
-];
-
-// % drop vs. the previous 28 days before it's marked yellow/orange/red; subscribers get looser
-// bands since the underlying counts are small and a couple fewer swings the percentage a lot.
-const GROWTH_THRESHOLDS: Record<"views" | "videos" | "subscribers", { yellow: number; orange: number }> = {
-	views: { yellow: -11, orange: -25 },
-	videos: { yellow: -2, orange: -5 },
-	subscribers: { yellow: -30, orange: -50 }
-};
 
 export default function YoutubeHome() {
 	const videosdays = 28;
@@ -125,6 +117,11 @@ export default function YoutubeHome() {
 		queryFn: () => apiFetch<VideosAndShorts>(`/api/youtube/videos/latest/5`)
 	});
 
+	const playlistsQuery = useQuery({
+		queryKey: youtubeKeys.playlists(),
+		queryFn: () => apiFetch<Playlist[]>(`/api/youtube/playlist`)
+	})
+
 	const videosLast28DaysQuery = useQuery({
 		queryKey: youtubeKeys.videosByDays(videosdays),
 		queryFn: () => apiFetch<VideosByDays>(`/api/youtube/videos/days/${videosdays}`)
@@ -139,38 +136,12 @@ export default function YoutubeHome() {
 		? calculateAnalyticsRanges(channelSnapshotQuery.data)
 		: null;
 
-	const watchRangeConfig = [
-		{ key: "last365Days", label: "365d", color: "bg-blue-500", accent: "text-blue-400" },
-		{ key: "last90Days", label: "90d", color: "bg-violet-500", accent: "text-violet-400" },
-		{ key: "last28Days", label: "28d", color: "bg-teal-500", accent: "text-teal-400" },
-		{ key: "last7Days", label: "7d", color: "bg-amber-500", accent: "text-amber-400" }
-	] as const;
-
-	const watchTargetHours = 4000;
-
 	const watchTotals = {
 		last365Days: analyticsRanges?.last365Days.watchHours ?? 0,
 		last90Days: analyticsRanges?.last90Days.watchHours ?? 0,
 		last28Days: analyticsRanges?.last28Days.watchHours ?? 0,
 		last7Days: analyticsRanges?.last7Days.watchHours ?? 0
 	};
-
-	const watchContributions = {
-		last365Days: Math.max(watchTotals.last365Days - watchTotals.last90Days, 0),
-		last90Days: Math.max(watchTotals.last90Days - watchTotals.last28Days, 0),
-		last28Days: Math.max(watchTotals.last28Days - watchTotals.last7Days, 0),
-		last7Days: watchTotals.last7Days
-	};
-
-	const watchRemainingHours = Math.max(watchTargetHours - watchTotals.last365Days, 0);
-	const daysToTargetRemaining = Math.ceil((new Date("2027-01-31").getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
-	const dailyWatchAverage = watchTotals.last365Days / 365;
-	const targetDaiylyWatchAverage = watchRemainingHours / daysToTargetRemaining;
-	const weeklyWatchAverage = watchTotals.last365Days / 52;
-	const targetWeeklyWatchAverage = watchRemainingHours / (daysToTargetRemaining / 7);
-	const estimatedDaysToTarget = dailyWatchAverage > 0
-		? Math.ceil(watchRemainingHours / dailyWatchAverage)
-		: null;
 
 	const searchParams = useSearchParams();
 	const initialSyncJobId = searchParams.get("initialSyncJobId");
@@ -212,51 +183,11 @@ export default function YoutubeHome() {
 				(!channelQuery.data || !Object.entries(channelQuery.data).length) ||
 				(!channelSnapshotQuery.data || !Object.entries(channelSnapshotQuery.data).length) || 
 				(!videosLast28DaysQuery.data || !Object.entries(videosLast28DaysQuery.data).length) ||
-				(!LatestVideosAndShortsQuery.data || !Object.entries(LatestVideosAndShortsQuery.data).length)
+				(!LatestVideosAndShortsQuery.data || !Object.entries(LatestVideosAndShortsQuery.data).length) ||
+				(!playlistsQuery.data || !Object.entries(playlistsQuery.data).length)
 			);
 
 	const initialSyncMessage = initialSyncQuery.data?.message ?? "Preparing your YouTube data";
-
-	const StyleByCompareLastAndPrevious = (stat: "views" | "videos" | "subscribers", value: string) => {
-		if (!analyticsRanges) return "color-gray-300";
-		let color;
-		let last = 0;
-		let previous = 0
-		switch(stat) {
-			case "views":
-				last = analyticsRanges?.last28Days.views;
-				previous = analyticsRanges?.previous28Days.views
-				break;
-			case "videos":
-				last = videosLast28DaysQuery.data?.uploads ?? 0;
-				previous = videosPrevious28DaysQuery.data?.uploads ?? 0;
-				break;
-			case "subscribers":
-				last = analyticsRanges?.last28Days.subscribersGained;
-				previous = analyticsRanges?.previous28Days.subscribersGained;
-				break;
-		}
-
-		const growth = calculatePercentage(last, previous);
-		const { yellow, orange } = GROWTH_THRESHOLDS[stat];
-
-		if (growth >= 0) {
-			color = "text-green-500"
-		} else if (growth > yellow) {
-			color = "text-yellow-500";
-		} else if (growth > orange) {
-			color = "text-orange-500";
-		} else {
-			color = "text-red-500";
-		}
-		return <span className={`${color}`}>+{value}</span>;
-	}
-
-	const calculatePercentage = (value1: number, value2: number) => {
-		if (value2 === 0) return value1 > 0 ? 100 : 0;
-
-		return Math.round(((value1 - value2) / value2) * 100);
-	}
 
 	return (
 		<>
@@ -267,154 +198,17 @@ export default function YoutubeHome() {
 			{!shouldShowLoading && channelQuery.data && (
 				<article className="flex flex-col text-white m-4 gap-4">
 					<div className="flex gap-4">
-						<ChannelOverviewCard channel={channelQuery.data} snapshots={channelSnapshotQuery.data ?? []}/>
+						<ChannelOverviewCard 
+							channel={channelQuery.data} 
+							snapshots={channelSnapshotQuery.data ?? []} uploads={{ 
+								last: videosLast28DaysQuery?.data?.uploads ?? 0, 
+								previous: (videosPrevious28DaysQuery?.data?.uploads ?? 0) - (videosLast28DaysQuery?.data?.uploads ?? 0 )
+							}} 
+							watchTotals={watchTotals}
+						/>
+						<WatchTimeInsightCard watchTotals={watchTotals}/>
 					</div>
-					<div className="flex gap-4">
-						<div className="bg-gray-800 rounded-lg flex-1 flex-col w-[55%]">
-							<div className="flex flex-wrap items-center gap-6 p-4">
-								<div className="flex items-center gap-6">
-									<Image src={channelQuery.data.thumbnailUrl} alt="Channel Logo" width="128" height="128" loading="eager" className="rounded-full border-white border-2"/>
-									<div className="flex flex-col justify-center gap-1">
-										<p className="text-xl font-bold">{channelQuery.data.channelName}</p>
-										<Link className="text-gray-400" href={`https://www.youtube.com/${channelQuery.data.customUrl ?? channelQuery.data.channelId}`} target="_blank" rel="noopener noreferrer">{"View Channel on YouTube"}</Link>
-									</div>
-								</div>
-								<div className="flex flex-wrap items-start gap-6">
-									{stats.map(({ key, title, icon }) => {
-										const IconComp = Icons[icon] as ComponentType<SVGProps<SVGElement>>;
-
-										return (
-											<div key={key} className="flex items-start gap-3">
-												<div className="w-10 flex justify-center pt-1">
-													<IconComp className="w-7 h-7 text-red-500" />
-												</div>
-
-												<div className="flex flex-col">
-													<p className="text-gray-300">{title}</p>
-													<p className="font-bold text-2xl">
-														{channelQuery.data[key].toLocaleString()}
-													</p>
-
-													{key === "viewCount" && (
-														<p>
-															{StyleByCompareLastAndPrevious("views", analyticsRanges?.last28Days.views.toLocaleString() ?? "0")} in last 28 days
-														</p>
-													)}
-													{key === "subscriberCount" && (
-														<p>
-															{StyleByCompareLastAndPrevious("subscribers", analyticsRanges?.last28Days.subscribersGained.toLocaleString() ?? "0")} in last 28 days
-														</p>
-													)}
-													{key === "videoCount" && videosLast28DaysQuery && (
-														<p>
-															{StyleByCompareLastAndPrevious("videos", videosLast28DaysQuery.data?.uploads.toLocaleString() ?? "0")} in last 28 days
-														</p>
-													)}
-												</div>
-											</div>
-										);
-									})}
-								</div>
-							</div>
-							<div className="grid w-full gap-6 px-8 pb-4">
-								<div className="flex min-w-0 flex-col justify-center">
-									<div className="mb-3 flex items-center justify-between gap-3">
-										<p className="text-gray-300">Watch Time</p>
-										<p className="text-base font-semibold text-white">
-											{(analyticsRanges?.last365Days.watchHours ?? 0).toLocaleString(undefined, { maximumFractionDigits: 1 })}h / {watchTargetHours.toLocaleString()}h
-										</p>
-									</div>
-									<div className="relative h-3 w-full overflow-hidden rounded-full bg-gray-700">
-										<div className="absolute inset-0 rounded-full bg-gray-700"/>
-										{watchRangeConfig.map(({ key, color }, index) => {
-											const value = watchContributions[key];
-											const width = Math.min((value / watchTargetHours) * 100, 100);
-											const left = watchRangeConfig
-												.slice(0, index)
-												.reduce((sum, item) => {
-													return sum + (watchContributions[item.key] / watchTargetHours) * 100;
-												}, 0);
-
-											return (
-												<div
-													key={key}
-													className={`absolute inset-y-0 last:rounded-r-full ${color}`}
-													style={{
-														width: `${width}%`,
-														left: `${left}%`,
-														opacity: 0.85 - index * 0.1,
-														zIndex: index + 1
-													}}
-												/>
-											);
-										})}
-									</div>
-
-									<div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-xs text-gray-400">
-										{watchRangeConfig.map(({ key, label, color, accent }) => {
-											const value = analyticsRanges?.[key].watchHours ?? 0;
-											return (
-												<div key={key} className="flex items-center gap-2">
-													<div className={`h-2.5 w-2.5 rounded-sm ${color}`} />
-													<span className={accent}>{label}</span>
-													<span>{value.toLocaleString(undefined, { maximumFractionDigits: 1 })}h</span>
-												</div>
-											);
-										})}
-									</div>
-								</div>
-							</div>
-						</div>
-						<div className="bg-gray-800 rounded-lg flex flex-col w-[40%] p-4">
-							<p className="mb-3 text-2xl font-bold">Watch-time insights</p>
-							<div className="mb-1 flex items-center justify-between gap-3">
-								<p className="text-gray-300">Daily Average</p>
-								<p className="text-gray-300">Target Average</p>
-							</div>
-							<div className="relative h-3 w-full overflow-hidden rounded-full bg-gray-700">
-								<div
-									className="absolute inset-y-0 rounded-full bg-blue-600"
-									style={{
-										width: `${Math.min((dailyWatchAverage / targetDaiylyWatchAverage) * 100, 100)}%`
-									}}
-								/>
-							</div>
-							<div className="mt-1 flex items-center justify-between gap-3">
-								<p className="text-white">{dailyWatchAverage.toLocaleString(undefined, { maximumFractionDigits: 1 })}h</p>
-								<p className="text-white">{targetDaiylyWatchAverage.toLocaleString(undefined, { maximumFractionDigits: 1 })}h</p>
-							</div>
-							<div className="mb-1 flex items-center justify-between gap-3">
-								<p className="text-gray-300">Weekly Average</p>
-								<p className="text-gray-300">Target Average</p>
-							</div>
-							<div className="relative h-3 w-full overflow-hidden rounded-full bg-gray-700">
-								<div
-									className="absolute inset-y-0 rounded-full bg-blue-600"
-									style={{
-										width: `${Math.min((weeklyWatchAverage / targetWeeklyWatchAverage) * 100, 100)}%`
-									}}
-								/>
-							</div>
-							<div className="mt-1 flex items-center justify-between gap-3">
-								<p className="text-white">{weeklyWatchAverage.toLocaleString(undefined, { maximumFractionDigits: 1 })}h</p>
-								<p className="text-white">{targetWeeklyWatchAverage.toLocaleString(undefined, { maximumFractionDigits: 1 })}h</p>
-							</div>
-							<div className="grid grid-cols-3 gap-x-6 gap-y-3 text-sm">
-								<div>
-									<p className="text-gray-400">Remaining Hours</p>
-									<p className="font-semibold text-white">{watchRemainingHours.toLocaleString(undefined, { maximumFractionDigits: 1 })}h</p>
-								</div>
-								<div>
-									<p className="text-gray-400">At recent pace</p>
-									<p className="font-semibold text-white">{estimatedDaysToTarget === null ? "No recent data" : `${estimatedDaysToTarget} days`}</p>
-								</div>
-								<div>
-									<p className="text-gray-400">Remaining Days</p>
-									<p className="font-semibold text-white">{daysToTargetRemaining} days</p>
-								</div>
-							</div>
-						</div>
-					</div>
+					<LatestVideosCard videos={LatestVideosAndShortsQuery?.data?.videos ?? []} playlists={playlistsQuery.data ?? []}/>
 					<div className="bg-gray-800 rounded-lg block p-4">
 						<p className="mb-3 text-2xl font-bold">Latest Videos</p>
 						<div className="flex px-4 py-2 justify-between">

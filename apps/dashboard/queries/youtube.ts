@@ -15,9 +15,13 @@ export const youtubeKeys = {
 
   videosByDays: (days: number) =>
     [...youtubeKeys.all, "videos-by-days"] as const, 
+
   video: (videoId: string) =>
     [...youtubeKeys.all, "video", videoId] as const,
 
+  playlists: () =>
+    [...youtubeKeys.all, "playlists"] as const,
+  
   videoSnapshots: (videoId: string) =>
     [...youtubeKeys.all, "video-snapshots", videoId] as const,
 
