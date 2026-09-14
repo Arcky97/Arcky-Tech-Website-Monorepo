@@ -6,7 +6,7 @@ import * as Icons from "@heroicons/react/24/outline";
 import { useEffect } from "react";
 import Image from "next/image";
 import LoadingOverlay from "@/components/overlays/loadingOverlay";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { calculateAnalyticsRanges } from "@/lib/calculateAnalyticsRanges";
 import ChannelOverviewCard from "@/components/cards/ChannelOverview";
 import WatchTimeInsightCard from "@/components/cards/WatchTimeInsights";
@@ -52,6 +52,20 @@ export type YoutubeVideos = {
 	trackAnalytics: boolean;
 	createdAt: Date;
 	updatedAt: Date;
+}
+
+export type VideoSnapshot = {
+  videoId: number;
+  snapshotDate: Date;
+  views: number;
+  likes: number;
+  comments: number;
+  shares: number;
+  watchHours: number;
+  averageViewDuration: number;
+  averageViewPercentage: number;
+  subscribersGained: number;
+  subscribersLost: number;
 }
 
 type VideosAndShorts = {
@@ -117,10 +131,15 @@ export default function YoutubeHome() {
 		queryFn: () => apiFetch<VideosAndShorts>(`/api/youtube/videos/latest/5`)
 	});
 
+	const LatestVideosSnapshotsQuery = useQuery({
+		queryKey: youtubeKeys.latestSnapshots(),
+		queryFn: () => apiFetch<VideoSnapshot[]>("/api/youtube/videos/latest/snapshots")
+	});
+
 	const playlistsQuery = useQuery({
 		queryKey: youtubeKeys.playlists(),
-		queryFn: () => apiFetch<Playlist[]>(`/api/youtube/playlist`)
-	})
+		queryFn: () => apiFetch<Playlist[]>(`/api/youtube/playlists`)
+	});
 
 	const videosLast28DaysQuery = useQuery({
 		queryKey: youtubeKeys.videosByDays(videosdays),
@@ -143,9 +162,12 @@ export default function YoutubeHome() {
 		last7Days: analyticsRanges?.last7Days.watchHours ?? 0
 	};
 
+	const router = useRouter();
 	const searchParams = useSearchParams();
 	const initialSyncJobId = searchParams.get("initialSyncJobId");
 	const hasInitialSyncJob = Boolean(initialSyncJobId && initialSyncJobId !== "0");
+
+	console.debug("[YoutubeHome] initialSyncJobId from URL:", initialSyncJobId, "hasInitialSyncJob:", hasInitialSyncJob);
 
 	const initialSyncQuery = useQuery({
 		queryKey: youtubeKeys.syncJob(initialSyncJobId ?? ""),
@@ -167,6 +189,7 @@ export default function YoutubeHome() {
 	// The channel/snapshot/video queries above fetch on mount, before the backfill job
 	// finishes, so their data goes stale once the job completes; refetch them here.
 	useEffect(() => {
+		console.debug("[YoutubeHome] initialSyncQuery status changed:", initialSyncQuery.data?.status, initialSyncQuery.data);
 		if (initialSyncQuery.data?.status !== "completed") return;
 
 		queryClient.invalidateQueries({ queryKey: youtubeKeys.channel() });
@@ -175,19 +198,49 @@ export default function YoutubeHome() {
 		queryClient.invalidateQueries({ queryKey: youtubeKeys.latestVideos() });
 	}, [initialSyncQuery.data?.status, queryClient, videosdays]);
 
+	// Strip initialSyncJobId from the URL once the job is done, otherwise every
+	// refresh re-reads the same jobId from the URL and re-shows its final message.
+	useEffect(() => {
+		if (!hasInitialSyncJob) return;
+		const status = initialSyncQuery.data?.status;
+		if (status !== "completed" && status !== "failed") return;
+
+		console.debug("[YoutubeHome] Clearing initialSyncJobId from URL, final status:", status);
+
+		const params = new URLSearchParams(searchParams.toString());
+		params.delete("initialSyncJobId");
+		const query = params.toString();
+		router.replace(query ? `?${query}` : window.location.pathname, { scroll: false });
+	}, [hasInitialSyncJob, initialSyncQuery.data?.status, router, searchParams]);
+
 	const shouldShowLoading =
 		hasInitialSyncJob && (
 			initialSyncQuery.isLoading || 
-			channelSnapshotQuery.isLoading || videosLast28DaysQuery.isLoading || initialBackfillActive || 
+			channelSnapshotQuery.isLoading || videosLast28DaysQuery.isLoading || LatestVideosAndShortsQuery.isLoading || playlistsQuery.isLoading || initialBackfillActive || 
 				(!initialSyncQuery.data || !Object.entries(initialSyncQuery.data).length) || 
 				(!channelQuery.data || !Object.entries(channelQuery.data).length) ||
 				(!channelSnapshotQuery.data || !Object.entries(channelSnapshotQuery.data).length) || 
 				(!videosLast28DaysQuery.data || !Object.entries(videosLast28DaysQuery.data).length) ||
-				(!LatestVideosAndShortsQuery.data || !Object.entries(LatestVideosAndShortsQuery.data).length) ||
-				(!playlistsQuery.data || !Object.entries(playlistsQuery.data).length)
+				!LatestVideosAndShortsQuery.data ||
+				!playlistsQuery.data ||
+				!LatestVideosSnapshotsQuery.data
 			);
 
 	const initialSyncMessage = initialSyncQuery.data?.message ?? "Preparing your YouTube data";
+
+	console.debug("[YoutubeHome] shouldShowLoading:", shouldShowLoading, {
+		hasInitialSyncJob,
+		initialBackfillActive,
+		initialSyncQueryIsLoading: initialSyncQuery.isLoading,
+		channelSnapshotQueryIsLoading: channelSnapshotQuery.isLoading,
+		videosLast28DaysQueryIsLoading: videosLast28DaysQuery.isLoading,
+		hasChannelData: !!channelQuery.data,
+		hasChannelSnapshotData: !!channelSnapshotQuery.data,
+		hasVideosLast28DaysData: !!videosLast28DaysQuery.data,
+		hasLatestVideosData: !!LatestVideosAndShortsQuery.data,
+		hasPlaylistsData: !!playlistsQuery.data,
+		playlistsLength: playlistsQuery.data?.length
+	});
 
 	return (
 		<>
@@ -208,7 +261,11 @@ export default function YoutubeHome() {
 						/>
 						<WatchTimeInsightCard watchTotals={watchTotals}/>
 					</div>
-					<LatestVideosCard videos={LatestVideosAndShortsQuery?.data?.videos ?? []} playlists={playlistsQuery.data ?? []}/>
+					<LatestVideosCard 
+						videos={LatestVideosAndShortsQuery?.data?.videos ?? []} 
+						playlists={playlistsQuery.data ?? []}
+						snapshots={LatestVideosSnapshotsQuery.data ?? []}
+					/>
 					<div className="bg-gray-800 rounded-lg block p-4">
 						<p className="mb-3 text-2xl font-bold">Latest Videos</p>
 						<div className="flex px-4 py-2 justify-between">
