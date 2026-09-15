@@ -24,7 +24,6 @@ export default function LatestVideosCard ({ videos, playlists, snapshots }: { vi
       watchHours: 0
     }
 
-    console.log(snapshots);
     if (!snapshots.length) return emptySnapshot;
 
     return snapshots.find(snapshot => snapshot.videoId === videoId) ?? emptySnapshot;
@@ -50,7 +49,7 @@ export default function LatestVideosCard ({ videos, playlists, snapshots }: { vi
                 className="flex px-4 py-2 justify-between" 
                 key={video.id}
               >
-                {video.thumbnailUrl ? (
+                {video?.thumbnailUrl ? (
                   <Image src={video.thumbnailUrl} alt="Video Thumbnail" width="196" height="148" loading="eager" className="rounded-lg border-white border-2"/>
                 ) : (
                   <div className="rounded-lg w-49 h-37 bg-gray-700">
@@ -68,7 +67,7 @@ export default function LatestVideosCard ({ videos, playlists, snapshots }: { vi
                 </div>
                 <div className="flex flex-col justfiy-center self-center text-center">
                   <p>Views</p>
-                  <p>{getVideoSnapshot(Number(video.videoId)).views}</p>
+                  <p>{getVideoSnapshot(Number(video.id)).views}</p>
                 </div>
               </div>
             )

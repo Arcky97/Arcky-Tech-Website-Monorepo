@@ -133,7 +133,7 @@ export default function YoutubeHome() {
 
 	const LatestVideosSnapshotsQuery = useQuery({
 		queryKey: youtubeKeys.latestSnapshots(),
-		queryFn: () => apiFetch<VideoSnapshot[]>("/api/youtube/videos/latest/snapshots")
+		queryFn: () => apiFetch<VideoSnapshot[]>("/api/youtube/videos/snapshots")
 	});
 
 	const playlistsQuery = useQuery({
@@ -269,7 +269,7 @@ export default function YoutubeHome() {
 					<div className="bg-gray-800 rounded-lg block p-4">
 						<p className="mb-3 text-2xl font-bold">Latest Videos</p>
 						<div className="flex px-4 py-2 justify-between">
-							<Image src={LatestVideosAndShortsQuery.data?.videos[0].thumbnailUrl ?? channelQuery.data.thumbnailUrl} alt="Channel Logo" width="196" height="196" loading="eager" className="rounded-lg border-white border-2"/>
+							<Image src={LatestVideosAndShortsQuery.data?.videos[0]?.thumbnailUrl ?? channelQuery.data.thumbnailUrl} alt="Channel Logo" width="196" height="196" loading="eager" className="rounded-lg border-white border-2"/>
 							<div className="flex flex-col justify-center max-w-[25%]">
 								<p className="flex text-2xl font-bold">Test</p>
 								<p className="">more text</p>
