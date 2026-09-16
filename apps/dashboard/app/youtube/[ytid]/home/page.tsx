@@ -48,6 +48,15 @@ export type YoutubeVideos = {
 	durationSeconds: number;
 	description: string | null;
 	playlistIds: string[] | null;
+	views: number;
+  likes: number;
+  comments: number;
+  shares: number;
+  watchHours: number;
+  averageViewDuration: number;
+  averageViewPercentage: number;
+  subscribersGained: number;
+  subscribersLost: number;
 	publishedAt: Date;
 	trackAnalytics: boolean;
 	createdAt: Date;
@@ -266,33 +275,6 @@ export default function YoutubeHome() {
 						playlists={playlistsQuery.data ?? []}
 						snapshots={LatestVideosSnapshotsQuery.data ?? []}
 					/>
-					<div className="bg-gray-800 rounded-lg block p-4">
-						<p className="mb-3 text-2xl font-bold">Latest Videos</p>
-						<div className="flex px-4 py-2 justify-between">
-							<Image src={LatestVideosAndShortsQuery.data?.videos[0]?.thumbnailUrl ?? channelQuery.data.thumbnailUrl} alt="Channel Logo" width="196" height="196" loading="eager" className="rounded-lg border-white border-2"/>
-							<div className="flex flex-col justify-center max-w-[25%]">
-								<p className="flex text-2xl font-bold">Test</p>
-								<p className="">more text</p>
-								<p className="">and a bit more and what happens if we put even more text but it shouldn't take up all of it</p>
-							</div>
-							<div className="flex flex-col justify-center self-center text-center">
-								<p>first</p>
-								<p>with text</p>
-							</div>
-							<div className="flex flex-col justify-center self-center text-center">
-								<p>second</p>
-								<p>with text</p>
-							</div>
-							<div className="flex flex-col justify-center self-center text-center">
-								<p>third</p>
-								<p>with text</p>
-							</div>
-							<div className="flex flex-col justify-center self-center text-center">
-								<p>fourth and last</p>
-								<p>with text</p>
-							</div>
-						</div>
-					</div>
 					<div className="bg-gray-800 rounded-lg block p-4">
 						<p className="mb-3 text-2xl font-bold">Latest Shorts</p>
 

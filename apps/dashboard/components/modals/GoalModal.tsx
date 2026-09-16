@@ -285,7 +285,7 @@ export default function GoalModal({ isVisible, onClose }: GoalModalProps) {
         disabled={goalQuery.isLoading || isSaving}
       />
       <div 
-        className={`modal-content ${isVisible ? "show" : "hide"} "max-w-[95%] w-[75%]"`}
+        className={`modal-content ${isVisible ? "show" : "hide"} max-w-[95%]`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Sticky top bar */}
