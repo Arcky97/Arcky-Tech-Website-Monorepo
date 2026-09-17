@@ -2,100 +2,14 @@
 import { apiFetch } from "@/lib/apiFetch";
 import { youtubeKeys } from "@/queries/youtube";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import * as Icons from "@heroicons/react/24/outline";
 import { useEffect } from "react";
-import Image from "next/image";
 import LoadingOverlay from "@/components/overlays/loadingOverlay";
 import { useRouter, useSearchParams } from "next/navigation";
 import { calculateAnalyticsRanges } from "@/lib/calculateAnalyticsRanges";
 import ChannelOverviewCard from "@/components/cards/ChannelOverview";
 import WatchTimeInsightCard from "@/components/cards/WatchTimeInsights";
 import LatestVideosCard from "@/components/cards/LatestVideos";
-
-export type Channel = {
-	channelId: string;
-	channelName: string;
-	description: string;
-	thumbnailUrl: string;
-	subscriberCount: number;
-	viewCount: number;
-	videoCount: number;
-	customUrl: string;
-	publishedAt: Date;
-};
-
-export type ChannelSnapshots = {
-	id: number;
-  channelId: string;
-  views: number;
-  watchHours: number;
-  subscribersGained: number;
-  subscribersLost: number;
-  snapshotDate: Date;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export type YoutubeVideos = {
-	id: number;
-	channelId: number;
-	goalProfileId: number | null;
-	videoId: string;
-	title: string;
-	thumbnailUrl: string | null;
-	isShort: boolean;
-  isShortOverride: boolean | null;
-	durationSeconds: number;
-	description: string | null;
-	playlistIds: string[] | null;
-	views: number;
-  likes: number;
-  comments: number;
-  shares: number;
-  watchHours: number;
-  averageViewDuration: number;
-  averageViewPercentage: number;
-  subscribersGained: number;
-  subscribersLost: number;
-	publishedAt: Date;
-	trackAnalytics: boolean;
-	createdAt: Date;
-	updatedAt: Date;
-}
-
-export type VideoSnapshot = {
-  videoId: number;
-  snapshotDate: Date;
-  views: number;
-  likes: number;
-  comments: number;
-  shares: number;
-  watchHours: number;
-  averageViewDuration: number;
-  averageViewPercentage: number;
-  subscribersGained: number;
-  subscribersLost: number;
-}
-
-type VideosAndShorts = {
-	videos: YoutubeVideos[];
-	shorts: YoutubeVideos[];
-}
-
-export type VideosByDays = {
-	uploads: number
-}
-
-type ChannelStatKey =
-	| "subscriberCount"
-	| "viewCount"
-	| "videoCount";
-
-export type ChannelStat = {
-	key: ChannelStatKey;
-	title: string;
-	icon: keyof typeof Icons;
-}
+import { YoutubeChannelSnapshot, YoutubeVideosAndShorts, YoutubeVideosByDays, YoutubeVideoSnapshot, YoutubeChannel,YoutubePlaylist, SyncJob } from "@/types";
 
 export type Playlist = {
 	id: number;
@@ -114,50 +28,43 @@ export type Playlist = {
   updatedAt: Date;
 }
 
-type SyncJob = {
-  jobId: string;
-  status: "queued" | "running" | "completed" | "failed";
-  progress?: number;
-  message?: string;
-}
-
 export default function YoutubeHome() {
 	const videosdays = 28;
 	const queryClient = useQueryClient();
 
 	const channelQuery = useQuery({
 		queryKey: youtubeKeys.channel(),
-		queryFn: () => apiFetch<Channel>("/api/youtube/channel")
+		queryFn: () => apiFetch<YoutubeChannel>("/api/youtube/channel")
 	});
 
 	const channelSnapshotQuery = useQuery({
 		queryKey: youtubeKeys.channelSnapshots(),
-		queryFn: () => apiFetch<ChannelSnapshots[]>("/api/youtube/channel/snapshots")
+		queryFn: () => apiFetch<YoutubeChannelSnapshot[]>("/api/youtube/channel/snapshots")
 	});
 
 	const LatestVideosAndShortsQuery = useQuery({
 		queryKey: youtubeKeys.latestVideos(),
-		queryFn: () => apiFetch<VideosAndShorts>(`/api/youtube/videos/latest/5`)
+		queryFn: () => apiFetch<YoutubeVideosAndShorts>(`/api/youtube/videos/latest/5`)
 	});
 
 	const LatestVideosSnapshotsQuery = useQuery({
 		queryKey: youtubeKeys.latestSnapshots(),
-		queryFn: () => apiFetch<VideoSnapshot[]>("/api/youtube/videos/snapshots")
+		queryFn: () => apiFetch<YoutubeVideoSnapshot[]>("/api/youtube/videos/snapshots")
 	});
 
 	const playlistsQuery = useQuery({
 		queryKey: youtubeKeys.playlists(),
-		queryFn: () => apiFetch<Playlist[]>(`/api/youtube/playlists`)
+		queryFn: () => apiFetch<YoutubePlaylist[]>(`/api/youtube/playlists`)
 	});
 
 	const videosLast28DaysQuery = useQuery({
 		queryKey: youtubeKeys.videosByDays(videosdays),
-		queryFn: () => apiFetch<VideosByDays>(`/api/youtube/videos/days/${videosdays}`)
+		queryFn: () => apiFetch<YoutubeVideosByDays>(`/api/youtube/videos/days/${videosdays}`)
 	});
 
 	const videosPrevious28DaysQuery = useQuery({
 		queryKey: youtubeKeys.videosByDays(videosdays * 2),
-		queryFn: () => apiFetch<VideosByDays>(`/api/youtube/videos/days/${videosdays * 2}`)
+		queryFn: () => apiFetch<YoutubeVideosByDays>(`/api/youtube/videos/days/${videosdays * 2}`)
 	});
 
 	const analyticsRanges = channelSnapshotQuery.data
@@ -273,7 +180,6 @@ export default function YoutubeHome() {
 					<LatestVideosCard 
 						videos={LatestVideosAndShortsQuery?.data?.videos ?? []} 
 						playlists={playlistsQuery.data ?? []}
-						snapshots={LatestVideosSnapshotsQuery.data ?? []}
 					/>
 					<div className="bg-gray-800 rounded-lg block p-4">
 						<p className="mb-3 text-2xl font-bold">Latest Shorts</p>

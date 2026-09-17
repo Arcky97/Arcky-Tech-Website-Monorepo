@@ -1,7 +1,7 @@
-import { YoutubeVideos } from "@/app/youtube/[ytid]/home/page";
+import { YoutubeVideo } from "@/types";
 import { ColorButton } from "ui";
 
-export default function VideoDetailsModal({video, isVisible, onClose}: { video: YoutubeVideos | null, isVisible: boolean, onClose: () => void}) {
+export default function VideoDetailsModal({video, isVisible, onClose}: { video: YoutubeVideo | null, isVisible: boolean, onClose: () => void}) {
   return (
     <div
       className={`modal-overlay ${isVisible ? "show" : "hide pointer-events-none"}`}

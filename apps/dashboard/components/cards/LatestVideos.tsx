@@ -1,13 +1,14 @@
-import { YoutubeVideos, Playlist, VideoSnapshot } from "@/app/youtube/[ytid]/home/page";
+import { Playlist } from "@/app/youtube/[ytid]/home/page";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import { ColorButton } from "ui";
 import VideoDetailsModal from "../modals/VideoDetailsModal";
+import { YoutubeVideo, YoutubeVideoSnapshot } from "@/types";
 
-export default function LatestVideosCard ({ videos, playlists, snapshots }: { videos: YoutubeVideos[], playlists: Playlist[], snapshots: VideoSnapshot[] }) {
+export default function LatestVideosCard ({ videos, playlists }: { videos: YoutubeVideo[], playlists: Playlist[] }) {
   const { ytid } = useParams<{ ytid: string }>();
-  const [selectedVideo, setSelectedVideo] = useState<YoutubeVideos | null>(null);
+  const [selectedVideo, setSelectedVideo] = useState<YoutubeVideo | null>(null);
 
   const getVideoPlaylist = (videoPlaylistIds: string[]) => {
     if (!playlists.length) return ["Unable to retrieve Playlists"];
@@ -20,21 +21,6 @@ export default function LatestVideosCard ({ videos, playlists, snapshots }: { vi
 
     return result.map(res => res.title);
   };
-
-  const getVideoSnapshot = (videoId: number): Partial<VideoSnapshot> => {
-    const emptySnapshot = {
-      videoId,
-      views: 0,
-      likes: 0,
-      comments: 0,
-      shares: 0,
-      watchHours: 0
-    }
-
-    if (!snapshots.length) return emptySnapshot;
-
-    return snapshots.find(snapshot => snapshot.videoId === videoId) ?? emptySnapshot;
-  }
 
   const formatDate = (date: Date) => {
     return new Date(date).toLocaleDateString("en-US", {
@@ -74,7 +60,7 @@ export default function LatestVideosCard ({ videos, playlists, snapshots }: { vi
               </tr>
             </thead>
             <tbody>
-              {videos.map((video: YoutubeVideos, ri) => (
+              {videos.map((video: YoutubeVideo, ri) => (
                 <tr
                   key={`row-${ri}`}
                   onClick={() => setSelectedVideo(video)}

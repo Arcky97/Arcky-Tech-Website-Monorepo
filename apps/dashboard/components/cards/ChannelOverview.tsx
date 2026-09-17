@@ -1,9 +1,20 @@
-import { Channel, ChannelSnapshots, ChannelStat, VideosByDays } from "@/app/youtube/[ytid]/home/page";
 import Image from "next/image";
 import Link from "next/link";
 import * as Icons from "@heroicons/react/24/outline";
 import { ComponentType, SVGProps } from "react";
 import { calculateAnalyticsRanges } from "@/lib/calculateAnalyticsRanges";
+import { YoutubeChannelSnapshot, YoutubeChannel } from "@/types";
+
+type ChannelStatKey =
+	| "subscriberCount"
+	| "viewCount"
+	| "videoCount";
+
+type ChannelStat = {
+  key: ChannelStatKey;
+  title: string;
+  icon: keyof typeof Icons;
+}
 
 const stats: ChannelStat[] = [
   {
@@ -29,7 +40,7 @@ const GROWTH_THRESHOLDS: Record<"views" | "videos" | "subscribers", { yellow: nu
   subscribers: { yellow: -30, orange: -50 }
 }
 
-export default function ChannelOverviewCard ({channel, snapshots, uploads, watchTotals }: { channel: Channel, snapshots: ChannelSnapshots[], uploads: { last: number, previous: number }, watchTotals: { last365Days: number, last90Days: number, last28Days: number, last7Days: number } }) {
+export default function ChannelOverviewCard ({channel, snapshots, uploads, watchTotals }: { channel: YoutubeChannel, snapshots: YoutubeChannelSnapshot[], uploads: { last: number, previous: number }, watchTotals: { last365Days: number, last90Days: number, last28Days: number, last7Days: number } }) {
   const watchTargetHours = 4000;
 
   const analyticsRanges = snapshots
