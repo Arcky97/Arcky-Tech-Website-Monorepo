@@ -55,26 +55,6 @@ export default function YoutubeVideos() {
 		}
 	}
 
-	const getVideoPlaylist = (videoPlaylistIds: string[]) => {
-		if (!playlists) return ["Unable to retrieve Playlists"];
-
-		const result = playlists.filter(playlist => (
-			videoPlaylistIds.includes(playlist.playlistId)
-		));
-
-		if (!result.length) return ["None"];
-
-		return result.map(res => res.title);
-	}
-
-	const formatDate = (date: Date) => {
-		return new Date(date).toLocaleDateString("en-US", {
-			month: "short",
-			day: "numeric",
-			year: "numeric"
-		});
-	}
-
 	const shouldShowLoading = 
 		videosQuery.isLoading || !videosQuery.data || !Object.entries(videosQuery.data).length || playlistQuery.isLoading || !playlistQuery.data || !Object.entries(playlistQuery.data).length;
 

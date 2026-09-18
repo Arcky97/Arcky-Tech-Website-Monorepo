@@ -12,26 +12,6 @@ export default function LatestVideosCard ({ videos, playlists }: { videos: Youtu
   const { ytid } = useParams<{ ytid: string }>();
   const [selectedVideo, setSelectedVideo] = useState<YoutubeVideo | null>(null);
 
-  const getVideoPlaylist = (videoPlaylistIds: string[]) => {
-    if (!playlists.length) return ["Unable to retrieve Playlists"];
-
-    const result = playlists.filter(playlist => (
-      videoPlaylistIds.includes(playlist.playlistId)
-    ));
-
-    if (!result.length) return ["None"]
-
-    return result.map(res => res.title);
-  };
-
-  const formatDate = (date: Date) => {
-    return new Date(date).toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric"
-    });
-  }
-
   return (
     <div className="bg-gray-800 rounded-lg block p-4">
       <div className="flex justify-between">
