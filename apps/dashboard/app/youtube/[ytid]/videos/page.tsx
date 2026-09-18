@@ -1,14 +1,16 @@
 "use client";
 import VideoDetailsModal from "@/components/modals/VideoDetailsModal";
 import LoadingOverlay from "@/components/overlays/loadingOverlay";
+import VideosTableBody from "@/components/VideosTableBody";
+import VideosTableHeader from "@/components/VideosTableHeader";
 import { apiFetch } from "@/lib/apiFetch";
 import { youtubeKeys } from "@/queries/youtube";
 import { YoutubePlaylist, YoutubeVideo } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import { ColorButton, useMainRef } from "ui";
+import { useState } from "react";
+import { ColorButton } from "ui";
 
 export default function YoutubeVideos() {
 	const { ytid } = useParams<{ ytid: string }>();
@@ -113,61 +115,10 @@ export default function YoutubeVideos() {
 								disabled={pageIndex >= lastPageIndex - 1}
 							/>
 						</div>
-						<div className="flex mx-4 bg-blue-400/10 overflow-x-auto rounded-t-lg border border-gray-600/75 px-4">
-							<p className="text-center font-bold py-2 whitespace-nowrap w-[50%]">Video</p>
-							<p className="text-center font-bold py-2 whitespace-nowrap w-[10%]">Views</p>
-							<p className="text-center font-bold py-2 whitespace-nowrap w-[10%]">Likes</p>
-							<p className="text-center font-bold py-2 whitespace-nowrap w-[10%]">Comments</p>
-							<p className="text-center font-bold py-2 whitespace-nowrap w-[10%]">Shares</p>
-							<p className="text-center font-bold py-2 whitespace-nowrap w-[10%]">Watch Hours</p>
-						</div>
+						<VideosTableHeader/>
 					</div>
 					<div className="bg-gray-800 mb-3 px-4 pb-4 w-full overflow-x-auto rounded-b-lg">
-						<div className="flex flex-col w-full border-gray-600/75 overflow-x-auto rounded-b-lg">
-							{videosByPage.map((video, ri) => (
-								<div 
-									key={`row-${ri}`} 
-									onClick={() => setSelectedVideo(video)}
-									className="flex group relative cursor-pointer transition-all duration-300 ease-in-out border-b border-gray-600/75 px-2">
-									<div className="flex gap-6 py-2 whitespace-nowrap w-[50%]">
-										{video?.thumbnailUrl ? (
-											<Image src={video.thumbnailUrl} alt="Video Thumbnail" width="196" height="148" loading="eager" className="rounded-lg border-white border-2"/>
-										) : (
-											<div className="flex items-center justify-center rounded-lg w-49 h-37 bg-gray-700">
-												<p className="text-white font-bold text-center">No Thumbnail</p>
-											</div>
-										)}
-										<div className="flex flex-col justify-center ">
-											<p className="text-lg font-bold text-wrap">
-												{video.title}
-											</p>
-											<p>
-												Playlist: {getVideoPlaylist(video.playlistIds ?? []).join(', ')}
-											</p>
-											<p>{formatDate(video.publishedAt)} &bull; Published</p>
-										</div>
-									</div>
-									<div className="flex justify-center items-center w-[10%]">
-										<p>{video.views}</p>
-									</div>
-									<div className="flex justify-center items-center w-[10%]">
-										<p>{video.likes}</p>
-									</div>
-									<div className="flex justify-center items-center w-[10%]">
-										<p>{video.comments}</p>
-									</div>
-									<div className="flex justify-center items-center w-[10%]">
-										<p>{video.shares}</p>
-									</div>
-									<div className="flex justify-center items-center w-[10%]">
-										<p>{video.watchHours}h</p>
-									</div>
-									<div className="absolute inset-0 flex items-center justify-center bg-gray-800/85 opacity-0 pointer-events-none transition-opacity duration-300 ease-in-out border-b group-hover:opacity-100">
-										<p className="text-lg font-bold">View More Details</p>
-									</div>
-								</div>
-							))}
-						</div>
+						<VideosTableBody videos={videosByPage} playlists={playlists} onClick={(video) => setSelectedVideo(video)}/>
 					</div>
 				</div>
 				<VideoDetailsModal

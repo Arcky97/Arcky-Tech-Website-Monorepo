@@ -5,6 +5,8 @@ import { useState } from "react";
 import { ColorButton } from "ui";
 import VideoDetailsModal from "../modals/VideoDetailsModal";
 import { YoutubeVideo } from "@/types";
+import VideosTableHeader from "../VideosTableHeader";
+import VideosTableBody from "../VideosTableBody";
 
 export default function LatestVideosCard ({ videos, playlists }: { videos: YoutubeVideo[], playlists: Playlist[] }) {
   const { ytid } = useParams<{ ytid: string }>();
@@ -43,69 +45,13 @@ export default function LatestVideosCard ({ videos, playlists }: { videos: Youtu
           extraClass="mb-2 font-semibold"
         />
       </div>
-      <div className="w-full overflow-x-auto">
-        <div className="inline-block min-w-full rounded-lg overflow-hidden">
-          <table className="w-full border border-gray-600/75 overflow-x-auto">
-            <thead className="bg-blue-400/10">
-              <tr>
-                {["Video", "Views", "Likes", "Comments", "Shares", "Watch Hours"].map((header, i) => (
-                  <th
-                    key={`header-${i}`}
-                    className="px-12 py-2 text-center font-bold whitespace-nowrap"
-                  >
-                    {header}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {videos.map((video: YoutubeVideo, ri) => (
-                <tr
-                  key={`row-${ri}`}
-                  onClick={() => setSelectedVideo(video)}
-                  className="group relative cursor-pointer transition-all duration-300 ease-in-out border border-gray-600/75"
-                >
-                  <td className="flex gap-6 px-4 py-2 whitespace-nowrap">
-                    {video?.thumbnailUrl ? (
-                      <Image src={video.thumbnailUrl} alt="Video Thumbnail" width="196" height="148" loading="eager" className="rounded-lg border-white border-2"/>
-                    ) : (
-                      <div className="flex items-center justify-center rounded-lg w-49 h-37 bg-gray-700">
-                        <p className="text-white font-bold text-center">No Thumbnail</p>
-                      </div>
-                    )}
-                    <div className="flex flex-col justify-center ">
-                      <p className="flex text-lg font-bold">
-                        {video.title}
-                      </p>
-                      <p>
-                        Playlist: {getVideoPlaylist(video.playlistIds ?? []).join(', ')}
-                      </p>
-                      <p>{formatDate(video.publishedAt)} &bull; Published</p>
-                    </div>
-                  </td>
-                  <td className="text-center">
-                    {video.views ?? 0}
-                  </td>
-                  <td className="text-center">
-                    {video.likes ?? 0}
-                  </td>
-                  <td className="text-center">
-                    {video.comments ?? 0}
-                  </td>
-                  <td className="text-center">
-                    {video.shares ?? 0}
-                  </td>
-                  <td className="text-center">
-                    {video.watchHours ?? 0}h
-                  </td>
-                  <td colSpan={6} className="absolute inset-0 flex items-center justify-center bg-gray-800/85 opacity-0 pointer-events-none transition-opacity duration-300 ease-in-out border group-hover:opacity-100">
-                    <p className="text-lg font-bold">View More Details</p>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+      <VideosTableHeader/>
+      <div className="bg-gray-800 mb-3 px-4 pb-4 w-full overflow-x-auto rounded-b-lg">
+        <VideosTableBody        
+          videos={videos}
+          playlists={playlists}
+          onClick={(video) => setSelectedVideo(video)}
+        />
       </div>
       <VideoDetailsModal
         video={selectedVideo}

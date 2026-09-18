@@ -1,9 +1,7 @@
 import { YoutubeVideo } from "@/types";
 import { ColorButton } from "ui";
 
-export default function VideoDetailsModal({video, isVisible, onClose}: { video: YoutubeVideo | null, isVisible: boolean, onClose: () => void}) {
-  console.log(video);
-  
+export default function VideoDetailsModal({video, isVisible, onClose}: { video: YoutubeVideo | null, isVisible: boolean, onClose: () => void}) { 
   return (
     <div
       className={`modal-overlay ${isVisible ? "show" : "hide pointer-events-none"}`}
