@@ -11,14 +11,15 @@ export type YoutubeVideo = {
 	description: string | null;
 	playlistIds: string[] | null;
 	views: number;
-  likes: number;
-  comments: number;
-  shares: number;
-  watchHours: number;
-  averageViewDuration: number;
-  averageViewPercentage: number;
-  subscribersGained: number;
-  subscribersLost: number;
+	likes: number;
+	comments: number;
+	shares: number;
+	watchHours: number;
+	averageViewDuration: number;
+	averageViewPercentage: number;
+	subscribersGained: number;
+	subscribersLost: number;
+
 	publishedAt: Date;
 	trackAnalytics: boolean;
 	createdAt: Date;

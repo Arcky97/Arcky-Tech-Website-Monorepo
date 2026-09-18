@@ -72,7 +72,7 @@ useEffect(() => {
     >
       {/* Main Navbar */}
       <div
-        className={`w-full px-4 lg:px-10 flex justify-between items-center transition-all duration-300 ease-in-out ${
+        className={`w-full px-4 lg:pl-10 flex justify-between items-center transition-all duration-300 ease-in-out ${
           isShrunk ? "h-12" : "h-20"
         }`}
       >

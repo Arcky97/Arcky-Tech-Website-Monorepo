@@ -4,7 +4,7 @@ import { useParams } from "next/navigation";
 import { useState } from "react";
 import { ColorButton } from "ui";
 import VideoDetailsModal from "../modals/VideoDetailsModal";
-import { YoutubeVideo, YoutubeVideoSnapshot } from "@/types";
+import { YoutubeVideo } from "@/types";
 
 export default function LatestVideosCard ({ videos, playlists }: { videos: YoutubeVideo[], playlists: Playlist[] }) {
   const { ytid } = useParams<{ ytid: string }>();
@@ -43,7 +43,6 @@ export default function LatestVideosCard ({ videos, playlists }: { videos: Youtu
           extraClass="mb-2 font-semibold"
         />
       </div>
-
       <div className="w-full overflow-x-auto">
         <div className="inline-block min-w-full rounded-lg overflow-hidden">
           <table className="w-full border border-gray-600/75 overflow-x-auto">
@@ -85,19 +84,19 @@ export default function LatestVideosCard ({ videos, playlists }: { videos: Youtu
                     </div>
                   </td>
                   <td className="text-center">
-                    {video.views}
+                    {video.views ?? 0}
                   </td>
                   <td className="text-center">
-                    {video.likes}
+                    {video.likes ?? 0}
                   </td>
                   <td className="text-center">
-                    {video.comments}
+                    {video.comments ?? 0}
                   </td>
                   <td className="text-center">
-                    {video.shares}
+                    {video.shares ?? 0}
                   </td>
                   <td className="text-center">
-                    {video.watchHours}h
+                    {video.watchHours ?? 0}h
                   </td>
                   <td colSpan={6} className="absolute inset-0 flex items-center justify-center bg-gray-800/85 opacity-0 pointer-events-none transition-opacity duration-300 ease-in-out border group-hover:opacity-100">
                     <p className="text-lg font-bold">View More Details</p>
