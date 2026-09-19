@@ -19,7 +19,7 @@ export default function LoadingOverlay({text, disabled, variant = "fixed"}: Load
           transition={{ duration: 0.3, ease: "easeInOut" }}
           className={variant === "fixed" ? "fixed inset-0 z-999" : "absolute inset-0 z-50"}
         >
-          <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px] cursor-wait"/>
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px] cursor-wait "/>
 
           <motion.div
             initial={{ opacity: 0, scale: 0.4 }}

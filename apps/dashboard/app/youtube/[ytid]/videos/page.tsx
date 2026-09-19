@@ -122,6 +122,7 @@ export default function YoutubeVideos() {
 					onClose={handleModalClose}
 					isBackfilling={videoBackfill.isBackfilling}
 					backfillMessage={videoBackfill.message}
+					playlists={playlists}
 				/>
 			</article>
 		</>

@@ -54,6 +54,7 @@ export default function LatestVideosCard ({ videos, playlists }: { videos: Youtu
         onClose={handleModalClose}
         isBackfilling={videoBackfill.isBackfilling}
         backfillMessage={videoBackfill.message}
+        playlists={playlists}
       />
     </div>
   )

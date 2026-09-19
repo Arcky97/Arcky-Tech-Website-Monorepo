@@ -100,13 +100,14 @@ export default function ChannelOverviewCard ({channel, snapshots, uploads, watch
       case "subscribers":
         last = analyticsRanges?.last28Days.subscribersGained;
         previous = analyticsRanges?.last28Days.subscribersGained;
+        console.log([last, previous]);
         break;
     }
 
     const growth = calculatePercentage(last, previous);
     const { yellow, orange } = GROWTH_THRESHOLDS[stat];
 
-    if (growth > 0) {
+    if (growth >= 0) {
       color = "text-green-500";
     } else if (growth > yellow) {
       color = "text-yellow-500";
@@ -115,7 +116,7 @@ export default function ChannelOverviewCard ({channel, snapshots, uploads, watch
     } else {
       color = "text-red-500";
     }
-    return <span className={color}>{last > 0 ? "+" : "-"}{last.toLocaleString()}</span>
+    return <span className={color}>{last > 0 ? "+" : last < 0 ? "-" : ""}{last.toLocaleString()}</span>
   }
 
   const calculatePercentage = (value1: number, value2: number) => {
