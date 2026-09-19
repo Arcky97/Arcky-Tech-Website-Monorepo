@@ -4,10 +4,10 @@ import LoadingOverlay from "@/components/overlays/loadingOverlay";
 import VideosTableBody from "@/components/VideosTableBody";
 import VideosTableHeader from "@/components/VideosTableHeader";
 import { apiFetch } from "@/lib/apiFetch";
+import { useVideoBackfill } from "@/lib/useVideoBackfill";
 import { youtubeKeys } from "@/queries/youtube";
 import { YoutubePlaylist, YoutubeVideo } from "@/types";
 import { useQuery } from "@tanstack/react-query";
-import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import { ColorButton } from "ui";
@@ -28,6 +28,21 @@ export default function YoutubeVideos() {
 		queryKey: youtubeKeys.playlists(),
 		queryFn: () => apiFetch<YoutubePlaylist[]>("/api/youtube/playlists")
 	});
+
+	// Backfills snapshot history for a single video; the API only performs the
+	// work once per day, falling back to a rolling 28-day window afterwards.
+	const videoBackfill = useVideoBackfill();
+
+	const handleVideoSelect = (video: YoutubeVideo) => {
+		setSelectedVideo(video);
+		videoBackfill.startBackfill(video.videoId);
+	};
+
+	const handleModalClose = () => {
+		setSelectedVideo(null);
+		videoBackfill.reset();
+	};
+
 
 	const videos = (videosQuery.data ?? [])
 		.filter(video => !video.isShort)
@@ -98,13 +113,15 @@ export default function YoutubeVideos() {
 						<VideosTableHeader/>
 					</div>
 					<div className="bg-gray-800 mb-3 px-4 pb-4 w-full overflow-x-auto rounded-b-lg">
-						<VideosTableBody videos={videosByPage} playlists={playlists} onClick={(video) => setSelectedVideo(video)}/>
+						<VideosTableBody videos={videosByPage} playlists={playlists} onClick={(video) => handleVideoSelect(video)}/>
 					</div>
 				</div>
 				<VideoDetailsModal
 					video={selectedVideo}
 					isVisible={selectedVideo !== null}
-					onClose={() => setSelectedVideo(null)}
+					onClose={handleModalClose}
+					isBackfilling={videoBackfill.isBackfilling}
+					backfillMessage={videoBackfill.message}
 				/>
 			</article>
 		</>

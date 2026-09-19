@@ -7,10 +7,25 @@ import VideoDetailsModal from "../modals/VideoDetailsModal";
 import { YoutubeVideo } from "@/types";
 import VideosTableHeader from "../VideosTableHeader";
 import VideosTableBody from "../VideosTableBody";
+import { useVideoBackfill } from "@/lib/useVideoBackfill";
 
 export default function LatestVideosCard ({ videos, playlists }: { videos: YoutubeVideo[], playlists: Playlist[] }) {
   const { ytid } = useParams<{ ytid: string }>();
   const [selectedVideo, setSelectedVideo] = useState<YoutubeVideo | null>(null);
+
+  // Backfills snapshot history for a single video; the API only performs the
+  // work once per day, falling back to a rolling 28-day window afterwards.
+  const videoBackfill = useVideoBackfill();
+
+  const handleVideoSelect = (video: YoutubeVideo) => {
+    setSelectedVideo(video);
+    videoBackfill.startBackfill(video.videoId);
+  };
+
+  const handleModalClose = () => {
+    setSelectedVideo(null);
+    videoBackfill.reset();
+  };
 
   return (
     <div className="bg-gray-800 rounded-lg block p-4">
@@ -30,13 +45,15 @@ export default function LatestVideosCard ({ videos, playlists }: { videos: Youtu
         <VideosTableBody        
           videos={videos}
           playlists={playlists}
-          onClick={(video) => setSelectedVideo(video)}
+          onClick={(video) => handleVideoSelect(video)}
         />
       </div>
       <VideoDetailsModal
         video={selectedVideo}
         isVisible={selectedVideo !== null}
-        onClose={() => setSelectedVideo(null)}
+        onClose={handleModalClose}
+        isBackfilling={videoBackfill.isBackfilling}
+        backfillMessage={videoBackfill.message}
       />
     </div>
   )
