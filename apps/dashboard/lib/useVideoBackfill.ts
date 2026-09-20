@@ -26,8 +26,9 @@ export function useVideoBackfill() {
   });
 
   const isBackfilling =
-    !!jobId &&
-    (jobQuery.isLoading || jobQuery.data?.status === "queued" || jobQuery.data?.status === "running");
+    backfillMutation.isPending ||
+    (!!jobId &&
+      (jobQuery.isLoading || jobQuery.data?.status === "queued" || jobQuery.data?.status === "running"));
 
   const startBackfill = (videoId: string) => {
     setJobId(null);

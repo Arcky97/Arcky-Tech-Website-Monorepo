@@ -34,7 +34,7 @@ export default function VideosTableBody({ videos, playlists, onClick }: { videos
         >
           <div className="flex gap-6 py-2 whitespace-nowrap w-[50%]">
             {video?.thumbnailUrl ? (
-              <Image src={video.thumbnailUrl} alt="Video Thumbnail" width="196" height="148" loading="eager" className="rounded-lg border-white border-2"/>
+              <Image src={video.thumbnailUrl} alt="Video Thumbnail" width="196" height="148" loading="eager" className="w-64 h-36 object-cover rounded-lg border-white border-2 shrink-0 self-start"/>
             ) : (
               <div className="flex items-center justify-center rounded-lg w-49 h-37 bg-gray-700">
                 <p className="text-white font-bold text-center">
@@ -62,7 +62,7 @@ export default function VideosTableBody({ videos, playlists, onClick }: { videos
               <p>{item}</p>
             </div>
           ))}
-          <div className="absolute inset-0 flex items-center justify-center bg-gray-800/85 opacity-0 pointer-events-none transition-opacity duration-300 ease-in-out border-b group-hover:opacity-100">
+          <div className="absolute inset-0 flex items-center justify-center bg-gray-800/85 opacity-0 pointer-events-none transition-opacity duration-300 ease-in-out border-y group-hover:opacity-100">
             <p className="text-lg font-bold">
               View More Details
             </p>

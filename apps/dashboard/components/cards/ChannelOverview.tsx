@@ -100,7 +100,6 @@ export default function ChannelOverviewCard ({channel, snapshots, uploads, watch
       case "subscribers":
         last = analyticsRanges?.last28Days.subscribersGained;
         previous = analyticsRanges?.last28Days.subscribersGained;
-        console.log([last, previous]);
         break;
     }
 
