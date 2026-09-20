@@ -9,5 +9,5 @@ export type YoutubeVideoSnapshot = {
   averageViewDuration: number;
   averageViewPercentage: number;
   subscribersGained: number;
-  susbcribersLost: number;
+  subscribersLost: number;
 }

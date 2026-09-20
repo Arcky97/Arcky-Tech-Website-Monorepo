@@ -1,4 +1,4 @@
-import { YoutubePlaylist, YoutubeVideo } from "@/types";
+import { YoutubePlaylist, YoutubeVideo, YoutubeVideoSnapshot } from "@/types";
 import { ColorButton } from "ui";
 import { ComponentType, SVGProps, useEffect, useRef } from "react";
 import LoadingOverlay from "../overlays/loadingOverlay";
@@ -91,7 +91,7 @@ export default function VideoDetailsModal({
 
   const videoSnapshotsQuery = useQuery({
     queryKey: youtubeKeys.videoSnapshots(displayedVideo?.videoId ?? ""),
-    queryFn: () => apiFetch(`/api/youtube/videos/${displayedVideo?.videoId}/snapshots`),
+    queryFn: () => apiFetch<YoutubeVideoSnapshot[]>(`/api/youtube/videos/${displayedVideo?.videoId}/snapshots`),
     enabled: !!displayedVideo?.videoId && !isBackfilling
   });
 
@@ -138,6 +138,45 @@ export default function VideoDetailsModal({
 
     return `${remainingSeconds}s`;
   };
+
+  const getRangeTotal = (key: VideoStatKey) => { 
+    if (!videoSnapshotsQuery.data || !displayedVideo) return 0;
+
+    const publishedAt = new Date(displayedVideo.publishedAt)
+    const now = new Date();
+
+    const ageInDays =
+      (now.getTime() - publishedAt.getTime()) / (1000 * 60 * 60 * 24);
+
+    let rangeDays: number;
+
+    if (ageInDays < 28) {
+      rangeDays = 7;
+    } else if (ageInDays < 90) {
+      rangeDays = 28;
+    } else if (ageInDays < 365) {
+      rangeDays = 90;
+    } else if (ageInDays < 730) {
+      rangeDays = 365;
+    } else {
+      return null;
+    }
+
+    const cutoffDate = new Date(now);
+    cutoffDate.setDate(cutoffDate.getDate() - rangeDays);
+
+    const snapshots = videoSnapshotsQuery.data 
+      .filter(snapshot => new Date(snapshot.snapshotDate) <= cutoffDate)
+      .sort((a, b) => 
+        new Date(b.snapshotDate).getTime() - new Date(a.snapshotDate).getTime()
+      );
+
+    const baselineSnapshot = snapshots[0];
+
+    if (!baselineSnapshot) return null;
+
+    return displayedVideo[key] - baselineSnapshot[key];
+  }
 
   return (
     <div
@@ -194,7 +233,7 @@ export default function VideoDetailsModal({
               </p>
               {/* Description */}
               <div className="mt-1 min-h-0 flex-1 overflow-y-scroll border border-gray-400 rounded-l-lg pl-2">
-                <div className="text-wrap whitespace-pre-line pr-2">
+                <div className="text-wrap whitespace-pre-line py-2">
                   {displayedVideo?.description}
                 </div>
               </div>
@@ -283,6 +322,7 @@ export default function VideoDetailsModal({
                   <p className="font-bold text-2xl">
                     {displayedVideo?.[key].toLocaleString()}
                   </p>
+                  <p>+{getRangeTotal(key)}</p>
                 </div>
               </div>
             )
