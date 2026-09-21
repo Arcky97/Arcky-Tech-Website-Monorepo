@@ -47,11 +47,6 @@ export default function YoutubeHome() {
 		queryFn: () => apiFetch<YoutubeVideosAndShorts>(`/api/youtube/videos/latest/5`)
 	});
 
-	const LatestVideosSnapshotsQuery = useQuery({
-		queryKey: youtubeKeys.latestSnapshots(),
-		queryFn: () => apiFetch<YoutubeVideoSnapshot[]>("/api/youtube/videos/snapshots")
-	});
-
 	const playlistsQuery = useQuery({
 		queryKey: youtubeKeys.playlists(),
 		queryFn: () => apiFetch<YoutubePlaylist[]>(`/api/youtube/playlists`)
@@ -138,8 +133,7 @@ export default function YoutubeHome() {
 				(!channelSnapshotQuery.data || !Object.entries(channelSnapshotQuery.data).length) || 
 				(!videosLast28DaysQuery.data || !Object.entries(videosLast28DaysQuery.data).length) ||
 				!LatestVideosAndShortsQuery.data ||
-				!playlistsQuery.data ||
-				!LatestVideosSnapshotsQuery.data
+				!playlistsQuery.data
 			);
 
 	const initialSyncMessage = initialSyncQuery.data?.message ?? "Preparing your YouTube data";

@@ -30,7 +30,7 @@ export async function PATCH(
   const { videoId } = await params;
   
   const res = await fetch(
-    `${env.API_BASE_URL}/v1/youtube/video/${videoId}`,
+    `${env.API_BASE_URL}/v1/youtube/videos/${videoId}`,
     {
       method: "PATCH",
       headers: {
