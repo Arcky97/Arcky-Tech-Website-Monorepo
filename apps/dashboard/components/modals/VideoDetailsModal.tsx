@@ -12,6 +12,8 @@ import * as Icons from "@heroicons/react/24/outline";
 import { useQuery } from "@tanstack/react-query";
 import { youtubeKeys } from "@/queries/youtube";
 import { apiFetch } from "@/lib/apiFetch";
+import { getColorByPercentage } from "@/lib/getColorByPercentage";
+import { YoutubeGoalProfile } from "@/types/youtube/GoalProfile";
 
 type VideoStatKey =
   | "views"
@@ -95,6 +97,11 @@ export default function VideoDetailsModal({
     enabled: !!displayedVideo?.videoId && !isBackfilling
   });
 
+  const goalProfilesQuery = useQuery({
+    queryKey: youtubeKeys.goalProfiles(),
+    queryFn: () => apiFetch<YoutubeGoalProfile[]>(`/api/youtube/profiles`)
+  });
+
   const getVideoplaylists = (videoPlaylistIds: string[]) => {
     if (!playlists) return ["Unable to retrieve Playlists"];
 
@@ -140,17 +147,19 @@ export default function VideoDetailsModal({
   };
 
   const getRangeTotal = (key: VideoStatKey) => { 
-    if (!videoSnapshotsQuery.data || !displayedVideo) return 0;
+    if (!videoSnapshotsQuery.data || !displayedVideo) return null;
 
     const publishedAt = new Date(displayedVideo.publishedAt)
     const now = new Date();
 
     const ageInDays =
-      (now.getTime() - publishedAt.getTime()) / (1000 * 60 * 60 * 24);
+      Math.floor((now.getTime() - publishedAt.getTime()) / (1000 * 60 * 60 * 24));
 
     let rangeDays: number;
 
-    if (ageInDays < 28) {
+    if (ageInDays < 7) {
+      return null
+    } else if (ageInDays < 28) {
       rangeDays = 7;
     } else if (ageInDays < 90) {
       rangeDays = 28;
@@ -169,14 +178,19 @@ export default function VideoDetailsModal({
       .filter(snapshot => new Date(snapshot.snapshotDate) <= cutoffDate)
       .sort((a, b) => 
         new Date(b.snapshotDate).getTime() - new Date(a.snapshotDate).getTime()
-      );
+      )
+      .map(snapshot => snapshot[key]);
 
-    const baselineSnapshot = snapshots[0];
 
-    if (!baselineSnapshot) return null;
+    const snapshotSum = snapshots.reduce((curr, total) => curr + total, 0);
+    const lastRangeDays = displayedVideo[key] - snapshotSum;
 
-    return displayedVideo[key] - baselineSnapshot[key];
+    const color = getColorByPercentage(displayedVideo[key], snapshotSum, { yellow: 15, orange: 25 })
+
+    return <p><span className={color}>{lastRangeDays > 0 ? "+" : lastRangeDays === 0 ? "" : "-"}{lastRangeDays}</span> in last {rangeDays} days</p>
   }
+
+  console.log(goalProfilesQuery.data);
 
   return (
     <div
@@ -322,11 +336,20 @@ export default function VideoDetailsModal({
                   <p className="font-bold text-2xl">
                     {displayedVideo?.[key].toLocaleString()}
                   </p>
-                  <p>+{getRangeTotal(key)}</p>
+                  {getRangeTotal(key)}
                 </div>
               </div>
             )
           })}
+        </div>
+        <div className="max-h-[35vh] bg-gray-800 rounded-lg p-2 m-2">
+          {goalProfilesQuery.data?.length ? (
+            <div className="grid grid-cols-3">
+
+            </div>
+          ) : (
+            <div className="text-center w-full">No Goals set for this Video</div>
+          )}
         </div>
       </div>
     </div>

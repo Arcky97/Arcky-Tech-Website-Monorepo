@@ -4,6 +4,7 @@ import * as Icons from "@heroicons/react/24/outline";
 import { ComponentType, SVGProps } from "react";
 import { calculateAnalyticsRanges } from "@/lib/calculateAnalyticsRanges";
 import { YoutubeChannelSnapshot, YoutubeChannel } from "@/types";
+import { getColorByPercentage } from "@/lib/getColorByPercentage";
 
 type ChannelStatKey =
 	| "subscriberCount"
@@ -84,7 +85,6 @@ export default function ChannelOverviewCard ({channel, snapshots, uploads, watch
   const StyleByCompareLatestAndPrevious = (stat: "views" | "videos" | "subscribers") => {
     if (!analyticsRanges) return "color-gray-300";
 
-    let color;
     let last = 0;
     let previous = 0;
 
@@ -103,25 +103,9 @@ export default function ChannelOverviewCard ({channel, snapshots, uploads, watch
         break;
     }
 
-    const growth = calculatePercentage(last, previous);
-    const { yellow, orange } = GROWTH_THRESHOLDS[stat];
+    const color = getColorByPercentage(last, previous, GROWTH_THRESHOLDS[stat]);
 
-    if (growth >= 0) {
-      color = "text-green-500";
-    } else if (growth > yellow) {
-      color = "text-yellow-500";
-    } else if (growth > orange) {
-      color = "text-orange-500";
-    } else {
-      color = "text-red-500";
-    }
     return <span className={color}>{last > 0 ? "+" : last < 0 ? "-" : ""}{last.toLocaleString()}</span>
-  }
-
-  const calculatePercentage = (value1: number, value2: number) => {
-    if (value2 === 0) return value1 > 0 ? 100 : 0;
-
-    return Math.round(((value1 - value2) / value2) * 100);
   }
 
   return (
