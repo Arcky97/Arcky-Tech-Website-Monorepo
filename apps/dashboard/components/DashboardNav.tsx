@@ -3,6 +3,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import GoalModal from "./modals/GoalModal";
 import { SessionUser } from "@/app/clientLayout";
+import SettingsModal from "./modals/SettingsModal";
 
 export default function DashboardNav({ user }: { user: SessionUser | null }) {
 
@@ -71,6 +72,12 @@ export default function DashboardNav({ user }: { user: SessionUser | null }) {
 
       {activeModal === "goals" && (
         <GoalModal
+          isVisible={isVisible}
+          onClose={closeModal}
+        />
+      )}
+      {activeModal === "settings" && (
+        <SettingsModal
           isVisible={isVisible}
           onClose={closeModal}
         />

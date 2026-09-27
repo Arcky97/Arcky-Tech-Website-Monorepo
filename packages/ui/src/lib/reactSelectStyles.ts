@@ -9,7 +9,7 @@ export const selectStyles: StylesConfig = {
     border: "1px solid #4a5565",
     borderRadius: "0.5rem",
     padding: "0.125rem",
-    width: "100%"
+    width: "100%",
  }),
  menu: (base) => ({
   ...base,
@@ -45,5 +45,9 @@ export const selectStyles: StylesConfig = {
  placeholder: (base) => ({
   ...base,
   color: "#94a3b8"
+ }),
+ menuPortal: (base) => ({
+  ...base,
+  zIndex: 999
  })
 }

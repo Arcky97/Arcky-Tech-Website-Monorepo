@@ -1,3 +1,4 @@
+
 import { YoutubePlaylist, YoutubeVideo, YoutubeVideoSnapshot } from "@/types";
 import { ColorButton } from "ui";
 import { ComponentType, SVGProps, useEffect, useRef } from "react";
@@ -9,11 +10,12 @@ import {
   ListBulletIcon
 } from "@heroicons/react/24/outline";
 import * as Icons from "@heroicons/react/24/outline";
-import { useQuery } from "@tanstack/react-query";
+import { QueryClient, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { youtubeKeys } from "@/queries/youtube";
 import { apiFetch } from "@/lib/apiFetch";
 import { getColorByPercentage } from "@/lib/getColorByPercentage";
 import { YoutubeGoalProfile } from "@/types/youtube/GoalProfile";
+import InputSelect from "ui/src/components/InputSelect";
 
 type VideoStatKey =
   | "views"
@@ -77,6 +79,7 @@ export default function VideoDetailsModal({
   backfillMessage?: string,
   playlists: YoutubePlaylist[]
 }) {
+  const queryClient = useQueryClient();
   const displayedVideoRef = useRef<YoutubeVideo | null>(video);
 
   if (video !== null) {
@@ -100,6 +103,35 @@ export default function VideoDetailsModal({
   const goalProfilesQuery = useQuery({
     queryKey: youtubeKeys.goalProfiles(),
     queryFn: () => apiFetch<YoutubeGoalProfile[]>(`/api/youtube/profiles`)
+  });
+
+  const updateVideoMutation = useMutation({
+    mutationFn: (vars: { videoId: string, goalProfileId: number}) =>
+      apiFetch(`/api/youtube/videos/${vars.videoId}`, "PATCH", { goalprofileId: vars.goalProfileId }),
+
+    onMutate: async (vars) => {
+      await queryClient.cancelQueries({ queryKey: youtubeKeys.videos() });
+      const previousVideos = queryClient.getQueryData<YoutubeVideo[]>(youtubeKeys.videos());
+
+      queryClient.setQueryData<YoutubeVideo[]>(youtubeKeys.videos(), (old) =>
+        old?.map(video =>
+          video.videoId === vars.videoId ? { ...video, title: video.title } : video
+        )
+      );
+
+      return { previousVideos };
+    },
+
+    onError: (_err, _vars, context) => {
+      if (context?.previousVideos) {
+        queryClient.setQueryData(youtubeKeys.videos(), context.previousVideos);
+      }
+    },
+
+    onSettled: (_data, _err, vars) => {
+      queryClient.invalidateQueries({ queryKey: youtubeKeys.videos() });
+      queryClient.invalidateQueries({ queryKey: youtubeKeys.video(vars.videoId) });
+    }
   });
 
   const getVideoplaylists = (videoPlaylistIds: string[]) => {
@@ -146,7 +178,7 @@ export default function VideoDetailsModal({
     return `${remainingSeconds}s`;
   };
 
-  const getRangeTotal = (key: VideoStatKey) => { 
+  const getRangeTotal = (key: VideoStatKey) => {
     if (!videoSnapshotsQuery.data || !displayedVideo) return null;
 
     const publishedAt = new Date(displayedVideo.publishedAt)
@@ -185,12 +217,10 @@ export default function VideoDetailsModal({
     const snapshotSum = snapshots.reduce((curr, total) => curr + total, 0);
     const lastRangeDays = displayedVideo[key] - snapshotSum;
 
-    const color = getColorByPercentage(displayedVideo[key], snapshotSum, { yellow: 15, orange: 25 })
+    const color = getColorByPercentage(displayedVideo[key], snapshotSum, { yellow: 15, orange: 25 });
 
-    return <p><span className={color}>{lastRangeDays > 0 ? "+" : lastRangeDays === 0 ? "" : "-"}{lastRangeDays}</span> in last {rangeDays} days</p>
+    return <p><span className={color}>{lastRangeDays >= 0 ? "+" : "-"}{lastRangeDays}</span> in last {rangeDays} days</p>
   }
-
-  console.log(goalProfilesQuery.data);
 
   return (
     <div
@@ -342,13 +372,30 @@ export default function VideoDetailsModal({
             )
           })}
         </div>
-        <div className="max-h-[35vh] bg-gray-800 rounded-lg p-2 m-2">
+        <div className="h-[35vh] bg-gray-800 rounded-lg p-2 m-2">
           {goalProfilesQuery.data?.length ? (
             <div className="grid grid-cols-3">
+              <InputSelect
+                width={200}
+                initValue={displayedVideo?.goalProfileId ?? ""}
+                initLabel={goalProfilesQuery.data.find(profile => profile.id === displayedVideo?.goalProfileId)?.name ?? ""}
+                handleChange={(option) => {
+                  if (!option) return;
 
+                  updateVideoMutation.mutate({
+                    videoId: displayedVideo?.videoId ?? "",
+                    goalProfileId: option.value,
+                  });
+                }}
+                options={goalProfilesQuery.data.map(profile => ({ value: profile.id, label: profile.name}))}
+                placeholder="Select a Goal"
+                isDisabled={goalProfilesQuery.data.length === 0}
+                isClearable
+                placement="auto"
+              />
             </div>
           ) : (
-            <div className="text-center w-full">No Goals set for this Video</div>
+            <div className="text-center w-full">No Goal Profiles were found (Click Goals in the top right menu to add new Goals)</div>
           )}
         </div>
       </div>

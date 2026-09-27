@@ -15,4 +15,5 @@ export * from "./InlineCode";
 export * from "./Skeleton";
 export * from "./InputNumber";
 export * from "./InputText"
+export * from "./InputSelect";
 export * from "./ToggleSwitch";

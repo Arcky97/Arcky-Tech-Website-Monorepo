@@ -1,4 +1,3 @@
-
 type InputNumberProps = {
   value: number,
   range: Record<string, number>,
