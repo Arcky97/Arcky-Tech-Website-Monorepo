@@ -1,7 +1,7 @@
 
 import { YoutubePlaylist, YoutubeVideo, YoutubeVideoSnapshot } from "@/types";
 import { ColorButton } from "ui";
-import { ComponentType, SVGProps, useEffect, useRef } from "react";
+import { ComponentType, SVGProps, useEffect, useRef, useState } from "react";
 import LoadingOverlay from "../overlays/loadingOverlay";
 import Image from "next/image";
 import { Calendar, Clock } from "lucide-react";
@@ -81,12 +81,19 @@ export default function VideoDetailsModal({
 }) {
   const queryClient = useQueryClient();
   const displayedVideoRef = useRef<YoutubeVideo | null>(video);
+  const [goalProfileId, setGoalProfileId] = useState<number | null>(null);
 
   if (video !== null) {
     displayedVideoRef.current = video;
   }
 
   const displayedVideo = video ?? displayedVideoRef.current;
+
+  useEffect(() => {
+    if (!video || !video.goalProfileId) return;
+
+    setGoalProfileId(video.goalProfileId);
+  }, []);
 
   useEffect(() => {
     if (!isVisible) {
@@ -107,7 +114,7 @@ export default function VideoDetailsModal({
 
   const updateVideoMutation = useMutation({
     mutationFn: (vars: { videoId: string, goalProfileId: number}) =>
-      apiFetch(`/api/youtube/videos/${vars.videoId}`, "PATCH", { goalprofileId: vars.goalProfileId }),
+      apiFetch(`/api/youtube/videos/${vars.videoId}`, "PATCH", { goalProfileId: vars.goalProfileId }),
 
     onMutate: async (vars) => {
       await queryClient.cancelQueries({ queryKey: youtubeKeys.videos() });
@@ -377,8 +384,8 @@ export default function VideoDetailsModal({
             <div className="grid grid-cols-3">
               <InputSelect
                 width={200}
-                initValue={displayedVideo?.goalProfileId ?? ""}
-                initLabel={goalProfilesQuery.data.find(profile => profile.id === displayedVideo?.goalProfileId)?.name ?? ""}
+                initValue={goalProfileId ?? ""}
+                initLabel={goalProfilesQuery.data.find(profile => profile.id === goalProfileId)?.name ?? ""}
                 handleChange={(option) => {
                   if (!option) return;
 
@@ -386,6 +393,7 @@ export default function VideoDetailsModal({
                     videoId: displayedVideo?.videoId ?? "",
                     goalProfileId: option.value,
                   });
+                  setGoalProfileId(option.value);
                 }}
                 options={goalProfilesQuery.data.map(profile => ({ value: profile.id, label: profile.name}))}
                 placeholder="Select a Goal"
