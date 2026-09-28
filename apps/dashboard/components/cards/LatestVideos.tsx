@@ -55,6 +55,13 @@ export default function LatestVideosCard ({ videos, playlists }: { videos: Youtu
         isBackfilling={videoBackfill.isBackfilling}
         backfillMessage={videoBackfill.message}
         playlists={playlists}
+        onGoalProfileChange={(videoId, goalProfileId) => {
+          setSelectedVideo(current =>
+            current?.videoId === videoId
+              ? { ...current, goalProfileId }
+              : current
+          )
+        }}
       />
     </div>
   )

@@ -10,7 +10,7 @@ import {
   ListBulletIcon
 } from "@heroicons/react/24/outline";
 import * as Icons from "@heroicons/react/24/outline";
-import { QueryClient, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { youtubeKeys } from "@/queries/youtube";
 import { apiFetch } from "@/lib/apiFetch";
 import { getColorByPercentage } from "@/lib/getColorByPercentage";
@@ -70,36 +70,30 @@ export default function VideoDetailsModal({
   onClose,
   isBackfilling = false,
   backfillMessage = "Loading video history",
-  playlists
+  playlists,
+  onGoalProfileChange
 }: {
   video: YoutubeVideo | null,
   isVisible: boolean,
   onClose: () => void,
   isBackfilling?: boolean,
   backfillMessage?: string,
-  playlists: YoutubePlaylist[]
+  playlists: YoutubePlaylist[],
+  onGoalProfileChange: (
+    videoId: string,
+    goalProfileId: number
+  ) => void;
 }) {
   const queryClient = useQueryClient();
   const displayedVideoRef = useRef<YoutubeVideo | null>(video);
-  const [goalProfileId, setGoalProfileId] = useState<number | null>(null);
+  const [goalProfileId, setGoalProfileId] = useState<number | null>(video?.goalProfileId || null);
+  const [goalProfile, setGoalProfile] = useState<YoutubeGoalProfile | null>(null);
 
   if (video !== null) {
     displayedVideoRef.current = video;
   }
 
   const displayedVideo = video ?? displayedVideoRef.current;
-
-  useEffect(() => {
-    if (!video || !video.goalProfileId) return;
-
-    setGoalProfileId(video.goalProfileId);
-  }, []);
-
-  useEffect(() => {
-    if (!isVisible) {
-      displayedVideoRef.current = null;
-    }
-  }, [isVisible]);
 
   const videoSnapshotsQuery = useQuery({
     queryKey: youtubeKeys.videoSnapshots(displayedVideo?.videoId ?? ""),
@@ -113,17 +107,37 @@ export default function VideoDetailsModal({
   });
 
   const updateVideoMutation = useMutation({
-    mutationFn: (vars: { videoId: string, goalProfileId: number}) =>
-      apiFetch(`/api/youtube/videos/${vars.videoId}`, "PATCH", { goalProfileId: vars.goalProfileId }),
+    mutationFn: (vars: { 
+      videoId: string, 
+      goalProfileId: number
+    }) =>
+      apiFetch(
+        `/api/youtube/videos/${vars.videoId}`, 
+        "PATCH", 
+        { goalProfileId: vars.goalProfileId }
+      ),
 
     onMutate: async (vars) => {
-      await queryClient.cancelQueries({ queryKey: youtubeKeys.videos() });
-      const previousVideos = queryClient.getQueryData<YoutubeVideo[]>(youtubeKeys.videos());
+      await queryClient.cancelQueries({ 
+        queryKey: youtubeKeys.videos() 
+      });
 
-      queryClient.setQueryData<YoutubeVideo[]>(youtubeKeys.videos(), (old) =>
-        old?.map(video =>
-          video.videoId === vars.videoId ? { ...video, title: video.title } : video
-        )
+      const previousVideos = 
+        queryClient.getQueryData<YoutubeVideo[]>(
+          youtubeKeys.videos()
+        );
+
+      queryClient.setQueryData<YoutubeVideo[]>(
+        youtubeKeys.videos(), 
+        (old) =>
+          old?.map(video =>
+            video.videoId === vars.videoId 
+              ? { 
+                  ...video, 
+                  goalProfileId: video.goalProfileId 
+                } 
+              : video
+          )
       );
 
       return { previousVideos };
@@ -131,15 +145,56 @@ export default function VideoDetailsModal({
 
     onError: (_err, _vars, context) => {
       if (context?.previousVideos) {
-        queryClient.setQueryData(youtubeKeys.videos(), context.previousVideos);
+        queryClient.setQueryData(
+          youtubeKeys.videos(), 
+          context.previousVideos
+        );
       }
     },
 
     onSettled: (_data, _err, vars) => {
-      queryClient.invalidateQueries({ queryKey: youtubeKeys.videos() });
-      queryClient.invalidateQueries({ queryKey: youtubeKeys.video(vars.videoId) });
+      queryClient.invalidateQueries({ 
+        queryKey: youtubeKeys.videos() 
+      });
+
+      queryClient.invalidateQueries({ 
+        queryKey: youtubeKeys.video(vars.videoId) 
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: youtubeKeys.latestVideos()
+      });
     }
   });
+
+  useEffect(() => {
+    if (!video) return;
+
+    setGoalProfileId(video.goalProfileId);
+  }, [video]);
+
+  useEffect(() => {
+    if (!goalProfilesQuery.data) {
+      setGoalProfile(null);
+      return;
+    };
+
+    const profile = 
+      goalProfilesQuery.data.find(
+        prof => prof.id === goalProfileId
+      ) ?? null;
+
+    setGoalProfile(profile);
+
+  }, [goalProfileId, goalProfilesQuery.data]);
+
+  useEffect(() => {
+    if (!isVisible) {
+      displayedVideoRef.current = null;
+    }
+  }, [isVisible]);
+
+
 
   const getVideoplaylists = (videoPlaylistIds: string[]) => {
     if (!playlists) return ["Unable to retrieve Playlists"];
@@ -379,28 +434,100 @@ export default function VideoDetailsModal({
             )
           })}
         </div>
-        <div className="h-[35vh] bg-gray-800 rounded-lg p-2 m-2">
-          {goalProfilesQuery.data?.length ? (
-            <div className="grid grid-cols-3">
-              <InputSelect
-                width={200}
-                initValue={goalProfileId ?? ""}
-                initLabel={goalProfilesQuery.data.find(profile => profile.id === goalProfileId)?.name ?? ""}
-                handleChange={(option) => {
-                  if (!option) return;
+        <div className="max-h-[35vh] bg-gray-800 rounded-lg p-2 m-2">
+          {displayedVideo && goalProfile && goalProfilesQuery.data?.length ? (
+            <div>
+              <div className="flex justify-between">
+                <h2 className="text-2xl font-bold pl-4">
+                  Goal name: {goalProfile?.name ?? "No Goal sellected"}
+                </h2>
+                <InputSelect
+                  width={300}
+                  initValue={goalProfileId ?? ""}
+                  initLabel={goalProfilesQuery.data.find(profile => profile.id === goalProfileId)?.name ?? ""}
+                  handleChange={(option) => {
+                    if (!option) return;
 
-                  updateVideoMutation.mutate({
-                    videoId: displayedVideo?.videoId ?? "",
-                    goalProfileId: option.value,
-                  });
-                  setGoalProfileId(option.value);
-                }}
-                options={goalProfilesQuery.data.map(profile => ({ value: profile.id, label: profile.name}))}
-                placeholder="Select a Goal"
-                isDisabled={goalProfilesQuery.data.length === 0}
-                isClearable
-                placement="auto"
-              />
+                    const newGoalProfileId = Number(option.value);
+                    const videoId = displayedVideo?.videoId;
+
+                    if (!videoId) return;
+
+                    setGoalProfileId(newGoalProfileId);
+
+                    onGoalProfileChange(
+                      videoId,
+                      newGoalProfileId
+                    );
+
+                    updateVideoMutation.mutate({
+                      videoId,
+                      goalProfileId: newGoalProfileId,
+                    });
+                  }}
+                  options={goalProfilesQuery.data.map(profile => ({ value: profile.id, label: profile.name}))}
+                  placeholder="Select a Goal"
+                  isDisabled={goalProfilesQuery.data.length === 0}
+                  isClearable
+                  placement="auto"
+                />
+              </div>
+              <div className="grid grid-cols-3 gap-10 mt-4">
+                <div className="flex flex-col">
+                  <div className="mb-1 flex items-center justify-between gap-3">
+                    <p className="text-gray-300">Current Views</p>
+                    <p className="text-gray-300">Goal Views</p>
+                  </div>
+                  <div className="relative h-3 w-full overflow-hidden rounded-full bg-gray-700">
+                    <div
+                      className="absolute inset-y-0 rounded-full bg-blue-600"
+                      style={{
+                        width: `${Math.min((displayedVideo.views / goalProfile.views) * 100, 100)}%`
+                      }}
+                    />
+                  </div>
+                  <div className="mt-1 flex items-center justify-between gap-3">
+                    <p className="text-white">{displayedVideo.views}</p>
+                    <p className="text-white">{goalProfile.views}</p>
+                  </div>
+                </div>
+                <div className="flex flex-col">
+                  <div className="mb-1 flex items-center justify-between gap-3">
+                    <p className="text-gray-300">Current Likes</p>
+                    <p className="text-gray-300">Goal Likes</p>
+                  </div>
+                  <div className="relative h-3 w-full overflow-hidden rounded-full bg-gray-700">
+                    <div
+                      className="absolute inset-y-0 rounded-full bg-blue-600"
+                      style={{
+                        width: `${Math.min((displayedVideo.likes / goalProfile.likes) * 100, 100)}%`
+                      }}
+                    />
+                  </div>
+                  <div className="mt-1 flex items-center justify-between gap-3">
+                    <p className="text-white">{displayedVideo.likes}</p>
+                    <p className="text-white">{goalProfile.likes}</p>
+                  </div>
+                </div>
+                <div className="flex flex-col">
+                  <div className="mb-1 flex items-center justify-between gap-3">
+                    <p className="text-gray-300">Current Watch Hours</p>
+                    <p className="text-gray-300">Goal Watch Hours</p>
+                  </div>
+                  <div className="relative h-3 w-full overflow-hidden rounded-full bg-gray-700">
+                    <div
+                      className="absolute inset-y-0 rounded-full bg-blue-600"
+                      style={{
+                        width: `${Math.min((displayedVideo.watchHours / goalProfile.watchHours) * 100, 100)}%`
+                      }}
+                    />
+                  </div>
+                  <div className="mt-1 flex items-center justify-between gap-3">
+                    <p className="text-white">{displayedVideo.watchHours}</p>
+                    <p className="text-white">{goalProfile.watchHours}</p>
+                  </div>
+                </div>
+              </div>
             </div>
           ) : (
             <div className="text-center w-full">No Goal Profiles were found (Click Goals in the top right menu to add new Goals)</div>
