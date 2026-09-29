@@ -37,3 +37,9 @@ services:
     restart: unless-stopped
     ports:
       - "3092:3000"
+      
+  pbseditor:
+    image: ghcr.io/arcky97/arcky-tech-pbseditor:main
+    restart: unless-stopped
+    ports:
+      - "3095:3000"

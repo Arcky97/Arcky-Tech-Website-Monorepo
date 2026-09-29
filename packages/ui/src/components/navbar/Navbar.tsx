@@ -18,7 +18,7 @@ type NavbarAuth = {
 
 export type NavbarProps = {
   routes: { home: string, main?: string, projects?: string, discord?: string, docs?: string, about: string, contact: string }
-  variant?: "web" | "docs" | "dashboard" | "scoreboard";
+  variant?: "web" | "docs" | "dashboard" | "scoreboard" |"pbseditor";
   enableShrink?: boolean;
   hasSidenav?: boolean;
   isSidebarOpen?: boolean;

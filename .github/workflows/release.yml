@@ -64,6 +64,9 @@ jobs:
             dashboard:
               - 'apps/dashboard/**'
               - 'packages/**'
+            pbseditor:
+              - 'apps/pbseditor/**'
+              - 'packages/**'
 
       # ----------------------------
       # Setup Docker build
@@ -161,3 +164,18 @@ jobs:
             ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-dashboard:latest
             ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-dashboard:main
             ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-dashboard:${{ github.sha }}
+
+      # =========================================================
+      # PBSEDITOR
+      # =========================================================
+      - name: Build pbseditor
+        if: steps.changes.outputs.pbseditor == 'true'
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: apps/pbseditor/Dockerfile
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: |
+            ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-pbseditor:latest
+            ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-pbseditor:main
+            ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-pbseditor:${{ github.sha }}
