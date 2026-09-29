@@ -16,6 +16,7 @@ import { apiFetch } from "@/lib/apiFetch";
 import { getColorByPercentage } from "@/lib/getColorByPercentage";
 import { YoutubeGoalProfile } from "@/types/youtube/GoalProfile";
 import InputSelect from "ui/src/components/InputSelect";
+import GoalProgress from "../GoalProgress";
 
 type VideoStatKey =
   | "views"
@@ -86,8 +87,7 @@ export default function VideoDetailsModal({
 }) {
   const queryClient = useQueryClient();
   const displayedVideoRef = useRef<YoutubeVideo | null>(video);
-  const [goalProfileId, setGoalProfileId] = useState<number | null>(video?.goalProfileId || null);
-  const [goalProfile, setGoalProfile] = useState<YoutubeGoalProfile | null>(null);
+  const [goalProfileId, setGoalProfileId] = useState<number | null>(video?.goalProfileId ?? null);
 
   if (video !== null) {
     displayedVideoRef.current = video;
@@ -167,26 +167,16 @@ export default function VideoDetailsModal({
     }
   });
 
+  const goalProfile =
+    goalProfilesQuery.data?.find(
+      (profile) => profile.id === goalProfileId
+    ) ?? null;
+
   useEffect(() => {
     if (!video) return;
 
     setGoalProfileId(video.goalProfileId);
   }, [video]);
-
-  useEffect(() => {
-    if (!goalProfilesQuery.data) {
-      setGoalProfile(null);
-      return;
-    };
-
-    const profile = 
-      goalProfilesQuery.data.find(
-        prof => prof.id === goalProfileId
-      ) ?? null;
-
-    setGoalProfile(profile);
-
-  }, [goalProfileId, goalProfilesQuery.data]);
 
   useEffect(() => {
     if (!isVisible) {
@@ -434,103 +424,108 @@ export default function VideoDetailsModal({
             )
           })}
         </div>
-        <div className="max-h-[35vh] bg-gray-800 rounded-lg p-2 m-2">
-          {displayedVideo && goalProfile && goalProfilesQuery.data?.length ? (
-            <div>
-              <div className="flex justify-between">
-                <h2 className="text-2xl font-bold pl-4">
-                  Goal name: {goalProfile?.name ?? "No Goal sellected"}
-                </h2>
+        <div className="bg-gray-800 rounded-lg p-2 m-2">
+          {!goalProfilesQuery.data ? (
+            <p className="text-center text-gray-300">
+              Loading goal Profiles...
+            </p>
+          ) : goalProfilesQuery.data.length === 0 ? (
+            <p className="text-center text-gray-300">
+              No Goal Profiles were found.
+              (Click Goals in the top right menu to add new Goals)
+            </p>
+          ) : (
+            <>
+              <div className="flex items-center justify-between gap-4">
+                <div className="min-w-0">
+                  <h2 className="text-2xl font-bold">
+                    {goalProfile?.name ?? "No Goal selected"}
+                  </h2>
+
+                  <p className="text-sm text-gray-400 mt-1">
+                    {goalProfile 
+                      ? "Track this video's progress towards your goals."
+                      : "Select a goal profile to track this videos's progress."
+                    }
+                  </p>
+                </div>
+
                 <InputSelect
                   width={300}
                   initValue={goalProfileId ?? ""}
                   initLabel={goalProfilesQuery.data.find(profile => profile.id === goalProfileId)?.name ?? ""}
                   handleChange={(option) => {
-                    if (!option) return;
-
-                    const newGoalProfileId = Number(option.value);
                     const videoId = displayedVideo?.videoId;
 
                     if (!videoId) return;
 
+                    const newGoalProfileId = option
+                      ? Number(option.value)
+                      : null;
+
                     setGoalProfileId(newGoalProfileId);
 
-                    onGoalProfileChange(
-                      videoId,
-                      newGoalProfileId
-                    );
+                    if (newGoalProfileId !== null) {
+                      onGoalProfileChange(
+                        videoId,
+                        newGoalProfileId
+                      );
 
-                    updateVideoMutation.mutate({
-                      videoId,
-                      goalProfileId: newGoalProfileId,
-                    });
+                      updateVideoMutation.mutate({
+                        videoId,
+                        goalProfileId: newGoalProfileId
+                      });
+                    }
                   }}
-                  options={goalProfilesQuery.data.map(profile => ({ value: profile.id, label: profile.name}))}
+                  options={goalProfilesQuery.data.map(
+                    profile => ({ 
+                      value: profile.id, 
+                      label: profile.name
+                    })
+                  )}
                   placeholder="Select a Goal"
-                  isDisabled={goalProfilesQuery.data.length === 0}
+                  isDisabled={updateVideoMutation.isPending}
                   isClearable
                   placement="auto"
                 />
               </div>
-              <div className="grid grid-cols-3 gap-10 mt-4">
-                <div className="flex flex-col">
-                  <div className="mb-1 flex items-center justify-between gap-3">
-                    <p className="text-gray-300">Current Views</p>
-                    <p className="text-gray-300">Goal Views</p>
-                  </div>
-                  <div className="relative h-3 w-full overflow-hidden rounded-full bg-gray-700">
-                    <div
-                      className="absolute inset-y-0 rounded-full bg-blue-600"
-                      style={{
-                        width: `${Math.min((displayedVideo.views / goalProfile.views) * 100, 100)}%`
-                      }}
-                    />
-                  </div>
-                  <div className="mt-1 flex items-center justify-between gap-3">
-                    <p className="text-white">{displayedVideo.views}</p>
-                    <p className="text-white">{goalProfile.views}</p>
-                  </div>
+
+              {goalProfile && displayedVideo ? (
+                <div className="mt-5 grid grid-cols-3 gap-4">
+                  <GoalProgress
+                    title="Views"
+                    current={displayedVideo.views}
+                    target={goalProfile.views}
+                  />
+
+                  <GoalProgress
+                    title="Likes"
+                    current={displayedVideo.likes}
+                    target={goalProfile.likes}
+                  />
+
+                  <GoalProgress
+                    title="Watch Hours"
+                    current={displayedVideo.watchHours}
+                    target={goalProfile.watchHours}
+                    formatValue={(value) =>
+                      value.toLocaleString(undefined, {
+                        maximumFractionDigits: 1
+                      })
+                    }
+                  />
                 </div>
-                <div className="flex flex-col">
-                  <div className="mb-1 flex items-center justify-between gap-3">
-                    <p className="text-gray-300">Current Likes</p>
-                    <p className="text-gray-300">Goal Likes</p>
-                  </div>
-                  <div className="relative h-3 w-full overflow-hidden rounded-full bg-gray-700">
-                    <div
-                      className="absolute inset-y-0 rounded-full bg-blue-600"
-                      style={{
-                        width: `${Math.min((displayedVideo.likes / goalProfile.likes) * 100, 100)}%`
-                      }}
-                    />
-                  </div>
-                  <div className="mt-1 flex items-center justify-between gap-3">
-                    <p className="text-white">{displayedVideo.likes}</p>
-                    <p className="text-white">{goalProfile.likes}</p>
-                  </div>
+              ) : (
+                <div className="mt-5 rounded-lg border boeder-dashed border-gray-600 p-6 text-center">
+                  <p className="text-gray-300">
+                    No goal selected
+                  </p>
+                  <p className="text-sm text-gray-400 mt-1">
+                    Choose a goal profile above to view your progress
+                  </p>
                 </div>
-                <div className="flex flex-col">
-                  <div className="mb-1 flex items-center justify-between gap-3">
-                    <p className="text-gray-300">Current Watch Hours</p>
-                    <p className="text-gray-300">Goal Watch Hours</p>
-                  </div>
-                  <div className="relative h-3 w-full overflow-hidden rounded-full bg-gray-700">
-                    <div
-                      className="absolute inset-y-0 rounded-full bg-blue-600"
-                      style={{
-                        width: `${Math.min((displayedVideo.watchHours / goalProfile.watchHours) * 100, 100)}%`
-                      }}
-                    />
-                  </div>
-                  <div className="mt-1 flex items-center justify-between gap-3">
-                    <p className="text-white">{displayedVideo.watchHours}</p>
-                    <p className="text-white">{goalProfile.watchHours}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="text-center w-full">No Goal Profiles were found (Click Goals in the top right menu to add new Goals)</div>
+              )}
+            </>
           )}
         </div>
       </div>
