@@ -1,5 +1,5 @@
 export default function Home() {
   return (
-    <p className="text-white">Nothing to see here yet...</p>
+    <p className="text-white">PBS Editor Coming soon...</p>
   );
 }
