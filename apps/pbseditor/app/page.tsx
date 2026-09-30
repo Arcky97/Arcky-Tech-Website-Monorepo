@@ -1,5 +1,8 @@
+import { AutoTOCWrapper } from "@/components/AutoTOCWrapper";
+import { UnderConstruction } from "ui";
+
 export default function Home() {
   return (
-    <p className="text-white">PBS Editor Coming soon...</p>
+    <UnderConstruction/>
   );
 }
