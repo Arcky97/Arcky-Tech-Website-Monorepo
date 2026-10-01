@@ -12,6 +12,7 @@ env:
   WEB_URL: ${{ vars.WEB_URL }}
   DOCS_URL: ${{ vars.DOCS_URL }}
   DISCORD_URL: ${{ vars.DISCORD_URL }}
+  DASHBOARD_URL: ${{ vars.DASHBOARD_URL }}
   API_KEY_WEBSITE: ${{ secrets.API_KEY_WEBSITE }}
   API_BASE_URL: ${{ secrets.API_BASE_URL }}
 
@@ -31,6 +32,7 @@ jobs:
           echo "web url: $WEB_URL"
           echo "docs url: $DOCS_URL"
           echo "discord url: $DISCORD_URL"
+          echo "dashboard url: $DASHBOARD_URL"
           echo "api url: $API_BASE_URL"
 
       - name: Debug API key
@@ -164,6 +166,14 @@ jobs:
             ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-dashboard:latest
             ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-dashboard:main
             ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-dashboard:${{ github.sha }}
+          build-args: |
+            NEXT_PUBLIC_WEB_URL=${{ vars.WEB_URL }}
+            NEXT_PUBLIC_DOCS_URL=${{ vars.DOCS_URL}}
+            NEXT_PUBLIC_DISCORD_URL=${{ vars.DISCORD_URL }}
+            NEXT_PUBLIC_DASHBOARD_URL=${{ vars.DASHBOARD_URL }}
+          secrets: |
+            API_KEY_WEBSITE=${{ secrets.API_KEY_WEBSITE }}
+            API_BASE_URL=${{ secrets.API_BASE_URL }}
 
       # =========================================================
       # PBSEDITOR
@@ -179,3 +189,10 @@ jobs:
             ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-pbseditor:latest
             ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-pbseditor:main
             ghcr.io/${{ steps.vars.outputs.owner }}/arcky-tech-pbseditor:${{ github.sha }}
+          build-args: |
+            NEXT_PUBLIC_WEB_URL=${{ vars.WEB_URL }}
+            NEXT_PUBLIC_DOCS_URL=${{ vars.DOCS_URL}}
+            NEXT_PUBLIC_DISCORD_URL=${{ vars.DISCORD_URL }}
+          secrets: |
+            API_KEY_WEBSITE=${{ secrets.API_KEY_WEBSITE }}
+            API_BASE_URL=${{ secrets.API_BASE_URL }}
