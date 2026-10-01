@@ -20,7 +20,7 @@ export default function Home() {
         </div>
         <div className="border-l border-slate-700/80 pl-7 sm:pl-10">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">Workspace</p>
-          <p className="mt-4 text-3xl font-semibold text-slate-100">One calm place for the work behind the videos.</p>
+          <p className="mt-4 text-3xl font-semibold text-slate-100">One calm place for the work behind your videos.</p>
           <div className="mt-8 grid gap-4 text-sm text-slate-300 sm:grid-cols-2 lg:grid-cols-1">
             <p className="border-t border-slate-700/80 pt-4">Channel analytics</p>
             <p className="border-t border-slate-700/80 pt-4">Goal tracking</p>
