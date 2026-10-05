@@ -1,9 +1,7 @@
-import { HomeIcon } from "@heroicons/react/24/outline";
-
 export const youtubeJourney = {
   name: "youtube-journey",
   path: "",
-  icon: <HomeIcon className="w-6 h-6"/>,
+  icon: "HomeIcon",
   text: "YouTube Journey",
   subItems: [
     {

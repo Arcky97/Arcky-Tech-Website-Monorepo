@@ -108,11 +108,11 @@ useEffect(() => {
         {/* Logo (Arcky-Tech) */}
         <h1
           className={`${
-            isShrunk || !enableShrink && !hasSidenav || variant === "docs"
+            isShrunk || !enableShrink && !hasSidenav || variant === "docs" || variant === "pbseditor"
               ? "lg:text-2xl sm:text-xl text-base"
               : "lg:text-3xl sm:text-2xl text-base"
           } font-bold transition-all duration-300 ease-in-out text-left ${
-            variant !== "docs"
+            variant !== "docs" && variant !== "pbseditor"
               ? hasScrolled || !enableShrink && !hasSidenav
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 -translate-5"

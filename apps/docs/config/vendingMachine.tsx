@@ -1,9 +1,7 @@
-import { HomeIcon } from "@heroicons/react/24/outline";
-
 export const vendingMachine = {
   name: "vending-machine",
   path: "",
-  icon: <HomeIcon className="w-6 h-6"/>,
+  icon: "HomeIcon",
   text: "Arcky's Vending Machine",
   subItems: [
     {

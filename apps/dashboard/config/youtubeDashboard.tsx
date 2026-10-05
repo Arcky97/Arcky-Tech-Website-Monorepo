@@ -1,9 +1,7 @@
-import { HomeIcon } from "@heroicons/react/24/outline";
-
 export const youtubeDashboard = {
   name: "youtube-dashboard",
   path: "",
-  icon: <HomeIcon className="w-6 h-6"/>,
+  icon: "HomeIcon",
   text: "YouTube Dashboard",
   noPage: true,
   subItems: [

@@ -1,14 +1,16 @@
 "use client";
-import React, { useEffect, useMemo } from "react";
+import React, { ComponentType, SVGProps, useEffect, useMemo } from "react";
 import Link from "next/link";
 import clsx from "clsx";
+import * as Icons from "@heroicons/react/24/outline";
+import * as IconsActive from "@heroicons/react/24/solid";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { useAutoHeightCollapse } from "./../../hooks";
 
 export interface MenuItem {
   name?: string;
   path: string;
-  icon?: React.ReactNode;
+  icon?: keyof typeof Icons;
   text: string;
   noPage?: boolean;
   disabled?: boolean;
@@ -34,6 +36,8 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
   onClick
 }) => {
   let { name, path, icon, text, subItems, noPage, disabled, defaultOpen } = item;
+  const IconComp = Icons[icon!] as ComponentType<SVGProps<SVGElement>>;
+  const IconCompActive = IconsActive[icon!] as ComponentType<SVGProps<SVGElement>>;
 
   const isHashLink = path.startsWith("#");
   const isAbsolutePath = path.startsWith("/");
@@ -101,7 +105,12 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
               onClick={onClick}
               className={clsx("flex items-center gap-3 grow", isDisabled && "cursor-not-allowed")}
             >
-              {icon}
+              {icon && isActive ? (
+                <IconCompActive className="w-6 h-6"/>
+              ) : ( icon ? (
+                  <IconComp className="w-6 h-6"/>
+                ) : null
+              )}
               <span className="transition-opacity duration-300 ease-in-out">{text}</span>
             </Link>
           ) : (
@@ -111,7 +120,12 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
                 if (!isDisabled) toggle();
               }}
             >
-              {icon}
+              {icon && isActive ? (
+                <IconCompActive className="w-6 h-6"/>
+              ) : ( icon ? (
+                  <IconComp className="w-6 h-6"/>
+                ) : null
+              )}
               <span className="transition-opacity duration-300 ease-in-out">{text}</span>
             </div>
           )}

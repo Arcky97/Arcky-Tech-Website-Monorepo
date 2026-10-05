@@ -1,9 +1,7 @@
-import { HomeIcon } from "@heroicons/react/24/outline";
-
 export const pbsEditor = {
   name: "pbs-editor",
   path: "",
-  icon: <HomeIcon className="w-6 h-6"/>,
+  icon: "HomeIcon",
   text: "Arcky's PBS Editor",
   subItems: [
     {

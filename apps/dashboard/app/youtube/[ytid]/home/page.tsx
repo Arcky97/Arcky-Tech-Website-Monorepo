@@ -175,10 +175,6 @@ export default function YoutubeHome() {
 						videos={LatestVideosAndShortsQuery?.data?.videos ?? []} 
 						playlists={playlistsQuery.data ?? []}
 					/>
-					<div className="bg-gray-800 rounded-lg block p-4">
-						<p className="mb-3 text-2xl font-bold">Latest Shorts</p>
-
-					</div>
 				</article>
 			)}
 		</>

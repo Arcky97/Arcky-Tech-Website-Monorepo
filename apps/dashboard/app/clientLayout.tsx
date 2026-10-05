@@ -144,7 +144,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
                 ref={mainRef}
                 className="flex min-w-0 flex-1 flex-col bg-gray-900"
               >
-                <DashboardNav user={sessionUser}/>
+                {sessionUser && <DashboardNav user={sessionUser}/>}
                 <div className="hidden lg:block flex-1 px-2">
                   {children}
                 </div>
