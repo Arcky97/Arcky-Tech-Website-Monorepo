@@ -3,5 +3,6 @@ export type YoutubeGoalProfile = {
   name: string;
   views: number;
   likes: number;
+  comments?: number;
   watchHours: number;
 }

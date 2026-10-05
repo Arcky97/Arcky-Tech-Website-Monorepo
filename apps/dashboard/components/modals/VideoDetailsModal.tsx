@@ -65,6 +65,15 @@ const VideoStats: VideoStat[] = [
   }
 ];
 
+type GoalMetricKey = "views" | "likes" | "comments" | "watchHours";
+
+const GoalMetrics: { key: GoalMetricKey; label: string }[] = [
+  { key: "views", label: "Views" },
+  { key: "likes", label: "Likes" },
+  { key: "comments", label: "Comments" },
+  { key: "watchHours", label: "Watch Hours" }
+];
+
 export default function VideoDetailsModal({
   video,
   isVisible,
@@ -88,6 +97,7 @@ export default function VideoDetailsModal({
   const queryClient = useQueryClient();
   const displayedVideoRef = useRef<YoutubeVideo | null>(video);
   const [goalProfileId, setGoalProfileId] = useState<number | null>(video?.goalProfileId ?? null);
+  const [calcMetric, setCalcMetric] = useState<GoalMetricKey | null>(null);
 
   if (video !== null) {
     displayedVideoRef.current = video;
@@ -171,6 +181,121 @@ export default function VideoDetailsModal({
     goalProfilesQuery.data?.find(
       (profile) => profile.id === goalProfileId
     ) ?? null;
+
+  const calcOptions = goalProfile
+    ? GoalMetrics.filter(({ key }) => (goalProfile[key] ?? 0) > 0)
+    : [];
+
+  const activeCalcMetric =
+    calcOptions.find(option => option.key === calcMetric) ?? calcOptions[0] ?? null;
+
+  const renderGoalCalculation = () => {
+    if (!goalProfile || !displayedVideo || !activeCalcMetric) return null;
+
+    const { key, label } = activeCalcMetric;
+    const target = goalProfile[key] ?? 0;
+    const current = displayedVideo[key];
+    const snapshots = videoSnapshotsQuery.data;
+    const formatNumber = (value: number) =>
+      value.toLocaleString(undefined, { maximumFractionDigits: 1 });
+
+    if (!snapshots?.length) {
+      return <p className="text-gray-300">Not enough snapshot data to calculate.</p>;
+    }
+
+    const formatGain = (gain: number) => {
+      if (key === "watchHours") return `${formatNumber(gain)} / day`;
+      if (gain <= 0) return "0 / day";
+      if (gain < 1) {
+        const days = Math.round(1 / gain);
+        return days <= 1 ? "1 / day" : `1 every ${days.toLocaleString()} days`;
+      }
+      return `${Math.round(gain).toLocaleString()} / day`;
+    };
+
+    // Snapshot values are per-day gains.
+    const averageGain =
+      snapshots.reduce((total, snapshot) => total + snapshot[key], 0) / snapshots.length;
+    const remaining = target - current;
+
+    if (remaining <= 0) {
+      const sorted = [...snapshots].sort((a, b) =>
+        new Date(a.snapshotDate).getTime() - new Date(b.snapshotDate).getTime()
+      );
+
+      let cumulative = 0;
+      const reachedSnapshot = sorted.find(snapshot => {
+        cumulative += snapshot[key];
+        return cumulative >= target;
+      });
+
+      const reachedDate = reachedSnapshot ? new Date(reachedSnapshot.snapshotDate) : null;
+      const daysTaken = reachedDate
+        ? Math.max(1, Math.ceil(
+            (reachedDate.getTime() - new Date(displayedVideo.publishedAt).getTime()) / (1000 * 60 * 60 * 24)
+          ))
+        : null;
+
+      return (
+        <div className="flex flex-col gap-3">
+          <p className="text-green-400 font-bold">
+            Goal reached! ({formatNumber(current)} / {formatNumber(target)} {label})
+          </p>
+          <div className="grid grid-cols-3 gap-4">
+            <div>
+              <p className="text-gray-300">Average gain</p>
+              <p className="font-bold text-xl">{formatGain(averageGain)}</p>
+            </div>
+            <div>
+              <p className="text-gray-300">Days taken</p>
+              <p className="font-bold text-xl">
+                {daysTaken !== null ? `${daysTaken.toLocaleString()} day${daysTaken === 1 ? "" : "s"}` : "Unknown"}
+              </p>
+            </div>
+            <div>
+              <p className="text-gray-300">Date reached</p>
+              <p className="font-bold text-xl">
+                {reachedDate
+                  ? reachedDate.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })
+                  : "Unknown"}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (averageGain <= 0) {
+      return <p className="text-gray-300">No average daily gain in {label.toLowerCase()}, so the goal can't be projected.</p>;
+    }
+
+    const daysNeeded = Math.ceil(remaining / averageGain);
+    const eta = new Date();
+    eta.setDate(eta.getDate() + daysNeeded);
+
+    return (
+      <div className="grid grid-cols-4 gap-4">
+        <div>
+          <p className="text-gray-300">Average gain</p>
+          <p className="font-bold text-xl">{formatGain(averageGain)}</p>
+        </div>
+        <div>
+          <p className="text-gray-300">Remaining</p>
+          <p className="font-bold text-xl">{formatNumber(remaining)}</p>
+        </div>
+        <div>
+          <p className="text-gray-300">Time to goal</p>
+          <p className="font-bold text-xl">{daysNeeded.toLocaleString()} day{daysNeeded === 1 ? "" : "s"}</p>
+        </div>
+        <div>
+          <p className="text-gray-300">Estimated date</p>
+          <p className="font-bold text-xl">
+            {eta.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+          </p>
+        </div>
+      </div>
+    );
+  };
 
   useEffect(() => {
     if (!video) return;
@@ -292,6 +417,7 @@ export default function VideoDetailsModal({
           text={backfillMessage}
           disabled={isBackfilling}
         />
+        {/* Header */}
         <div className="modal-header">
           <h1 className="modal-title">
             Video Details
@@ -302,7 +428,7 @@ export default function VideoDetailsModal({
             action={onClose}
           />
         </div>
-
+        {/* Video Overview */}
         <div className="flex items-stretch text-white max-h-[30vh]">
           {/* LEFT: Thumbnail + title + description */}
           <div className="flex gap-3 p-2 bg-gray-800 rounded-lg w-[75%] min-w-0 min-h-0 overflow-hidden m-2">
@@ -335,7 +461,6 @@ export default function VideoDetailsModal({
               </div>
             </div>
           </div>
-
           {/* RIGHT: Video information */}
           <div className="flex flex-col gap-3 p-2 whitespace-nowrap bg-gray-800 rounded-lg w-[25%] min-w-0 overflow-y-scroll m-2">
             {/* Published */}
@@ -402,6 +527,7 @@ export default function VideoDetailsModal({
             </div>
           </div>
         </div>
+        {/* Video Analytics */}
         <div className="grid grid-cols-6 max-h-[30vh]">
           {VideoStats.map(({ key, title, icon }) => {
             const IconComp = Icons[icon] as ComponentType<SVGProps<SVGElement>>;
@@ -424,6 +550,7 @@ export default function VideoDetailsModal({
             )
           })}
         </div>
+        {/* Video Goals */}
         <div className="bg-gray-800 rounded-lg p-2 m-2">
           {!goalProfilesQuery.data ? (
             <p className="text-center text-gray-300">
@@ -528,6 +655,37 @@ export default function VideoDetailsModal({
             </>
           )}
         </div>
+        {/* Video Goal Calculator */}
+        {goalProfile && calcOptions.length > 0 && (
+          <div className="bg-gray-800 rounded-lg p-2 m-2 text-white">
+            <div className="flex items-center justify-between gap-4 mb-4">
+              <div className="min-w-0">
+                <h2 className="text-2xl font-bold">Goal Calculator</h2>
+                <p className="text-sm text-gray-400 mt-1">
+                  Estimated time to reach the goal based on the average daily gain.
+                </p>
+              </div>
+              <InputSelect
+                width={300}
+                initValue={activeCalcMetric?.key ?? ""}
+                initLabel={activeCalcMetric?.label ?? ""}
+                key={activeCalcMetric?.key}
+                handleChange={(option) => {
+                  if (option) setCalcMetric(option.value as GoalMetricKey);
+                }}
+                options={calcOptions.map(({ key, label }) => ({
+                  value: key,
+                  label
+                }))}
+                placeholder="Select a metric"
+                isDisabled={false}
+                isClearable={false}
+                placement="auto"
+              />
+            </div>
+            {renderGoalCalculation()}
+          </div>
+        )}
       </div>
     </div>
   );
