@@ -26,10 +26,10 @@ export default function ClientLayout({ children}: { children: React.ReactNode })
     };
 
     setSidebarOpen(window.innerWidth >= 1024);
-
-    window.addEventListener("resise", handleResize);
+    
+    window.addEventListener("resize", handleResize);
     handleResize();
-
+    
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
@@ -49,7 +49,7 @@ export default function ClientLayout({ children}: { children: React.ReactNode })
           >
             <div className="relative flex overflow-hidden">
               <Sidebar
-                menuItems={menuItems.map(({ ...rest }) => rest )}
+                menuItems={menuItems}
                 docType="main"
                 mainDocs={pathname === "/"}
                 isOpen={sidebarOpen}

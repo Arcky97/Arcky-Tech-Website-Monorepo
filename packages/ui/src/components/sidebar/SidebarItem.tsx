@@ -10,7 +10,7 @@ import { useAutoHeightCollapse } from "./../../hooks";
 export interface MenuItem {
   name?: string;
   path: string;
-  icon?: keyof typeof Icons;
+  icon?: string;
   text: string;
   noPage?: boolean;
   disabled?: boolean;
@@ -36,8 +36,8 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
   onClick
 }) => {
   let { name, path, icon, text, subItems, noPage, disabled, defaultOpen } = item;
-  const IconComp = Icons[icon!] as ComponentType<SVGProps<SVGElement>>;
-  const IconCompActive = IconsActive[icon!] as ComponentType<SVGProps<SVGElement>>;
+  const IconComp = Icons[icon as keyof typeof Icons] as ComponentType<SVGProps<SVGElement>>;
+  const IconCompActive = IconsActive[icon as keyof typeof IconsActive] as ComponentType<SVGProps<SVGElement>>;
 
   const isHashLink = path.startsWith("#");
   const isAbsolutePath = path.startsWith("/");
