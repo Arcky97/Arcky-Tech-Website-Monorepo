@@ -31,10 +31,12 @@ export async function GET(request: Request) {
   }
 
   const nextResponse = NextResponse.redirect(data.url);
-  const stateCookie = response.headers.get("set-cookie");
+  // response.headers.get("set-cookie") only returns one merged/corrupted value when
+  // the upstream response sets multiple cookies; getSetCookie() preserves each one.
+  const setCookies = response.headers.getSetCookie?.() ?? [];
 
-  if (stateCookie) {
-    nextResponse.headers.append("set-cookie", stateCookie);
+  for (const cookie of setCookies) {
+    nextResponse.headers.append("set-cookie", cookie);
   }
 
   return nextResponse;
