@@ -1,5 +1,6 @@
 import { apiFetch } from "@/lib/apiFetch";
 import { youtubeKeys } from "@/queries/youtube";
+import { SyncJob } from "@/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { ColorButton } from "ui";
@@ -10,7 +11,6 @@ type SettingsModalProps = {
 }
 
 export default function SettingsModal({ isVisible, onClose }: SettingsModalProps) {
-  const queryClient = useQueryClient();
   const [syncJobId, setSyncJobId] = useState<string | null>(null);
 
   const syncMutation = useMutation({
@@ -18,11 +18,32 @@ export default function SettingsModal({ isVisible, onClose }: SettingsModalProps
     onSuccess: (data) => setSyncJobId(data.jobId)
   });
 
+  const jobQuery = useQuery({
+    queryKey: youtubeKeys.syncJob(syncJobId ?? ""),
+    queryFn: () => apiFetch<SyncJob>(`/api/youtube/sync/status?jobId=${syncJobId}`),
+    enabled: !!syncJobId,
+    refetchInterval: (query) => {
+      const status = query.state.data?.status;
+      return status === "completed" || status === "failed" ? false : 2000;
+    }
+  });
+
+  const isSyncing =
+    syncMutation.isPending ||
+    (!!syncJobId &&
+      (jobQuery.isLoading || jobQuery.data?.status === "queued" || jobQuery.data?.status === "running"));
+
+  const handleClose = () => {
+    if (isSyncing) return;
+    setSyncJobId(null);
+    onClose();
+  };
+
   return (
     <div
       className={`modal-overlay ${
         isVisible ? "show" : "hide"}`}
-        onClick={onClose}
+        onClick={handleClose}
     >
       <div
         className={`modal-content ${
@@ -40,7 +61,8 @@ export default function SettingsModal({ isVisible, onClose }: SettingsModalProps
           <ColorButton
             color="red-800"
             text="Close"
-            action={onClose}
+            action={handleClose}
+            disabled={isSyncing}
           />
         </div>
         <div className="modal-body px-2 pb-12">
@@ -48,11 +70,14 @@ export default function SettingsModal({ isVisible, onClose }: SettingsModalProps
             <h2 className="text-xl font-semibold text-white">
               Sync
             </h2>
-            <button 
-              className="text-white"
-              onClick={() => syncMutation.mutate()} 
-              disabled={syncMutation.isPending}>
-              {syncMutation.isPending ? "Starting..." : "Start Sync"}
+            <button
+              className="text-white flex items-center gap-2"
+              onClick={() => syncMutation.mutate()}
+              disabled={isSyncing}>
+              {isSyncing && (
+                <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"/>
+              )}
+              {isSyncing ? "Syncing..." : "Start Sync"}
             </button>
           </div>
         </div>

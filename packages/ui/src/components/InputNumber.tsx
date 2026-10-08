@@ -1,8 +1,10 @@
+import validateNumber from "../utils/validateNumber";
+
 type InputNumberProps = {
   value: number,
-  range: Record<string, number>,
+  range: { min: number, max: number, step: number, clear: boolean },
   placeholder: string,
-  handleChange: (e: number) => void;
+  handleChange: (e: string) => void;
   handleFocus?: () => void;
   handleBlur?: () => void;
   width: number,
@@ -27,7 +29,9 @@ export default function InputNumber({ value, range, placeholder, handleChange, h
           step={range?.step ?? 1}
           value={value}
           placeholder={placeholder}
-          onChange={(e) => handleChange(Number(e.target.value))}
+          onChange={(e) => handleChange(!noValidation 
+            ? validateNumber(Number(e.target.value), Number(range?.min ?? 1), Number(range?.max ?? 99), range?.clear) 
+            : e.target.value)}
           onFocus={handleFocus}
           onBlur={handleBlur}
           disabled={disabled}

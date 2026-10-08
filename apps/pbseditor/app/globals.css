@@ -133,6 +133,67 @@ main {
   width: auto;
 }
 
+.tooltip {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.tooltipText {
+  position: absolute;
+  background-color: #4a5565;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: 1px #1e2939 solid;
+  border-radius: 6px;
+  padding: 6px 8px;
+  z-index: 20;
+  white-space: normal;
+  pointer-events: none;
+  opacity: 0;
+  margin-left: -5px;
+  transform: translateY(5px);
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Fade in */
+.tooltipText.show {
+  opacity: 0.95;
+  visibility: visible;
+  transform: translateY(0);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Fade out hidden class to allow CSS transition before unmount */
+.tooltipText.hide {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(5px);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Arrow styling */
+.tooltipText::after {
+  content: "";
+  position: absolute;
+  left: 9px;
+  border-width: 11px;
+  border-style: solid;
+  border-color: transparent;
+}
+
+.tooltipText.bottom::after {
+  top: -18px;
+  border-bottom-color: #4a5565;
+}
+
+.tooltipText.top::after {
+  bottom: -18px;
+  border-top-color: #4a5565;
+}
+
 [class^="content-box-w"] {
   border: 1px solid #4a5565;
   border-radius: 0.5rem;
