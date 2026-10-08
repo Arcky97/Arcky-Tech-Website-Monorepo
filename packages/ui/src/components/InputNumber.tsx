@@ -2,7 +2,7 @@ import validateNumber from "../utils/validateNumber";
 
 type InputNumberProps = {
   value: number,
-  range: { min: number, max: number, step: number, clear: boolean },
+  range: { min: number, max: number, step?: number, clear?: boolean },
   placeholder: string,
   handleChange: (e: string) => void;
   handleFocus?: () => void;
