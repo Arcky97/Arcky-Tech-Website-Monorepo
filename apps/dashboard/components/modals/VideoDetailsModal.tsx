@@ -1,6 +1,6 @@
 
 import { YoutubePlaylist, YoutubeVideo, YoutubeVideoSnapshot } from "@/types";
-import { ColorButton } from "ui";
+import { ColorButton, Skeleton } from "ui";
 import { ComponentType, SVGProps, useEffect, useRef, useState } from "react";
 import LoadingOverlay from "../overlays/loadingOverlay";
 import Image from "next/image";
@@ -229,7 +229,7 @@ export default function VideoDetailsModal({
   };
 
   const getRangeTotal = (key: VideoStatKey) => {
-    if (!videoSnapshotsQuery.data || !displayedVideo) return null;
+    if (!videoSnapshotsQuery.data || !displayedVideo) return "Loading Data";
 
     const publishedAt = new Date(displayedVideo.publishedAt)
     const now = new Date();
@@ -240,7 +240,7 @@ export default function VideoDetailsModal({
     let rangeDays: number;
 
     if (ageInDays < 7) {
-      return null
+      return "No data yet"
     } else if (ageInDays < 28) {
       rangeDays = 7;
     } else if (ageInDays < 90) {
@@ -250,7 +250,7 @@ export default function VideoDetailsModal({
     } else if (ageInDays < 730) {
       rangeDays = 365;
     } else {
-      return null;
+      return "Data out of range";
     }
 
     const cutoffDate = new Date(now);
@@ -285,11 +285,6 @@ export default function VideoDetailsModal({
         } max-w-[85%] max-h-[90vh] relative overflow-y-scroll`}
         onClick={(e) => e.stopPropagation()}
       >
-        <LoadingOverlay
-          variant="absolute"
-          text={backfillMessage}
-          disabled={isBackfilling}
-        />
         {/* Header */}
         <div className="modal-header">
           <h1 className="modal-title">
@@ -406,6 +401,7 @@ export default function VideoDetailsModal({
             const IconComp = Icons[icon] as ComponentType<SVGProps<SVGElement>>;
 
             return (
+
               <div key={key} className="flex items-start bg-gray-800 rounded-lg gap-3 m-2 p-2">
                 <div className="w-10 flex justify-center pt-1">
                   <IconComp className="w-7 h-7 text-red-500"/>
@@ -414,10 +410,24 @@ export default function VideoDetailsModal({
                   <p className="text-gray-300">
                     {title}
                   </p>
-                  <p className="font-bold text-2xl">
-                    {displayedVideo?.[key].toLocaleString()}
-                  </p>
-                  {getRangeTotal(key)}
+                  {isBackfilling ? (
+                    <Skeleton
+                      width="50"
+                      className="m-2"
+                    />
+                  ) : (
+                    <p className="font-bold text-2xl">
+                      {displayedVideo?.[key].toLocaleString()}
+                    </p>
+                  )}
+                  {isBackfilling ? (
+                    <Skeleton
+                      className="m-2"
+                    />
+                  ) : (
+                    getRangeTotal(key)
+                  )}
+                  
                 </div>
               </div>
             )

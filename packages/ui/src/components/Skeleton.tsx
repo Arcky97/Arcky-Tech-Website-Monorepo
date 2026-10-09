@@ -6,7 +6,7 @@ interface SkeletonProps extends HTMLAttributes<HTMLDivElement> {
   width?: string;
   height?: string;
   rounded?: string;
-  className: string;
+  className?: string;
   variant?: "pulse" | "shimmer";
   children?: ReactNode
 }

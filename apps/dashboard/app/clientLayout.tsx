@@ -102,6 +102,12 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
     window.location.assign("/api/auth/login?provider=youtube&redirect=/");
   }
 
+  function handleChangeAccount() {
+    setAuthStatus("logging-in");
+
+    window.location.assign("/api/auth/login?provider=youtube&redirect=/&account=change");
+  }
+
   async function handleLogout() {
     setAuthStatus("logging-out");
 
@@ -134,7 +140,8 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
               auth: {
                 status: authStatus,
                 onLogin: handleLogin,
-                onLogout: handleLogout
+                onLogout: handleLogout,
+                onChangeAccount: handleChangeAccount
               }
             }}
           >

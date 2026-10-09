@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react"
 import Link from "next/link";
+import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { NavbarItem } from "./NavbarItem";
 import { useMainRef } from "../context/MainRefContext";
 import { ColorButton } from "../ColorButton";
@@ -14,6 +15,7 @@ type NavbarAuth = {
     | "logging-out";
   onLogin: () => void;
   onLogout: () => void;
+  onChangeAccount?: () => void;
 }
 
 export type NavbarProps = {
@@ -29,8 +31,24 @@ export type NavbarProps = {
 export function Navbar({ variant = "web", enableShrink, hasSidenav, isSidebarOpen, onToggleSideNav, routes, auth }: NavbarProps) {
   const [hasScrolled, setHasScrolled] = useState(false);
   const [isShrunk, setIsShrunk] = useState(!enableShrink);
+  const [isAuthMenuOpen, setIsAuthMenuOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
+  const authMenuRef = useRef<HTMLDivElement>(null);
   const mainRef = useMainRef();
+
+  useEffect(() => {
+    if (!isAuthMenuOpen) return;
+
+    const handleClickOutside = (e: MouseEvent) => {
+      if (!authMenuRef.current?.contains(e.target as Node)) {
+        setIsAuthMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isAuthMenuOpen]);
 
   useEffect(() => {
     const mainEl = mainRef?.current;
@@ -163,33 +181,64 @@ useEffect(() => {
             isShrunk={isShrunk}
           />
           {variant === "dashboard" && auth && (
-            <ColorButton
-              color={auth.status.includes("out") ? "blue-800" : "red-800"}
-              extraClass="hidden lg:inline-flex"
-              text={
-                auth.status === "checking"
-                  ? "Checking..."
-                  : auth.status === "logging-in"
-                    ? "Logging in..."
-                    : auth.status === "logging-out"
-                      ? "Logging out..."
-                      : auth.status === "signed-in"
-                        ? "Logout"
+            auth.status === "signed-in" ? (
+              <div className="relative hidden lg:inline-block" ref={authMenuRef}>
+                <ColorButton
+                  color="red-800"
+                  text={
+                    <span className="inline-flex items-center gap-1">
+                      Account
+                      <ChevronDownIcon className="w-4 h-4"/>
+                    </span>
+                  }
+                  action={() => setIsAuthMenuOpen((open) => !open)}
+                />
+                {isAuthMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-44 rounded-lg border border-gray-700 bg-gray-800 shadow-lg overflow-hidden z-50">
+                    {auth.onChangeAccount && (
+                      <button
+                        className="block w-full px-4 py-2 text-left text-sm text-white font-bold hover:bg-gray-700 transition-colors duration-150 ease-in-out cursor-pointer"
+                        onClick={() => {
+                          setIsAuthMenuOpen(false);
+                          auth.onChangeAccount!();
+                        }}
+                      >
+                        Change account
+                      </button>
+                    )}
+                    <button
+                      className="block w-full px-4 py-2 text-left text-sm text-red-500 font-bold hover:bg-gray-700 transition-colors duration-150 ease-in-out cursor-pointer"
+                      onClick={() => {
+                        setIsAuthMenuOpen(false);
+                        auth.onLogout();
+                      }}
+                    >
+                      Log out
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <ColorButton
+                color="blue-800"
+                extraClass="hidden lg:inline-flex"
+                text={
+                  auth.status === "checking"
+                    ? "Checking..."
+                    : auth.status === "logging-in"
+                      ? "Logging in..."
+                      : auth.status === "logging-out"
+                        ? "Logging out..."
                         : "Login"
-              }
-              action={
-                auth.status === "signed-in"
-                  ? auth.onLogout
-                  : auth.status === "signed-out"
-                    ? auth.onLogin
-                    : undefined
-              }
-              disabled={
-                auth.status === "checking" ||
-                auth.status === "logging-in" || 
-                auth.status === "logging-out"
-              }
-            />
+                }
+                action={auth.status === "signed-out" ? auth.onLogin : undefined}
+                disabled={
+                  auth.status === "checking" ||
+                  auth.status === "logging-in" ||
+                  auth.status === "logging-out"
+                }
+              />
+            )
           )}
         </div>
       </div>
