@@ -410,19 +410,14 @@ export default function VideoDetailsModal({
                   <p className="text-gray-300">
                     {title}
                   </p>
+                  <p className="font-bold text-2xl">
+                    {displayedVideo?.[key].toLocaleString()}
+                  </p>
                   {isBackfilling ? (
                     <Skeleton
-                      width="50"
-                      className="m-2"
-                    />
-                  ) : (
-                    <p className="font-bold text-2xl">
-                      {displayedVideo?.[key].toLocaleString()}
-                    </p>
-                  )}
-                  {isBackfilling ? (
-                    <Skeleton
-                      className="m-2"
+                      width="w-40"
+                      height="h-4"
+                      className="my-1"
                     />
                   ) : (
                     getRangeTotal(key)

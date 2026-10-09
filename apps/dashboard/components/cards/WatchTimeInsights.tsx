@@ -6,9 +6,11 @@ export default function WatchTimeInsightCard ({watchTotals}: {watchTotals: { las
 
   const dailyWatchAverage = watchTotals.last365Days / 365;
   const targetDailyWatchAverage = watchRemaingHours / daysToTargetRemaining;
+  const dailyWatchPercentage = Math.round((dailyWatchAverage / targetDailyWatchAverage) * 1000) / 10;
 
   const weeklyWatchAverage = watchTotals.last365Days / 52;
   const targetWeeklyWatchAverage = watchRemaingHours / (daysToTargetRemaining / 7);
+  const weeklyWatchPercentage = Math.round((weeklyWatchAverage / targetWeeklyWatchAverage) * 1000) / 10;
 
   const estimatedDaysToTarget = dailyWatchAverage > 0
     ? Math.ceil(watchRemaingHours / dailyWatchAverage)
@@ -31,7 +33,7 @@ export default function WatchTimeInsightCard ({watchTotals}: {watchTotals: { las
       </div>
       <div className="mt-1 flex items-center justify-between gap-3">
         <p className="text-white">
-          {dailyWatchAverage.toLocaleString(undefined, { maximumFractionDigits: 1 })}h
+          {dailyWatchAverage.toLocaleString(undefined, { maximumFractionDigits: 1 })}h ({dailyWatchPercentage}%)
         </p>
         <p className="text-white">
           {targetDailyWatchAverage.toLocaleString(undefined, { maximumFractionDigits: 1 })}h
@@ -55,7 +57,7 @@ export default function WatchTimeInsightCard ({watchTotals}: {watchTotals: { las
       </div>
       <div className="mt-1 flex items-center justify-between gap-3">
           <p className="text-white">
-            {weeklyWatchAverage.toLocaleString(undefined, { maximumFractionDigits: 1 })}h
+            {weeklyWatchAverage.toLocaleString(undefined, { maximumFractionDigits: 1 })}h ({weeklyWatchPercentage}%)
           </p>
           <p className="text-white">
             {targetWeeklyWatchAverage.toLocaleString(undefined, { maximumFractionDigits: 1 })}h
