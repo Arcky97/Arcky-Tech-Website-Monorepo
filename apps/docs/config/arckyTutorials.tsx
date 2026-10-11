@@ -22,6 +22,10 @@ export const arckyTutorials = {
           text: "Episode 2"
         }
       ]
+    },
+    {
+      path: "subdomain-with-certbot-nginx",
+      text: "Create subdomain with Certbot and Nginx"
     }
   ]
 }

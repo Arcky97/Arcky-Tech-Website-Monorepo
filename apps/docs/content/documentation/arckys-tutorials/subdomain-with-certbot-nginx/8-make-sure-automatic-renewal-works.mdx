@@ -1,0 +1,12 @@
+## Make sure automatic renewal works 
+
+Let's Encrypt certificates expire after 90 days, but Certbot normally installs an automatic renewal mechanism.
+Check:
+```bash 
+sudo systemctl status certbot.timer
+```
+You can also test the renewal process without actually renewing the certificate:
+```bash 
+sudo certbot renew --dry-run
+```
+If that succeeds, you're basically done.

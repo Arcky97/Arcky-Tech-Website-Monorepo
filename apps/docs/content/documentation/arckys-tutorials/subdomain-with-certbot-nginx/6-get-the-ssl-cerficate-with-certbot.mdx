@@ -1,0 +1,15 @@
+## Get the SSL certificate with Certbot 
+
+Run:
+```bash
+sudo certbot --nginx -d sub.your-domain.com
+```
+Certbot should:
+1. Verify that you control `sub.your-domain.com`
+2. Request the Let's Encrypt certificate 
+3. Modify your Nginx configuration 
+4. Enable HTTPS 
+5. Optionally redirect HTTP to HTTPS 
+
+You'll typically get a prompt asking whether you'd like HTTP traffic redirected to HTTPS.
+I'd generally choose the redirect option.

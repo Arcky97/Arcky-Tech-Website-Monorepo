@@ -1,0 +1,25 @@
+## Create an Nginx Configuration
+
+```bash 
+sudo nano /etc/nginx/sites-available/sub.your-domain
+```
+Add:
+```nginx 
+server {
+    listen 80;
+    server_name newsubdomain.arcky-tech.be;
+
+    location / {
+        proxy_pass http://127.0.0.1:3096;
+        proxy_http_version 1.1;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+Replace `3096` with the port you want to use.
+<br/>
+Save (press ctrl + 0, then enter, then ctrl + x)

@@ -1,0 +1,19 @@
+## Enable the Site 
+
+run:
+```bash
+sudo ln -s /etc/nginx/sites-available/sub.your-domain /etc/nginx/sites-enabled/
+```
+Then text Nginx:
+```
+sudo nginx -t 
+```
+Result:
+```
+syntax is ok 
+test is successful
+```
+Then reload:
+```bash 
+sudo systemctl reload nginx
+```
