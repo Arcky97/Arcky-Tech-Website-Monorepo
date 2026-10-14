@@ -8,7 +8,7 @@ type InputSelectOption<T> = {
 };
 
 type InputSelectProps<T> = {
-  width: number;
+  width: string;
   initValue: T | "";
   initLabel?: string;
   handleChange: (option: InputSelectOption<T> | null) => void;
@@ -43,7 +43,8 @@ export default function InputSingleSelect<T>({
       : null;
 
   return (
-    <div className={`${table ? "flex" : ""} ${noMargin ? "" : "mb-4"}`}>
+    <div className={`${table ? "flex" : ""} ${noMargin ? "" : "mb-4"} items-center justify-center my-3`}>
+      <div className={width}>
         <Select<InputSelectOption<T>, false>
           value={selectedOption}
           onChange={handleChange}
@@ -57,8 +58,9 @@ export default function InputSingleSelect<T>({
           menuPosition="fixed"
           menuShouldBlockScroll
           menuShouldScrollIntoView={false}
-          className={`items-center justify-center my-3 w-${width}`}
         />
+      </div>
+
     </div>
   );
 }

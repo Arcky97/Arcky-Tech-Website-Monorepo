@@ -33,7 +33,7 @@ export default function Abilites() {
           infoData={["Change the current PBS file for Abilities."]}
         />
         <InputSingleSelect
-          width={62.5}
+          width="w-64"
           initValue={"abilities.txt"}
           handleChange={(value) => handleChange(value)}
           options={[{ value: "abilities.txt", label: "abilities.txt"}]}

@@ -20,7 +20,8 @@
     ],
     "paths": {
       "@/*": ["./*"]
-    }
+    },
+    "types": ["node", "wicg-file-system-access"]
   },
   "include": [
     "next-env.d.ts",
