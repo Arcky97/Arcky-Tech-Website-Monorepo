@@ -8,7 +8,7 @@ import { DEFAULT_CONFIG } from "@/config/defaultConfig";
 import { loadPBSConfig, savePBSConfig } from "@/services/pbsConfigStorage";
 
 interface PBSConfigContextValue {
-  confg: PBSConfig;
+  config: PBSConfig;
   isLoading: boolean;
   isSaving: boolean;
   error: string | null;
@@ -17,7 +17,7 @@ interface PBSConfigContextValue {
     updates: Partial<PBSUserPreferences>
   ) => void;
 
-  updateProjects: (
+  updateProject: (
     updates: Partial<PBSProjectConfig>
   ) => void;
 
@@ -80,5 +80,157 @@ const PBSConfigContext =
       };
     }, []);
 
-    
+    const updatePreferences = useCallback(
+      (updates: Partial<PBSUserPreferences>) => {
+        setConfig(current => ({
+          ...current,
+          preferences: {
+            ...current.preferences,
+            ...updates
+          }
+        }));
+      },
+      []
+    );
+
+    const updateProject = useCallback(
+      (updates: Partial<PBSProjectConfig>) => {
+        setConfig(current => ({
+          ...current,
+          project: {
+            ...current.project,
+            ...updates
+          }
+        }));
+      },
+      [] 
+    );
+
+    const updateDefinitions = useCallback(
+      (updates: Partial<PBSCustomDefinitions>) => {
+        setConfig(current => ({
+          ...current,
+          definitions: {
+            ...current.definitions,
+            ...updates
+          }
+        }));
+      },
+      []
+    );
+
+    const resetConfig = useCallback(() => {
+      setConfig(structuredClone(DEFAULT_CONFIG));
+    }, []);
+
+    useEffect(() => {
+      if (isLoading) return;
+
+      let cancelled = false;
+
+      const timeout = window.setTimeout(async () => {
+        setIsSaving(true);
+
+        try {
+          await savePBSConfig(config);
+
+          if (!cancelled) {
+            setError(null);
+          }
+        } catch (error) {
+          if (!cancelled) {
+            setError(
+              error instanceof Error
+                ? error.message
+                : "Failed to save configuration"
+            );
+          }
+        } finally {
+          if (!cancelled) {
+            setIsSaving(false);
+          }
+        }
+      }, 300);
+
+      return () => {
+        cancelled = true;
+        window.clearTimeout(timeout);
+      };
+    }, [config, isLoading]);
+
+    const saveNow = useCallback(async () => {
+      setIsSaving(true);
+
+      try {
+        await savePBSConfig(config);
+        setError(null);
+      } catch (error) {
+        const message =
+          error instanceof Error 
+            ? error.message
+            : "Failed to save configuration";
+
+        setError(message);
+        throw error;
+      } finally {
+        setIsSaving(false);
+      }
+    }, [config]);
+
+    const openConfigModal = useCallback(() => {
+      setIsConfigModalOpen(true);
+    }, []);
+
+    const closeConfigModal = useCallback(() => {
+      setIsConfigModalOpen(false);
+    }, []);
+
+    const value = useMemo(
+      () => ({
+        config,
+        isLoading,
+        isSaving,
+        error,
+        updatePreferences,
+        updateProject,
+        updateDefinitions,
+        resetConfig,
+        saveNow,
+        isConfigModalOpen,
+        openConfigModal,
+        closeConfigModal
+      }),
+      [
+        config,
+        isLoading,
+        isSaving,
+        error,
+        updatePreferences,
+        updateProject,
+        updateDefinitions,
+        resetConfig,
+        saveNow,
+        isConfigModalOpen,
+        openConfigModal,
+        closeConfigModal
+      ]
+    );
+
+    return (
+      <PBSConfigContext.Provider value={value}>
+        {children}
+      </PBSConfigContext.Provider>
+    );
+  }
+
+  export function usePBSConfig() {
+    const context = useContext(PBSConfigContext);
+
+    if (!context) {
+      throw new Error(
+        "usePBSConfig must be used within PBSConfigProvider."
+      );
+    }
+
+    return context;
   }
