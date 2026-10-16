@@ -36,6 +36,10 @@ export default function DashboardNav({ user }: { user: SessionUser | null }) {
       path: "videos"
     },
     {
+      name: "Shorts",
+      path: "shorts"
+    },
+    {
       name: "Goals",
       action: () => openModal("goals")
     },

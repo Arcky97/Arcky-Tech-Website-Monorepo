@@ -10,6 +10,7 @@ import ChannelOverviewCard from "@/components/cards/ChannelOverview";
 import WatchTimeInsightCard from "@/components/cards/WatchTimeInsights";
 import LatestVideosCard from "@/components/cards/LatestVideos";
 import { YoutubeChannelSnapshot, YoutubeVideosAndShorts, YoutubeVideosByDays, YoutubeVideoSnapshot, YoutubeChannel,YoutubePlaylist, SyncJob } from "@/types";
+import LatestShortsCard from "@/components/cards/LatestShorts";
 
 export type Playlist = {
 	id: number;
@@ -173,6 +174,10 @@ export default function YoutubeHome() {
 					</div>
 					<LatestVideosCard 
 						videos={LatestVideosAndShortsQuery?.data?.videos ?? []} 
+						playlists={playlistsQuery.data ?? []}
+					/>
+					<LatestShortsCard
+						shorts={LatestVideosAndShortsQuery?.data?.shorts ?? []}
 						playlists={playlistsQuery.data ?? []}
 					/>
 				</article>

@@ -1,5 +1,4 @@
 import { Playlist } from "@/app/youtube/[ytid]/home/page";
-import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import { ColorButton } from "ui";
