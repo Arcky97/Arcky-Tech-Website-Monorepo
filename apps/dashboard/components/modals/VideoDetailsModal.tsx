@@ -2,7 +2,6 @@
 import { YoutubePlaylist, YoutubeVideo, YoutubeVideoSnapshot } from "@/types";
 import { ColorButton, Skeleton } from "ui";
 import { ComponentType, SVGProps, useEffect, useRef, useState } from "react";
-import LoadingOverlay from "../overlays/loadingOverlay";
 import Image from "next/image";
 import { Calendar, Clock } from "lucide-react";
 import {
@@ -70,7 +69,6 @@ export default function VideoDetailsModal({
   isVisible,
   onClose,
   isBackfilling = false,
-  backfillMessage = "Loading video history",
   playlists,
   onGoalProfileChange
 }: {
@@ -78,7 +76,6 @@ export default function VideoDetailsModal({
   isVisible: boolean,
   onClose: () => void,
   isBackfilling?: boolean,
-  backfillMessage?: string,
   playlists: YoutubePlaylist[],
   onGoalProfileChange: (
     videoId: string,

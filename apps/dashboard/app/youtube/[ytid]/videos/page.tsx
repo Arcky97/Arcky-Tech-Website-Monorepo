@@ -121,7 +121,6 @@ export default function YoutubeVideos() {
 					isVisible={selectedVideo !== null}
 					onClose={handleModalClose}
 					isBackfilling={videoBackfill.isBackfilling}
-					backfillMessage={videoBackfill.message}
 					playlists={playlists}
 					onGoalProfileChange={(videoId, goalProfileId) => {
 						setSelectedVideo(current => 

@@ -6,6 +6,7 @@ import { CookieBanner, CookieConsentProvider, Footer, MainLayoutWrapper, MainRef
 import { menuItems } from "@/config/menuItems";
 import { PBSTOC } from "@/components/PBSTOC";
 import { AutoTOCWrapper } from "@/components/AutoTOCWrapper";
+import { PBSConfigProvider } from "@/providers/PBSConfigProvider";
 
 export default function ClientLayout({ children}: { children: React.ReactNode }) {
   const mainRef = useRef<HTMLElement | null>(null);
@@ -35,43 +36,45 @@ export default function ClientLayout({ children}: { children: React.ReactNode })
 
   return (
     <CookieConsentProvider>
-      <MainRefContext.Provider value={mainRef}>
-        <TOCProvider>
-          <MainLayoutWrapper
-            navbar={{
-              variant: "pbseditor",
-              enableShrink: false, 
-              onToggleSideNav: () => setSidebarOpen(s => !s),
-              isSidebarOpen: sidebarOpen,
-              hasSidenav: true,
-              routes
-            }}
-          >
-            <div className="relative flex overflow-hidden">
-              <Sidebar
-                menuItems={menuItems}
-                docType="main"
-                mainDocs={pathname === "/"}
-                isOpen={sidebarOpen}
-                onClose={() => setSidebarOpen(false)}
-              />
-              <CookieBanner/>
-              <main
-                ref={mainRef}
-                className="flex-1 bg-gray-900 h-full"
-              >
-                <div className="flex min-h-[calc(100dvh-168px)] px-2">
-                  <AutoTOCWrapper>
-                    {children}
-                  </AutoTOCWrapper>
-                  <PBSTOC/>
-                </div>
-                <Footer/>
-              </main>
-            </div>
-          </MainLayoutWrapper>
-        </TOCProvider>
-      </MainRefContext.Provider>
+      <PBSConfigProvider>
+        <MainRefContext.Provider value={mainRef}>
+          <TOCProvider>
+            <MainLayoutWrapper
+              navbar={{
+                variant: "pbseditor",
+                enableShrink: false, 
+                onToggleSideNav: () => setSidebarOpen(s => !s),
+                isSidebarOpen: sidebarOpen,
+                hasSidenav: true,
+                routes
+              }}
+            >
+              <div className="relative flex overflow-hidden">
+                <Sidebar
+                  menuItems={menuItems}
+                  docType="main"
+                  mainDocs={pathname === "/"}
+                  isOpen={sidebarOpen}
+                  onClose={() => setSidebarOpen(false)}
+                />
+                <CookieBanner/>
+                <main
+                  ref={mainRef}
+                  className="flex-1 bg-gray-900 h-full"
+                >
+                  <div className="flex min-h-[calc(100dvh-168px)] px-2">
+                    <AutoTOCWrapper>
+                      {children}
+                    </AutoTOCWrapper>
+                    <PBSTOC/>
+                  </div>
+                  <Footer/>
+                </main>
+              </div>
+            </MainLayoutWrapper>
+          </TOCProvider>
+        </MainRefContext.Provider>
+      </PBSConfigProvider>
     </CookieConsentProvider>
   )
 }

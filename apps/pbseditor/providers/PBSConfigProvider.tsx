@@ -6,6 +6,7 @@ import type { PBSConfig, PBSUserPreferences, PBSProjectConfig, PBSCustomDefiniti
 
 import { DEFAULT_CONFIG } from "@/config/defaultConfig";
 import { loadPBSConfig, savePBSConfig } from "@/services/pbsConfigStorage";
+import PBSConfigModal from "@/components/settings/PBSConfigModal";
 
 interface PBSConfigContextValue {
   config: PBSConfig;
@@ -47,6 +48,7 @@ const PBSConfigContext =
     const [isSaving, setIsSaving] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [isConfigModalOpen, setIsConfigModalOpen] = useState(false);
+    const [isFirstTimeSetup, setIsFirstTimeSetup] = useState(false);
 
     useEffect(() => {
       let cancelled = false;
@@ -57,6 +59,14 @@ const PBSConfigContext =
 
           if (!cancelled && stored) {
             setConfig(stored);
+          } else {
+            const initialConfig = structuredClone(DEFAULT_CONFIG);
+            
+            await savePBSConfig(initialConfig);
+
+            setConfig(initialConfig);
+            setIsFirstTimeSetup(true);
+            setIsConfigModalOpen(true);
           }
         } catch (error) {
           if (!cancelled) {
@@ -219,6 +229,12 @@ const PBSConfigContext =
     return (
       <PBSConfigContext.Provider value={value}>
         {children}
+
+        <PBSConfigModal
+          isOpen={isConfigModalOpen}
+          onClose={() => setIsConfigModalOpen(false)}
+          requireSetup={isFirstTimeSetup}
+        />
       </PBSConfigContext.Provider>
     );
   }
