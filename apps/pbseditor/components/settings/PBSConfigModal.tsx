@@ -49,6 +49,7 @@ export default function PBSConfigModal({ isOpen, onClose, requireSetup = false }
                 <strong>Manual Upload:</strong> Upload the PBS file(s) you want to edit.
               </li>
             </ul>
+            <p className="md:text-lg text-base font-bold">Remaining content is under construction</p>
           </div>
         )}
       </div>

@@ -52,7 +52,6 @@ export default function LatestVideosCard ({ videos, playlists }: { videos: Youtu
         isVisible={selectedVideo !== null}
         onClose={handleModalClose}
         isBackfilling={videoBackfill.isBackfilling}
-        backfillMessage={videoBackfill.message}
         playlists={playlists}
         onGoalProfileChange={(videoId, goalProfileId) => {
           setSelectedVideo(current =>
