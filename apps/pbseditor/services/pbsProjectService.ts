@@ -1,9 +1,15 @@
 import { openPBSDatabase } from "./pbsDatabase";
+import { DetectedPBSPlugins, validatePBSProjectFolder } from "./pbsProjectValidation";
 
 const PROJECT_STORE = "projects";
 const PROJECT_KEY = "activeProjectDirectory";
 
-export async function selectProjectFolder(): Promise<FileSystemDirectoryHandle> {
+export interface SelectedPBSProject {
+  handle: FileSystemDirectoryHandle;
+  plugins: DetectedPBSPlugins;
+}
+
+export async function selectProjectFolder(): Promise<SelectedPBSProject> {
   if (!window.isSecureContext) {
     throw new Error(
       "Folder access requires a secure context (HTTPS or localhost)."
@@ -20,9 +26,19 @@ export async function selectProjectFolder(): Promise<FileSystemDirectoryHandle> 
     mode: "readwrite",
   });
 
+  const hasPermission = await requestFolderPermission(handle);
+
+  if (!hasPermission) {
+    throw new Error(
+      "Read and write permission is required to access this project."
+    );
+  }
+
+  const PBSProject = await validatePBSProjectFolder(handle);
+
   await saveDirectoryHandle(handle);
 
-  return handle;
+  return { handle, plugins: PBSProject.plugins };
 }
 
 async function saveDirectoryHandle(

@@ -14,11 +14,13 @@ export default function ProjectSettings () {
     try {
       setFolderError(null);
 
-      const handle = await selectProjectFolder();
+      const selected = await selectProjectFolder();
 
       updateProject({
-        pbsFolder: handle.name,
+        pbsFolder: selected.handle.name,
         fileAccess: true,
+        arckyRMPlugin: selected.plugins.arckyRMPlugin,
+        arckyPMPlugin: selected.plugins.arckyPMPlugin
       });
     } catch (error) {
       if (error instanceof Error && error.name === "AbortError") {
