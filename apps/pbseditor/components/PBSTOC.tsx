@@ -10,8 +10,6 @@ export function PBSTOC() {
   const mainRef = useMainRef();
   const tocRef = useRef<HTMLDivElement | null>(null);
   const [indicator, setIndicator] = useState<{top: number, height: number}>({ top: 0, height: 0 });
-
-  console.log(items);
   
   useEffect(() => {
     const hash = window.location.hash;

@@ -3,8 +3,6 @@ export const getColorByPercentage = (value1: number, value2: number, threshold: 
   const growth = calculatePercentage(value1, value2);
   const { yellow, orange } = threshold || { yellow: 15, orange: 25 };
 
-  console.log(growth);
-
   if (growth >= 0) {
     return "text-green-500";
   } else if (growth > yellow) {

@@ -2,6 +2,7 @@ import { PBSConfig } from "@/types/pbsConfig";
 
 export const DEFAULT_CONFIG: PBSConfig = {
   version: 1,
+  setupCompleted: false,
   preferences: {
     language: "en",
     autosave: true,

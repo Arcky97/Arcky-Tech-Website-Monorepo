@@ -1,10 +1,8 @@
-import { usePBSConfig } from "@/providers/PBSConfigProvider";
-import { loadPBSConfig } from "@/services/pbsConfigStorage";
-import { useState } from "react";
 import { ColorButton } from "ui";
+import ProjectSettings from "./ProjectSettings";
+import { AnimatePresence, motion } from "framer-motion";
 
-export default function PBSConfigModal({ isOpen, onClose, requireSetup = false }: { isOpen: boolean, onClose: () => void, requireSetup?: boolean }) {
-  const [errorMessage, setErrorMessage] = useState(null);
+export default function PBSConfigModal({ isOpen, onClose, onCompleteSetup, requireSetup = false }: { isOpen: boolean, onClose: () => void, onCompleteSetup: () => Promise<void>, requireSetup?: boolean }) {
   const handleClose = () => {
     if (requireSetup) return;
     onClose();
@@ -17,10 +15,17 @@ export default function PBSConfigModal({ isOpen, onClose, requireSetup = false }
       } backdrop-blur-[5px]`}
       onClick={handleClose}
     >
-      <div
+      <motion.div
         className={`modal-content ${
           isOpen ? "show" : "hide"
-        } md:max-w-[85%] max-w-[95%] md:max-h-[90dvh] max-h-[95dvh] relative overflow-y-scroll`}
+        } lg:max-w-[85%] max-w-[95%] min-w-[45%] lg:max-h-[90dvh] max-h-[95dvh] relative overflow-y-scroll`}
+        layout="size"
+        transition={{
+          layout: {
+            duration: 0.35,
+            ease: "easeInOut"
+          }
+        }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -28,20 +33,29 @@ export default function PBSConfigModal({ isOpen, onClose, requireSetup = false }
           <h1 className="modal-title">
             PBS Editor Settings
           </h1>
-          <ColorButton
-            color="red-800"
-            text="Close"
-            action={handleClose}
-            disabled={requireSetup}
-          />
+          {requireSetup ? (
+            <ColorButton
+              color="blue-800"
+              text="Finish Setup"
+              action={() => void onCompleteSetup()}
+            />
+          ) : (
+            <ColorButton
+              color="red-800"
+              text="Close"
+              action={handleClose}
+            />
+          )}
           <p></p>
         </div>
+        {/* Body */}
+        {/* First time setup */}
         {requireSetup && (
           <div className="modal-body text-white">
-            <p className="md:text-lg text-base font-bold">Hello and welcome to Arcky's PBS Editor!</p>
+            <p className="lg:text-lg text-base font-bold">Hello and welcome to Arcky's PBS Editor!</p>
             <br/>
             <p className="text-gray-200">To get started, choose how you want to provide your PBS files:</p>
-            <ul className="list-disc pl-6 md:text-base text-sm">
+            <ul className="list-disc pl-6 lg:text-base text-sm">
               <li className="pt-1">
                 <strong>Project Folder:</strong> Grant file access and select your local Essentials Project folder.
               </li>
@@ -49,10 +63,14 @@ export default function PBSConfigModal({ isOpen, onClose, requireSetup = false }
                 <strong>Manual Upload:</strong> Upload the PBS file(s) you want to edit.
               </li>
             </ul>
-            <p className="md:text-lg text-base font-bold">Remaining content is under construction</p>
           </div>
         )}
-      </div>
+        {/* Project Settings */}
+        <ProjectSettings/>
+        {/* Editor Settings */}
+
+        {/* Definition Settings */}
+      </motion.div>
     </div>
   )
 }

@@ -27,8 +27,6 @@ export default function GoalProgress({
     100
   );
 
-  console.log(percentage);
-
   return (
     <div className="relative overflow-hidden rounded-lg">
       {percentage === 100 && (

@@ -38,6 +38,7 @@ export interface PBSCustomDefinitions {
 
 export interface PBSConfig {
   version: number;
+  setupCompleted: boolean;
   preferences: PBSUserPreferences;
   project: PBSProjectConfig;
   definitions: PBSCustomDefinitions;

@@ -1,8 +1,11 @@
 "use client";
+import { usePBSConfig } from "@/providers/PBSConfigProvider";
 import { ColorButton, LabelAndTooltip } from "ui";
 import InputSingleSelect from "ui/src/components/InputSingleSelect";
 
 export default function Abilites() {
+  const { openConfigModal } = usePBSConfig();
+
   const handleChange = (value: any) => {
 
   }
@@ -23,6 +26,7 @@ export default function Abilites() {
             text="Settings"
             color="green-700"
             extraClass="min-w-22"
+            action={openConfigModal}
           />
         </div>
 

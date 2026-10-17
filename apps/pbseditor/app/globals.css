@@ -459,19 +459,6 @@ main {
 }
 
 @media only screen and (max-width: 1023px) {
-
-}
-
-@media only screen and (max-width: 768px) {
-  .head1 {
-    font-size: 30px;
-  }
-  .head2 {
-    font-size: 24px;
-  }
-  .head3 {
-    font-size: 18px;
-  }
   .modal-header {
     position: sticky;
     top: 0;
@@ -498,6 +485,18 @@ main {
     overflow-y: auto;
     max-height: 95dvh;
     padding: 10px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .head1 {
+    font-size: 30px;
+  }
+  .head2 {
+    font-size: 24px;
+  }
+  .head3 {
+    font-size: 18px;
   }
 }
 

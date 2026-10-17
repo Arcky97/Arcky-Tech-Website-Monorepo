@@ -59,6 +59,11 @@ const PBSConfigContext =
 
           if (!cancelled && stored) {
             setConfig(stored);
+
+            if (!stored.setupCompleted) {
+              setIsFirstTimeSetup(true);
+              setIsConfigModalOpen(true);
+            }
           } else {
             const initialConfig = structuredClone(DEFAULT_CONFIG);
             
@@ -195,6 +200,33 @@ const PBSConfigContext =
       setIsConfigModalOpen(false);
     }, []);
 
+    const completeFirstTimeSetup = useCallback(async () => {
+      try {
+        if (!config.setupCompleted) {
+          const updatedConfig = {
+            ...config,
+            setupCompleted: true
+          };
+
+          await savePBSConfig(updatedConfig);
+
+          setConfig(updatedConfig);
+          setTimeout(() => (
+            setIsFirstTimeSetup(false)
+          ), 500); 
+        }
+        
+        setIsConfigModalOpen(false);
+        setError(null);
+      } catch (error) {
+        setError(
+          error instanceof Error
+            ? error.message
+            : "Failed to complete initial setup."
+        );
+      }
+    }, [config]);
+
     const value = useMemo(
       () => ({
         config,
@@ -232,7 +264,8 @@ const PBSConfigContext =
 
         <PBSConfigModal
           isOpen={isConfigModalOpen}
-          onClose={() => setIsConfigModalOpen(false)}
+          onCompleteSetup={completeFirstTimeSetup}
+          onClose={closeConfigModal}
           requireSetup={isFirstTimeSetup}
         />
       </PBSConfigContext.Provider>

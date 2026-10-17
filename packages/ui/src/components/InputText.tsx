@@ -1,7 +1,7 @@
 type InputTextProps = {
   value: string;
   placeholder: string;
-  handleChange: (e: string) => void;
+  handleChange?: (e: string) => void;
   handleFocus?: () => void;
   handleBlur?: () => void;
   width: number;
@@ -11,7 +11,7 @@ type InputTextProps = {
   table?: boolean;
 }
 
-export default function InputText({ value, placeholder, handleChange, handleFocus, handleBlur, width, key, readOnly, disabled, table}: InputTextProps) {
+export default function InputText({ value, placeholder, handleChange = () => "", handleFocus, handleBlur, width, key, readOnly, disabled, table}: InputTextProps) {
   return (
     <input
       key={key}
