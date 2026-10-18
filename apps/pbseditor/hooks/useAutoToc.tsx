@@ -1,5 +1,6 @@
 "use client";
 import { RefObject, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { slugify, useTOC } from "ui";
 
 function getHeadingLevel(tagName: string): 2 | 3 | 4 | 5 | 6 {
@@ -27,6 +28,7 @@ function getParentSlug(level: number, slugParent: Map<number, string>) {
 
 export function useAutoTOC(containerRef: RefObject<HTMLElement | null>) {
   const { setItems } = useTOC();
+  const pathname = usePathname();
 
   useEffect(() => {
     const el = containerRef.current;
@@ -85,5 +87,5 @@ export function useAutoTOC(containerRef: RefObject<HTMLElement | null>) {
 
     setItems(items);
     return () => setItems([]);
-  }, [containerRef, setItems])
+  }, [containerRef, setItems, pathname])
 }

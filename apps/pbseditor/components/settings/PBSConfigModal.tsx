@@ -1,12 +1,30 @@
-import { ColorButton } from "ui";
+import { ColorButton, LoadingOverlay } from "ui";
 import ProjectSettings from "./ProjectSettings";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
+import { useState } from "react";
+import EditorSettings from "./EditorSettings";
 
 export default function PBSConfigModal({ isOpen, onClose, onCompleteSetup, requireSetup = false }: { isOpen: boolean, onClose: () => void, onCompleteSetup: () => Promise<void>, requireSetup?: boolean }) {
+  const [isSaving, setIsSaving] = useState(false);
+
   const handleClose = () => {
     if (requireSetup) return;
-    onClose();
+    setIsSaving(true);
+
+    setTimeout(() => {
+      setIsSaving(false);
+      onClose();
+    }, 100);
   };
+
+  const handleOnCompleteSetup = () => {
+    setIsSaving(true);
+
+    setTimeout(() => {
+      setIsSaving(false);
+      onCompleteSetup();
+    }, 150);
+  }
 
   return (
     <div
@@ -37,7 +55,7 @@ export default function PBSConfigModal({ isOpen, onClose, onCompleteSetup, requi
             <ColorButton
               color="blue-800"
               text="Finish Setup"
-              action={() => void onCompleteSetup()}
+              action={handleOnCompleteSetup}
             />
           ) : (
             <ColorButton
@@ -65,11 +83,13 @@ export default function PBSConfigModal({ isOpen, onClose, onCompleteSetup, requi
             </ul>
           </div>
         )}
-        {/* Project Settings */}
-        <ProjectSettings/>
-        {/* Editor Settings */}
-
-        {/* Definition Settings */}
+        <div className="modal-body">
+          {/* Project Settings */}
+          <ProjectSettings/>
+          {/* Editor Settings */}
+          <EditorSettings/>
+          {/* Definition Settings */}
+        </div>
       </motion.div>
     </div>
   )

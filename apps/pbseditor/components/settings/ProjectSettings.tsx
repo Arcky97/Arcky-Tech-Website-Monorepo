@@ -36,7 +36,7 @@ export default function ProjectSettings () {
   };
 
   return (
-    <div className="modal-body">
+    <>
       <LabelAndTooltip
         label={["File Access"]}
         infoData={["Grant the Editor access to your chosen Project folder on your pc."]}
@@ -72,7 +72,7 @@ export default function ProjectSettings () {
                 readOnly
                 value={config.project.pbsFolder}
                 placeholder="No Project Selected"
-                width={66}
+                width={38}
                 table
               />
               <ColorButton
@@ -112,6 +112,6 @@ export default function ProjectSettings () {
           />
         </div>
       </div>
-    </div>
+    </>
   )
 }

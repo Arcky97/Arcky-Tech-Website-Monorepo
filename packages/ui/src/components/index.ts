@@ -20,3 +20,4 @@ export * from "./InputSingleSelect";
 export * from "./InputMultiSelect";
 export * from "./labelAndTooltip";
 export * from "./ToggleSwitch";
+export * from "./overlays";
