@@ -43,6 +43,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
         setAuthStatus("signed-in");
       } catch (error) {
         setAuthStatus("signed-out");
+        console.log(error);
       }
     }
 
@@ -99,12 +100,16 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   function handleLogin() {
     setAuthStatus("logging-in");
 
+    // full navigation required: server route redirects to the external OAuth provider
+    // eslint-disable-next-line @next/next/no-location-assign-relative-destination
     window.location.assign("/api/auth/login?provider=youtube&redirect=/");
   }
 
   function handleChangeAccount() {
     setAuthStatus("logging-in");
 
+    // full navigation required: server route redirects to the external OAuth provider
+    // eslint-disable-next-line @next/next/no-location-assign-relative-destination
     window.location.assign("/api/auth/login?provider=youtube&redirect=/&account=change");
   }
 
@@ -122,8 +127,10 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
       }
 
       setAuthStatus("signed-out");
+      // full reload required to clear all client-side session state
+      // eslint-disable-next-line @next/next/no-location-assign-relative-destination
       window.location.assign("/");
-    } catch (error) {
+    } catch {
       setAuthStatus("signed-in");
     }
   }

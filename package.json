@@ -7,9 +7,14 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "npm run dev -w web",
+    "dev-web": "npm run dev -w web",
+    "dev-docs": "npm run dev -w docs",
+    "dev-dashboard": "npm run dev -w dashboard",
+    "dev-pbseditor": "npm run dev -w pbseditor",
+    "dev-scoreboard": "npm run dev -w scroeboard",
     "build": "npm run build -w web",
     "start": "npm run start -w web",
-    "lint": "npm run lint -w web"
+    "lint": "npm run lint -w web",
+    "lint:all": "npm run lint -w web && npm run lint -w docs && npm run lint -w dashboard && npm run lint -w pbseditor && npm run lint -w scoreboard"
   }
 }

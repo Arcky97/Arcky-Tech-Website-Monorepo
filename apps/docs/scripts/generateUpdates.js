@@ -115,7 +115,7 @@ export async function generateUpdates() {
 
     console.log("✅ API SUCCESS:", text);
   } catch (error) {
-   console.log(`❌ Writting Updates to Databse at '${API_BASE_URL}/api/updates/v1' failed!`);
+   console.log(`❌ Writting Updates to Databse at '${API_BASE_URL}/api/updates/v1' failed!`, error);
   }
 }
 

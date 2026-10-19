@@ -1,7 +1,7 @@
 "use client";
 import { usePBSConfig } from "@/providers/PBSConfigProvider";
 import { selectProjectFolder } from "@/services/pbsProjectService";
-import { AnimatePresence, easeInOut, motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { ColorButton, LabelAndTooltip, ToggleSwitch } from "ui";
 import InputText from "ui/src/components/InputText";

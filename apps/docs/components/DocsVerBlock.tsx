@@ -45,6 +45,7 @@ export function DocsVersionBlock ({
         initial[v.key] = saved[v.key] ?? v.defaultOpen ?? false;
       });
 
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- syncing with localStorage, unavailable during SSR
       setOpenMap(initial);
     } catch {
       const fallback: Record<string, boolean> = {};

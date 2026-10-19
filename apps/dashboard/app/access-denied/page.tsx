@@ -14,6 +14,7 @@ export default function AccessDenied() {
     const requestedRedirect = new URLSearchParams(window.location.search).get("redirect");
 
     if (requestedRedirect?.startsWith("/") && !requestedRedirect.startsWith("//")) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setRedirect(requestedRedirect);
     }
   }, []);

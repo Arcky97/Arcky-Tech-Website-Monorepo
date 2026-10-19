@@ -267,11 +267,6 @@ export default function GoalModal({ isVisible, onClose }: GoalModalProps) {
     }
   };
 
-  const isMutating =
-    createGoalMutation.isPending ||
-    updateGoalMutation.isPending || 
-    deleteGoalMutation.isPending;
-
   const lastGoal = goals[goals.length - 1];
   const isAddDisabled = !!lastGoal && !lastGoal.name.trim();
 

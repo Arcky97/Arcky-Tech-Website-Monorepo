@@ -47,7 +47,7 @@ export default function PrivacyPolicy() {
             <li>
               <strong>Playlist Information:</strong> Playlist details and
               associated video information where required to provide the
-              application's features and permitted by your authorization.
+              application&apos;s features and permitted by your authorization.
             </li>
 
             <li>
@@ -130,7 +130,7 @@ export default function PrivacyPolicy() {
 
           <p>
             We process Google user data only for purposes that are
-            necessary to provide the application's features and consistent
+            necessary to provide the application&apos;s features and consistent
             with the permissions you have granted.
           </p>
 
@@ -160,7 +160,7 @@ export default function PrivacyPolicy() {
               <strong>Google and YouTube:</strong> ArckyTech uses Google
               authentication and YouTube APIs to provide the features
               you authorize. Your use of Google services is also subject
-              to Google's applicable terms and privacy policies.
+              to Google&apos;s applicable terms and privacy policies.
             </li>
 
             <li>
@@ -182,7 +182,7 @@ export default function PrivacyPolicy() {
           <p>
             We do not share Google user data with third parties for
             their own advertising purposes or for purposes unrelated
-            to providing or maintaining the application's features.
+            to providing or maintaining the application&apos;s features.
           </p>
         </div>
       </section>
@@ -198,7 +198,7 @@ export default function PrivacyPolicy() {
         <div className="pl-6 space-y-4">
           <p>
             We retain personal information and YouTube data only for
-            as long as necessary to provide the application's features,
+            as long as necessary to provide the application&apos;s features,
             maintain historical analytics, meet applicable legal
             obligations, and protect the service.
           </p>
@@ -245,14 +245,14 @@ export default function PrivacyPolicy() {
 
         <div className="pl-6 space-y-4">
           <p>
-            ArckyTech's access to Google user data is limited to the
-            permissions you grant through Google's authorization process.
+            ArckyTech&apos;s access to Google user data is limited to the
+            permissions you grant through Google&apos;s authorization process.
             We use this data to provide the features described in this
             Privacy Policy.
           </p>
 
           <p>
-            ArckyTech's use and transfer of information received from
+            ArckyTech&apos;s use and transfer of information received from
             Google APIs to any other app will adhere to the
             <a
               href="https://developers.google.com/terms/api-services-user-data-policy"

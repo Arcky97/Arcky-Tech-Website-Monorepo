@@ -13,6 +13,7 @@ export default function ClientLayout({ children}: { children: React.ReactNode })
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+
   useEffect(() => {
     document.documentElement.style.setProperty("--navbar-height", "48px");
 
@@ -25,7 +26,7 @@ export default function ClientLayout({ children}: { children: React.ReactNode })
         lastIsDesktop = isDesktop;
       }
     };
-
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSidebarOpen(window.innerWidth >= 1024);
     
     window.addEventListener("resize", handleResize);

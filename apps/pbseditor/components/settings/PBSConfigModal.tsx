@@ -1,27 +1,21 @@
-import { ColorButton, LoadingOverlay } from "ui";
+import { ColorButton } from "ui";
 import ProjectSettings from "./ProjectSettings";
 import { motion } from "framer-motion";
-import { useState } from "react";
 import EditorSettings from "./EditorSettings";
 
 export default function PBSConfigModal({ isOpen, onClose, onCompleteSetup, requireSetup = false }: { isOpen: boolean, onClose: () => void, onCompleteSetup: () => Promise<void>, requireSetup?: boolean }) {
-  const [isSaving, setIsSaving] = useState(false);
 
   const handleClose = () => {
     if (requireSetup) return;
-    setIsSaving(true);
 
     setTimeout(() => {
-      setIsSaving(false);
       onClose();
     }, 100);
   };
 
   const handleOnCompleteSetup = () => {
-    setIsSaving(true);
 
     setTimeout(() => {
-      setIsSaving(false);
       onCompleteSetup();
     }, 150);
   }
@@ -70,7 +64,7 @@ export default function PBSConfigModal({ isOpen, onClose, onCompleteSetup, requi
         {/* First time setup */}
         {requireSetup && (
           <div className="modal-body text-white">
-            <p className="lg:text-lg text-base font-bold">Hello and welcome to Arcky's PBS Editor!</p>
+            <p className="lg:text-lg text-base font-bold">Hello and welcome to Arcky&apos;s PBS Editor!</p>
             <br/>
             <p className="text-gray-200">To get started, choose how you want to provide your PBS files:</p>
             <ul className="list-disc pl-6 lg:text-base text-sm">

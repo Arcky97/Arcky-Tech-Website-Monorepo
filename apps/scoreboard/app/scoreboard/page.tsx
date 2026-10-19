@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import { ColorButton } from "ui"; 
 import FadeImage from "@/components/FadeImage";
 import Dropdown from "@/components/Dropdown";

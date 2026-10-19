@@ -30,10 +30,10 @@ export function addSnapshot(
   result: ReturnType<typeof createEmptyAnalytics>,
   snapshot: ChannelAnalyticsSnapshot
 ) {
-  result.views += snapshot.views,
-  result.watchHours += snapshot.watchHours,
-  result.subscribersGained += snapshot.subscribersGained,
-  result.subscribersLost += snapshot.subscribersLost
+  result.views += snapshot.views;
+  result.watchHours += snapshot.watchHours;
+  result.subscribersGained += snapshot.subscribersGained;
+  result.subscribersLost += snapshot.subscribersLost;
 }
 
 // Turns two cumulative windows (e.g. 0-14 days and 0-7 days) into the exclusive gap between them (8-14 days)

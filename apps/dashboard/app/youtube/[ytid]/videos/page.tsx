@@ -8,12 +8,10 @@ import { useVideoBackfill } from "@/lib/useVideoBackfill";
 import { youtubeKeys } from "@/queries/youtube";
 import { YoutubePlaylist, YoutubeVideo } from "@/types";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "next/navigation";
 import { useState } from "react";
 import { ColorButton } from "ui";
 
 export default function YoutubeVideos() {
-	const { ytid } = useParams<{ ytid: string }>();
 	//const [videosPerPage, setVideosPerPage] = useState(15);
 	const videosPerPage = 15;
 	const [pageIndex, setPageIndex] = useState(0);

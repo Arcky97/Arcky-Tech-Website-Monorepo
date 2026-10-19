@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import GoalModal from "./modals/GoalModal";
 import { SessionUser } from "@/app/clientLayout";
 import SettingsModal from "./modals/SettingsModal";

@@ -15,12 +15,14 @@ export default function FadeImage({src, alt, size}: Props) {
 
   useEffect(() => {
     if (src !== curSrc) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setPrevSrc(curSrc);
       setCurSrc(src);
     }
   }, [src, curSrc]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setCurSize(size);
   }, [size]);
 

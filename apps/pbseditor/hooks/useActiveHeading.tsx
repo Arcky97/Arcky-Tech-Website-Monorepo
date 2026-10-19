@@ -40,7 +40,7 @@ export function useActiveHeading(items: { anchorId?: string, level: number }[]) 
       mainEl.removeEventListener("scroll", handler);
       setActiveId(null);
     };
-  }, [items]);
+  }, [mainRef, items]);
 
   return activeId;
 }

@@ -25,6 +25,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
       }
     };
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- initial sync with window size, unavailable during SSR
     setSidebarOpen(window.innerWidth >= 1024);
     
     window.addEventListener("resize", handleResize);

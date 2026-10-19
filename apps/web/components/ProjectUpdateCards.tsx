@@ -7,6 +7,7 @@ export async function ProjectUpdateCards() {
 
   const updates = await getProjectUpdateData();
   if (!updates || !updates.length) return <div>Unable to get latest updates {String(updates)} </div>;
+  // eslint-disable-next-line react-hooks/rules-of-hooks -- not an actual hook, just the Next.js MDX naming convention
   const mdxComponents = useMDXComponents({});
 
   const convertDate = (date: string) => {

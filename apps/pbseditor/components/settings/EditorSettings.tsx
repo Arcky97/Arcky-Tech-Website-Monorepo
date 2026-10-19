@@ -1,8 +1,8 @@
-import { usePBSConfig } from "@/providers/PBSConfigProvider";
+//import { usePBSConfig } from "@/providers/PBSConfigProvider";
 import { LabelAndTooltip } from "ui";
 
 export default function EditorSettings () {
-  const { config, updatePreferences } = usePBSConfig()
+  //const { config, updatePreferences } = usePBSConfig()
 
   return (
     <>

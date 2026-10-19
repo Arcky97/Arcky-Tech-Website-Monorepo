@@ -4,14 +4,12 @@ import { multiSelectStyles } from "ui";
 
 interface InputMultiSelectProps {
   label: string,
-  maxWidth: number,
   initValue: string[],
-  initLabel?: string,
   placeholder: string,
   options: readonly ({ value: string, label: string })[]
 }
 
-export function DocsInputMultiSelect ({ label, maxWidth, initValue, initLabel, placeholder, options}: InputMultiSelectProps) {
+export function DocsInputMultiSelect ({ label, initValue, placeholder, options}: InputMultiSelectProps) {
   return (
     <div className="my-4 p-2 text-left">
       <span className="label-box">{label}</span>

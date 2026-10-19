@@ -12,6 +12,7 @@ type Video = {
   goalProfileId: number;
 };
 
+/*
 type VideoSnapshot = {
   videoId: string;
   views: number;
@@ -24,7 +25,7 @@ type VideoSnapshot = {
   subscribersGained: number;
   subscribersLost: number;
   snapshotDate: Date;
-}
+}*/
 
 type SyncJob = {
   jobId: string;

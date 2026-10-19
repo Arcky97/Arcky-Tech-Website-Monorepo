@@ -1,10 +1,9 @@
-import { Playlist } from "@/app/youtube/[ytid]/home/page";
 import { YoutubeVideo } from "@/types";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { ColorButton } from "ui";
 
-export default function LatestShortsCard ({ shorts, playlists }: { shorts: YoutubeVideo[], playlists: Playlist[] }) {
+export default function LatestShortsCard ({ shorts }: { shorts: YoutubeVideo[] }) {
   const { ytid } = useParams<{ ytid: string }>();
 
   return (

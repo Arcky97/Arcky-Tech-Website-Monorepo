@@ -4,7 +4,6 @@ export function DocsInputNumber ({ label, value, width, placeholder }: DocInputT
   const values = Array.isArray(value) ? value : [value];
   const labels = Array.isArray(label) ? label : [label];
   const widths = Array.isArray(width) ? width : [width];
-  const placeholders = Array.isArray(placeholder) ? placeholder : [placeholder];
 
   return (
     <div className="my-4 p-2 text-left">

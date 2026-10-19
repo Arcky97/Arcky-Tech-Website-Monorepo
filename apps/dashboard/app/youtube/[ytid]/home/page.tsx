@@ -9,7 +9,7 @@ import { calculateAnalyticsRanges } from "@/lib/calculateAnalyticsRanges";
 import ChannelOverviewCard from "@/components/cards/ChannelOverview";
 import WatchTimeInsightCard from "@/components/cards/WatchTimeInsights";
 import LatestVideosCard from "@/components/cards/LatestVideos";
-import { YoutubeChannelSnapshot, YoutubeVideosAndShorts, YoutubeVideosByDays, YoutubeVideoSnapshot, YoutubeChannel,YoutubePlaylist, SyncJob } from "@/types";
+import { YoutubeChannelSnapshot, YoutubeVideosAndShorts, YoutubeVideosByDays, YoutubeChannel,YoutubePlaylist, SyncJob } from "@/types";
 import LatestShortsCard from "@/components/cards/LatestShorts";
 
 export type Playlist = {
@@ -54,12 +54,12 @@ export default function YoutubeHome() {
 	});
 
 	const videosLast28DaysQuery = useQuery({
-		queryKey: youtubeKeys.videosByDays(videosdays),
+		queryKey: youtubeKeys.videosByDays(),
 		queryFn: () => apiFetch<YoutubeVideosByDays>(`/api/youtube/videos/days/${videosdays}`)
 	});
 
 	const videosPrevious28DaysQuery = useQuery({
-		queryKey: youtubeKeys.videosByDays(videosdays * 2),
+		queryKey: youtubeKeys.videosByDays(),
 		queryFn: () => apiFetch<YoutubeVideosByDays>(`/api/youtube/videos/days/${videosdays * 2}`)
 	});
 
@@ -106,9 +106,9 @@ export default function YoutubeHome() {
 
 		queryClient.invalidateQueries({ queryKey: youtubeKeys.channel() });
 		queryClient.invalidateQueries({ queryKey: youtubeKeys.channelSnapshots() });
-		queryClient.invalidateQueries({ queryKey: youtubeKeys.videosByDays(videosdays) });
+		queryClient.invalidateQueries({ queryKey: youtubeKeys.videosByDays() });
 		queryClient.invalidateQueries({ queryKey: youtubeKeys.latestVideos() });
-	}, [initialSyncQuery.data?.status, queryClient, videosdays]);
+	}, [initialSyncQuery.data, initialSyncQuery.data?.status, queryClient, videosdays]);
 
 	// Strip initialSyncJobId from the URL once the job is done, otherwise every
 	// refresh re-reads the same jobId from the URL and re-shows its final message.
@@ -178,7 +178,6 @@ export default function YoutubeHome() {
 					/>
 					<LatestShortsCard
 						shorts={LatestVideosAndShortsQuery?.data?.shorts ?? []}
-						playlists={playlistsQuery.data ?? []}
 					/>
 				</article>
 			)}

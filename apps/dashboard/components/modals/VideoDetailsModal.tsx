@@ -1,7 +1,7 @@
 
 import { YoutubePlaylist, YoutubeVideo, YoutubeVideoSnapshot } from "@/types";
 import { ColorButton, Skeleton } from "ui";
-import { ComponentType, SVGProps, useEffect, useRef, useState } from "react";
+import { ComponentType, SVGProps, useState } from "react";
 import Image from "next/image";
 import { Calendar, Clock } from "lucide-react";
 import {
@@ -83,14 +83,28 @@ export default function VideoDetailsModal({
   ) => void;
 }) {
   const queryClient = useQueryClient();
-  const displayedVideoRef = useRef<YoutubeVideo | null>(video);
   const [goalProfileId, setGoalProfileId] = useState<number | null>(video?.goalProfileId ?? null);
+  const [displayedVideo, setDisplayedVideo] = useState<YoutubeVideo | null>(video);
+  const [prevVideoId, setPrevVideoId] = useState<string | null>(video?.videoId ?? null);
+  const [prevIsVisible, setPrevIsVisible] = useState(isVisible);
 
-  if (video !== null) {
-    displayedVideoRef.current = video;
+  if (video !== null && video !== displayedVideo) {
+    setDisplayedVideo(video);
   }
 
-  const displayedVideo = video ?? displayedVideoRef.current;
+  if ((video?.videoId ?? null) !== prevVideoId) {
+    setPrevVideoId(video?.videoId ?? null);
+    if (video) {
+      setGoalProfileId(video.goalProfileId);
+    }
+  }
+
+  if (isVisible !== prevIsVisible) {
+    setPrevIsVisible(isVisible);
+    if (!isVisible) {
+      setDisplayedVideo(null);
+    }
+  }
 
   const videoSnapshotsQuery = useQuery({
     queryKey: youtubeKeys.videoSnapshots(displayedVideo?.videoId ?? ""),
@@ -168,18 +182,6 @@ export default function VideoDetailsModal({
     goalProfilesQuery.data?.find(
       (profile) => profile.id === goalProfileId
     ) ?? null;
-
-  useEffect(() => {
-    if (!video) return;
-
-    setGoalProfileId(video.goalProfileId);
-  }, [video]);
-
-  useEffect(() => {
-    if (!isVisible) {
-      displayedVideoRef.current = null;
-    }
-  }, [isVisible]);
 
   const getVideoplaylists = (videoPlaylistIds: string[]) => {
     if (!playlists) return ["Unable to retrieve Playlists"];

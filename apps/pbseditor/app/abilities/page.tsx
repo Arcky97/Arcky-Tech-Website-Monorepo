@@ -6,10 +6,11 @@ import InputSingleSelect from "ui/src/components/InputSingleSelect";
 export default function Abilites() {
   const { openConfigModal } = usePBSConfig();
 
+/*
   const handleChange = (value: any) => {
 
   }
-
+*/
   return (
     <div className="px-3">
       <div className="flex justify-between items-center">
@@ -39,7 +40,7 @@ export default function Abilites() {
         <InputSingleSelect
           width="w-64"
           initValue={"abilities.txt"}
-          handleChange={(value) => handleChange(value)}
+          handleChange={() => ""}
           options={[{ value: "abilities.txt", label: "abilities.txt"}]}
           placeholder="Select Ability"
           isDisabled={false}
