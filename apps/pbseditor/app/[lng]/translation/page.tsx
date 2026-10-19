@@ -29,7 +29,6 @@ export default async function Home() {
         {t('description.info')}
       </p>
     </div>
-
   )
 }
 
