@@ -5,6 +5,7 @@
   "types": "src/index.ts",
   "module": "index.ts",
   "dependencies": {
-    "photoswipe": "^5.4.4"
+    "photoswipe": "^5.4.4",
+    "framer-motion": "^13.4.6"
   }
 }
