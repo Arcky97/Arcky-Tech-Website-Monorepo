@@ -1,0 +1,23 @@
+{
+  "header": {
+    "name": "Vaardigheid",
+    "plural": "Vaardigheden"
+  },
+  "id": {
+    "label": "ID",
+    "info": "Dit is hoe het script een link legt naar de vaardigheid. Elke vaardigheid moet een andere ID hebben. Dit is meestal hetzelfde als de naam van de vaardigheid maar geschreven in allemaal hoofdletters en zonder spaties of speciale tekens. In het script, de ID wordt gebruikt als een symbool (d.w.z. met een dubbele punt vooraan, zoals :STENCH). De ID wordt ook nooit gezien door de speler."
+  },
+  "name": {
+    "label": "Naam",
+    "info": "De naam van de vaardigheid, zoals gezien door de speler."
+  },
+  "flags": {
+    "label": "Vlaggen",
+    "info": "Labels toegpast op de vaardiheid die kunnen gebruikt worden om het gedrag te veranderen. Deze labels worden opgeslagen als comma-gescheiden waarden in het PBS bestand.",
+    "placeholder": "Voeg vlaggen toe"
+  },
+  "description": {
+    "label": "Beschrijving",
+    "info": "The beschrijving van de vaardigheid."
+  }
+}

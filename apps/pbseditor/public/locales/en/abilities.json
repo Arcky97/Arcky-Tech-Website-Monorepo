@@ -1,0 +1,23 @@
+{
+  "header": {
+    "name": "Ability",
+    "plural": "Abilities"
+  },
+  "id": {
+    "label": "ID:",
+    "info": "This is how the scripts refer to the ability. Each ability must have a different ID. Typically this is the same as the ability name, but written in all capital letters and with no spaces or special characters. In the scripts, the ID is used as a symbol (i.i. with a colon in front of it, such as :STENCH). The ID is never seen by the player."
+  },
+  "name": {
+    "label": "Name",
+    "info": "The name of the ability, as seen by the player."
+  },
+  "flags": {
+    "label": "Flags",
+    "info": "Labels applied to the ability which can be used to make it behave differently. These labels are saved as comma-separated values in the PBS File.",
+    "placeholder": "Add Flags"
+  },
+  "description": {
+    "label": "Description",
+    "info": "The ability's description."
+  }
+}
