@@ -34,5 +34,5 @@ export default async function Home() {
 
 export async function generateMetadata() {
   const { t } = await getT('abilites')
-  return { title: t('name.label') }
+  return { title: "translation" }
 }
