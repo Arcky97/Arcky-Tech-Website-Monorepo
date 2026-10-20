@@ -1,0 +1,21 @@
+{
+  "header": "{{name}} Editor",
+  "file": {
+    "label": "Current {{name}} PBS File:",
+    "info": "Change the current PBS file for {{plural}}.",
+    "placeholder": "Select PBS File"
+  },
+  "select": {
+    "label": "Current {{name}}:",
+    "info": "Change the current {{name}} to edit."
+  },
+  "other": {
+    "label": "Other fields",
+    "info": "This section contains your custom fields and values if any. It is shown as raw text so I hope you know what you're adding here...",
+    "placeholder": "No Extra Fields"
+  },
+  "overwrite": {
+    "label": "Overwrite existing {{name}}",
+    "info": "Whether to save and overwrite the current {{name}} Entry with the changes made or save as a new {{name}}."
+  }
+}

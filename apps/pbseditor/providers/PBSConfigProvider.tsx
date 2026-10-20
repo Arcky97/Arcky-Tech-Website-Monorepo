@@ -6,6 +6,7 @@ import type { PBSConfig, PBSUserPreferences, PBSProjectConfig, PBSCustomDefiniti
 
 import { DEFAULT_CONFIG } from "@/config/defaultConfig";
 import { loadPBSConfig, savePBSConfig } from "@/services/pbsConfigStorage";
+import { setLanguageCookie } from "@/config/languages";
 import PBSConfigModal from "@/components/settings/PBSConfigModal";
 
 interface PBSConfigContextValue {
@@ -59,6 +60,8 @@ const PBSConfigContext =
 
           if (!cancelled && stored) {
             setConfig(stored);
+            // keep the cookie (read by the server proxy) in sync with the stored preference
+            setLanguageCookie(stored.preferences.language);
 
             if (!stored.setupCompleted) {
               setIsFirstTimeSetup(true);

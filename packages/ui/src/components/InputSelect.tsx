@@ -10,13 +10,13 @@ type InputSelectOption<T> = {
 type InputSelectProps<T> = {
   width: number;
   initValue: T | "";
-  initLabel: string;
+  initLabel?: string;
   handleChange: (option: InputSelectOption<T> | null) => void;
   options: InputSelectOption<T>[];
-  placeholder: string;
-  isDisabled: boolean;
-  isClearable: boolean;
-  placement: "top" | "bottom" | "auto";
+  placeholder?: string;
+  isDisabled?: boolean;
+  isClearable?: boolean;
+  placement?: "top" | "bottom" | "auto";
 };
 
 export default function InputSelect<T>({

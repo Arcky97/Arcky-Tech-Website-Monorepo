@@ -1,0 +1,20 @@
+{
+  "header": "{{name}} Bewerker",
+  "file": {
+    "label": "Huidige {{name}} PBS Bestand:",
+    "info": "Verander het huidige PBS bestand voor {{plural}}."
+  },
+  "select": {
+    "label": "Huidige {{name}}:",
+    "info": "Verander de huidige {{name}} om te bewerken."
+  },
+  "other": {
+    "label": "Andere velden",
+    "info": "Deze sectie bevat uw This section contains your custom fields and values if any. It is shown as raw text so I hope you know what you're adding here...",
+    "placeholder": "No Extra Fields"
+  },
+  "overwrite": {
+    "label": "Overwrite existing {{name}}",
+    "info": "Whether to save and overwrite the current {{name}} Entry with the changes made or save as a new {{name}}."
+  }
+}

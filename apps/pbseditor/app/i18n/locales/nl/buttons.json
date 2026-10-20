@@ -1,0 +1,40 @@
+{
+  "wiki": "Wiki",
+  "settings": "Instellingen",
+  "new": "Create New",
+  "edit": "Edit",
+  "remove": "Remove",
+  "addnew": "Add New",
+  "savechanges": "Save Changes",
+  "showallsettings": "Show all Settings",
+  "close": "Close",
+  "encounters": {
+    "probability": "Adjust Probability",
+    "encounterslot": "New Encounter Slot"
+  },
+  "mapmetadata": {
+    "row": {
+      "add": "Add Row",
+      "remove": "Remove Row"
+    },
+    "column": {
+      "add": "Add Column",
+      "remove": "Remove Column"
+    }
+  },
+  "pokemon": {
+    "move": "New Move",
+    "evolution": "New Evolution"
+  },
+  "forms": {
+    "move": "New Move",
+    "evolution": "New Evolution"
+  },
+  "townmap": {
+    "remove": "Remove Point"
+  },
+  "trainers": {
+    "pokemon": "New Pokémon",
+    "item": "New Item"
+  }
+}

@@ -18,7 +18,7 @@ const i18nConfig: I18nConfig = {
   supportedLngs: ["en", "nl"],
   fallbackLng: "en",
   defaultNS: "abilities",
-  ns: ['abilities'],
+  ns: ['abilities', 'common', 'buttons'],
   resourceLoader,
   reloadOnPrerender: process.env.NODE_ENV === "development"
 }
