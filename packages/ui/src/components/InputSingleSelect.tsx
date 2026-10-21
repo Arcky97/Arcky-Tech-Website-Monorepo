@@ -14,8 +14,8 @@ type InputSelectProps<T> = {
   initLabel?: string;
   handleChange: (option: InputSelectOption<T> | null) => void;
   options: InputSelectOption<T>[];
-  placeholder: string;
-  isDisabled: boolean;
+  placeholder?: string;
+  isDisabled?: boolean;
   isClearable?: boolean;
   placement?: "top" | "bottom" | "auto";
   noMargin?: boolean;

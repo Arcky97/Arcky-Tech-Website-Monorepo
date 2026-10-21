@@ -7,7 +7,7 @@ import {
   SUPPORTED_LANGUAGES,
   setLanguageCookie
 } from "@/config/languages";
-import InputSelect from "ui/src/components/InputSelect";
+import InputSingleSelect from "ui/src/components/InputSingleSelect";
 
 export default function EditorSettings () {
   const { config, updatePreferences } = usePBSConfig();
@@ -31,8 +31,11 @@ export default function EditorSettings () {
           label={["language"]}
           infoData={["Set the Editor to a prefered language."]}
         />
-        <InputSelect
-          width={200}
+        <select>
+
+        </select>
+        <InputSingleSelect
+          width={"200"}
           initValue={config.preferences.language}
           initLabel={LANGUAGE_LABELS[config.preferences.language] ?? config.preferences.language}
           handleChange={(e) => handleLanguageChange(String(e?.value))}

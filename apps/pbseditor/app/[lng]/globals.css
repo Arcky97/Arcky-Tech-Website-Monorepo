@@ -175,7 +175,7 @@ main {
 
 .modal-body {
   margin-bottom: 0.5rem;
-  overflow-y: auto;
+  overflow-y: scroll;
   max-height: 80dvh;
   padding: 8px;
 }

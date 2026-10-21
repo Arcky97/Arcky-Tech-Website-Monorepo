@@ -30,7 +30,7 @@ export default function PBSConfigModal({ isOpen, onClose, onCompleteSetup, requi
       <motion.div
         className={`modal-content ${
           isOpen ? "show" : "hide"
-        } lg:max-w-[85%] max-w-[95%] min-w-[45%] lg:max-h-[90dvh] max-h-[95dvh] relative overflow-y-scroll`}
+        } lg:max-w-[85%] max-w-[95%] min-w-[45%] lg:max-h-[90dvh] max-h-[95dvh] relative`}
         layout="size"
         transition={{
           layout: {
@@ -61,29 +61,33 @@ export default function PBSConfigModal({ isOpen, onClose, onCompleteSetup, requi
           <p></p>
         </div>
         {/* Body */}
-        {/* First time setup */}
-        {requireSetup && (
-          <div className="modal-body text-white">
-            <p className="lg:text-lg text-base font-bold">Hello and welcome to Arcky&apos;s PBS Editor!</p>
-            <br/>
-            <p className="text-gray-200">To get started, choose how you want to provide your PBS files:</p>
-            <ul className="list-disc pl-6 lg:text-base text-sm">
-              <li className="pt-1">
-                <strong>Project Folder:</strong> Grant file access and select your local Essentials Project folder.
-              </li>
-              <li className="pt-1">
-                <strong>Manual Upload:</strong> Upload the PBS file(s) you want to edit.
-              </li>
-            </ul>
-          </div>
-        )}
         <div className="modal-body">
-          {/* Project Settings */}
-          <ProjectSettings/>
-          {/* Editor Settings */}
-          <EditorSettings/>
-          {/* Definition Settings */}
+          {/* First time setup */}
+          {requireSetup && (
+            <div className="text-white">
+              <p className="lg:text-lg text-base font-bold">Hello and welcome to Arcky&apos;s PBS Editor!</p>
+              <br/>
+              <p className="text-gray-200">To get started, choose how you want to provide your PBS files:</p>
+              <ul className="list-disc pl-6 lg:text-base text-sm">
+                <li className="pt-1">
+                  <strong>Project Folder:</strong> Grant file access and select your local Essentials Project folder.
+                </li>
+                <li className="pt-1">
+                  <strong>Manual Upload:</strong> Upload the PBS file(s) you want to edit.
+                </li>
+              </ul>
+            </div>
+          )}
+          <div className="">
+            {/* Project Settings */}
+            <ProjectSettings/>
+            {/* Editor Settings */}
+            <EditorSettings/>
+            {/* Definition Settings */}
+
+          </div>
         </div>
+
       </motion.div>
     </div>
   )
