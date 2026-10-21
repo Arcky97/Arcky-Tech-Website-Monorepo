@@ -1,7 +1,7 @@
 
 export const menuItems = [
   {
-    path: "/",
+    path: "home",
     text: "Home",
     icon: "HomeIcon"
   },

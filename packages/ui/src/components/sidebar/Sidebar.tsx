@@ -5,8 +5,9 @@ import { SidebarItem, MenuItem } from "./SidebarItem";
 
 type SidebarSection = string;
 
-export function Sidebar({ menuItems, docType, mainDocs, basePath, isOpen, onClose }: { menuItems: MenuItem[]; docType?: SidebarSection, mainDocs?: boolean, basePath?: string, isOpen: boolean, onClose: () => void }) {
-  const pathname = usePathname();
+export function Sidebar({ menuItems, docType, mainDocs, basePath, isOpen, onClose, stripPrefix }: { menuItems: MenuItem[]; docType?: SidebarSection, mainDocs?: boolean, basePath?: string, isOpen: boolean, onClose: () => void, stripPrefix?: (pathname: string) => string }) {
+  const rawPathname = usePathname();
+  const pathname = stripPrefix ? stripPrefix(rawPathname) : rawPathname;
   const hasScrolledToActive = useRef(false);
 
   const validBasePaths = menuItems.map(item => item.name);

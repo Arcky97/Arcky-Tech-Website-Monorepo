@@ -50,7 +50,7 @@ export default function InputMultiSelect<T>({
         isSearchable
         isClearable={isClearable}
         isMulti
-        menuPortalTarget={document.body}
+        menuPortalTarget={typeof document !== "undefined" ? document.body : null}
         styles={multiSelectStyles as typeof multiSelectStyles & import("react-select").StylesConfig<InputSelectOption<T>, true>}
         isDisabled={isDisabled}
         menuPlacement={placement || "auto"}

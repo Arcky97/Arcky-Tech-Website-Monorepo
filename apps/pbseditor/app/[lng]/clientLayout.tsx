@@ -54,7 +54,8 @@ export default function ClientLayout({ children}: { children: React.ReactNode })
                 <Sidebar
                   menuItems={menuItems}
                   docType="main"
-                  mainDocs={pathname === "/"}
+                  mainDocs={/^\/[^/]+\/?$/.test(pathname)}
+                  stripPrefix={(p) => p.replace(/^\/[^/]+(?=\/|$)/, "") || "/"}
                   isOpen={sidebarOpen}
                   onClose={() => setSidebarOpen(false)}
                 />

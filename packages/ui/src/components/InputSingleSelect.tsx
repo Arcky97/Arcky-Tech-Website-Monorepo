@@ -52,6 +52,7 @@ export default function InputSingleSelect<T>({
           placeholder={placeholder}
           isSearchable
           isClearable={isClearable}
+          menuPortalTarget={typeof document !== "undefined" ? document.body : null}
           styles={selectStyles as typeof selectStyles & import("react-select").StylesConfig<InputSelectOption<T>, false>}
           isDisabled={isDisabled}
           menuPlacement={placement}
