@@ -26,6 +26,10 @@ export const arckyTutorials = {
     {
       path: "subdomain-with-certbot-nginx",
       text: "Create subdomain with Certbot and Nginx"
+    },
+    {
+      path: "update-portainer-on-vps",
+      text: "Update Portainer on your VPS"
     }
   ]
 }
