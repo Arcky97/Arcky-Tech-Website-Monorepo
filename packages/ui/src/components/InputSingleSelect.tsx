@@ -1,6 +1,7 @@
 "use client";
 import Select from "react-select";
 import { selectStyles } from "../lib";
+import { useEffect, useState } from "react";
 
 type InputSelectOption<T> = {
   value: T;
@@ -32,8 +33,15 @@ export default function InputSingleSelect<T>({
   isClearable = false,
   placement = "auto",
   noMargin = false,
-  table = false
+  table = false,
 }: InputSelectProps<T>) {
+  const [menuPortalTarget, setMenuPortalTarget] =
+    useState<HTMLElement | null>(null);
+
+  useEffect(() => {
+    setMenuPortalTarget(document.body);
+  }, []);
+
   const selectedOption =
     initValue !== ""
       ? {
@@ -43,7 +51,11 @@ export default function InputSingleSelect<T>({
       : null;
 
   return (
-    <div className={`${table ? "flex" : ""} ${noMargin ? "" : "mb-4"} items-center justify-center my-3`}>
+    <div
+      className={`${
+        table ? "flex" : ""
+      } ${noMargin ? "" : "mb-4"} items-center justify-center my-3`}
+    >
       <div className={width}>
         <Select<InputSelectOption<T>, false>
           value={selectedOption}
@@ -52,15 +64,25 @@ export default function InputSingleSelect<T>({
           placeholder={placeholder}
           isSearchable
           isClearable={isClearable}
-          styles={selectStyles as typeof selectStyles & import("react-select").StylesConfig<InputSelectOption<T>, false>}
+          styles={{
+            ...selectStyles,
+            menuPortal: (base) => ({
+              ...base,
+              zIndex: 9999,
+            }),
+          } as typeof selectStyles &
+            import("react-select").StylesConfig<
+              InputSelectOption<T>,
+              false
+            >}
           isDisabled={isDisabled}
           menuPlacement={placement}
           menuPosition="fixed"
+          menuPortalTarget={menuPortalTarget ?? undefined}
           menuShouldBlockScroll
           menuShouldScrollIntoView={false}
         />
       </div>
-
     </div>
   );
 }
