@@ -6,7 +6,8 @@ import type { PBSConfig, PBSUserPreferences, PBSProjectConfig, PBSCustomDefiniti
 
 import { DEFAULT_CONFIG } from "@/config/defaultConfig";
 import { loadPBSConfig, savePBSConfig } from "@/services/pbsConfigStorage";
-import { setLanguageCookie } from "@/config/languages";
+import { LANGUAGE_COOKIE, setLanguageCookie } from "@/config/languages";
+import { usePathname, useRouter } from "next/navigation";
 import PBSConfigModal from "@/components/settings/PBSConfigModal";
 
 interface PBSConfigContextValue {
@@ -32,7 +33,7 @@ interface PBSConfigContextValue {
 
   isConfigModalOpen: boolean;
   openConfigModal: () => void;
-  closeConfigModal: () => void;
+  closeConfigModal: () => Promise<void>;
 }
 
 const PBSConfigContext =
@@ -43,6 +44,8 @@ const PBSConfigContext =
   }: {
     children: ReactNode
   }) {
+    const router = useRouter();
+    const pathname = usePathname();
     const [config, setConfig] = useState<PBSConfig>(() =>  structuredClone(DEFAULT_CONFIG));
 
     const [isLoading, setIsLoading] = useState(true);
@@ -60,8 +63,11 @@ const PBSConfigContext =
 
           if (!cancelled && stored) {
             setConfig(stored);
-            // keep the cookie (read by the server proxy) in sync with the stored preference
-            setLanguageCookie(stored.preferences.language);
+            // only seed the cookie (read by the server proxy) when missing, so a stale
+            // stored value can never override a language the user just picked
+            if (!document.cookie.split("; ").some(c => c.startsWith(`${LANGUAGE_COOKIE}=`))) {
+              setLanguageCookie(stored.preferences.language);
+            }
 
             if (!stored.setupCompleted) {
               setIsFirstTimeSetup(true);
@@ -199,20 +205,41 @@ const PBSConfigContext =
       setIsConfigModalOpen(true);
     }, []);
 
-    const closeConfigModal = useCallback(() => {
+    // persist first, then switch route: navigating remounts this provider and would drop pending state
+    const applyLanguage = useCallback((lng: string) => {
+      const segments = pathname.split("/");
+      if (segments[1] === lng) return;
+
+      setLanguageCookie(lng);
+      segments[1] = lng;
+      router.push(segments.join("/") + window.location.hash);
+    }, [pathname, router]);
+
+    const closeConfigModal = useCallback(async () => {
       setIsConfigModalOpen(false);
-    }, []);
+
+      try {
+        await savePBSConfig(config);
+        setError(null);
+        applyLanguage(config.preferences.language);
+      } catch (error) {
+        setError(
+          error instanceof Error
+            ? error.message
+            : "Failed to save configuration"
+        );
+      }
+    }, [config, applyLanguage]);
 
     const completeFirstTimeSetup = useCallback(async () => {
       try {
+        const updatedConfig = config.setupCompleted
+          ? config
+          : { ...config, setupCompleted: true };
+
+        await savePBSConfig(updatedConfig);
+
         if (!config.setupCompleted) {
-          const updatedConfig = {
-            ...config,
-            setupCompleted: true
-          };
-
-          await savePBSConfig(updatedConfig);
-
           setConfig(updatedConfig);
           setTimeout(() => (
             setIsFirstTimeSetup(false)
@@ -221,6 +248,7 @@ const PBSConfigContext =
         
         setIsConfigModalOpen(false);
         setError(null);
+        applyLanguage(updatedConfig.preferences.language);
       } catch (error) {
         setError(
           error instanceof Error
@@ -228,7 +256,7 @@ const PBSConfigContext =
             : "Failed to complete initial setup."
         );
       }
-    }, [config]);
+    }, [config, applyLanguage]);
 
     const value = useMemo(
       () => ({

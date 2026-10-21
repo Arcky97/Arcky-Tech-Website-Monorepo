@@ -1,6 +1,5 @@
 "use client";
 import { usePBSConfig } from "@/providers/PBSConfigProvider";
-import { t } from "i18next";
 import { useT } from "next-i18next/client";
 import { ColorButton, LabelAndTooltip } from "ui";
 import InputSingleSelect from "ui/src/components/InputSingleSelect";

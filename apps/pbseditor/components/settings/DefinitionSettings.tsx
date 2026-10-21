@@ -1,7 +1,7 @@
-import { usePBSConfig } from "@/providers/PBSConfigProvider";
+//import { usePBSConfig } from "@/providers/PBSConfigProvider";
 
 export default function DefinitionSettings () {
-  const { config, updateDefinitions } = usePBSConfig();
+  //const { config, updateDefinitions } = usePBSConfig();
 
   return (
     <>

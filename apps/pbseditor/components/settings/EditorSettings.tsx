@@ -1,27 +1,19 @@
 "use client";
-import { usePathname, useRouter } from "next/navigation";
 import { LabelAndTooltip, ToggleSwitch } from "ui";
 import { usePBSConfig } from "@/providers/PBSConfigProvider";
 import {
   LANGUAGE_LABELS,
-  SUPPORTED_LANGUAGES,
-  setLanguageCookie
+  SUPPORTED_LANGUAGES
 } from "@/config/languages";
 import InputSingleSelect from "ui/src/components/InputSingleSelect";
 
 export default function EditorSettings () {
   const { config, updatePreferences } = usePBSConfig();
-  const router = useRouter();
-  const pathname = usePathname();
 
+  // the language is applied (cookie + navigation) when the config modal closes
   function handleLanguageChange(lng: string | null) {
     if (!lng) return;
     updatePreferences({ language: lng });
-    setLanguageCookie(lng);
-
-    const segments = pathname.split("/");
-    segments[1] = lng;
-    router.push(segments.join("/") + window.location.hash);
   }
 
   return (
@@ -31,9 +23,6 @@ export default function EditorSettings () {
           label={["language"]}
           infoData={["Set the Editor to a prefered language."]}
         />
-        <select>
-
-        </select>
         <InputSingleSelect
           width={"200"}
           initValue={config.preferences.language}
