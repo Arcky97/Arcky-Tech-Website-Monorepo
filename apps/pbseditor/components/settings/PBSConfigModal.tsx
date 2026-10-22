@@ -2,6 +2,7 @@ import { ColorButton } from "ui";
 import ProjectSettings from "./ProjectSettings";
 import { motion } from "framer-motion";
 import EditorSettings from "./EditorSettings";
+import DefinitionSettings from "./DefinitionSettings";
 
 export default function PBSConfigModal({ isOpen, onClose, onCompleteSetup, requireSetup = false }: { isOpen: boolean, onClose: () => void, onCompleteSetup: () => Promise<void>, requireSetup?: boolean }) {
 
@@ -30,7 +31,7 @@ export default function PBSConfigModal({ isOpen, onClose, onCompleteSetup, requi
       <motion.div
         className={`modal-content ${
           isOpen ? "show" : "hide"
-        } lg:max-w-[85%] max-w-[95%] min-w-[45%] lg:max-h-[90dvh] max-h-[95dvh] relative`}
+        } lg:max-w-[85%] max-w-[95%] min-w-[35%] lg:max-h-[90dvh] max-h-[95dvh] relative`}
         layout="size"
         transition={{
           layout: {
@@ -84,7 +85,7 @@ export default function PBSConfigModal({ isOpen, onClose, onCompleteSetup, requi
             {/* Editor Settings */}
             <EditorSettings/>
             {/* Definition Settings */}
-
+            <DefinitionSettings/>
           </div>
         </div>
 

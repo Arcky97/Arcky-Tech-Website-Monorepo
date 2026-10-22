@@ -24,7 +24,7 @@ export default function EditorSettings () {
           infoData={["Set the Editor to a prefered language."]}
         />
         <InputSingleSelect
-          width={"200"}
+          width={"w-64"}
           initValue={config.preferences.language}
           initLabel={LANGUAGE_LABELS[config.preferences.language] ?? config.preferences.language}
           handleChange={(e) => handleLanguageChange(String(e?.value))}
