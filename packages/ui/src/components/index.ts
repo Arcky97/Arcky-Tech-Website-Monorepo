@@ -14,8 +14,7 @@ export * from "./context/MainRefContext";
 export * from "./InlineCode";
 export * from "./Skeleton";
 export * from "./InputNumber";
-export * from "./InputText"
-export * from "./InputSelect";
+export * from "./InputText";
 export * from "./InputSingleSelect";
 export * from "./InputMultiSelect";
 export * from "./labelAndTooltip";
