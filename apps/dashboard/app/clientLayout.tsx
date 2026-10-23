@@ -54,6 +54,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   const lastRefreshCheck = useRef(0);
 
   useEffect(() => {
+    if (process.env.NODE_ENV !== "production") return;
     if (authStatus !== "signed-in" || !channelId) return;
 
     // The server only queues a job when stored data predates today, so repeated checks are cheap.
