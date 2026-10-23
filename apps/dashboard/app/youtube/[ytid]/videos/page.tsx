@@ -9,13 +9,14 @@ import { youtubeKeys } from "@/queries/youtube";
 import { YoutubePlaylist, YoutubeVideo } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { ColorButton } from "ui";
+import { ColorButton, useMainRef } from "ui";
 
 export default function YoutubeVideos() {
 	//const [videosPerPage, setVideosPerPage] = useState(15);
 	const videosPerPage = 15;
 	const [pageIndex, setPageIndex] = useState(0);
 	const [selectedVideo, setSelectedVideo] = useState<YoutubeVideo | null>(null);
+	const mainRef = useMainRef();
 
 	const videosQuery = useQuery({
 		queryKey: youtubeKeys.videos(),
@@ -51,7 +52,7 @@ export default function YoutubeVideos() {
 	const playlists = playlistQuery.data ?? [];
 
 	const handlePageChange = (action: "first" | "previous" | "next" | "last") => {
-		if (!videosQuery.data) return;
+		if (!videosQuery.data || !mainRef.current) return;
 
 		switch(action) {
 			case "first":
@@ -66,7 +67,7 @@ export default function YoutubeVideos() {
 			case "last":
 				setPageIndex(lastPageIndex)
 		}
-		window.scrollTo({ top: 0, behavior: "smooth" });
+		mainRef.current.scrollTo({ top: 0, behavior: "smooth" });
 	}
 
 	const shouldShowLoading = 
