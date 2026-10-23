@@ -66,6 +66,7 @@ export default function YoutubeVideos() {
 			case "last":
 				setPageIndex(lastPageIndex)
 		}
+		window.scrollTo({ top: 0, behavior: "smooth" });
 	}
 
 	const shouldShowLoading = 
