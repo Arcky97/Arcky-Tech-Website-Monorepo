@@ -100,8 +100,8 @@ main {
 
 .horRule {
   border-top: 1px solid rgba(75, 85, 99, 0.75);
-  margin-top: 4px;
-  margin-bottom: 8px;
+  margin-top: 8px;
+  margin-bottom: 12px;
 }
 
 .modal-overlay {
@@ -130,7 +130,9 @@ main {
 .modal-content {
   background: #030712;
   scrollbar-color: #4a5565 #030712;
-  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   border-radius: 8px;
   transform: scale(0.95);
   opacity: 0;
@@ -150,6 +152,7 @@ main {
 .modal-header {
   position: sticky;
   top: 0;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -174,9 +177,10 @@ main {
 }
 
 .modal-body {
+  flex: 1 1 auto;
+  min-height: 0;
   margin-bottom: 0.5rem;
   overflow-y: scroll;
-  max-height: 80dvh;
   padding: 8px;
 }
 
@@ -462,6 +466,7 @@ main {
   .modal-header {
     position: sticky;
     top: 0;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: start;
@@ -481,9 +486,10 @@ main {
   }
 
   .modal-body {
+    flex: 1 1 auto;
+    min-height: 0;
     margin-bottom: 0.5rem;
     overflow-y: auto;
-    max-height: 95dvh;
     padding: 10px;
   }
 }

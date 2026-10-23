@@ -31,7 +31,7 @@ export default function PBSConfigModal({ isOpen, onClose, onCompleteSetup, requi
       <motion.div
         className={`modal-content ${
           isOpen ? "show" : "hide"
-        } lg:max-w-[85%] max-w-[95%] min-w-[35%] lg:max-h-[90dvh] max-h-[95dvh] relative`}
+        } lg:max-w-[85%] max-w-[95%] min-w-[35%] max-h-[95dvh] relative`}
         layout="size"
         transition={{
           layout: {
@@ -82,8 +82,10 @@ export default function PBSConfigModal({ isOpen, onClose, onCompleteSetup, requi
           <div className="">
             {/* Project Settings */}
             <ProjectSettings/>
+            <hr className="horRule"/>
             {/* Editor Settings */}
             <EditorSettings/>
+            <hr className="horRule"/>
             {/* Definition Settings */}
             <DefinitionSettings/>
           </div>

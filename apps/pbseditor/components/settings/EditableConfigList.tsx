@@ -62,88 +62,106 @@ export default function EditableConfigList(props: EditableConfigListProps) {
   };
 
   return (
-    <>
-      <div className="flex flex-col select-none">
-        <label className="label-box">{props.label}</label>
-        <ul className="mb-2 overflow-y-scroll max-h-56 lg:max-h-112 lg:max-w-2/3 ">
-          {props.fixedData.map((c, i) => {
-            const value = Array.isArray(c) ? c.join(' - ') : c;
-            return (
-              <li key={`fixed-${i}`} className="border border-[#4a5565] rounded p-1 mb-1 flex justify-between items-center text-white">
-                {value}
-                <ColorButton
-                  color="red-800"
-                  text={"Remove"}
-                  disabled
-                />
-              </li>
-            )
-          })}
-          {props.data.map((c, i) => {
-            const value = Array.isArray(c) ? c.join(' - ') : c;
-            return (
-              <li key={`data-${i}`} className="border border-[#4a5565] rounded p-1 mb-1 flex justify-between items-center text-white">
-                {value}
-                <ColorButton
-                  color="red-800"
-                  text={"Remove"}
-                  action={() => removeData(i)}
-                  extraClass="min-w-22"
-                  padding="px-1 py-2"
-                />
-              </li>
-            )
-          })}
-        </ul>
-      </div>
-      <div className="flex flex-col select-none mb-4 lg:max-w-2/3">
-        <div className="flex items-center gap-3 min-w-0">
-          {(() => {
-            if (!props.doubleInput) {
-              return (
-                <input
-                  type="text"
-                  placeholder={props.placeholder}
-                  value={typeof newInput === "string" ? newInput : ""}
-                  onChange={(e) => setNewInput(e.target.value)}
-                  className="content-box-wauto flex-1 min-w-0"
-                />
-              )
-            }
-            const input = typeof newInput === "string" ? ["", ""] : newInput;
-            return (
-              <>
-                <input
-                  type="text"
-                  placeholder={props.placeholder[0]}
-                  value={input[0]}
-                  onChange={(e) => setNewInput([e.target.value, input[1]])}
-                  className="content-box-wauto flex-1 min-w-0"
-                />
-                <input
-                  type="text"
-                  placeholder={props.placeholder[1]}
-                  value={input[1]}
-                  onChange={(e) => setNewInput([input[0], e.target.value])}
-                  className="content-box-w19 shrink-0"
-                />
-              </>
-            )
-          })()}
-          <ColorButton
-            color="blue-700"
-            text={"Add New"}
-            action={addData}
-            extraClass="shrink-0 min-w-22"
-            padding="px-3 py-2"
-            disabled={
-              props.doubleInput
-                ? typeof newInput === "string" || !newInput[0] || isDuplicate
-                : typeof newInput !== "string" || !newInput || isDuplicate
-            }
-          />
+    <div className="flex flex-col lg:flex-row w-full gap-6">
+      <div className="w-full lg:flex-1 lg:basis-0 min-w-0">
+        <div className="flex flex-col select-none">
+          <label className="label-box">Default {props.label}</label>
+          <ul className="mb-2 overflow-y-scroll lg:h-56">
+            {(() => {
+              if (props.fixedData.length < 1) {
+                return (
+                  <li key={`fixed-0`} className="border border-[#4a5565] rounded px-1 py-3 mb-1 items-center flex justify-center text-center text-white h-55">No default {props.label}</li>
+                )
+              }
+              return props.fixedData.map((c, i) => {
+                const value = Array.isArray(c) ? c.join(' - ') : c;
+                return (
+                  <li key={`fixed-${i}`} className="border border-[#4a5565] rounded px-1 h-13 mb-1 flex justify-between items-center text-white">
+                    {value}
+                  </li>
+                )
+              })
+            })()}
+          </ul>
         </div>
       </div>
-    </>
+      <div className="w-full lg:flex-1 lg:basis-0 min-w-0">
+        <div className="flex flex-col select-none">
+          <label className="label-box">Custom {props.label}</label>
+          <ul className="mb-2 overflow-y-scroll lg:h-56 max-h-56">
+            {(() => {
+              if (props.data.length < 1) {
+                return (
+                  <li key={`fixed-0`} className="border border-[#4a5565] rounded px-1 py-3 mb-1 items-center flex justify-center text-center text-white lg:h-55">No Custom {props.label}</li>
+                )
+              }
+              return props.data.map((c, i) => {
+                const value = Array.isArray(c) ? c.join(' - ') : c;
+                return (
+                  <li key={`data-${i}`} className="border border-[#4a5565] rounded p-1 mb-1 flex justify-between items-center text-white">
+                    {value}
+                    <ColorButton
+                      color="red-800"
+                      text={"Remove"}
+                      action={() => removeData(i)}
+                      extraClass="min-w-22"
+                      padding="px-1 py-2"
+                    />
+                  </li>
+                )
+              })
+            })()}
+          </ul>
+        </div>
+        <div className="flex flex-col select-none mb-4">
+          <div className={`${props.doubleInput ? "" : "lg:flex" } items-center gap-3 min-w-0`}>
+            {(() => {
+              if (!props.doubleInput) {
+                return (
+                  <input
+                    type="text"
+                    placeholder={props.placeholder}
+                    value={typeof newInput === "string" ? newInput : ""}
+                    onChange={(e) => setNewInput(e.target.value)}
+                    className="content-box-wauto lg:flex-1 lg:min-w-0 min-w-full lg:mb-0 mb-2"
+                  />
+                )
+              }
+              const input = typeof newInput === "string" ? ["", ""] : newInput;
+              return (
+                <div className="flex flex-col sm:flex-row gap-3 mb-2">
+                  <input
+                    type="text"
+                    placeholder={props.placeholder[0]}
+                    value={input[0]}
+                    onChange={(e) => setNewInput([e.target.value, input[1]])}
+                    className="content-box-wauto sm:flex-1 sm:basis-0 min-w-0"
+                  />
+                  <input
+                    type="text"
+                    placeholder={props.placeholder[1]}
+                    value={input[1]}
+                    onChange={(e) => setNewInput([input[0], e.target.value])}
+                    className="content-box-wauto sm:flex-1 sm:basis-0 min-w-0"
+                  />
+                </div>
+              )
+            })()}
+            <ColorButton
+              color="blue-700"
+              text={"Add New"}
+              action={addData}
+              extraClass={`shrink-0 ${props.doubleInput ? "w-full" : "lg:min-w-22 w-full lg:w-auto"} `}
+              padding="px-3 py-2"
+              disabled={
+                props.doubleInput
+                  ? typeof newInput === "string" || !newInput[0] || isDuplicate
+                  : typeof newInput !== "string" || !newInput || isDuplicate
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }

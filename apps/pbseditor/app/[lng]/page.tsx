@@ -1,3 +1,10 @@
-export default function PBSEditorRootRedirect() {
-  return null;
+import { redirect } from "next/navigation";
+
+export default async function PBSEditorRootRedirect({
+  params,
+}: {
+  params: Promise<{ lng: string }>;
+}) {
+  const { lng } = await params;
+  redirect(`/${lng}/home`);
 }
