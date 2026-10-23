@@ -14,8 +14,8 @@ import { youtubeKeys } from "@/queries/youtube";
 import { apiFetch } from "@/lib/apiFetch";
 import { getColorByPercentage } from "@/lib/getColorByPercentage";
 import { YoutubeGoalProfile } from "@/types/youtube/GoalProfile";
-import InputSelect from "ui/src/components/InputSelect";
 import GoalProgress from "../GoalProgress";
+import InputSingleSelect from "ui/src/components/InputSingleSelect";
 
 type VideoStatKey =
   | "views"
@@ -454,8 +454,8 @@ export default function VideoDetailsModal({
                   </p>
                 </div>
 
-                <InputSelect
-                  width={300}
+                <InputSingleSelect
+                  width="w-75"
                   initValue={goalProfileId ?? ""}
                   initLabel={goalProfilesQuery.data.find(profile => profile.id === goalProfileId)?.name ?? ""}
                   handleChange={(option) => {
