@@ -50,6 +50,39 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
     loadSession();
   }, []);
 
+  const channelId = sessionUser?.youtube?.channelId;
+  const lastRefreshCheck = useRef(0);
+
+  useEffect(() => {
+    if (authStatus !== "signed-in" || !channelId) return;
+
+    // The server only queues a job when stored data predates today, so repeated checks are cheap.
+    async function refreshIfStale() {
+      if (Date.now() - lastRefreshCheck.current < 5 * 60 * 1000) return;
+      lastRefreshCheck.current = Date.now();
+
+      try {
+        const response = await fetch("/api/youtube/sync/refresh", { method: "POST" });
+        if (!response.ok) return;
+
+        const data = await response.json() as { jobId?: string | null };
+        if (data.jobId) {
+          router.replace(`/youtube/${channelId}/home?initialSyncJobId=${encodeURIComponent(data.jobId)}`);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    function handleVisibility() {
+      if (document.visibilityState === "visible") refreshIfStale();
+    }
+
+    refreshIfStale();
+    document.addEventListener("visibilitychange", handleVisibility);
+    return () => document.removeEventListener("visibilitychange", handleVisibility);
+  }, [authStatus, channelId, router]);
+
   useEffect(() => {
     if (
       authStatus === "checking" ||
@@ -60,7 +93,6 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
     }
 
     const pathParts = pathname.split("/").filter(Boolean);
-    const channelId = sessionUser?.youtube?.channelId;
 
     if (pathname === "/") {
       if (authStatus === "signed-in" && channelId) {
@@ -95,7 +127,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
     if (pathParts.length === 2) {
       router.replace(`/youtube/${channelId}/home`);
     }
-  }, [authStatus, pathname, router, searchParams, sessionUser]);
+  }, [authStatus, channelId, pathname, router, searchParams]);
 
   function handleLogin() {
     setAuthStatus("logging-in");
