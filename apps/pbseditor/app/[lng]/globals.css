@@ -181,7 +181,6 @@ main {
   min-height: 0;
   margin-bottom: 0.5rem;
   overflow-y: scroll;
-  padding: 8px;
 }
 
 .section-wrapper, .section-wrapper-history {
@@ -490,7 +489,6 @@ main {
     min-height: 0;
     margin-bottom: 0.5rem;
     overflow-y: auto;
-    padding: 10px;
   }
 }
 

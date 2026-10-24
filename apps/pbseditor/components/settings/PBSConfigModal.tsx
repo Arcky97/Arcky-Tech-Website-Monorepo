@@ -63,9 +63,10 @@ export default function PBSConfigModal({ isOpen, onClose, onCompleteSetup, requi
         </div>
         {/* Body */}
         <div className="modal-body">
+          <h2 className="head2 sticky top-0 bg-gray-950 z-5 shadow-gray-950 shadow-lg mb-8">General</h2>
           {/* First time setup */}
           {requireSetup && (
-            <div className="text-white">
+            <div className="text-white mt-4">
               <p className="lg:text-lg text-base font-bold">Hello and welcome to Arcky&apos;s PBS Editor!</p>
               <br/>
               <p className="text-gray-200">To get started, choose how you want to provide your PBS files:</p>
@@ -84,13 +85,14 @@ export default function PBSConfigModal({ isOpen, onClose, onCompleteSetup, requi
             <ProjectSettings/>
             <hr className="horRule"/>
             {/* Editor Settings */}
+            <h2 className="head2 sticky top-0 bg-gray-950 z-5 shadow-gray-950 shadow-lg mb-8">Preferences</h2>
             <EditorSettings/>
             <hr className="horRule"/>
             {/* Definition Settings */}
+            <h2 className="head2 sticky top-0 bg-gray-950 z-5 shadow-gray-950 shadow-lg mb-8">Definitions</h2>
             <DefinitionSettings/>
           </div>
         </div>
-
       </motion.div>
     </div>
   )

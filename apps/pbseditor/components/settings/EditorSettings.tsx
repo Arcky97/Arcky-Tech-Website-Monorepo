@@ -17,7 +17,7 @@ export default function EditorSettings () {
   }
 
   return (
-    <>
+    <div className="p-2">
       <div className="mb-4">
         <LabelAndTooltip
           label={["language"]}
@@ -72,6 +72,6 @@ export default function EditorSettings () {
           onChange={(value) => updatePreferences({ noTypeLimit: value })}
         />
       </div>
-    </>
+    </div>
   );
 }

@@ -3,17 +3,38 @@ import { usePBSConfig } from "@/providers/PBSConfigProvider";
 import { DEFAULT_ABILITY_FLAGS, DEFAULT_ENCOUNTER_TYPES, DEFAULT_EVOLUTIONS, DEFAULT_TYPE_FLAGS } from "@/config/defaultDefinitions";
 import EditableConfigList from "./EditableConfigList";
 
+type DefinitionType = {
+  label: string;
+  data: string[] | [string, string?][];
+  fixedData: string[] | [string, string?][];
+  setData: (data: string[]) => void;
+  placeholder: string;
+  doubleInput?: boolean;
+}
+
+
+
 export default function DefinitionSettings () {
   const { config, updateDefinitions } = usePBSConfig();
 
+  const definitions: Record<string, DefinitionType> = {
+    ability: {
+      label: "Abilities Flags",
+      data: config.definitions.abilityFlags,
+      fixedData: DEFAULT_ABILITY_FLAGS,
+      setData: (data) => updateDefinitions({ abilityFlags: data }),
+      placeholder: "Add Ability"
+    }
+  }
+
   return (
-    <>
+    <div className="p-2">
       <EditableConfigList
-        label="Abilities Flags"
-        fixedData={DEFAULT_ABILITY_FLAGS}
-        data={config.definitions.abilityFlags}
-        setData={(data) => updateDefinitions({ abilityFlags: data })}
-        placeholder="Add Ability"
+        label={definitions.ability.label}
+        fixedData={definitions.ability.fixedData as string[]}
+        data={definitions.ability.data as string[]}
+        setData={definitions.ability.setData}
+        placeholder={definitions.ability.placeholder}
       />
       <hr className="horRule"/>
 
@@ -41,6 +62,6 @@ export default function DefinitionSettings () {
         setData={(data) => updateDefinitions({ typeFlags: data })}
         placeholder={"Add Type Flag"}
       />
-    </>
+    </div>
   )
 }

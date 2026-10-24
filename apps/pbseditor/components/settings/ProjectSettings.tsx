@@ -36,7 +36,7 @@ export default function ProjectSettings () {
   };
 
   return (
-    <>
+    <div className="p-2">
       <LabelAndTooltip
         label={["File Access"]}
         infoData={["Grant the Editor access to your chosen Project folder on your pc."]}
@@ -112,6 +112,6 @@ export default function ProjectSettings () {
           />
         </div>
       </div>
-    </>
+    </div>
   )
 }
