@@ -2,11 +2,14 @@
 import { usePBSConfig } from "@/providers/PBSConfigProvider";
 import { selectProjectFolder } from "@/services/pbsProjectService";
 import { AnimatePresence, motion } from "framer-motion";
+import { useT } from "next-i18next/client";
 import { useState } from "react";
 import { ColorButton, LabelAndTooltip, ToggleSwitch } from "ui";
 import InputText from "ui/src/components/InputText";
 
 export default function ProjectSettings () {
+  const { t: tSettings } = useT('settings');
+  const { t: tButtons } = useT('buttons');
   const { config, updateProject } = usePBSConfig();
   const [folderError, setFolderError] = useState<string | null>(null);
 
@@ -30,7 +33,7 @@ export default function ProjectSettings () {
       setFolderError(
         error instanceof Error
           ? error.message
-          : "Failed to select project folder."
+          : tSettings('general.error')
       )
     }
   };
@@ -38,8 +41,8 @@ export default function ProjectSettings () {
   return (
     <div className="p-2">
       <LabelAndTooltip
-        label={["File Access"]}
-        infoData={["Grant the Editor access to your chosen Project folder on your pc."]}
+        label={[tSettings('general.fileaccess.label')]}
+        infoData={[tSettings('general.fileaccess.info')]}
       />
       <ToggleSwitch
         state={config.project.fileAccess}
@@ -64,19 +67,19 @@ export default function ProjectSettings () {
             className="overflow-hidden"
           >
             <LabelAndTooltip
-              label={["Project Folder"]}
-              infoData={["The path on your computer which contains the Essentials Project folder."]}
+              label={[tSettings('general.projectfolder.label')]}
+              infoData={[tSettings('general.projectfolder.info')]}
             />
             <div className="flex space-x-4 mb-4">
               <InputText
                 readOnly
                 value={config.project.pbsFolder}
-                placeholder="No Project Selected"
+                placeholder={tSettings('general.projectfolder.placeholder')}
                 width={38}
                 table
               />
               <ColorButton
-                text="Change Project"
+                text={tButtons('changeproject')}
                 color="blue-800"
                 action={handleSelectProjectFolder}
               />
@@ -91,13 +94,13 @@ export default function ProjectSettings () {
       </AnimatePresence>
 
       <LabelAndTooltip
-        label={["Installed Plugins"]}
-        infoData={["When file access is enabled, the editor will automatically detect the plugins you have installed."]}
+        label={[tSettings('general.installedplugins.label')]}
+        infoData={[tSettings('general.installedplugins.info')]}
       />
       <div className="flex space-x-8">
         <div>
           <ToggleSwitch
-            label="Arcky's Region Map"
+            label={tSettings('general.installedplugins.armp.label')}
             state={config.project.arckyRMPlugin}
             onChange={(value) => updateProject({ arckyRMPlugin: value })}
             className="mb-4"
@@ -105,7 +108,7 @@ export default function ProjectSettings () {
         </div>
         <div>
           <ToggleSwitch
-            label="Arcky's Poké Market"
+            label={tSettings('general.installedplugins.apmp.label')}
             state={config.project.arckyPMPlugin}
             onChange={(value) => updateProject({ arckyPMPlugin: value })}
             className="mb-4"

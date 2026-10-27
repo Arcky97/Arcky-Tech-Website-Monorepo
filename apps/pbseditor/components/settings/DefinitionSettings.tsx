@@ -12,8 +12,6 @@ type DefinitionType = {
   doubleInput?: boolean;
 }
 
-
-
 export default function DefinitionSettings () {
   const { config, updateDefinitions } = usePBSConfig();
 

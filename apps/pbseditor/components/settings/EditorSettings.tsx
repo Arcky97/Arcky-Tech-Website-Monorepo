@@ -6,8 +6,10 @@ import {
   SUPPORTED_LANGUAGES
 } from "@/config/languages";
 import InputSingleSelect from "ui/src/components/InputSingleSelect";
+import { useT } from "next-i18next/client";
 
 export default function EditorSettings () {
+  const { t: tSettings } = useT('settings');
   const { config, updatePreferences } = usePBSConfig();
 
   // the language is applied (cookie + navigation) when the config modal closes
@@ -20,8 +22,8 @@ export default function EditorSettings () {
     <div className="p-2">
       <div className="mb-4">
         <LabelAndTooltip
-          label={["language"]}
-          infoData={["Set the Editor to a prefered language."]}
+          label={[tSettings('preferences.language.label')]}
+          infoData={[tSettings('preferences.language.info')]}
         />
         <InputSingleSelect
           width={"w-64"}
@@ -33,8 +35,8 @@ export default function EditorSettings () {
       </div>
       <div className="mb-4">
         <LabelAndTooltip
-          label={["Auto Save"]}
-          infoData={["Choose to enable or disable auto save."]}
+          label={[tSettings('preferences.autosave.label')]}
+          infoData={[tSettings('preferences.autosave.info')]}
         />
         <ToggleSwitch
           state={config.preferences.autosave}
@@ -43,8 +45,8 @@ export default function EditorSettings () {
       </div>
       <div className="mb-4">
         <LabelAndTooltip
-          label={["Unit System"]}
-          infoData={["Choose your prefered unit system."]}
+          label={[tSettings('preferences.unitsystem.label')]}
+          infoData={[tSettings('preferences.unitsystem.info')]}
         />
         <div className="flex space-x-6">
           {["Metric", "Imperial"].map(option => (
@@ -57,15 +59,15 @@ export default function EditorSettings () {
                 onChange={(e) => updatePreferences({ unitSystem: e.target.value === "Imperial" ? "Imperial" : "Metric" })}
                 className="accent-blue-500 cursor-pointer"
               />
-              <span className="font-semibold text-lg">{option}</span>
+              <span className="font-semibold text-lg">{tSettings(`preferences.unitsystem.${option.toLowerCase() as 'metric' | 'imperial'}`)}</span>
             </label>
           ))}
         </div>
       </div>
       <div className="mb-4">
         <LabelAndTooltip
-          label={["No Type Limit"]}
-          infoData={["Choose whether to allow more than 2 types to be selected for Pokémon and Pokémon Forms."]}
+          label={[tSettings('preferences.notypelimit.label')]}
+          infoData={[tSettings('preferences.notypelimit.info')]}
         />
         <ToggleSwitch
           state={config.preferences.noTypeLimit}

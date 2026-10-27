@@ -1,0 +1,62 @@
+{
+  "header": "PBS Editor Settings",
+  "welcome": {
+    "part1": "Hello and welcome to Arcky's PBS Editor!",
+    "part2": "To get started, choose how you want to provide your PBS files:",
+    "option1": {
+      "strong": "Project Folder:",
+      "par": "Grant file access and select your local Essentials Project folder."
+    },
+    "option2": {
+      "strong": "Manual Upload:",
+      "par": "Upload the PBS file(s) you want to edit."
+    }
+  },
+  "general": {
+    "header": "General",
+    "error": "Failed to select project folder",
+    "fileaccess": {
+      "label": "File access",
+      "info": "Grant the Editor access to your chosen Project folder on your pc."
+    },
+    "projectfolder": {
+      "label": "Project Folder",
+      "info": "The path on your computer which contains the Essentials Project folder.",
+      "placeholder": "No Project Selected"
+    },
+    "installedplugins": {
+      "label": "Installed Plugins",
+      "info": "When file access is enabled, the editor will automatically detect the suported plugins you have installed.",
+      "armp": {
+        "label": "Arcky's Region Map"
+      },
+      "apmp": {
+        "label": "Arcky's Poké Market"
+      }
+    }
+  },
+  "preferences": { 
+    "header": "Preferences",
+    "language": {
+      "label": "Language",
+      "info": "Set the editor to a prefered language."
+    },
+    "autosave": {
+      "label": "Auto Save",
+      "info": "Choose to enable or disable auto save."
+    },
+    "unitsystem": {
+      "label": "Unit System",
+      "info": "Choose your prefered unit system",
+      "metric": "Metric",
+      "imperial": "Imperial"
+    },
+    "notypelimit": {
+      "label": "No Type Limit",
+      "info": "Choose whether to allow more than 2 types to be selected for Pokémon and Pokémon Forms."
+    }
+  },
+  "definitions": { 
+    "header": "Definitions"
+  }
+}

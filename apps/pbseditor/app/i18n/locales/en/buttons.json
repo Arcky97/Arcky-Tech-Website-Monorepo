@@ -6,8 +6,10 @@
   "remove": "Remove",
   "addnew": "Add New",
   "savechanges": "Save Changes",
+  "changeproject": "Change Project",
   "showallsettings": "Show all Settings",
   "close": "Close",
+  "finishsetup": "Finish Setup",
   "encounters": {
     "probability": "Adjust Probability",
     "encounterslot": "New Encounter Slot"
