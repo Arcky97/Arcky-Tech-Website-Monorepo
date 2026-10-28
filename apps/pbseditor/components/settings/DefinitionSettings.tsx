@@ -1,65 +1,62 @@
 import { usePBSConfig } from "@/providers/PBSConfigProvider";
-
-import { DEFAULT_ABILITY_FLAGS, DEFAULT_ENCOUNTER_TYPES, DEFAULT_EVOLUTIONS, DEFAULT_TYPE_FLAGS } from "@/config/defaultDefinitions";
+import { defaultDefinitions } from "@/config/defaultDefinitions";
 import EditableConfigList from "./EditableConfigList";
-
-type DefinitionType = {
-  label: string;
-  data: string[] | [string, string?][];
-  fixedData: string[] | [string, string?][];
-  setData: (data: string[]) => void;
-  placeholder: string;
-  doubleInput?: boolean;
-}
+import { useState } from "react";
+import InputSingleSelect from "ui/src/components/InputSingleSelect";
+import { definitionsConfig } from "@/config/defintionsConfig";
+import { definitionOptions } from "@/config/definitionOptions";
 
 export default function DefinitionSettings () {
   const { config, updateDefinitions } = usePBSConfig();
+  const [choiceOption, setChoiceOption] = useState<{ label: string, value: string } | null>({ label: "Abilities", value: "abilities" });
 
-  const definitions: Record<string, DefinitionType> = {
-    ability: {
-      label: "Abilities Flags",
-      data: config.definitions.abilityFlags,
-      fixedData: DEFAULT_ABILITY_FLAGS,
-      setData: (data) => updateDefinitions({ abilityFlags: data }),
-      placeholder: "Add Ability"
-    }
+  const definitions = definitionsConfig.map(def => ({
+    ...def,
+    fixedData: defaultDefinitions[def.defKey],
+    data: config.definitions[def.defKey],
+    setData: (data: string[] | [string, string?][]) =>
+      updateDefinitions({
+        [def.defKey]: data
+      })
+  }));
+
+  const filterOptions = (choice: { label: string, value: string} | null) => {
+    if (!choice) return definitions;
+    return definitions.filter(def => (
+      def.filters.includes(choice.value)
+    ));
   }
 
   return (
     <div className="p-2">
-      <EditableConfigList
-        label={definitions.ability.label}
-        fixedData={definitions.ability.fixedData as string[]}
-        data={definitions.ability.data as string[]}
-        setData={definitions.ability.setData}
-        placeholder={definitions.ability.placeholder}
+      <InputSingleSelect
+        width="w-50"
+        initValue={choiceOption?.value || definitionOptions[0].value}
+        initLabel={choiceOption?.label || definitionOptions[0].label}
+        handleChange={(option) => setChoiceOption(option)}
+        options={definitionOptions}
       />
-      <hr className="horRule"/>
+      {filterOptions(choiceOption).map((option, index) => {
+        if (option.doubleInput) {
+          return (
+            <EditableConfigList
+              key={index}
+              {...option}
+              data={option.data as [string, string?][]}
+              fixedData={option.fixedData as [string, string?][]}
+            />
+          );
+        }
 
-      <EditableConfigList
-        label="Encounter Types"
-        fixedData={DEFAULT_ENCOUNTER_TYPES}
-        data={config.definitions.encounterTypes}
-        setData={(data) => updateDefinitions({ encounterTypes: data })}
-        placeholder="Add Encounter Types"
-      />
-      <hr className="horRule"/>
-      <EditableConfigList
-        label="Evolutions"
-        fixedData={DEFAULT_EVOLUTIONS}
-        data={config.definitions.evolutions}
-        setData={(data) => updateDefinitions({ evolutions: data })}
-        placeholder={["Evolution", "Parameter"]}
-        doubleInput
-      />
-      <hr className="horRule"/>
-      <EditableConfigList
-        label="Type Flags"
-        fixedData={DEFAULT_TYPE_FLAGS}
-        data={config.definitions.typeFlags}
-        setData={(data) => updateDefinitions({ typeFlags: data })}
-        placeholder={"Add Type Flag"}
-      />
+        return (
+          <EditableConfigList
+            key={index}
+            {...option}
+            data={option.data as string[]}
+            fixedData={option.fixedData as string[]}
+          />
+        );
+      })}
     </div>
-  )
+  );
 }

@@ -315,3 +315,26 @@ export const DEFAULT_TRAINER_TYPE_FLAGS: string[] = [
 export const DEFAULT_TYPE_FLAGS: string[] = [
 
 ];
+
+export const defaultDefinitions = {
+  abilityFlags: DEFAULT_ABILITY_FLAGS,
+  encounterTypes: DEFAULT_ENCOUNTER_TYPES,
+  fieldUses: DEFAULT_FIELD_USES,
+  battleUses: DEFAULT_BATTLE_USES,
+  itemFlags: DEFAULT_ITEM_FLAGS,
+  weathers: DEFAULT_WEATHERS,
+  environments: DEFAULT_ENVIRONMENTS,
+  mapFlags: DEFAULT_MAP_FLAGS,
+  targets: DEFAULT_TARGETS,
+  moveFlags: DEFAULT_MOVE_FLAGS,
+  genderRatios: DEFAULT_GENDER_RATIOS,
+  growthRates: DEFAULT_GROWTH_RATES,
+  eggGroups: DEFAULT_EGG_GROUPS,
+  colors: DEFAULT_COLORS,
+  shapes: DEFAULT_SHAPES,
+  habitats: DEFAULT_HABITATS,
+  speciesFlags: DEFAULT_SPECIES_FLAGS,
+  evolutions: DEFAULT_EVOLUTIONS,
+  trainerTypeFlags: DEFAULT_TRAINER_TYPE_FLAGS,
+  typeFlags: DEFAULT_TYPE_FLAGS
+};

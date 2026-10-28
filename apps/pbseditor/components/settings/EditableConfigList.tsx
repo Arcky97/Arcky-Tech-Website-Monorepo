@@ -1,25 +1,6 @@
+import { EditableConfigListProps } from "@/types/props/editable-config-list.type";
 import { useState } from "react";
 import { ColorButton } from "ui";
-
-type StringListProps = {
-  label: string;
-  data: string[];
-  fixedData: string[];
-  setData: (data: string[]) => void;
-  placeholder: string;
-  doubleInput?: false;
-};
-
-type PairListProps = {
-  label: string;
-  data: [string, string?][];
-  fixedData: [string, string?][];
-  setData: (data: [string, string?][]) => void;
-  placeholder: [string, string];
-  doubleInput: true;
-};
-
-type EditableConfigListProps = StringListProps | PairListProps;
 
 export default function EditableConfigList(props: EditableConfigListProps) {
   const [newInput, setNewInput] = useState<string | [string, string]>(
@@ -66,7 +47,7 @@ export default function EditableConfigList(props: EditableConfigListProps) {
       <div className="w-full lg:flex-1 lg:basis-0 min-w-0">
         <div className="flex flex-col select-none">
           <label className="label-box">Default {props.label}</label>
-          <ul className="mb-2 overflow-y-scroll lg:h-56">
+          <ul className="mb-2 overflow-y-scroll max-h-70 lg:h-56 lg:max-h-56">
             {(() => {
               if (props.fixedData.length < 1) {
                 return (
@@ -88,7 +69,7 @@ export default function EditableConfigList(props: EditableConfigListProps) {
       <div className="w-full lg:flex-1 lg:basis-0 min-w-0">
         <div className="flex flex-col select-none">
           <label className="label-box">Custom {props.label}</label>
-          <ul className="mb-2 overflow-y-scroll lg:h-56 max-h-56">
+          <ul className="mb-2 overflow-y-scroll max-h-70 lg:h-56 lg:max-h-56">
             {(() => {
               if (props.data.length < 1) {
                 return (
