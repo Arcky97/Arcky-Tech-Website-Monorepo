@@ -11,7 +11,7 @@
     "dev-docs": "npm run dev -w docs",
     "dev-dashboard": "npm run dev -w dashboard",
     "dev-pbseditor": "npm run dev -w pbseditor",
-    "dev-scoreboard": "npm run dev -w scroeboard",
+    "dev-scoreboard": "npm run dev -w scoreboard",
     "build-web": "npm run build -w web",
     "build-docs": "npm run build -w docs",
     "build-dashboard": "npm run build -w dashboard",
