@@ -1,116 +1,119 @@
+import { DefinitionSingularKey } from "@/types/definitions-options.type";
 import { defaultDefinitions } from "./defaultDefinitions";
 
-  export const definitionOptions: { label: string, value: keyof typeof defaultDefinitions | string}[] = [
+export type DefinitionOption = { label: DefinitionSingularKey, value: keyof typeof defaultDefinitions | string };
+
+export const definitionOptions: DefinitionOption[] = [
     {
-      label: "Ability PBS",
+      label: "abilitypbs",
       value: "abilities"
     },
     {
-      label: "Ability Flags",
+      label: "abilityflags",
       value: "abilityflags"
     },
     {
-      label: "Encounter PBS",
+      label: "encounterpbs",
       value: "encounters"
     },
     {
-      label: "Encounter Types",
+      label: "encountertypes",
       value: "encountertypes"
     },
     {
-      label: "Item PBS",
+      label: "itempbs",
       value: "items"
     },
     {
-      label: "Field Uses",
+      label: "fielduses",
       value: "fielduses"
     },
     {
-      label: "Battle Uses",
+      label: "battleuses",
       value: "battleuses"
     },
     {
-      label: "Item Flags",
+      label: "itemflags",
       value: "itemflags"
     },
     {
-      label: "Map Metadata PBS",
+      label: "mapmetadatapbs",
       value: "map"
     },
     {
-      label: "Weathers",
+      label: "weathers",
       value: "weathers"
     },
     {
-      label: "Environments",
+      label: "environments",
       value: "environments"
     },
     {
-      label: "Map Flags",
+      label: "mapflags",
       value: "mapflags"
     },
     {
-      label: "Moves",
+      label: "movepbs",
       value: "moves"
     },
     {
-      label: "Targets",
+      label: "targets",
       value: "targets"
     },
     {
-      label: "Move Flags",
+      label: "moveflags",
       value: "moveflags"
     },
     {
-      label: "Pokémon and Forms",
+      label: "speciespbs",
       value: "pokemon"
     },
     {
-      label: "Gender Ratios",
+      label: "genderratios",
       value: "genderratios"
     },
     {
-      label: "Growth Rates",
+      label: "growthrates",
       value: "growthrates"
     },
     {
-      label: "Egg Groups",
+      label: "egggroups",
       value: "egggroups"
     },
     {
-      label: "Colors",
+      label: "colors",
       value: "colors"
     },
     {
-      label: "Shapes",
+      label: "shapes",
       value: "shapes"
     },
     {
-      label: "Habitats",
+      label: "habitats",
       value: "habitats"
     },
     {
-      label: "Pokémon Flags",
+      label: "pokemonflags",
       value: "speciesflags"
     },
     {
-      label: "Evolutions",
+      label: "evolutions",
       value: "evolutions"
     },
     {
-      label: "Trainer Types",
-      value: "trainertypes"
+      label: "trainertypepbs",
+      value: "trainers"
     },
     {
-      label: "Trainer Type Flags",
+      label: "trainertypeflags",
       value: "trainertypeflags"
     },
     {
-      label: "Types",
+      label: "typepbs",
       value: "types"
     },
     {
-      label: "Type Flags",
+      label: "typeflags",
       value: "typeflags"
     }
   ]

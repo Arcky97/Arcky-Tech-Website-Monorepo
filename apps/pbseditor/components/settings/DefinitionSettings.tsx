@@ -4,11 +4,13 @@ import EditableConfigList from "./EditableConfigList";
 import { useState } from "react";
 import InputSingleSelect from "ui/src/components/InputSingleSelect";
 import { definitionsConfig } from "@/config/defintionsConfig";
-import { definitionOptions } from "@/config/definitionOptions";
+import { definitionOptions, DefinitionOption } from "@/config/definitionOptions";
+import { useT } from "next-i18next/client";
 
 export default function DefinitionSettings () {
   const { config, updateDefinitions } = usePBSConfig();
-  const [choiceOption, setChoiceOption] = useState<{ label: string, value: string } | null>({ label: "Abilities", value: "abilities" });
+  const [choiceOption, setChoiceOption] = useState<DefinitionOption | null>({ label: "abilitypbs", value: "abilities" });
+  const { t: tSettings } = useT('settings');
 
   const definitions = definitionsConfig.map(def => ({
     ...def,
@@ -20,7 +22,7 @@ export default function DefinitionSettings () {
       })
   }));
 
-  const filterOptions = (choice: { label: string, value: string} | null) => {
+  const filterOptions = (choice: DefinitionOption | null) => {
     if (!choice) return definitions;
     return definitions.filter(def => (
       def.filters.includes(choice.value)
@@ -32,9 +34,9 @@ export default function DefinitionSettings () {
       <InputSingleSelect
         width="w-50"
         initValue={choiceOption?.value || definitionOptions[0].value}
-        initLabel={choiceOption?.label || definitionOptions[0].label}
-        handleChange={(option) => setChoiceOption(option)}
-        options={definitionOptions}
+        initLabel={tSettings(`definitions.options.${choiceOption?.label || definitionOptions[0].label}.label`)}
+        handleChange={(option) => setChoiceOption(option as DefinitionOption | null)}
+        options={definitionOptions.map(option => ({ value: option.value, label: tSettings(`definitions.options.${option.label}.label`)}))}
       />
       {filterOptions(choiceOption).map((option, index) => {
         if (option.doubleInput) {

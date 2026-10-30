@@ -1,7 +1,8 @@
+import { DefinitionOptionKey } from "@/types/definitions-options.type";
 import { defaultDefinitions } from "./defaultDefinitions";
 import { PairListProps, StringListProps } from "@/types/props/editable-config-list.type";
 
-type DefinitionConfigType = keyof typeof defaultDefinitions;
+export type DefinitionConfigType = keyof typeof defaultDefinitions;
 
 type SingleDefinitionConfig = {
   defKey: Exclude<DefinitionConfigType, "evolutions">;
@@ -20,122 +21,122 @@ type DefinitionConfig =
 export const definitionsConfig: DefinitionConfig[] = [
     {
       defKey: "abilityFlags",
-      label: "Abilities Flags",
+      label: "abilityflags",
       placeholder: "Add Ability",
       filters: ["abilities", "abilityflags"]
     },
     {
       defKey: "encounterTypes",
-      label: "Encounter Types",
+      label: "encountertypes",
       placeholder: "Add Encounter Types",
       filters: ["encounters", "encountertypes"]
     },
     {
       defKey: "fieldUses",
-      label: "Field Uses",
+      label: "fielduses",
       placeholder: "Add Field Uses",
       filters: ["items", "fielduses"]
     },
     {
       defKey: "battleUses",
-      label: "Battle Uses",
+      label: "battleuses",
       placeholder: "Add Battle Uses",
       filters: ["items", "battleuses"]
     },
     {
       defKey: "itemFlags",
-      label: "Item Flags",
+      label: "itemflags",
       placeholder: "Add Item Flags",
       filters: ["items", "itemflags"]
     },
     {
       defKey: "weathers",
-      label: "Weathers",
+      label: "weathers",
       placeholder: "Add Weathers",
       filters: ["map", "weathers"]
     },
     {
       defKey: "environments",
-      label: "Environments",
+      label: "environments",
       placeholder: "Add Environments",
       filters: ["map", "environments"]
     },
     {
       defKey: "mapFlags",
-      label: "Map Flags",
+      label: "mapflags",
       placeholder: "Add Map Flags",
       filters: ["map", "mapflags"]
     },
     {
       defKey: "targets",
-      label: "Targets",
+      label: "targets",
       placeholder: "Add Targets",
       filters: ["moves", "targets"]
     },
     {
       defKey: "moveFlags",
-      label: "Move Flags",
+      label: "moveflags",
       placeholder: "Add Move Flags",
       filters: ["moves", "moveflags"]
     },
     {
       defKey: "genderRatios",
-      label: "Gender Ratios",
+      label: "genderratios",
       placeholder: "Add Gender Ratios",
       filters: ["pokemon", "genderratios"]
     },
     {
       defKey: "growthRates",
-      label: "Growth Rates",
+      label: "growthrates",
       placeholder: "Add Growth Rates",
       filters: ["pokemon", "growthrates"]
     },
     {
       defKey: "eggGroups",
-      label: "Egg Groups",
+      label: "egggroups",
       placeholder: "Add Egg Groups",
       filters: ["pokemon", "egggroups"]
     },
     {
       defKey: "colors",
-      label: "Colors",
+      label: "colors",
       placeholder: "Add Colors",
       filters: ["pokemon", "colors"]
     },
     {
       defKey: "shapes",
-      label: "Shapes",
+      label: "shapes",
       placeholder: "Add Shapes",
       filters: ["pokemon", "shapes"]
     },
     {
       defKey: "habitats",
-      label: "Habitats",
+      label: "habitats",
       placeholder: "Add Habitats",
       filters: ["pokemon", "habitats"]
     },
     {
       defKey: "speciesFlags",
-      label: "Pokémon Flags",
+      label: "pokemonflags",
       placeholder: "Add Pokémon Flags",
       filters: ["pokemon", "pokemonflags"]
     },
     {
       defKey: "evolutions",
-      label: "Evolutions",
+      label: "evolutions" as DefinitionOptionKey,
       placeholder: ["Evolution", "Parameter"],
       filters: ["pokemon", "evolutions"],
       doubleInput: true
     },
     {
       defKey: "trainerTypeFlags",
-      label: "Trainer Type Flags",
+      label: "trainertypeflags",
       placeholder: "Add Trainer Type Flags",
       filters: ["trainertypes", "trainertypeflags"]
     },
     {
       defKey: "typeFlags",
-      label: "Type Flags",
+      label: "typeflags",
       placeholder: "Add Type Flags",
       filters: ["types", "typeflags"]
     }

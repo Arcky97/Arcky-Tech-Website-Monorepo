@@ -57,6 +57,123 @@
     }
   },
   "definitions": { 
-    "header": "Definitions"
+    "header": "Definitions",
+    "default": "Default {{name}}",
+    "nodefault": "No default {{name}}",
+    "custom": "Custom {{name}}",
+    "nocustom": "No custom {{name}}",
+    "placeholder": "Add {{name}}",
+    "options": {
+      "abilitypbs": {
+        "label": "Ability PBS"
+      },
+      "abilityflags": {
+        "singular": "Ability Flag",
+        "label": "Ability Flags"
+      },
+      "encounterpbs": {
+        "singular": "",
+        "label": "Encounter PBS"
+      },
+      "encountertypes": {
+        "singular": "",
+        "label": "Encounter PBS"
+      },
+      "itempbs": {
+        "label": "Item PBS"
+      },
+      "fielduses": {
+        "singular": "",
+        "label": "Field Uses"
+      },
+      "battleuses": {
+        "singular": "",
+        "label": "Battle Uses"
+      },
+      "itemflags": {
+        "singular": "",
+        "label": "Item Flags"
+      },
+      "mapmetadatapbs": {
+        "singular": "",
+        "label": "Map Metadata PBS"
+      },
+      "weathers": {
+        "singular": "",
+        "label": "Weathers"
+      },
+      "environments": {
+        "singular": "",
+        "label": "Environments"
+      },
+      "mapflags": {
+        "singular": "",
+        "label": "Map Flags"
+      },
+      "movepbs": {
+        "singular": "",
+        "label": "Moves PBS"
+      },
+      "targets": {
+        "singular": "",
+        "label": "Targets"
+      },
+      "moveflags": {
+        "singular": "",
+        "label": "Move Flags"
+      },
+      "speciespbs": {
+        "singular": "",
+        "label": "Pokémon and Forms PBS"
+      },
+      "genderratios": {
+        "singular": "",
+        "label": "Gender Ratios"
+      },
+      "growthrates": {
+        "singular": "",
+        "label": "Growth Rates"
+      },
+      "egggroups": {
+        "singular": "",
+        "label": "Egg Groups"
+      },
+      "colors": {
+        "singular": "",
+        "label": "Colors"
+      },
+      "shapes": {
+        "singular": "",
+        "label": "Shapes"
+      },
+      "habitats": {
+        "singular": "",
+        "label": "Habitats"
+      },
+      "pokemonflags": {
+        "singular": "",
+        "label": "Pokémon Flags"
+      },
+      "evolutions": {
+        "singular": "",
+        "label": "Evolutions"
+      },
+      "trainertypepbs": {
+        "singular": "",
+        "label": "Trainer Types PBS"
+      },
+      "trainertypeflags": {
+        "singular": "",
+        "label": "Trainer Type Flags"
+      },
+      "typepbs": {
+        "singular": "",
+        "label": "Types PBS"
+      },
+      "typeflags": {
+        "singular": "Type Flag",
+        "label": "Type Flags"
+      }
+    }
   }
 }

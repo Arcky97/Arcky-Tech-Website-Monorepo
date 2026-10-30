@@ -1,4 +1,6 @@
+import { defaultDefinitions } from "@/config/defaultDefinitions";
 import { EditableConfigListProps } from "@/types/props/editable-config-list.type";
+import { useT } from "next-i18next/client";
 import { useState } from "react";
 import { ColorButton } from "ui";
 
@@ -6,6 +8,9 @@ export default function EditableConfigList(props: EditableConfigListProps) {
   const [newInput, setNewInput] = useState<string | [string, string]>(
     props.doubleInput ? ["", ""] : ""
   );
+  const { t: tSettings } = useT("settings");
+
+  console.log(props.label);
 
   const isDuplicate = props.doubleInput
     ? typeof newInput !== "string" &&
@@ -46,12 +51,12 @@ export default function EditableConfigList(props: EditableConfigListProps) {
     <div className="flex flex-col lg:flex-row w-full gap-6">
       <div className="w-full lg:flex-1 lg:basis-0 min-w-0">
         <div className="flex flex-col select-none">
-          <label className="label-box">Default {props.label}</label>
+          <label className="label-box">{tSettings("definitions.default", { name: tSettings(`definitions.options.${props.label}.label`)})}</label>
           <ul className="mb-2 overflow-y-scroll max-h-70 lg:h-56 lg:max-h-56">
             {(() => {
               if (props.fixedData.length < 1) {
                 return (
-                  <li key={`fixed-0`} className="border border-[#4a5565] rounded px-1 py-3 mb-1 items-center flex justify-center text-center text-white h-55">No default {props.label}</li>
+                  <li key={`fixed-0`} className="border border-[#4a5565] rounded px-1 py-3 mb-1 items-center flex justify-center text-center text-white h-55">{tSettings('definitions.nodefault', { name: tSettings(`definitions.options.${props.label}.label`).toLowerCase()})}</li>
                 )
               }
               return props.fixedData.map((c, i) => {
@@ -68,12 +73,12 @@ export default function EditableConfigList(props: EditableConfigListProps) {
       </div>
       <div className="w-full lg:flex-1 lg:basis-0 min-w-0">
         <div className="flex flex-col select-none">
-          <label className="label-box">Custom {props.label}</label>
+          <label className="label-box">{tSettings('definitions.custom', { name: tSettings(`definitions.options.${props.label}.label`)})}</label>
           <ul className="mb-2 overflow-y-scroll max-h-70 lg:h-56 lg:max-h-56">
             {(() => {
               if (props.data.length < 1) {
                 return (
-                  <li key={`fixed-0`} className="border border-[#4a5565] rounded px-1 py-3 mb-1 items-center flex justify-center text-center text-white lg:h-55">No Custom {props.label}</li>
+                  <li key={`fixed-0`} className="border border-[#4a5565] rounded px-1 py-3 mb-1 items-center flex justify-center text-center text-white lg:h-55">{tSettings('definitions.nocustom', { name: tSettings(`definitions.options.${props.label}.label`).toLowerCase()})}</li>
                 )
               }
               return props.data.map((c, i) => {
