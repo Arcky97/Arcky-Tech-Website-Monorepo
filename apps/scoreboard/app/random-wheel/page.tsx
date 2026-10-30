@@ -97,7 +97,15 @@ export default function RandomWheel() {
   const bossWheelTarget = phase === "complete" ? { x: HALF_SHIFT, opacity: 1 } : { x: 0, opacity: 1 };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="relative flex flex-col items-center min-h-screen overflow-hidden">
+      {/* eslint-disable-next-line @next/next/no-img-element -- fixed-size background panned via CSS, not a responsive content image */}
+      <img
+        src="/images/random-wheel/background.png"
+        alt=""
+        width={2560}
+        height={1440}
+        className="absolute top-1/2 left-1/2 -z-10 w-[2560px] h-360 max-w-none RandomWheelBackgroundPan pointer-events-none select-none opacity-100"
+      />
       <h1 className="head1">Random Boss Wheel</h1>
       <p className="text-center text-body max-w-xl">
         Spin the wheel to pick a generation, then spin again to pick a boss

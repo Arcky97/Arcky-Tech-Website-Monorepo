@@ -183,6 +183,22 @@ body.lock-scrollbar {
   animation: FadeImageOut 0.1s ease-in-out 0.6s backwards;
 }
 
+/* Random Wheel background pan, matched 1:1 to the Premiere Pro keyframes:
+   start position (1180, 640) -> end position (916, 484) on a 1920x1080
+   canvas, expressed as pixel offsets from canvas center (960, 540). */
+@keyframes RandomWheelBackgroundPan {
+  0% {
+    transform: translate(-50%, -50%) translate(220px, 100px);
+  }
+  100% {
+    transform: translate(-50%, -50%) translate(-44px, -56px);
+  }
+}
+
+.RandomWheelBackgroundPan {
+  animation: RandomWheelBackgroundPan 15s linear infinite;
+}
+
 /* Responsive embla */
 @media only screen and (max-width: 1440) {
   .embla {

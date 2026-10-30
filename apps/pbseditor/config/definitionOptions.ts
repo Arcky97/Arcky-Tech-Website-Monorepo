@@ -1,7 +1,7 @@
-import { DefinitionSingularKey } from "@/types/definitions-options.type";
+import { DefinitionOptionKey } from "@/types/definitions-options.type";
 import { defaultDefinitions } from "./defaultDefinitions";
 
-export type DefinitionOption = { label: DefinitionSingularKey, value: keyof typeof defaultDefinitions | string };
+export type DefinitionOption = { label: DefinitionOptionKey, value: keyof typeof defaultDefinitions | string };
 
 export const definitionOptions: DefinitionOption[] = [
     {

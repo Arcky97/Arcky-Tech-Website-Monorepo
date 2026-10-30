@@ -13,7 +13,7 @@ export default function ClientLayout({ children}: { children: React.ReactNode })
     <MainRefContext.Provider value={mainRef}>
       <main
         ref={mainRef}
-        className="flex flex-col flex-1 min-h-0 bg-gray-900 px-2"
+        className="flex flex-col flex-1 min-h-0 scrollbar-none"
       >
         <div className="flex-1">
           {children}

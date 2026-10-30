@@ -35,7 +35,12 @@ export default function DefinitionSettings () {
         width="w-50"
         initValue={choiceOption?.value || definitionOptions[0].value}
         initLabel={tSettings(`definitions.options.${choiceOption?.label || definitionOptions[0].label}.label`)}
-        handleChange={(option) => setChoiceOption(option as DefinitionOption | null)}
+        handleChange={(option) => {
+          const match = option
+            ? definitionOptions.find((def) => def.value === option.value) ?? null
+            : null;
+          setChoiceOption(match);
+        }}
         options={definitionOptions.map(option => ({ value: option.value, label: tSettings(`definitions.options.${option.label}.label`)}))}
       />
       {filterOptions(choiceOption).map((option, index) => {

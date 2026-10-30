@@ -1,4 +1,3 @@
-import { DefinitionOptionKey } from "@/types/definitions-options.type";
 import { defaultDefinitions } from "./defaultDefinitions";
 import { PairListProps, StringListProps } from "@/types/props/editable-config-list.type";
 
@@ -123,7 +122,7 @@ export const definitionsConfig: DefinitionConfig[] = [
     },
     {
       defKey: "evolutions",
-      label: "evolutions" as DefinitionOptionKey,
+      label: "evolutions",
       placeholder: ["Evolution", "Parameter"],
       filters: ["pokemon", "evolutions"],
       doubleInput: true

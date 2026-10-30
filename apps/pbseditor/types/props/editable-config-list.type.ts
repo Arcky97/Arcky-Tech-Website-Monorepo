@@ -1,7 +1,7 @@
-import { DefinitionOptionKey, DefinitionSingularKey } from "../definitions-options.type";
+import { DefinitionOptionKey } from "../definitions-options.type";
 
 export type StringListProps = {
-  label: DefinitionSingularKey;
+  label: DefinitionOptionKey;
   data: string[];
   fixedData: string[];
   setData: (data: string[]) => void;
